@@ -21,9 +21,22 @@ if (!isset($router)) {
 // PUBLIC ROUTES
 // ============================================================================
 
-// Home/Dashboard
-$router->get('/', 'DashboardController@index');
+// Public marketing homepage at /
+$router->get('/', 'HomeController@index');
+
+// Authenticated dashboard
 $router->get('/dashboard', 'DashboardController@index');
+
+// Public marketing pages
+$router->get('/pricing',  'MarketingController@pricing');
+$router->get('/about',    'MarketingController@about');
+$router->get('/contact',  'MarketingController@contact');
+$router->post('/contact', 'MarketingController@contactSend');
+$router->get('/privacy',  'MarketingController@privacy');
+$router->get('/terms',    'MarketingController@terms');
+$router->get('/faq',      'MarketingController@faq');
+$router->get('/coming-soon/{slug}',         'MarketingController@comingSoon');
+$router->post('/coming-soon/{slug}/notify', 'MarketingController@comingSoonNotify');
 
 // Authentication Routes
 $router->get('/login', 'AuthController@loginForm');
