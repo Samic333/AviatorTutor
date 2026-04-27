@@ -1,0 +1,138 @@
+{
+  "version": "1.0",
+  "app": "Q400 Study System",
+  "systems": [
+    {
+      "id": 1,
+      "name": "Electrical Power",
+      "slug": "electrical",
+      "ata_code": "ATA24"
+    },
+    {
+      "id": 2,
+      "name": "Hydraulic Power",
+      "slug": "hydraulic",
+      "ata_code": "ATA29"
+    },
+    {
+      "id": 3,
+      "name": "Fuel",
+      "slug": "fuel",
+      "ata_code": "ATA28"
+    },
+    {
+      "id": 4,
+      "name": "Powerplant",
+      "slug": "powerplant",
+      "ata_code": "ATA71"
+    },
+    {
+      "id": 5,
+      "name": "Propeller",
+      "slug": "propeller",
+      "ata_code": "ATA61"
+    },
+    {
+      "id": 6,
+      "name": "Flight Controls",
+      "slug": "flight-controls",
+      "ata_code": "ATA27"
+    },
+    {
+      "id": 7,
+      "name": "Landing Gear",
+      "slug": "landing-gear",
+      "ata_code": "ATA32"
+    },
+    {
+      "id": 8,
+      "name": "Air Conditioning & Pressurization",
+      "slug": "air-cond-press",
+      "ata_code": "ATA21"
+    },
+    {
+      "id": 9,
+      "name": "Pneumatics",
+      "slug": "pneumatics",
+      "ata_code": "ATA36"
+    },
+    {
+      "id": 10,
+      "name": "Ice & Rain Protection",
+      "slug": "ice-rain",
+      "ata_code": "ATA30"
+    },
+    {
+      "id": 11,
+      "name": "Fire Protection",
+      "slug": "fire-protection",
+      "ata_code": "ATA26"
+    },
+    {
+      "id": 12,
+      "name": "Autoflight",
+      "slug": "autoflight",
+      "ata_code": "ATA22"
+    },
+    {
+      "id": 13,
+      "name": "Navigation",
+      "slug": "navigation",
+      "ata_code": "ATA34"
+    },
+    {
+      "id": 14,
+      "name": "Communications",
+      "slug": "communications",
+      "ata_code": "ATA23"
+    },
+    {
+      "id": 15,
+      "name": "Indicating & Recording",
+      "slug": "indicating-recording",
+      "ata_code": "ATA31"
+    },
+    {
+      "id": 16,
+      "name": "Oxygen",
+      "slug": "oxygen",
+      "ata_code": "ATA35"
+    },
+    {
+      "id": 17,
+      "name": "Lighting",
+      "slug": "lighting",
+      "ata_code": "ATA33"
+    },
+    {
+      "id": 18,
+      "name": "Aeroplane General",
+      "slug": "aeroplane-general",
+      "ata_code": "ATA21"
+    },
+    {
+      "id": 19,
+      "name": "FMS",
+      "slug": "fms",
+      "ata_code": "ATA22B"
+    },
+    {
+      "id": 20,
+      "name": "Caution & Warning",
+      "slug": "caution-warning",
+      "ata_code": "CW"
+    },
+    {
+      "id": 21,
+      "name": "DU Messages",
+      "slug": "du-messages",
+      "ata_code": "DU"
+    },
+    {
+      "id": 22,
+      "name": "Quick Reference Handbook",
+      "slug": "qrh",
+      "ata_code": "QRH"
+    }
+  ]
+}

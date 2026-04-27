@@ -1,0 +1,475 @@
+{
+  "system_name": "DU Messages",
+  "ata_code": "DU",
+  "pdf_file": "DU Messages.pdf",
+  "full_text": "DISPLAY UNIT MESSAGES\n“FOR REFERENCE ONLY*\n\nPFD 3 Pages\nED 1 Page\nMFD 1 Page\n\nA GREEN \n\nT\n\nOn Any Display\n\nReturn to Beginning\n\nReturn to previously viewed slide\n\nK Doles 2009 Rev.3\n\n1\n\n\fMismatch Messages:\nCHECK PFD1\nCHECK PFD2\nPITCH MISMATCH\nROLL MISMATCH\nIAS MISMATCH\nALT MISMATCH\nHDG MISMATCH\nRAD ALT MISMATCH\nGS MISMATCH\nLOC MISMATCH\nGS EXCESS DEV\n\nTCS or AP status:\nAP INHIBIT\nYD INHIBIT \nTCS\nAP\n\nCUE\n\nFMS Alerts\nWPT ALRT \nVERT ALRT\n\nPFD  page 1of3\n\nAFCS Messages:\n(yellow, flashing 5s)\nAFCS FAIL\nAP PITCH TRIM FAIL\nAUTO TRIM FAIL\nYD NOT CENTERED\nAFCS CONTROLLER INOP\nR FD FAIL\nL FD FAIL\n\nFlight Director Status\nCAT2 FAIL\nDUAL OFF\nHSI > or < HSI\nDUAL FD\n\nTCAS Messages:\nTCAS FAIL\nTCAS STDBY \nTCAS TEST \nTA/RA \nTA ONLY\n\nFMS Messages:\nNAV DR\nNAV INTEG\nGPS INTEG\nMSG\n\n2\n\n\fPFD page 2of3\n\nAP/YD status: \nAP/YD DISENGAGED\nAP DISENGAGED\nYD DISENGAGED \nAP FAIL\nAP/YD FAIL\nMISTRIM [TRIM NOSE UP]\nMISTRIM [TRIM NOSE DN]\nMISTRIM [TRIM L WING DN]\nMISTRIM [TRIM R WING DN]\n\nAttitude Source\nATT1\nATT2\n\nIAS\n\nPITCH\n\nHDG\n\nFlight Director Messages:\n(yellow, flashing 5s)\nFD ATT DATA INVLD\nFD ADC DATA INVLD\nFD HDG DATA INVLD\nFD NAV DATA INVLD\nFD MODE INHIBIT\nFD MODE CHANGE\nCHECK NAV SOURCE\nALT OFF\n\nAir Data Source\nADC1\nADC2\n\nALT\n\nROLL\n\nRA\n\n3\n\n\fPFD page 3of3\n\nIAS FAIL\n\nATT FAIL\n\nHDG FAIL\n\nIVSI FAIL\n\nALT FAIL\n\n4\n\n\fEngine Rating Mode\nMCR (green)\nMCL (green)\n\nMCP (green)\n\nRDC TOP (green)\n\nNTOP (green)\n\nMTOP (green)\n\nMAINT ( yellow)\n\nAutoFeather messages:\nA/F SELECT \nA/F ARM\n\nBALANCE\n\nICE DETECTED\n\nIFC Messages:\nIOP1(2) FAIL \nIOPS FAIL\nIOP BAD CONF\nIOM1(2) FAIL\nIOMS FAIL \nWTG1 FAIL\nWTG2 FAIL\nWTGS FAIL \nWOW/IOP1 FAIL\nWOW/IOP2 FAIL\nWOW/IOPS FAIL\nGPWS I/F FAIL\nRA1 FAIL\nRA2 FAIL\nRAS FAIL\n\nED  page 1 of 1\n\nPOWERPLANT messages\nPOWERPLANT\nFADEC1/DU FAIL \nFADEC2/DU FAIL\nFADECS/DU FAIL\n\nINCR REF SPEED\n\nREDUCED NP LANDING\n\nUPTRIM\n\nBLEED (white or yellow)\n\nCHECK ED\n\nOSG or A/F test status: \nOSG TEST IN PROG\nOSG TEST ABORT \nOSG TEST FAILED\nOSG TEST PASSED\nA/F TEST IN PROG\nA/F TEST ABORT\nA/F TEST FAILED \nA/F TEST PASSED\n\nDISPLAY UNIT messages: \nHOT DISPLAYS\nDU BAD CONF\nFANS FAIL\nED MON FAIL\nPFD1 MON FAIL\nPFD2 MON FAIL\nPFDS MON FAIL\nHOT PFD1(2)\nHOT MFD1(2)\nHOT ED\nPFD1 LINK FAIL\nPFD2 LINK FAIL\nMFD1(2) LINK FAIL\n\n5\n\n\fMFD page 1 of 1\n\nWX FAIL\nWX RCT\nWX TGT\nSTAB FAIL\nSTAB OFF\nGAIN MAN\n\nCHECK ED\n\nTERR FAIL\n\nHDG1(2)\n\nCHECK PFD1\nCHECK PFD2\n\nHDG FAIL\n\nTCAS Messages:\nTCAS FAIL\nTCAS STDBY \nTCAS TEST \nTA/RA \nTA ONLY\n\n6\n\n\fADC1(2)\n\n•\n\n•\n\nSOURCE: \n– PFD\n\nLOGIC:\n\n– This is not a Fault.   The ADC SOURCE Knob is NOT set to NORM\n\n7\n\n\fA/F ARM\n\n•\n\n•\n\nSOURCE\n– PEC\n\nLOGIC\n\n– Indicates Autofeather system is armed. The A/F ARM message is presented \n\nin reverse video during the first 2 seconds of display.\n– Autofeather is armed under the following conditions:\n\n• Power levers beyond 60° PLA\n• Torques above 50%\n• Condition levers at MAX/1020\n• Engines running\n• Previous Autofeather test was successful.\n\n• MAINTENANCE\n\n– Redo Autofeather test       if A/F ARM does not appear. \n– NOTE: Do not cycle FADEC or PEC circuit breakers, a POWERPLANT \n\nmessage will be set.\n\n8\n\n\fA/F SELECT\n\n•\n\n•\n\nSOURCE\n– PEC\n\nLOGIC\n\n– Indicates Autofeather system is Selected On for Takeoff \n– Autofeather is Selected under the following conditions:\n\n• Condition levers at MAX/1020\n• Engines running\n• Previous Autofeather test was successful.\n\n• MAINTENANCE\n\n– Redo Autofeather test       if A/F SELECT does not appear. \n– NOTE: Do not cycle FADEC or PEC circuit breakers, a POWERPLANT \n\nmessage will be set.\n\n9\n\n\fA/F TEST ABORT\n\n•\n\n•\n\nSOURCE: \n– PEC\n\nLOGIC:\n\n– PEC1 or 2 senses: \n\n• Loss of the autofeather select signal during the test. \n• CLA not at START/FEATHER or FUEL OFF during the test. \n• PLA not at DISC during the test\n• Loss of the autofeather permissive signal from the opposite engine.\n• Loss of the opposite powerplant torque signal indicating that the opposite \n\npowerplant is producing useful power.\n\n• PEC changing lanes during test.\n\n• MAINTENANCE:\n\n– Redo Autofeather test \n– NOTE: Do not cycle FADEC or PEC circuit breakers, a POWERPLANT message will \n\nbe set.  \n\n•\n\nFIM TASK 61-41-00-810-809 (L)  and 810 (R)\n\n10\n\n\fA/F TEST FAILED\n\n•\n\n•\n\nSOURCE: \n– PEC\n\nLOGIC:\n\n– PEC1 or 2 senses: \n\n•\n\n•\n\n•\n\nInternal PEC Automatic Underspeed Protection Circuit (AUPC) ARM MONITOR is \nnot armed when the arming conditions are set.  \nInternal PEC AUPC ARM MONITOR armed when the arming conditions are not \nset.\nInternal PEC AUPC THRESHOLD MONITOR is inactive (no AUPC drive signal) \nwith NQA/NQB more than 83% (845 rpm).  \nInternal PEC AUPC TEST STATUS is test not passed.  \nInternal PEC AUPC TEST ABORT is test aborted.\n\n•\n•\n• AUPC is activated (possibly by flight deck mishandling). \n\n• MAINTENANCE\n\n– Redo AutoFeather Test. \n– NOTE: Do not cycle FADEC or PEC circuit breakers, a POWERPLANT message will \n\nbe set.  \n\n•\n\nFIM  TASK 61-41-00-810-807 (L) and 808 (R)\n\n11\n\n\fA/F TEST IN PROG\n\n•\n\n•\n\nSOURCE: \n– PEC\n\nLOGIC:\n\n– Indicates Autofeather system test is in progress \n– Autofeather is tested under the following conditions:\n\n• CONDITION levers – FUEL OFF or START/FEATHER\n• POWER levers – DISC\n• AUTOFEATHER switch - Press. \n\n12\n\n\fA/F TEST PASSED\n\n•\n\n•\n\nSOURCE: \n– PEC\n\nLOGIC:\n\n– Indicates Autofeather system test was successful \n– Autofeather is tested under the following conditions:\n\n• CONDITION levers – FUEL OFF or START/FEATHER\n• POWER levers – DISC\n• AUTOFEATHER switch - Press. \n\n13\n\n\fAFCS CONTROLLER INOP\n\n•\n\n•\n\nSOURCE: \n– FGM\n\nLOGIC:\n\n– A FGM senses a Flight Guidance Control Panel (FGCP) malfunction or that \n\none of the FGCP switches are stuck. \n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• FG CP 1 Avionics G7\n• FG CP 2 Avionics G6\n\n– Then\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n•\n\nFIM Task TASK 22-11-00-810-821\n\n14\n\n\fAFCS FAIL\n\n•\n\n•\n\nSOURCE: \n– PFD\n\nLOGIC:\n\n– A PFD does not receive valid data from the two flight guidance modules \n\n(FGMs).\n\n• MAINTENANCE\n\n– Circuit Breakers Reset\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n– Aircraft Power Reset\n\n•\n\nFIM TASK 22-11-00-810-845 (PFD1), -868 (PFD2)\n\n15\n\n\fALT\n\n•\n\n•\n\nSOURCE\n– IOPs\n\nLOGIC\n\n– The PFD shows the ALT mismatch flag when the Flight Data Processing \nSystem (FDPS) senses and Air Data Unit 1 (ADU1) and ADU2 altitude \ndifference that is more than 60 feet at Sea Level up to 180 feet at FL250\n– The PFD flight mode annunciator (FMA) can also show an ALT MISMATCH \n\nmessage.\n\n– NOTE: The FMAs will show only the most important mismatch message \n\nand this is the primary mismatch indication.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• ADU 1 Avionics  A7\n• ADU 2 Avionics  A6\n\n•\n\nFIM TASK 34-11-00-810-872\n\n16\n\n\fALT FAIL\n\n•\n\n•\n\nSOURCE: \n\n– Display Unit\n\nLOGIC:\n\n– The Display Unit does not receive valid altitude data from the ADU\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• ADU 1 Avionics  A7\n• ADU 2 Avionics  A6\n\n•\n\nFIM TASK 34-11-00-810-852 (PFD1), -853 (PFD2), \n\n17\n\n\fALT MISMATCH\n\n•\n\n•\n\nSOURCE: \n– IOP\n\nLOGIC:\n\n– ADU1 and ADU2 altitude difference that is more than 60 feet at Sea Level to \n\n180 feet at FL250.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• ADU 1 Avionics  A7\n• ADU 2 Avionics  A6\n\n•\n\nFIM TASK 34-11-00-810-850\n\n18\n\n\fALT OFF\n\n•\n\n•\n\nSOURCE\n\n– FGMs\n\nLOGIC\n\n– This is not a fault\n– Yellow message, flashing for 5 seconds, then steady.\n– When the Pitch Thumbwheel is used in Altitude Capture or Altitude Hold \n\nmode\n\n19\n\n\fAP\n\n•\n\n•\n\nSOURCE\n– FGM\n\nLOGIC\n\n– AP displayed in green when Autopilot is engaged and functioning,\n\n20\n\n\fAP DISENGAGED\n\n•\n\n•\n\nSOURCE\n\n– FGMs\n\nLOGIC\n\n– Displayed following a Yaw Damper and Autopilot disengagement, either automatic or \n\nmanual (AP selected OFF)\n\n– For automatic disengagement, message flashes until reset, then steady for 5 seconds. \n– Steady for 5 seconds when manual disengagement\n– The Autopilot disengages when one of the following conditions is met:\n\n•\n•\n•\n•\n•\n•\n•\n\n•\n•\n•\n•\n•\n•\n•\n•\n•\n•\n•\n\nAHRS 1 or AHRS 2 is failed\nAHRS 1 and AHRS 2 disagree\nADC 1 or ADC 2 is failed\nADC 1 and ADC 2 disagree\nThe aircraft is not airborne\nThe crew press the AP or YD pushbutton on the FGCP. (Manual disengagement)\nThe crew operates manual pitch trim, setting the Manual Pitch Trim AP Disconnect discrete, except if TCS is \nactive. (Manual  disengagement)\nThe crew manually override the AP using the control column or wheel\nThe crew press an AP Disengage Switch. (Manual disengagement)\nThe TCS function fails\nA Stall Warning AP Disconnect discrete from SPM#1 or SPM#2 is set\nA GA switch is selected. (Manual disengagement)\nAn AP actuator failure is detected\nThe Yaw Damper disengages \nA Push-button on FGCP is stuck\nInternal AFCS monitoring is failed\nA Power interrupt greater than the transparency time occurs\nThe aircraft attitude is outside the domain limits (+/- 50 degrees roll angle and +/- 25 degrees pitch angle).\n\n• MAINTENANCE\n\n– Reset by push and hold A/P DIS       switches located on either control wheel\n\n21\n\n\fAP/YD DISENGAGED\n\n•\n\n•\n\nSOURCE\n\n– FGMs\n\nLOGIC\n\n– Displayed following a Yaw Damper and Autopilot disengagement, either automatic or \n\nmanual (AP selected OFF)\n\n– For automatic disengagement, message flashes until reset, then steady for 5 seconds. \n– Steady for 5 seconds when manual disengagement\n– The Autopilot disengages when one of the following conditions is met:\n\n•\n•\n•\n•\n•\n•\n•\n\n•\n•\n•\n•\n•\n•\n•\n•\n•\n•\n•\n\nAHRS 1 or AHRS 2 is failed\nAHRS 1 and AHRS 2 disagree\nADC 1 or ADC 2 is failed\nADC 1 and ADC 2 disagree\nThe aircraft is not airborne\nThe crew press the AP or YD pushbutton on the FGCP. (Manual disengagement)\nThe crew operates manual pitch trim, setting the Manual Pitch Trim AP Disconnect discrete, except if TCS is \nactive. (Manual  disengagement)\nThe crew manually override the AP using the control column or wheel\nThe crew press an AP Disengage Switch. (Manual disengagement)\nThe TCS function fails\nA Stall Warning AP Disconnect discrete from SPM#1 or SPM#2 is set\nA GA switch is selected. (Manual disengagement)\nAn AP actuator failure is detected\nA Yaw Damper actuator failure is detected\nA Push-button on FGCP is stuck\nInternal AFCS monitoring is failed\nA Power interrupt greater than the transparency time occurs\nThe aircraft attitude is outside the domain limits (+/- 50 degrees roll angle and +/- 25 degrees pitch angle).\n\n• MAINTENANCE\n\n– Reset by push and hold A/P DIS       switches located on either control wheel\n\n22\n\n\fAP FAIL\n\n•\n\n•\n\nSOURCE: \n– FGMs\n\nLOGIC:\n\n– Internal FGM, APAU-P, APAU-R, or pitch (P) or roll (R) inhibit malfunction \n\nthat prevents AP operation.\n\n– NOTE:  If the AP or YD was engaged, an AP DISENGAGED message is \n\nshown until cancelled before this message is shown. \n\n– NOTE:  The FMA in the PFD can also show the YD NOT CENTERED \n\nmessage.\n\n• MAINTENANCE\n\n– Press and hold red AP DIS switch       on pilot or co-pilot control column \n\n•\n\nFIM TASK 22-11-00-810-808\n\n23\n\n\fAP INHIBIT\n\n•\n\n•\n\nSOURCE: \n– FGMs\n\nLOGIC:\n\n– Displayed in white when Autopilot engagement is attempted and an AFCS external \n\nmonitor inhibits engagement due to:\n\n• AHRS monitoring.\n• ADC monitoring.\n• The aircraft is not airborne.\n• The aircraft attitude exceeds the AP engagement limits.\n• An AP Disengage Switch is currently pressed.\n• A GA (Go Around) switch is selected.\n• TCS (Touch Control Steering) is active. \n• The Manual Pitch Trim AP Disconnect discrete is set. \n• A Stall Warning AP Disconnect discrete from SPM#1 or SPM#2 is set.  \n• The AP disengagement warnings are active.\n\n• MAINTENANCE\n\n– Press and hold red AP DIS switch       on Pilot / Copilot control column \n– Then reset breakers\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n•\n\nFIM TASK 22-11-00-810-842\n\n24\n\n\fAP PITCH TRIM FAIL\n\n•\n\n•\n\nSOURCE: \n– FGM\n\nLOGIC:\n\n– A Failure of the AP Pitch Trim\n– No pitch trim motion when commanded by the Autopilot.\n– Pitch trim motion in the opposite sense of the Autopilot command.\n– FGM Monitor pitch actuator (APAU-P) torque values disagree.\n– There is a malfunction of the left and right channels of the FCECU\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• FCS ECU 1 LH DC M3\n• FCS ECU 2 RH DC L6\n\n•\n\nFIM TASK 22-10-00-810-802\n\n25\n\n\fAP/YD FAIL\n\n•\n\n•\n\nSOURCE: \n– FGM\n\nLOGIC:\n\n– Internal FGM or YDAU malfunction that prevents YD operation.\n– NOTE:  If the AP/YD was engaged, an AP/YD DISENGAGED message is shown until \n\ncancelled before this message is shown.\n\n– NOTE:  If the YD was engaged, an YD DISENGAGED message is shown until \n\ncancelled before this message is shown\n\n• MAINTENANCE\n\n– Press and hold red AP DIS switch on pilot or co-pilot control column \n– Then Reset Breakers\n\n• YD AU (ACTUATOR UNIT) Avionics E3\n\n– Then\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n•\n\nFIM TASK 22-11-00-810-805\n\n26\n\n\fATT1(2)\n\n•\n\n•\n\nSOURCE: \n– PFD\n\nLOGIC:\n\n– This is not a Fault.   The ATT/HDG SOURCE Knob is NOT set to NORM\n\n27\n\n\fATT FAIL\n\n•\n\n•\n\nSOURCE: \n\n– Display Unit (PFD)\n\nLOGIC:\n\n– The Display Unit does not receive valid pitch or roll data from the selected \n\nAHRU. \n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• AHRS 1 – Avionics A4\n• AHRS 1 – Avionics A9\n• AHRS 2 – Avionics A10\n• AHRS 2 – Avionics A3\n\n•\n\nFIM TASK 34-21-00-810-851 (PFD1), 852(PFD2)\n\n28\n\n\fAUTO TRIM FAIL\n\n•\n\n•\n\nSOURCE: \n– FGM\n\nLOGIC:\n\n– A failure of the Flap Auto Pitch Trim function\n– FGM does not receive valid data from the two Flap Position Indication Unit (FPIU) \n\nchannels.\n\n– No pitch trim motion when commanded by the FGM.\n– Pitch trim motion in the opposite sense of the FGM command.\n– There is a malfunction of the left and right channels of the FCECU\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• FLAP POSN IND R - RH DC F7\n• FLAP POSN IND L - LH DC M7\n\n– Cycle Aircraft Power. \n\n•\n\nFIM TASK 22-11-00-810-828\n\n29\n\n\fBALANCE\n\n•\n\n•\n\nSOURCE: \n\n– Fuel Quantity Computer (FQC)\n\nLOGIC:\n\n– Yellow flashing continuously and yellow fuel quantity figures if 600lb \n\nimbalance\n\n• MAINTENANCE\n\n– Transfer Fuel on FUEL CONTROL PANEL\n\n30\n\n\fBLEED\n\n•\n\n•\n\nSOURCE\n\n– FADEC\n\nLOGIC\n\n– BLEED air switches 1 and/or 2 are selected on\n– NOTE: Bleed selection of NORM or MAX with NTOP engine rating (PLA @ \n\nRating Detent and CLA @ 1020) will change the BLEED indication to \nYELLOW.\n\n– NOTE: Bleed selection of NORM or MAX with MTOP engine rating will \n\nchange the rating to MCP (Max Continues Power).\n\n31\n\n\fCAT2 FAIL\n\n•\n\n•\n\nSOURCE: \n– FGMs\n\nLOGIC:\n\n–\n\nThis message is shown when Dual FD approach mode is cancelled while the  \nDecision Height (DH) is set less than 200 feet and more than 50 feet. The Dual FD \nsubmode is cancelled by the following:\n• A failure of one or both FGMs.\n• A failure of a parameter from either AHRS that is used by the Localizer Track or \n\nGlideslopeTrack modes.\n\n• Changing the EFIS ATT/HDG Source Selection to the '1' OR '2' position.\n• A failure of a parameter from either ADC that is used by the Localizer Track or \n\nGlideslope Track modes.\n\n• Changing the EFIS ADC Source Selection to the '1' OR '2' position.\n• An ILS data failure for 5 seconds or a mismatch between the ILS data.\n• Changing either left or right Nav Source Selection.\n• Changing the frequency of either left or right VOR/LOC Receiver.\n• Automatic or manual cancellation of Localizer Track or Glideslope Track mode.\n•\n• A mismatch between the FD commands.\n• Activating TCS. \n\nInvalid Radio Altitude data.\n\n32\n\n\fCHECK ED\n\n•\n\n•\n\nSOURCE: \n– MFD\n\nLOGIC:\n\n– An MFD senses a primary ED indication discrepancy for one or more critical \n\nparameters:· TRQ, NH,  NH red limit, NP,  ITT.\n\n– NOTE:  If MFD 1 or MFD 2 is set to show ED indications, it will be \n\nmonitored by the other MFD.\n\n• MAINTENANCE\n\n– Turn MFDs and ED all OFF then back ON one at a time. \n\n• PFD1/2 and MFD1/2 on EFIS Control Panels\n• ED on ESID Control Panel\n\n– Cycle Aircraft Power.\n\n•\n\nFIM  31-61-01-810-807\n\n33\n\n\fCHECK NAV SOURCE\n\n•\n\n•\n\nSOURCE\n– FGMs\n\nLOGIC\n\n– Engagement of FD NAV mode or VNAV mode attempted and wrong NAV \n\nsource selected \n\n• White message, steady for 5 seconds\n\n– FD armed or active NAV mode dropped off following a NAV source change, \n\nor a VOR/LOC NAV frequency change. \n\n• A Yellow message, flashing for 5 seconds, then steady until failure is \n\ncleared by changing the NAV source selection or by selecting another \nFD mode. \n\n34\n\n\fCHECK PFD1\n\n•\n\n•\n\nSOURCE: \n\n– MFD1 or PFD2\n\nLOGIC:\n\n– The MFD1 or PFD2 senses a difference in PFD1 indication for one or more \n\nof these parameters:· Altitude, Airspeed, Pitch, Roll, Heading. \n\n• MAINTENANCE\n\n– Turn all PFDs and MFDs (EFIS Control Panel) Off then back ON one at a \n\ntime. \n\n– Cycle Aircraft Power.\n\n•\n\nFIM  31-61-01-810-804\n\n35\n\n\fCHECK PFD2\n\n•\n\n•\n\nSOURCE: \n\n– MFD2 or PFD1\n\nLOGIC:\n\n– The MFD2 or PFD1 senses a difference in PFD2 indication for one or more \n\nof these parameters:· Altitude, Airspeed, Pitch, Roll, Heading. \n\n• MAINTENANCE\n\n– Turn all PFDs and MFDs (EFIS Control Panel) Off then back ON one at a \n\ntime. \n\n– Cycle Aircraft Power.\n\n•\n\nFIM  31-61-01-810-805\n\n36\n\n\fCUE\n\n•\n\n•\n\nSOURCE: \n\n– Stall Protection Modules\n\nLOGIC:\n\n– A SPM is defective \n– Difference between AOA1 and AOA 2 \n– AOA1(2) is defective or not heated \n– FPIU left and right flap position inputs are defective.\n– ADU1(2) CAS, TAS or pitot pressure input is defective \n– AHRS1(2) input is defective \n– FADEC1(2) (A and B channels) engine torque input is defective \n– NOTE:  The CUE flag is out of view when WOW and KIAS is < 60 knots.\n\n• Maintenance\n\n– Circuit Breaker Reset\n\n• SPM 1 Avionics F2\n• SPM 2 Avionics F5\n\n– Cycle Aircraft Power\n\n•\n\nFIM 27-33-00-810-830  (PFD1),  -831 (PFD2)\n\n37\n\n\fDU BAD CONF\n\n•\n\n•\n\nSOURCE: \n\n– PFD, MFD, or ED\n\nLOGIC:\n\n– PFD1(2), MFD1(2) or ED senses that it does not receive valid aircraft \n\nconfiguration data from the two aircraft configuration modules, or that the \ndata is different. \n\n– NOTE:  The Display Unit BAD CONF message can come into view only \n\nafter a Display Unit POST. \n\n– NOTE:  The AVIONICS caution light will also come on.\n\n• MAINTENANCE\n\n– Turn ALL Displays OFF then back ON one at a time.\n\n• PFD1/2 and MFD1/2 on EFIS Control Panels\n• ED on ESID Control Panel\n\n– Cycle Aircraft Power\n\n•\n\nFIM 31-61-01-810-806\n\n38\n\n\fDUAL FD\n\n•\n\n•\n\nSOURCE\n– FGM\n\nLOGIC\n\n– This is not a fault\n– Dual Flight Director Mode is active\n– The Dual FD mode is a submode of the ILS Approach mode which indicates \n\nto the flight crew that the AFCS is in a configuration valid for Cat II ILS \napproaches. In the Dual FD submode,both FGMs independently display FD \ncommands on the PFDs, with FGM#1 providing the FD commands for the \nleft PFD, and FGM#2 providing FD commands for the right PFD. In the Dual \nFD mode, FGM#1 uses Localizer and Glideslope deviations from the left \nVOR/LOC Receiver, air data from ADC#1, attitude and Vertical Speed data \nfrom AHRS#1, and left course data from the FGCP. FGM#2 uses Localizer \nand Glideslope deviations from the right VOR/ LOC Receiver, air data from \nADC#2, attitude and Vertical Speed data from AHRS#2, and right course \ndata from the FGCP.\n\n39\n\n\fDUAL OFF\n\n•\n\n•\n\nSOURCE: \n– FGM\n\nLOGIC:\n\n– The FGM senses a Dual FD mode malfunction during ILS approach that is not Cat II. \n\nThis message is shown when Dual FD approach mode is cancelled. \n\n– The Dual FD submode is cancelled by:\n• A failure of one or both FGMs.\n• A failure of a parameter from either AHRS that is used by the Localizer Track or Glideslope \n\nTrack modes.\n\n• Changing the EFIS ATT/HDG Source Selection to the '1' OR '2' position.\n• A failure of a parameter from either ADC that is used by the Localizer Track or Glideslope Track \n\nmodes.\n\n• Changing the EFIS ADC Source Selection to the '1' OR '2' position.\n• An ILS data failure for 5 seconds or a mismatch between the ILS data.\n• Changing either left or right Nav Source Selection.\n• Changing the frequency of either left or right VOR/LOC Receiver.\n• Automatic or manual cancellation of Localizer Track or Glideslope Track mode.\n•\n• A mismatch between the FD commands.\n• Activating TCS.\n\nInvalid Radio Altitude data.\n\n– NOTE:  The Cat II ILS mode operates when the DH is set less than 200 feet and more \n\nthan 50 feet.\n\n•\n\nFIM 22-11-00-810-836\n\n40\n\n\fED MON FAIL\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– The set ED senses that its parameters are not monitored by a different \n\nDisplay Unit for more than 30 seconds. \n\n– The AVIONICS caution light will also come on.\n– NOTE:  The ED is monitored by MFD1 and MFD2. \n– NOTE:  Each Display Unit has a feed back output bus that supplies the \n\nstatus of its monitoring function to the set ED. \n\n• MAINTENANCE\n\n– Turn ALL Displays OFF then back ON one at a time.\n\n• PFD1/2 and MFD1/2 on EFIS Control Panels\n• ED on ESID Control Panel\n\n– Cycle Aircraft Power\n\n•\n\nFIM TASK 31-61-01-810-808\n\n41\n\n\f•\n\n•\n\nFADEC1/DU FAIL\n\nSOURCE: \n\n– Display Unit showing Engine Data (ED or MFD)\n\nLOGIC:\n\n– The FADEC1 output channel used for indication has malfunctioned for more \nthan 10 seconds while the aircraft is less than 50 KIAS and the engines are \nnot operating.\n\n• MAINTENANCE\n\n– Make Sure #1 FADEC Circuit Breakers are all in \n\n• ENG 1 FADEC A - LH DC J4\n• ENG 1 FADEC B - RH DC J4\n\n– Turn ED (MFD) OFF then back ON\n– Then Cycle Aircraft Power. \n– NOTE: Do not cycle FADEC or PEC circuit breakers, a POWERPLANT \n\nmessage will be set.  \n\n•\n\nFIM 77-31-00-810-814\n\n42\n\n\f•\n\n•\n\nFADEC2/DU FAIL\n\nSOURCE: \n\n– Display Unit showing Engine Data (ED or MFD)\n\nLOGIC:\n\n– The FADEC 2 output channel used for indication has malfunctioned for \nmore than 10 seconds while the aircraft is less than 50 KIAS and the \nengines are not operating.\n\n• MAINTENANCE\n\n– Make Sure #2 FADEC Circuit Breakers are all in \n\n• ENG 2 FADEC A -LH DC K4\n• ENG 2 FADEC B -RH DC K4\n\n– Turn ED (MFD) OFF then back ON\n– Then Cycle Aircraft Power. \n– NOTE: Do not cycle FADEC or PEC circuit breakers, a POWERPLANT \n\nmessage will be set.  \n\n•\n\nFIM 77-31-00-810-815\n\n43\n\n\f•\n\n•\n\nFADECS/DU FAIL\n\nSOURCE: \n\n– Display Unit showing Engine Data (ED or MFD)\n\nLOGIC:\n\n– Both FADEC’s output channels used for indication have malfunctioned for \nmore than 10 seconds while the aircraft is less than 50 KIAS and the \nengines are not operating.\n\n• MAINTENANCE\n\n– Make Sure Both FADEC Circuit Breakers are all in \n\n• ENG 1 FADEC A - LH DC J4\n• ENG 1 FADEC B - RH DC J4\n• ENG 2 FADEC A - LH DC K4\n• ENG 2 FADEC B - RH DC K4\n– Turn ED (MFD) OFF then back ON\n• ED on ESID Control Panel\n\n– Then Cycle Aircraft Power. \n– NOTE: Do not cycle FADEC or PEC circuit breakers, a POWERPLANT \n\nmessage will be set.  \n\n•\n\nFIM 77-31-00-810-816\n\n44\n\n\fFANS FAIL\n\n•\n\n•\n\nSOURCE: \n– IOMs\n\nLOGIC:\n\n– One of the IOMs sense that two or more cooling fans do not operate in the conditions \n\nthat follow:\n\n• Aircraft is airborne\n• Aircraft is on the ground and the flight compartment temperature is more than \n\n10°C.\n\n– NOTE:  The AVIONICS caution light will also come on.\n\n• Maintenance\n\n– Circuit Breaker Reset\n\n• FAN 1 PWR PRI,   LH DC A6\n• FAN 1 PWR SEC,  LH DC M6\n• FAN 2 PWR PRI,   RH DC R4\n• FAN 2 PWR SEC,  RH DC L9\n• FAN 3 PWR PRI,   RH DC S4\n• FAN 3 PWR SEC,  LH DC B6\n\n•\n\nFIM 21-25-00-810-805\n\n45\n\n\fFD ADC DATA INVLD\n\n•\n\n•\n\nSOURCE: \n– FGM\n\nLOGIC:\n\n– Indication a flight director (FD) selection if the set air data computer (ADC) does not \n\nsupply valid altitude data to the related flight guidance module (FGM).\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• ADU 1 Avionics  A7\n• ADU 2 Avionics  A6\n• Then \n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n– Aircraft Power Reset\n\n•\n\nFIM 22-11-00-810-839\n\n46\n\n\fFD ATT DATA INVLD\n\n•\n\n•\n\nSOURCE: \n– FGM\n\nLOGIC:\n\n– Indication for a FD selection if the set AHRS does not supply valid attitude data to the \n\nrelated FGM.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• AHRS 1 – Avionics A4\n• AHRS 1 – Avionics A9\n• AHRS 2 – Avionics A10\n• AHRS 2 – Avionics A3\n• Then \n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n– Aircraft Power Reset\n\n•\n\nFIM 22-11-00-810-838\n\n47\n\n\fFD HDG DATA INVLD\n\n•\n\n•\n\nSOURCE: \n– FGM\n\nLOGIC:\n\n– Indication for a HDG SEL or HDG HOLD Flight Director selection if the set AHRS does \n\nnot supply valid heading data to the related FGM.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• AHRS 1 – Avionics A4\n• AHRS 1 – Avionics A9\n• AHRS 2 – Avionics A10\n• AHRS 2 – Avionics A3\n• Then \n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n– Aircraft Power Reset\n\n•\n\nFIM 22-11-00-810-846 \n\n48\n\n\fFD MODE INHIBIT\n\n•\n\n•\n\nSOURCE\n– FGMs\n\nLOGIC\n\n– White message, steady for 5 seconds\n– This is not a Fault\n– Invalid pilot request ALT SEL engagement while \n• Glide Slope capture or Track mode is active\n• While Altitude Hold mode is active\n\n49\n\n\fFD NAV DATA INVLD\n\n•\n\n•\n\nSOURCE: \n– FGM\n\nLOGIC:\n\n– This message is for a NAV, APPR, or back course (BC) flight director \n\nselection if the set NAV source does not supply valid VOR bearing, LOC \ndeviation, GS deviation, or frequency data to the related FGM.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• VHF NAV 1 - LH DC - F2\n• VHF NAV 1 - LH DC - G1\n• VHF NAV 2 - Avionics - D5\n\n•\n\nFIM 22-11-00-810-840\n\n50\n\n\fGAIN MAN\n\n•\n\n•\n\nSOURCE: \n– WXR\n\nLOGIC:\n\n– The Weather Radar GAIN knob is pulled on the Radar Control Panel. \n\n51\n\n\fGPS INTEG\n\n•\n\n•\n\nSOURCE: \n– FMS\n\nLOGIC:\n\n– This fault is set when the sensor of the GPS (FMS) indicates that the \nreceiver autonomous integrity monitoring (RAIM) is not available.\n\n• MAINTENANCE\n\n•\n\nFIM 34-50-00-810-803\n\n52\n\n\fGPWS I/F FAIL\n\n•\n\n•\n\nSOURCE: \n– IOP\n\nLOGIC:\n\n– The IOP1(2) senses that the GPWC digital-to-analog function in the \n\nSPM1(2) is supplying invalid data to the GPWS.  \n\n– The GPWS caution light will also come on.  \n– NOTE: This indication is shown on the ground only.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• EGPWS SYST - Avionics  A1 \nIOM/IOP FGM 1 Avionics F7\n•\nIOM/IOP FGM 2 Avionics F6\n•\n• SPM 1 Avionics F2\n• SPM 2 Avionics F5\n\n– Aircraft Power Reset\n\n•\n\nFIM 31-41-00-810-870\n\n53\n\n\fGS EXCESS DEV\n\n•\n\n•\n\nSOURCE\n– PFD\n\nLOGIC\n\n– A Glide Slope (GS) discrepancy is detected between ILS 1 and ILS 2 or \n\nbetween the VHF Vav receiver output and the displayed parameter below \n1200 ft AGL during a Dual FD mode approach, \n\n– A yellow flag \"G\", flashing for 5 seconds then steady is displayed on top of \n\nthe GS scale\n\n54\n\n\fGS MISMATCH\n\n•\n\n•\n\nSOURCE: \n– IOPs\n\nLOGIC:\n\n– Flight Data Processing System (FDPS) senses a VHF NAV 1 and NAV 2 \n\nglideslope deviation difference that is more than 25 microamperes. \n\n– The PFD EHSI and EADI will not show a related mismatch flag.\n\n• Maintenance\n\n•\n\nFIM 34-50-00-810-805\n\n55\n\n\fHDG1 (2)\n\n•\n\n•\n\nSOURCE: \n– IOP\n\nLOGIC:\n\n– Flight Data Processing System (FDPS) senses an AHRS1 and AHRS2 \n\nheading difference of more than eight degrees.  \n\n– The PFD EHSI will also show a HDG flag.\n– The PFD FMA can also show a HEADING MISMATCH message. \n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• AHRS 1 – Avionics A4\n• AHRS 1 – Avionics A9\n• AHRS 2 – Avionics A10\n• AHRS 2 – Avionics A3\n\n– It is not unusual to see this message during ground operations due to \n\nmetallic objects interfering with flux valves\n\n•\n\nFIM 34-20-00-810-806\n\n56\n\n\fHDG \n\n•\n\n•\n\nSOURCE: \n– IOP\n\nLOGIC:\n\n– Flight Data Processing System (FDPS) senses an AHRS1 and AHRS2 \n\nheading difference of more than eight degrees.  \n\n– The PFD FMA can also show a HEADING MISMATCH message. \n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• AHRS 1 – Avionics A4\n• AHRS 1 – Avionics A9\n• AHRS 2 – Avionics A10\n• AHRS 2 – Avionics A3\n\n– It is not unusual to see this message during ground operations due to \n\nmetallic objects interfering with flux valves\n\n•\n\nFIM 34-20-00-810-808\n\n57\n\n\fHDG FAIL\n\n•\n\n•\n\nSOURCE: \n\n– Display Unit or  IOP\n\nLOGIC:\n\n– The Display Unit does not receive valid heading data from the set AHRU.  \n– A related AHCP1 or AHCP2 SLAVE warning light also can possibly come \n\non. \n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• AHRS 1 – Avionics A4\n• AHRS 1 – Avionics A9\n• AHRS 2 – Avionics A10\n• AHRS 2 – Avionics A3\n\n•\n\nFIM 34-21-00-810-859 (PFD1), -860 (PFD2)\n\n58\n\n\fHDG MISMATCH\n\n•\n\n•\n\nSOURCE: \n– IOPs\n\nLOGIC:\n\n– The Flight Data Processing System (FDPS) senses an AHRU1 and AHRU2 \n\nheading difference that is more than eight degrees.\n\n• MAINTENANCE\n\n– Can be caused by interference from Metallic objects (Ladders, Trucks, \n\nmanhole covers, etc.) near Flux Valves\n\n– Circuit Breaker Reset\n\n• AHRS 1 – Avionics A4\n• AHRS 1 – Avionics A9\n• AHRS 2 – Avionics A10\n• AHRS 2 – Avionics A3\n\n•\n\nFIM 34-20-00-810-802 \n\n59\n\n\fHOT DISPLAYS\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– At least 2 display units declare an overheat status on its Feedback output bus. \n– The AVIONICS light will be illuminated.\n\n• MAINTENANCE\n\n– Check Cooling Fan Breakers:\n\n• FAN 1 PWR PRI  LH DC -A6\n• FAN 1 PWR SEC LH DC -M6\n• FAN 2 PWR PRI  RH DC -R4\n• FAN 2 PWR SEC RH DC -L9\n• FAN 3 PWR PRI   RH DC -S4\n• FAN 3 PWR SEC  RH DC -B6\n\n– Check that cooling hoses are connected to back of display unit \n\n•\n\nFIM 31-61-00-810-863\n\n60\n\n\fHOT ED\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– The ED has overheated.\n– NOTE:  The AVIONICS caution light will also come on. \n\n• MAINTENANCE\n\n– Check Cooling Fan Breakers:\n\n• FAN 1 PWR PRI  LH DC -A6\n• FAN 1 PWR SEC LH DC -M6\n• FAN 2 PWR PRI  RH DC -R4\n• FAN 2 PWR SEC RH DC -L9\n• FAN 3 PWR PRI   RH DC -S4\n• FAN 3 PWR SEC  RH DC -B6\n\n– Check that cooling hoses are connected to back of display unit \n\n•\n\nFIM 31-61-01-810-803 \n\n61\n\n\fHOT MFD1(2)\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC\n\n– The MFD has overheated.  \n– NOTE:  The AVIONICS caution light will also come on. \n\n• MAINTENANCE\n\n– Check Cooling Fan Breakers:\n\n• FAN 1 PWR PRI  LH DC -A6\n• FAN 1 PWR SEC LH DC -M6\n• FAN 2 PWR PRI  RH DC -R4\n• FAN 2 PWR SEC RH DC -L9\n• FAN 3 PWR PRI   RH DC -S4\n• FAN 3 PWR SEC  RH DC -B6\n\n– Check that cooling hoses are connected to back of display unit \n\n•\n\nFIM 31-61-01-810-802 (MFD1),  -815 (MFD2)\n\n62\n\n\fHOT PFD1(2)\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– The PFD has overheated.\n– NOTE:  The AVIONICS caution light will also come on.\n\n• MAINTENANCE\n\n– Check Cooling Fan Breakers:\n\n• FAN 1 PWR PRI  LH DC -A6\n• FAN 1 PWR SEC LH DC -M6\n• FAN 2 PWR PRI  RH DC -R4\n• FAN 2 PWR SEC RH DC -L9\n• FAN 3 PWR PRI   RH DC -S4\n• FAN 3 PWR SEC  RH DC -B6\n\n– Check that cooling hoses are connected to back of display unit \n\n•\n\nFIM 31-61-01-810-801 (PFD1),  --813 (PFD2)\n\n63\n\n\fHSI> (<)\n\n•\n\n•\n\nSOURCE\n– FGM\n\nLOGIC\n\n– This is not a fault. \n– When Dual FD Approach mode is not active HIS Displayed only on the PFD \n\non the side not selected as the HSI source.\n\n64\n\n\fIAS\n\n•\n\n•\n\nSOURCE: \n– IOP\n\nLOGIC:\n\n– The Flight Data Processing System (FDPS) senses ADU1 and ADU2 \n\nIndicated Airspeed has a difference that is more than 10 KT.  \n\n– NOTE: The PFD FMA will also show an IAS MISMATCH message. \n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• ADU 1 Avionics  A7\n• ADU 2 Avionics  A6\n\n•\n\nFIM 34-10-00-810-801 \n\n65\n\n\fIAS FAIL\n\n•\n\n•\n\nSOURCE: \n– PFD\n\nLOGIC:\n\n– The PFD does not receive valid airspeed data from the ADU.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• ADU 1 Avionics  A7\n• ADU 2 Avionics  A6\n\n•\n\nFIM 34-11-00-810-844 (PFD1), -845 (PFD2)\n\n66\n\n\fIAS MISMATCH\n\n•\n\n•\n\nSOURCE: \n– IOP\n\nLOGIC:\n\n– ADU1 and ADU2 indicated airspeed (IAS) difference that is more than 10 \n\nKIAS.\n\n•\n\nFIM 34-11-00-810-864 \n\n67\n\n\fICE DETECTED\n\n•\n\n•\n\nSOURCE: \n\n– Ice Detection Probe thru IOPs\n\nLOGIC:\n\n– Yellow flashing when one or both ice detector probes have detected more \nthan 0.5 mm of ice, if the REF SPEEDS switch is not on INCR position\n\n•\n\nIf INCR is then selected, the message is changed to steady white for  \n60 seconds.\n\n– White reverse video for 5 seconds, then normal video for 60 seconds when\n\nice is detected and the REF SPEEDS is already on INCR position.\n\n• MAINTENANCE\n\n– A ICE DETECTED message lasting less then 60 seconds is indication of a \npoorly bonded or faulty IDP.   IDP Logic is designed that once the message \nis activated, the IDP heater and message shall remain for 60 +/- 5 sec\n\n•\n\nFIM 30-80-00-810-804  and/or -806\n\n68\n\n\fINCR REF SPEED\n\n•\n\nSOURCE\n\n– SPM1 or 2 through IOP1 or 2.\n\n•\n\nLOGIC\n\n– REF SPEEDS switch set to INCR\n– Stall Protection System (SPS) adjusts stall margin for icing conditions\n– This is not a Fault\n\n•\n\nFIM 27-33-00-810-837 (if it does not come into view with the switch on)\n\n69\n\n\fIOM1(2) FAIL\n\n•\n\n•\n\nSOURCE: \n– IOP\n\nLOGIC:\n\n– IOP1(2) senses that IOM1(2) has malfunctioned.\n– NOTE:  The AVIONICS caution light will also come on.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n– Or Aircraft Power Reset\n\n•\n\nFIM 31-41-00-810-867 (IOM1), -868 (IOM2)\n\n70\n\n\fIOMS FAIL\n\n•\n\n•\n\nSOURCE: \n– IOPs\n\nLOGIC:\n\n– IOPs sense that the related IOM has malfunctioned.\n– NOTE:  The AVIONICS caution light will also come on. \n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n– Or Aircraft Power Reset\n\n•\n\nFIM 31-41-00-810-869\n\n71\n\n\fIOP BAD CONF\n\n•\n\n•\n\nSOURCE: \n\n– IOP1 prim. IOPs sec\n\nLOGIC:\n\n– IOP1 or 2 senses that it does not receive valid aircraft configuration data \n\nfrom ACM1 and ACM2, or that the data is different. \n\n– NOTE:  The IOP BAD CONF message can come into view only after a IOP \n\nPOST.  \n\n– NOTE: AVIONICS caution light will also come on.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n– Or Aircraft Power Reset\n\n•\n\nFIM 31-41-00-810-863 \n\n72\n\n\fIOP1(2) FAIL\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– The ED senses IOP1(2) output has malfunctioned for more than 10 \n\nseconds.\n\n– NOTE:  The AVIONICS caution light will also come on. \n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n– Or Aircraft Power Reset\n\n•\n\nFIM 31-41-00-810-864  (IOP1), -865 (IOP2)\n\n73\n\n\fIOPS FAIL\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– The ED senses that the IOPs output have malfunctioned for more than 10 \n\nseconds. \n\n– NOTE:  The AVIONICS caution light will also come on.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n– Or Aircraft Power Reset\n\n•\n\nFIM 31-41-00-810-866\n\n74\n\n\fIVSI FAIL\n\n•\n\n•\n•\n\nSOURCE: \n– PFD\n\nLOGIC:\n\n– PFD shows an IVSI FAIL message when it does not receive valid inertial \n\nvertical speed data from the set AHRU.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• AHRS 1 – Avionics A4\n• AHRS 1 – Avionics A9\n• AHRS 2 – Avionics A10\n• AHRS 2 – Avionics A3\n\n•\n\nFIM 34-21-00-810-855 (PFD1), -856 (PFD2)\n\n75\n\n\fL FD FAIL\n\n•\n\n•\n\nSOURCE: \n– PFD\n\nLOGIC:\n\n– The PFD2 does not receive valid FD data from FGM1.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n– Or Aircraft Power Reset\n\n•\n\nFIM 22-11-00-810-801\n\n76\n\n\fLOC MISMATCH\n\n•\n\n•\n\nSOURCE: \n– IOPS\n\nLOGIC:\n\n– IOP1 or 2 senses a localizer deviation difference. \n– The PFD EHSI and EADI can also show a related mismatch flag when a \n\nVHF NAV 1 and VHF NAV 2 localizer deviation difference is more than 15 \nmicroamperes. \n\n•\n\nFIM 34-50-00-810-804\n\n77\n\n\fMAINT\n\n•\n\n•\n\nSOURCE\n\n– FADEC\n\nLOGIC\n\n– MAINT DISC is selected on the Maintenance panel.  \n– Note: A warning horn should also sound.  If not, then check breakers: \n\n• PLT SPKR Avionics C9\n• COPILOT SPKR Avionics C11\n\n78\n\n\fMCL\n\n•\n\n•\n\nSOURCE\n\n– FADECs\n\nLOGIC\n\n– Maximum Climb Power: The maximum approved power in climb rating.\n\n• PL set in Rating Detent and CL set at 900\n• PL Set at Rating Detent, CL set at 850 and MCL button pushed\n\n•\n\nFIM 77-11-00-810-843 (Eng 1), -844 (Eng 2)  (If MCL does not appear)\n\n79\n\n\fMCP\n\n•\n\n•\n\nSOURCE\n\n– FADECs\n\nLOGIC\n\n– Maximum Continuous Power : Basically MTOP        with the bleeds ON \nand selected to NORM or MAX.  The ECS Bleed Selection is used by the \nFADEC to distinguish between the MTOP Rating and the MCP Rating. \n\n• With the BLEEDs on, NORM/MAX bleed selected, and MTOP set, the \nrating display changes to and indicates MCP.  BLEED is not displayed\n\n•\n\nFIM 77-11-00-810-847 (Eng 1), -848 (Eng 2)  (If MCP does not appear)\n\n80\n\n\fMCR\n\n•\n\n•\n\nSOURCE\n\n– FADECs\n\nLOGIC\n\n– Maximum Cruise Power: The maximum approved power in cruise rating.\n\n• PL set in Rating Detent and CL set at 850\n• PL Set at Rating Detent, CL set at 900 and MCR button pushed\n\n•\n\nFIM 77-11-00-810-851 (Eng 1), -852 (Eng 2)  (If MCR does not appear)\n\n81\n\n\fMFD1 (2) LINK FAIL\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– The set ED senses that MFD feedback output bus       has malfunctioned for \n\nmore than 30 seconds \n\n– The MFD is not set to show PFD indications (very important parameters).\n\n• MAINTENANCE\n\n– Turn ALL Displays OFF then back ON one at a time.\n\n• PFD1/2 and MFD1/2 on EFIS Control Panels\n• ED on ESID Control Panel\n\n– Cycle Aircraft Power \n\n•\n\nFIM 31-61-01-810-809 (MFD1), -818(MFD2)\n\n82\n\n\fMISTRIM [TRIM L (R) WING DN]\n\n•\n\n•\n\nSOURCE: \n– FGM\n\nLOGIC:\n\n– Autopilot mode is set and the FGM senses that the APAU-R Servo torque is \n\nmore than the threshold (mistrim) \n\n– A torque sensor in the APAU-R has malfunctioned.\n– NOTE: Normally this just means the pilot needs to adjust the Aileron trim in \n\nthe direction the message indicates.\n\n– NOTE:  The AP mode does not disengage automatically when a mistrim \n\ncondition is sensed. But the AP mode will disengage if the APAU-R electrical \ntorque limit is more than 60.4 in-lb.\n\n•\n\nFIM 22-11-00-810-875 (L WING), -878 (R WING)\n\n83\n\n\fMISTRIM [TRIM NOSE DN (UP) ]\n\n•\n\n•\n\nSOURCE: \n– FGM\n\nLOGIC:\n\n– Autopilot mode is set and the FGM senses that the APAU-P Servo torque is \n\nmore than the threshold (mistrim).\n\n– A torque sensor in the APAU-P has malfunctioned. \n– NOTE:  The AP mode does not disengage automatically when a mistrim \n\ncondition is sensed. But the AP mode will disengage if the APAU-P electrical \ntorque limit is more than 96.5 in-lb.\n\n•\n\nFIM 22-11-00-810-873 (NOSE DN), -874 (NOSE UP)\n\n84\n\n\fMSG\n\n•\n\n•\n\nSOURCE\n– FMS\n\nLOGIC\n\n– This is not a fault.  An FMS or ACARS message is present.\n\n• MAINTENANCE\n\n– Select MSG button on either FMS\n\n85\n\n\fMTOP\n\n•\n\n•\n\nSOURE\n\n– FADEC\n\nLOGIC\n\n– Maximum Take-Off Power: The maximum available power certified for take-\n\noff operation.  Approx. 10% higher than the Normal Take-off Power. \n\n– Not to be confused with Emergency Power (when PLA is beyond the rating \n\nDetent).  Emergency Power can be up to 125% of MTOP\n\n– MTOP can be set by; pilot selection of MTOP switch, or uptrim command \n\nfrom the remote PEC during opposite engine autofeather.\n\n•\n\nFIM 77-11-00-810-839 (Eng 1), -840(Eng 2)\n\n86\n\n\fNAV DR\n\n•\n\n•\n\nSOURCE\n– FMS\n\nLOGIC\n\n– Dead Reckoning Mode annunciation (NAV DR) Illuminates when the FMS is \nnavigating by dead reckoning on last known track, groundspeed, heading \nand TAS.\n\n• MAINTENACE\n\n– The FMS has lost GPS and DME Nav functions.  Consider cycling FMS \n\nPower OFF/ON before further troubleshooting.  Then follow any on-screen \nfailure messages\n\n87\n\n\fNAV INTEG\n\n•\n\n•\n\nSOURCE\n– FMS\n\nLOGIC\n\n– Navigation Integrity annunciation (NAV INTEG) Illuminates when the \nrequired navigation performance is not guaranteed by the FMS.\n\n• MAINTENACE\n\n– The FMS has lost GPS or DME Nav functions. Consider cycling FMS Power \nOFF/ON before further troubleshooting.  Then follow any on-screen failure \nmessages\n\n88\n\n\fNTOP\n\n•\n\n•\n\nSOURCE\n\n– FADEC\n\nLOGIC\n\n– Normal Take-off Power : The nominal take-off power which the engine will \ndeliver for a 2 engine take-off. This is achieved at the take-off power lever \nsetting (Rating Detent) and Condition lever at 1020. .\n– NOTE: Take off with BLEED CONTROL SELECTOR \n\n• MIN - the only selection permitted for take-off with the BLEED switches \n\non, and NTOP or MTOP set, indicates BLEED (white) on ED\n\n• NORM, MAX- Not permitted for take-off with the BLEED switches on, \n\nand NTOP set, indicates BLEED (amber) on the ED\n\n•\n\nFIM 77-11-00-810-835 (Eng 1), -836 (Eng 2)\n\n89\n\n\fOSG TEST ABORT\n\n•\n\n•\n\nSOURCE: \n– PEC\n\nLOGIC:\n\n– The PEC senses:\n– OSG test has continued for more than 62 seconds\n– PROP O'SPEED GOVERNOR toggle switch is released before the test is completed\n– PLA is moved in the wrong direction during the test\n– CLA is moved during the test ·\n– The aircraft is not on the ground\n– PEC changing lanes during test.\n– The message also comes into view if the PLA is moved forward before the OSG TEST \n\nIN PROG message comes into view. \n\n– The  #1(2) PEC caution light and the POWERPLANT message will come on.\n– The OSG TEST ABORT message goes out of view five seconds after the PROP \n\nO'SPEED GOVERNOR toggle switch is released at the end of the test.\n\n• MAINTENANCE:\n\n– Repeat OSG Test\n– Check OSG switch activation thru CDS / EMU / POWERPLANT INTERFACE / FLIGHT \n\nDECK SWITCHES / PROP O SPEED GOV TEST\n\n•\n\nFIM 61-41-00-810-815 (Eng1),  -816 (Eng2)\n\n90\n\n\fOSG TEST FAILED\n\n•\n\n•\n\nSOURCE: \n\n• PEC\n\nLOGIC:\n\n– Blade angle is more than flight fine stop tolerance (between 13 and 19 degrees)\n– NP is more than 940 RPM.\n– The  #1(2) PEC caution light and the POWERPLANT message will come on.\n– NOTE: The OSG TEST FAILED message goes out of view after the PROP O'SPEED \n\nGOVERNOR toggle switch is released at the end of the test\n\n• MAINTENANCE:\n\n– Repeat OSG Test\n– Check OSG switch activation thru CDS / EMU / POWERPLANT INTERFACE / FLIGHT \n\nDECK SWITCHES / PROP O SPEED GOV TEST\n\n•\n\nFIM 61-41-00-810-819 (Eng1),  -820 (Eng2)\n\n91\n\n\fOSG TEST IN PROG\n\n•\n\n•\n\nSOURCE: \n\n• PEC\n\nLOGIC:\n\n– The OSG TEST switch is being held and the following conditions are met:\n\n• Power Levers – FLIGHT IDLE\n• Condition Levers – MAX/1020\n• Engines Running\n\n• MAINTENANCE TIP\n\n– Repeat OSG Test\n– Check OSG switch activation thru CDS / EMU / POWERPLANT \n\nINTERFACE / FLIGHT DECK SWITCHES / PROP O SPEED GOV TEST\n\n•\n\nFIM 61-41-00-810-817 (Eng1),  -818 (Eng2)\n\n92\n\n\fOSG TEST PASSED\n\n•\n\n•\n\nSOURCE: \n\n• PEC\n\nLOGIC:\n\n– Indicates a successful Overspeed Governor Test \n\n• Power Levers – FLIGHT IDLE\n• Condition Levers – MAX/1020\n• Select OSG test switch\n• Observe OSG TEST IN PROG advisory on the ED\n• Slowly advance POWER LEVERs until propeller speed stops increasing and \n\n“OSG TEST PASS” appears on ED (NP governing)\n\n• POWER LEVER – FLIGHT IDLE\n• Release OSG test switch when PLA is at FLIGHT IDLE or below\n\n– NOTE: Do not advance POWER levers until OSG TEST IN PROG appears on ED. \n– NOTE: The test is to be done completed within 60 seconds of OSG TEST IN PROG \n\nappearing on ED.\n\n• MAINTENANCE TIP\n\n– Repeat OSG Test\n– Check OSG switch activation thru CDS / EMU / POWERPLANT INTERFACE / FLIGHT \n\nDECK SWITCHES / PROP O SPEED GOV TEST\n\n•\n\nFIM 61-41-00-810-817 (Eng1),  -818 (Eng2)\n\n93\n\n\fPFD1 LINK FAIL\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– The set ED senses that PFD1 feedback output bus       has malfunctioned \nfor more than 30 seconds when PFD1 is not set to show PFD indications \n(very important parameters). \n\n– The AVIONICS caution light will NOT come on.\n– NOTE:  If PFD1 is set to show PFD indications, the PFD1 LINK FAIL \n\nmessage changes to PFD1 MON FAIL and the AVIONICS caution light will \ncome on\n\n• MAINTENANCE\n\n– Turn ALL Displays OFF then back ON one at a time.\n\n• PFD1/2 and MFD1/2 on EFIS Control Panels\n• ED on ESID Control Panel\n\n– Cycle Aircraft Power\n\n•\n\nFIM 31-61-01-810-812\n\n94\n\n\fPFD1 MON FAIL\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– The set ED senses that PFD1 output bus       has malfunctioned for more \n\nthan 30 seconds when the PFD1 is set to show PFD1 indications.\n\n– NOTE: The AVIONICS caution light will also come on.\n\n• MAINTENANCE\n\n– Turn ALL Displays OFF then back ON one at a time.\n\n• PFD1/2 and MFD1/2 on EFIS Control Panels\n• ED on ESID Control Panel\n\n– Cycle Aircraft Power \n\n•\n\nFIM 31-61-01-810-811\n\n95\n\n\fPFD2 LINK FAIL\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– The set ED senses that PFD feedback output bus       has malfunctioned for \nmore than 30 seconds when the PFD2 is not set to show PFD indications \n(very important parameters).\n\n– NOTE: The AVIONICS caution light will NOT come on.\n– NOTE:  If PFD2 is set to show PFD indications, the PFD2 LINK FAIL \n\nmessage changes to PFD2 MON FAIL and the AVIONICS caution light will \ncome on.\n\n• MAINTENANCE\n\n– Turn ALL Displays OFF then back ON one at a time.\n\n• PFD1/2 and MFD1/2 on EFIS Control Panels\n• ED on ESID Control Panel\n\n– Cycle Aircraft Power \n\n•\n\nFIM 31-61-01-810-819\n\n96\n\n\fPFD2 MON FAIL\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– The set ED senses that PFD2 output bus      has malfunctioned for more \n\nthan 30 seconds when PFD2 is set to show PFD2 indications.\n\n– NOTE: The AVIONICS caution light will also come on.\n\n• MAINTENANCE\n\n– Turn ALL Displays OFF then back ON one at a time.\n\n• PFD1/2 and MFD1/2 on EFIS Control Panels\n• ED on ESID Control Panel\n\n– Cycle Aircraft Power \n\n•\n\nFIM 31-61-01-810-816\n\n97\n\n\fPFDS MON FAIL\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– The set ED senses that the PFD output buses      have malfunctioned for \nmore than 30 seconds when the PFDs are set to show their related PFD \nindications. \n\n• MAINTENANCE\n\n– Turn ALL Displays OFF then back ON one at a time.\n\n• PFD1/2 and MFD1/2 on EFIS Control Panels\n• ED on ESID Control Panel\n\n– Cycle Aircraft Power \n\n•\n\nFIM 31-61-01-810-817\n\n98\n\n\fPITCH\n\n•\n\n•\n\nSOURCE: \n– IOPs\n\nLOGIC:\n\n– The Flight Data Processing System (FDPS) senses an AHRU1 and AHRU2 \n\npitch difference that is more than three degrees.\n– The FMA can show a PITCH MISMATCH message. \n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• AHRS 1 – Avionics A4\n• AHRS 1 – Avionics A9\n• AHRS 2 – Avionics A10\n• AHRS 2 – Avionics A3\n\n•\n\nFIM 34-20-00-810-805\n\n99\n\n\fPITCH MISMATCH\n\n•\n\n•\n\nSOURCE: \n– IOP\n\nLOGIC:\n\n– The Flight Data Processing System (FDPS) senses an AHRU1 and AHRU2 \n\npitch difference that is more than three degrees.\n– The PFD EADI will show a PITCH mismatch flag.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• AHRS 1 – Avionics A4\n• AHRS 1 – Avionics A9\n• AHRS 2 – Avionics A10\n• AHRS 2 – Avionics A3\n\n•\n\nFIM 34-20-00-810-803\n\n100\n\n\fPOWERPLANT\n\n•\n\n•\n\n•\n\nSOURCE: \n– FADEC\n\nLOGIC:\n\n– FADEC or PEC No Dispatch Condition\n\nFIM 77-31-00-810-835 \n\n101\n\n\fR FD FAIL\n\n•\n\n•\n\nSOURCE: \n– PFD\n\nLOGIC:\n\n– R FD FAIL message when PFD2 does not receive valid flight director data \n\nfrom FGM2.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n– Or Aircraft Power Reset\n\n•\n\nFIM 22-11-00-810-855\n\n102\n\n\fRA\n\n•\n\n•\n\nSOURCE: \n– IOP\n\nLOGIC:\n\n– EADI shows an RA indication when the PFDs do not receive correct radio \naltitude data from the Rad Alts through the Flight Data Processing System \n(FDPS).  \n\n– The FDPS senses a Radio Alt 1 and Radio Alt 2 altitude difference that is \n\nmore than 20 feet.\n\n– The PFD FMA can also show a RAD ALT MISMATCH message. \n\n• MAINTENANCE\n\n– Reset Rad Alt Breakers:\n\n• RAD ALT 1 Avionics -L3 \n• RAD ALT 2 Avionics -L4 \n\n•\n\nFIM 34-40-00-810-802 \n\n103\n\n\f•\n\n•\n\nRA1 FAIL\n\nSOURCE: \n\n– (Flight Data Processing System) FDPS\n\nLOGIC:\n\n– The FDPS senses Radio Altimeter 1 has malfunctioned for more than 10 \n\nseconds.\n\n– If the RA LRU fails, its failure status is communicated to each IOM via a \n\ndiscrete interface and via the SSM bits of label # 164 that is transmitted via \nthe ARINC 429 data bus output to the IOPs, and the TCAS.\n\n• MAINTENANCE\n\n– Reset Rad Alt Breaker:\n\n• RAD ALT 1 Avionics -L3\n\n•\n\nFIM 34-44-00-810-809\n\n104\n\n\f•\n\n•\n\nRA2 FAIL\n\nSOURCE: \n\n– (Flight Data Processing System) FDPS\n\nLOGIC:\n\n– The FDPS senses Radio Altimeter 2 has malfunctioned for more than 10 \n\nseconds.\n\n– If the RA LRU fails, its failure status is communicated to each IOM via a \n\ndiscrete interface and via the SSM bits of label # 164 that is transmitted via \nthe ARINC 429 data bus output to the IOPs, and the TCAS.\n\n• MAINTENANCE\n\n– Reset Rad Alt Breakers:\n\n• RAD ALT 2 Avionics -L4\n\n•\n\nFIM 34-44-00-810-810\n\n105\n\n\fRAD ALT MISMATCH\n\n•\n\n•\n\nSOURCE: \n– IOP\n\nLOGIC:\n\n– The Flight Data Processing System (FDPS) senses RA1 and RA2 altitude \ndifference that is more than 20 feet. The PFD altitude indicator will show a \nRA mismatch flag. \n\n– NOTE:  The RA data must be valid.\n\n• MAINTENANCE\n\n– Reset Rad Alt Breakers:\n\n• RAD ALT 1 Avionics L3\n• RAD ALT 2 Avionics L4 \n\n•\n\nFIM 34-40-00-810-803\n\n106\n\n\fRAS FAIL\n\n•\n\n•\n\nSOURCE: \n– ED\n\nLOGIC:\n\n– The Flight Data Processing System (FDPS) senses Radio Altimeter 1 and 2 \n\nhave malfunctioned for more than 10 seconds.\n\n– If the RA LRU fails, its failure status is communicated to each IOM via a \n\ndiscrete interface and via the SSM bits of label # 164 that is transmitted via \nthe ARINC 429 data bus output to the IOPs, and the TCAS.\n\n• MAINTENANCE\n\n– Reset Rad Alt Breakers:\n\n• RAD ALT 1 Avionics L3\n• RAD ALT 2 Avionics L4 \n\n•\n\nFIM 34-44-00-810-811\n\n107\n\n\fRDC TOP\n\n•\n\n•\n\nSOURCE\n\n– FADECs\n\nLOGIC\n\n– REDUCED TAKEOFF POWER – Indicates NTOP has been reduced by steps of 2% to \n\na limit of 10%.   Selection is made by selecting DEC on Engine control Panel\n\n– Cannot be activated while in MTOP or MCP rating\n\n• MAINTENANCE\n\n– Check DEC switch activation thru CDS / EMU / POWERPLANT INTERFACE / FLIGHT \n\nDECK SWITCHES / ENGINE CONTROL\n\n•\n\nFIM 77-11-00-810-831 (Eng 1), -832 (Eng 2)\n\n108\n\n\fREDUCED NP LANDING\n\n•\n\n•\n\nSOURCE\n\n– PECs\n\nLOGIC\n\n– RDC NP LDG pushbutton has been pushed, enabling a reduced propeller speed for \n\nlanding\n\n– Configuration for reduced NP for landing:\n\n• PLA between FLIGHT IDLE and approx. 50% RATING\n• CLA in the MIN/850 position, push the RDC NP LDG pushbutton\n• Advance CL to MAX/1020; NP will remain at 850 RPM\n• NOTE: Reduced NP Landing mode will be cancelled if condition levers are not set \n\nto MAX/1020 within 15 seconds of selecting RDC NP LDG switch.\n\n• Power Lever angle of 65 degrees or greater will cancel the RDC NP selection\n• RDC NP mode can be cancelled by pushing the RDC NP LDG button again\n\n• MAINTENANCE\n\n– Check RDC NP LDG switch activation thru CDS / EMU / POWERPLANT INTERFACE \n\n/ FLIGHT DECK SWITCHES / ENGINE CONTROL\n\n•\n\nFIM 77-11-00-810-857\n\n109\n\n\fROLL\n\n•\n\n•\n\nSOURCE: \n– IOP\n\nLOGIC:\n\n– The Flight Data Processing System (FDPS) senses an AHRU1 and 2 roll \n\ndifference that is more than three degrees.\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• AHRS 1 – Avionics A4\n• AHRS 1 – Avionics A9\n• AHRS 2 – Avionics A10\n• AHRS 2 – Avionics A3\n\n•\n\nFIM 34-20-00-810-807\n\n110\n\n\fROLL MISMATCH\n\n•\n\n•\n\nSOURCE: \n– IOP\n\nLOGIC:\n\n– The Flight Data Processing System (FDPS) senses an AHRU1 and 2 roll difference \n\nthat is more than three degrees. \n\n– The PFD EADI will show a ROLL mismatch flag.  NOTE:  The FMAs will show only the \n\nmost important mismatch message and this is the primary mismatch indication. \n– NOTE:  The AHRS data must be valid and the EFIS ATT/HDG SOURCE reversion \n\nselector must be set to the NORM position\n\n• MAINTENANCE\n\n– Circuit Breaker Reset\n\n• AHRS 1 – Avionics A4\n• AHRS 1 – Avionics A9\n• AHRS 2 – Avionics A10\n• AHRS 2 – Avionics A3\n\n•\n\nFIM 34-20-00-810-804\n\n111\n\n\fSTAB FAIL\n\n•\n\n•\n\nSOURCE: \n– WXR\n\nLOGIC:\n\n– The Weather Radar Antenna RT does not receive valid attitude data from \n\nthe AHRS.\n\n• MAINTENANCE\n\n– Check for other AHRS related faults. \n– If none, cycle WXR power OFF/ON. \n\n•\n\nFIM 34-41-00-810-802\n\n112\n\n\fSTAB OFF\n\n•\n\n•\n\nSOURCE: \n– WXR\n\nLOGIC:\n\n– The Weather Radar Antenna stabilization (STAB) is selected OFF on the \n\nradar control panel \n\n113\n\n\fT\n\n•\n\n•\n\nSOURCE: \n\n– Display Unit\n\nLOGIC:\n\n– A green T is shown for 30 seconds during the POST (Power On Self Test) \n\nand stays in view if the POST senses a discrepancy.\n\n– The POST mode starts automatically after a long electrical power \n\ninterruption while the aircraft is on the ground. \n\n• MAINTENANCE\n\n– Turn effected Display OFF then back ON.\n\n• PFD1/2 and MFD1/2 on EFIS Control Panels\n• ED on ESID Control Panel\n\n•\n\nFIM 31-61-01-810-842 (ED), -843 (MFD1), -844 (MFD2), -845 (PFD1), -846 \n(PFD2)\n\n114\n\n\fTA ONLY\n\n•\n\n•\n\nSOURCE\n\n– TCAS Processor\n\nLOGIC\n\n– TA ONLY - nearby aircraft are displayed on the MFD navigation display as \n\nnon-threat targets, proximate traffic or traffic advisory intruders only - TCAS \nII processor does not produce visual or aural resolution advisories related to \npotential aircraft encounters\n\n– TA ONLY is selected on the ARCDU TCAS/ATC expanded page.\n\n115\n\n\fTA/RA\n\n•\n\n•\n\nSOURCE\n\n– TCAS Processor\n\nLOGIC\n\n–\n\nTA/RA - nearby aircraft are displayed on MFD navigation display in cyan, yellow or red according their  \ncategorization as non-threat targets, proximate traffic, traffic advisory or resolution advisory intruders -\nACAS II / TCAS II processor collision  avoidance visual and aural advisory functions are fully active. \nWhen TA/RA is selected on the ground prior to takeoff, the actual operating mode of the processor \nautomatically changes as follows:a) TA ONLY to full TA/RA mode at 1100 ft radar altitude when \nclimbing b) TA/RA mode back to TA ONLY mode at 900 ft radar altitude when descending\n\n– TA/RA is selected on ARCDU TCAS/ATC Expanded page.\n\n116\n\n\fTCAS FAIL\n\n•\n\n•\n\nSOURCE: \n\n– TCAS Processor\n\nLOGIC:\n\n– TCAS processor senses:· \n\nInternal malfunction\n\n•\n• No continuity through the TCAS top or bottom antenna\n• Does not receive valid heading,  roll or pitch data from AHRS1 and 2\n• Does not receive valid radio alt data\n• TA or RA valid pin programming malfunction\n• Does not receive valid data from the set mode S Transponder\n• Does not receive valid control data from ARCDU1 and 2\n• Does not receive valid data from ADC1 or ADC2 that is set for altitude reporting\n• Gillham compare senses an encoding altitude difference ·\n• Mode S TDR and DME suppression\n• TCAS configuration module has malfunctioned.\n\n• MAINTENANCE\n\n– Make Sure Transponders are selected ON\n– Reset TCAS Breaker  - Avionics  F1\n\n•\n\nFIM 34-43-00-810-802\n\n117\n\n\fTCAS STBY\n\n•\n\n•\n\nSOURCE\n\n– TCAS Processor\n\nLOGIC\n\n– TCAS II processor unit is set to the standby mode.\n– STBY was selected on the ARCDU TCAS/ATC Expanded page\n\n118\n\n\fTCAS TEST\n\n•\n\n•\n\nSOURCE\n\n– TCAS Processor\n\nLOGIC\n\n– TEST was pushed on the ARCDU  TCAS/ATC Expanded page\n\n119\n\n\fTCS\n\n•\n\n•\n\nSOURCE\n– FGM\n\nLOGIC\n\n– “TCS” (steady white) is displayed when Tactile Control Steering (TCS)       is \n\nactive  and the AP is engaged.\n\n120\n\n\fTERR FAIL\n\n•\n\n•\n\nSOURCE: \n– MFD\n\nLOGIC:\n\n– The FMS is not energized, accurate GPS latitude and longitude position data is not \n\nsupplied. \n\n– AHRS data is not supplied. \n– The MFD does not receive valid terrain image data through the EGPWC A453 data bus \n\n(video feed) while the MFD is set to TERR. \n\n– The range data received from the terrain data bus output is not the same as the \n\ncalculation made by the MFD while not in the terrain alert mode. \n\n• MAINTENANCE\n\n– Make sure FMSs are on\n– Reset breaker EGPWS SYST –Avionics -A1\n– If GPWS Caution light persists, follow FIM\n\n•\n\nFIM 34-42-00-810-811 (MFD1), -812 (MFD2)\n\n121\n\n\fUPTRIM\n\n•\n\n•\n\nSOURCE\n– PECs\n\nLOGIC\n\n– If the autofeather is armed and an engine fails (i.e. engine torque is \"low\") \nan Uptrim signal is commanded by the failed engine PEC to the working \nengine FADEC. The working engine’s power is increased 10%.  An Uptrim \ncondition is indicated to the pilot by:\n\n• The UPTRIM indication on the ED\n• A change in the engine rating from NTOP to MTOP\n\n•\n\nFIM 77-11-00-810-855\n\n122\n\n\fVERT ALRT\n\n•\n\n•\n\nSOURCE\n– FMS\n\nLOGIC\n\n– This is not a Fault\n– Vertical Path Alert annunciator (VERT ALRT) Illuminates 15 seconds prior to \nTop of Descent or 15 seconds prior to any change in vertical path angle.\n\n123\n\n\fWOW/IOP1 FAIL\n\n•\n\n•\n\nSOURCE: \n– IOP1\n\nLOGIC:\n\n– IOP1 senses different  PSEU WOW1 and WOW2 inputs. \n– The AVIONICS caution light will also come on. \n– NOTE: This indication is shown on the ground only because the IOP1 \n\ncannot do a POST.   \n\n– The WT ON WHEELS caution light will also come on. \n\n• MAINTENANCE\n\n– Cycle Aircraft Power\n\n•\n\nFIM 31-41-00-810-860\n\n124\n\n\fWOW/IOP2 FAIL\n\n•\n\n•\n\nSOURCE: \n– IOP2\n\nLOGIC:\n\n– IOP2 senses different  PSEU WOW1 and WOW2 inputs. \n– The AVIONICS caution light will also come on. \n– NOTE: This indication is shown on the ground only because the IOP2 \n\ncannot do a POST.   \n\n– The WT ON WHEELS caution light will also come on. \n\n• MAINTENANCE\n\n– Cycle Aircraft Power\n\n•\n\nFIM 31-41-00-810-861\n\n125\n\n\fWOW/IOPS FAIL\n\n•\n\n•\n\nSOURCE: \n– IOPs\n\nLOGIC:\n\n– IOP1 and 2 senses different  PSEU WOW1 and WOW2 inputs. \n– The AVIONICS caution light will also come on. \n– NOTE: This indication is shown on the ground only because the IOPs \n\ncannot do a POST.   \n\n– The WT ON WHEELS caution light will also come on. \n\n• MAINTENANCE\n\n– Cycle Aircraft Power\n\n•\n\nFIM 31-41-00-810-862\n\n126\n\n\fWPT ALRT\n\n•\n\n•\n\nSOURCE\n– FMS\n\nLOGIC\n\n– This is not a Fault\n– Waypoint Alert annunciator(WPT ALRT) Illuminates prior to automatic leg \n\nchange or on arrival at a waypoint.\n\n127\n\n\fWTG1 FAIL\n\n•\n\n•\n\nSOURCE: \n– IOP1\n\nLOGIC:\n\n– IOP1 senses WTG1 output has malfunctioned.\n– NOTE:  The AVIONICS caution light will also come on. \n\n• MAINTENANCE\n\n– Aircraft Power Reset  or\n– Circuit Breaker Reset\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n•\n\nFIM 31-41-00-810-858\n\n128\n\n\fWTG2 FAIL\n\n•\n\n•\n\nSOURCE: \n– IOP2\n\nLOGIC:\n\n– IOP2 senses WTG2 output has malfunctioned. \n– NOTE:  The AVIONICS caution light will also come on. \n\n• MAINTENANCE\n\n– Aircraft Power Reset  or\n– Circuit Breaker Reset\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n•\n\nFIM 31-41-00-810-859\n\n129\n\n\fWTGS FAIL\n\n•\n\n•\n\nSOURCE: \n– IOPs\n\nLOGIC:\n\n– IOPs sense the WTGs have malfunctioned.\n– NOTE:  The AVIONICS caution light will also come on.\n\n• MAINTENANCE\n\n– Aircraft Power Reset  or\n– Circuit Breaker Reset\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n•\n\nFIM 31-41-00-810-871\n\n130\n\n\fWX FAIL\n\n•\n\n•\n\nSOURCE: \n\n– IOP or MFD\n\nLOGIC:\n\n– Defective WXRT \n– Defective WX Antenna \n– Defective WX Control Panel\n– Defective ART A453 data bus (Video Feed) \n– Range discrepancy.\n\n• MAINTENANCE\n\n– Cycle WXR OFF/ON\n– If WX FAIL is posted on both MFDs, troubleshoot WX RT or Control Panel\n– If WX FAIL is post on one MFD and other MFD is displaying weather, \n\ntroubleshoot ART 453 BUS including Relays 3442-K7(K8).\n\n•\n\nFIM 34-40-00-810-807 (MFD1), -808 (MFD2)\n\n131\n\n\fWX RCT\n\n•\n\n•\n\nSOURCE: \n– WXR\n\nLOGIC:\n\n– The Weather Radar RCT (Rain echo attenuation compensation technique). \n\nmode is selected ON on the radar control panel. \n\n132\n\n\fWX TGT\n\n•\n\n•\n\nSOURCE: \n– WXR\n\nLOGIC:\n\n– The Weather Radar TGT (Target) mode is selected ON on the radar control \n\npanel. \n\n– The Target Alert feature advises the pilot of any potentially hazardous \ntargets directly in front of the aircraft but outside the selected range.\n\n133\n\n\fYD DISENGAGED\n\n•\n\n•\n\nSOURCE\n\n– FGMs\n\nLOGIC\n\n– Displayed following a Yaw Damper Disengagement either automatic or manual (YD \n\nselected off)\n\n– For automatic disengagement, message flashes until reset then steady for 5 seconds. \n– Steady for 5 seconds when manual disengagement\n– The Yaw Damper disengages when one of the following conditions is met:\n\n• AHRS 1 or AHRS 2 is failed\n• AHRS 1 and AHRS 2 disagree\n• ADC 1 or ADC 2 is failed\n• ADC 1 and ADC 2 disagree\n• a Yaw Damper actuator failure is detected\n• The flight crew press the YD pushbutton on the FGCP. (Manual disengagement)\n• YD Push-button on FGCP is stuck\nInternal AFCS monitoring is failed\n•\n• A power interrupt greater than the transparency time occurs.\n\n• MAINTENANCE\n\n– Reset by pushing AP DIS switch        located on either control wheel\n\n•\n\nFIM 22-11-00-810-805  (AP/YD FAIL Task)\n\n134\n\n\fYD INHIBIT\n\n•\n\n•\n\nSOURCE: \n– FGMs\n\nLOGIC:\n\n– YD Inhibit condition comes from one of the following external AFCS monitors: \n\n• AHRS monitoring\n• ADC monitoring\n•\n• NOTE:  If an AHRUs does not supply valid or the same attitude data to the two \n\nthe aircraft attitude exceeds the engagement limits >\n\nFGMs, the FMA will show a FD ATT DATA INVLD message. \n\n• NOTE:  If an ADC does not supply valid altitude data to the two FGMs, the FMA \n\nwill show a FD ADC DATA INVLD message\n\n• MAINTENANCE\n\n– Press and hold red AP DIS switch         on pilot or co-pilot control column \n– Then Reset Breakers\n\n• YD AU (ACTUATOR UNIT) Avionics E3\n\n– Then\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n•\n\nFIM 22-11-00-810-843 \n\n135\n\n\fYD NOT CENTERED\n\n•\n\n•\n\nSOURCE: \n– FGM\n\nLOGIC:\n\n– The YDAU is not engaged and not in the center position \n– NOTE: The YD will not move to the center position if there is a malfunction of the: \n\nFGM, YDAU, or APAU-R. \n\n• MAINTENANCE\n\n– Press and hold red AP DIS switch        on pilot or co-pilot control column \n– Then Reset Breakers\n\n• YD AU (ACTUATOR UNIT) Avionics E3\n\n– Then\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n•\n\nFIM 22-11-00-810-844 \n\n136\n\n\fINFO\nTCS and A/P DIS Switches\n\n137\n\n\fINFO:  ARINC 453 BUS (Video Feed) \n\nA coupler is required to adapt the \nWXR output A453 signal to the DU \nA453 input by removing an extra bit \npreceding the start sync. in the \nwaveform transmitted by the WXR unit\n\nThe ARINC 453 bus transmits weather radar returns to the display units(DU).  This is the \nsingle coax wire connected to the back of the DU’s.  Relays K7 & K8 bring in EGPWS terrain \nvideo when in pop-up mode or the TERR/WX button is pushed. \nWDM 34-41-01A Page 3 Sht 2\n\n138\n\n\fINFO: AHRS/PFD/MFD ARINC BUS\n\nAHRS1 Data is transmitted to PFD/MFD on a ARINC 429 BUS \nWDM 34-21-00-1A  Sheet 4\n\nAHRS2 Data is transmitted to PFD/MFD on a ARINC 429 BUS \nWDM 34-21-00-1A  Sheet 6\n\n139\n\n\fINFO: Display Monitor Buses\n\nEach Display receives four Feedback buses coming \nfrom the four other displays.  They convey \ninformation used to monitor the critical parameters.\n\nWDM 31-61-00-101  Sht 3\n\n140\n\nFB_DU1FB_DU2FB_DU3FB_DU4FB_DU_OUTPFD#1FB_DU1FB_DU2FB_DU3FB_DU4FB_DU_OUTMFD#1FB_DU1FB_DU2FB_DU3FB_DU4FB_DU_OUTEDFB_DU1FB_DU2FB_DU3FB_DU4FB_DU_OUTMFD#2FB_DU1FB_DU2FB_DU3FB_DU4FB_DU_OUTPFD#2FB-MFD#1FB-MFD#2FB-PFD#2FB-EDFB-EDFB-EDFB-EDFB-PFD#1FB-PFD#1FB-PFD#1FB-PFD#1FB-PFD#2FB-PFD#2FB-PFD#2FB-MFD#1FB-MFD#1FB-MFD#1FB-MFD#2FB-MFD#2FB-MFD#2\fINFO: Display Unit Cooling Hoses\n\nCheck that cooling hoses are connected to back \nof effected display unit\n\nView Looking Aft\n\n141\n\n\fINFO: Autofeather Test\n\n•\n\nAMM Task TASK 61-20-00-710-801 Autofeather Test\n\n– NOTE: This check can be completed with the two engines running or with the two \n\nengines stopped.\n\n– Make sure that the two condition lever angles (CLA's) are at START AND FEATHER \n\n(engine running) or at FUEL OFF (engine stopped).\n\n– Make sure the two power lever angles (PLA's) are at DISC.\n– Push the AUTOFEATHER switch light to SELECT on, on the propeller control panel:\n• Make sure that the A/F SELECT and the A/F TEST IN PROGRESS messages \n\nshow on the engine display. \n\n– Make sure the A/F TEST PASSED message shows on the engine display after the test \n\nsequence is completed.\n\n•\n\n•\n•\n•\n\nIF the test does not pass, interrogate/record Powerplant fault codes.\n\n– Note: Code 494 indicates last A/F test did not pass. \n\nCycle Aircraft power and repeat Autofeather Test. \nIF the test still does not pass, interrogate faults again and troubleshoot\nIF the test passes, clear fault codes.\n\n142\n\n\f",
+  "full_text_truncated": false,
+  "word_count": 11179,
+  "sections": [
+    {
+      "title": "“FOR REFERENCE ONLY*",
+      "content": "PFD 3 Pages\nED 1 Page\nMFD 1 Page"
+    },
+    {
+      "title": "A GREEN",
+      "content": "T\n\nOn Any Display\n\nReturn to Beginning\n\nReturn to previously viewed slide\n\nK Doles 2009 Rev.3\n\n1\n\n\fMismatch Messages:"
+    },
+    {
+      "title": "GS EXCESS DEV",
+      "content": "TCS or AP status:"
+    },
+    {
+      "title": "YD INHIBIT",
+      "content": "TCS\nAP\n\nCUE\n\nFMS Alerts"
+    },
+    {
+      "title": "VERT ALRT",
+      "content": "PFD  page 1of3\n\nAFCS Messages:\n(yellow, flashing 5s)"
+    },
+    {
+      "title": "L FD FAIL",
+      "content": "Flight Director Status"
+    },
+    {
+      "title": "DUAL OFF",
+      "content": "HSI > or < HSI"
+    },
+    {
+      "title": "DUAL FD",
+      "content": "TCAS Messages:"
+    },
+    {
+      "title": "TCAS TEST",
+      "content": "TA/RA"
+    },
+    {
+      "title": "TA ONLY",
+      "content": "FMS Messages:"
+    },
+    {
+      "title": "GPS INTEG",
+      "content": "MSG\n\n2\n\n\fPFD page 2of3\n\nAP/YD status:"
+    },
+    {
+      "title": "MISTRIM [TRIM R WING DN]",
+      "content": "Attitude Source\nATT1\nATT2\n\nIAS\n\nPITCH\n\nHDG\n\nFlight Director Messages:\n(yellow, flashing 5s)"
+    },
+    {
+      "title": "ALT OFF",
+      "content": "Air Data Source\nADC1\nADC2\n\nALT\n\nROLL\n\nRA\n\n3\n\n\fPFD page 3of3"
+    },
+    {
+      "title": "ALT FAIL",
+      "content": "4\n\n\fEngine Rating Mode\nMCR (green)\nMCL (green)\n\nMCP (green)\n\nRDC TOP (green)\n\nNTOP (green)\n\nMTOP (green)\n\nMAINT ( yellow)\n\nAutoFeather messages:"
+    },
+    {
+      "title": "ICE DETECTED",
+      "content": "IFC Messages:"
+    },
+    {
+      "title": "GPWS I/F FAIL",
+      "content": "RA1 FAIL\nRA2 FAIL"
+    },
+    {
+      "title": "RAS FAIL",
+      "content": "ED  page 1 of 1\n\nPOWERPLANT messages"
+    },
+    {
+      "title": "UPTRIM",
+      "content": "BLEED (white or yellow)"
+    },
+    {
+      "title": "CHECK ED",
+      "content": "OSG or A/F test status:"
+    },
+    {
+      "title": "A/F TEST PASSED",
+      "content": "DISPLAY UNIT messages:"
+    },
+    {
+      "title": "MFD1(2) LINK FAIL",
+      "content": "5\n\n\fMFD page 1 of 1"
+    },
+    {
+      "title": "HDG FAIL",
+      "content": "TCAS Messages:"
+    },
+    {
+      "title": "TCAS TEST",
+      "content": "TA/RA"
+    },
+    {
+      "title": "TA ONLY",
+      "content": "6"
+    },
+    {
+      "title": "ADC1(2)",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– PFD"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– This is not a Fault.   The ADC SOURCE Knob is NOT set to NORM\n\n7"
+    },
+    {
+      "title": "A/F ARM",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE",
+      "content": "– PEC\n\nLOGIC\n\n– Indicates Autofeather system is armed. The A/F ARM message is presented \n\nin reverse video during the first 2 seconds of display.\n– Autofeather is armed under the following conditions:\n\n• Power levers beyond 60° PLA\n• Torques above 50%\n• Condition levers at MAX/1020\n• Engines running\n• Previous Autofeather test was successful."
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Redo Autofeather test       if A/F ARM does not appear. \n– NOTE: Do not cycle FADEC or PEC circuit breakers, a POWERPLANT \n\nmessage will be set.\n\n8"
+    },
+    {
+      "title": "A/F SELECT",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE",
+      "content": "– PEC\n\nLOGIC\n\n– Indicates Autofeather system is Selected On for Takeoff \n– Autofeather is Selected under the following conditions:\n\n• Condition levers at MAX/1020\n• Engines running\n• Previous Autofeather test was successful."
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Redo Autofeather test       if A/F SELECT does not appear. \n– NOTE: Do not cycle FADEC or PEC circuit breakers, a POWERPLANT \n\nmessage will be set.\n\n9"
+    },
+    {
+      "title": "A/F TEST ABORT",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– PEC"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– PEC1 or 2 senses: \n\n• Loss of the autofeather select signal during the test. \n• CLA not at START/FEATHER or FUEL OFF during the test. \n• PLA not at DISC during the test\n• Loss of the autofeather permissive signal from the opposite engine.\n• Loss of the opposite powerplant torque signal indicating that the opposite \n\npowerplant is producing useful power.\n\n• PEC changing lanes during test."
+    },
+    {
+      "title": "• MAINTENANCE:",
+      "content": "– Redo Autofeather test \n– NOTE: Do not cycle FADEC or PEC circuit breakers, a POWERPLANT message will \n\nbe set.  \n\n•\n\nFIM TASK 61-41-00-810-809 (L)  and 810 (R)\n\n10"
+    },
+    {
+      "title": "A/F TEST FAILED",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– PEC"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– PEC1 or 2 senses: \n\n•\n\n•\n\n•\n\nInternal PEC Automatic Underspeed Protection Circuit (AUPC) ARM MONITOR is \nnot armed when the arming conditions are set.  \nInternal PEC AUPC ARM MONITOR armed when the arming conditions are not \nset.\nInternal PEC AUPC THRESHOLD MONITOR is inactive (no AUPC drive signal) \nwith NQA/NQB more than 83% (845 rpm).  \nInternal PEC AUPC TEST STATUS is test not passed.  \nInternal PEC AUPC TEST ABORT is test aborted.\n\n•\n•\n• AUPC is activated (possibly by flight deck mishandling)."
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Redo AutoFeather Test. \n– NOTE: Do not cycle FADEC or PEC circuit breakers, a POWERPLANT message will \n\nbe set.  \n\n•\n\nFIM  TASK 61-41-00-810-807 (L) and 808 (R)\n\n11"
+    },
+    {
+      "title": "A/F TEST IN PROG",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– PEC"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– Indicates Autofeather system test is in progress \n– Autofeather is tested under the following conditions:\n\n• CONDITION levers – FUEL OFF or START/FEATHER\n• POWER levers – DISC\n• AUTOFEATHER switch - Press. \n\n12"
+    },
+    {
+      "title": "A/F TEST PASSED",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– PEC"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– Indicates Autofeather system test was successful \n– Autofeather is tested under the following conditions:\n\n• CONDITION levers – FUEL OFF or START/FEATHER\n• POWER levers – DISC\n• AUTOFEATHER switch - Press. \n\n13"
+    },
+    {
+      "title": "AFCS CONTROLLER INOP",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– FGM"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– A FGM senses a Flight Guidance Control Panel (FGCP) malfunction or that \n\none of the FGCP switches are stuck."
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Circuit Breaker Reset\n\n• FG CP 1 Avionics G7\n• FG CP 2 Avionics G6\n\n– Then\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n•\n\nFIM Task TASK 22-11-00-810-821\n\n14"
+    },
+    {
+      "title": "AFCS FAIL",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– PFD"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– A PFD does not receive valid data from the two flight guidance modules \n\n(FGMs)."
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Circuit Breakers Reset\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n– Aircraft Power Reset\n\n•"
+    },
+    {
+      "title": "FIM TASK 22-11-00-810-845 (PFD1), -868 (PFD2)",
+      "content": "15\n\n\fALT\n\n•\n\n•"
+    },
+    {
+      "title": "SOURCE",
+      "content": "– IOPs\n\nLOGIC\n\n– The PFD shows the ALT mismatch flag when the Flight Data Processing \nSystem (FDPS) senses and Air Data Unit 1 (ADU1) and ADU2 altitude \ndifference that is more than 60 feet at Sea Level up to 180 feet at FL250\n– The PFD flight mode annunciator (FMA) can also show an ALT MISMATCH \n\nmessage.\n\n– NOTE: The FMAs will show only the most important mismatch message \n\nand this is the primary mismatch indication."
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Circuit Breaker Reset\n\n• ADU 1 Avionics  A7\n• ADU 2 Avionics  A6\n\n•"
+    },
+    {
+      "title": "FIM TASK 34-11-00-810-872",
+      "content": "16"
+    },
+    {
+      "title": "ALT FAIL",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– Display Unit"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– The Display Unit does not receive valid altitude data from the ADU"
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Circuit Breaker Reset\n\n• ADU 1 Avionics  A7\n• ADU 2 Avionics  A6\n\n•"
+    },
+    {
+      "title": "FIM TASK 34-11-00-810-852 (PFD1), -853 (PFD2),",
+      "content": "17"
+    },
+    {
+      "title": "ALT MISMATCH",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– IOP"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– ADU1 and ADU2 altitude difference that is more than 60 feet at Sea Level to"
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Circuit Breaker Reset\n\n• ADU 1 Avionics  A7\n• ADU 2 Avionics  A6\n\n•"
+    },
+    {
+      "title": "FIM TASK 34-11-00-810-850",
+      "content": "18"
+    },
+    {
+      "title": "ALT OFF",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE",
+      "content": "– FGMs\n\nLOGIC\n\n– This is not a fault\n– Yellow message, flashing for 5 seconds, then steady.\n– When the Pitch Thumbwheel is used in Altitude Capture or Altitude Hold \n\nmode\n\n19\n\n\fAP\n\n•\n\n•"
+    },
+    {
+      "title": "SOURCE",
+      "content": "– FGM\n\nLOGIC\n\n– AP displayed in green when Autopilot is engaged and functioning,\n\n20"
+    },
+    {
+      "title": "AP DISENGAGED",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE",
+      "content": "– FGMs\n\nLOGIC\n\n– Displayed following a Yaw Damper and Autopilot disengagement, either automatic or \n\nmanual (AP selected OFF)\n\n– For automatic disengagement, message flashes until reset, then steady for 5 seconds. \n– Steady for 5 seconds when manual disengagement\n– The Autopilot disengages when one of the following conditions is met:\n\n•\n•\n•\n•\n•\n•\n•\n\n•\n•\n•\n•\n•\n•\n•\n•\n•\n•\n•\n\nAHRS 1 or AHRS 2 is failed\nAHRS 1 and AHRS 2 disagree\nADC 1 or ADC 2 is failed\nADC 1 and ADC 2 disagree\nThe aircraft is not airborne\nThe crew press the AP or YD pushbutton on the FGCP. (Manual disengagement)\nThe crew operates manual pitch trim, setting the Manual Pitch Trim AP Disconnect discrete, except if TCS is \nactive. (Manual  disengagement)\nThe crew manually override the AP using the control column or wheel\nThe crew press an AP Disengage Switch. (Manual disengagement)\nThe TCS function fails\nA Stall Warning AP Disconnect discrete from SPM#1 or SPM#2 is set\nA GA switch is selected. (Manual disengagement)\nAn AP actuator failure is detected\nThe Yaw Damper disengages \nA Push-button on FGCP is stuck\nInternal AFCS monitoring is failed\nA Power interrupt greater than the transparency time occurs\nThe aircraft attitude is outside the domain limits (+/- 50 degrees roll angle and +/- 25 degrees pitch angle)."
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Reset by push and hold A/P DIS       switches located on either control wheel\n\n21"
+    },
+    {
+      "title": "AP/YD DISENGAGED",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE",
+      "content": "– FGMs\n\nLOGIC\n\n– Displayed following a Yaw Damper and Autopilot disengagement, either automatic or \n\nmanual (AP selected OFF)\n\n– For automatic disengagement, message flashes until reset, then steady for 5 seconds. \n– Steady for 5 seconds when manual disengagement\n– The Autopilot disengages when one of the following conditions is met:\n\n•\n•\n•\n•\n•\n•\n•\n\n•\n•\n•\n•\n•\n•\n•\n•\n•\n•\n•\n\nAHRS 1 or AHRS 2 is failed\nAHRS 1 and AHRS 2 disagree\nADC 1 or ADC 2 is failed\nADC 1 and ADC 2 disagree\nThe aircraft is not airborne\nThe crew press the AP or YD pushbutton on the FGCP. (Manual disengagement)\nThe crew operates manual pitch trim, setting the Manual Pitch Trim AP Disconnect discrete, except if TCS is \nactive. (Manual  disengagement)\nThe crew manually override the AP using the control column or wheel\nThe crew press an AP Disengage Switch. (Manual disengagement)\nThe TCS function fails\nA Stall Warning AP Disconnect discrete from SPM#1 or SPM#2 is set\nA GA switch is selected. (Manual disengagement)\nAn AP actuator failure is detected\nA Yaw Damper actuator failure is detected\nA Push-button on FGCP is stuck\nInternal AFCS monitoring is failed\nA Power interrupt greater than the transparency time occurs\nThe aircraft attitude is outside the domain limits (+/- 50 degrees roll angle and +/- 25 degrees pitch angle)."
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Reset by push and hold A/P DIS       switches located on either control wheel\n\n22"
+    },
+    {
+      "title": "AP FAIL",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– FGMs"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– Internal FGM, APAU-P, APAU-R, or pitch (P) or roll (R) inhibit malfunction \n\nthat prevents AP operation.\n\n– NOTE:  If the AP or YD was engaged, an AP DISENGAGED message is \n\nshown until cancelled before this message is shown. \n\n– NOTE:  The FMA in the PFD can also show the YD NOT CENTERED \n\nmessage."
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Press and hold red AP DIS switch       on pilot or co-pilot control column \n\n•"
+    },
+    {
+      "title": "FIM TASK 22-11-00-810-808",
+      "content": "23"
+    },
+    {
+      "title": "AP INHIBIT",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– FGMs"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– Displayed in white when Autopilot engagement is attempted and an AFCS external \n\nmonitor inhibits engagement due to:\n\n• AHRS monitoring.\n• ADC monitoring.\n• The aircraft is not airborne.\n• The aircraft attitude exceeds the AP engagement limits.\n• An AP Disengage Switch is currently pressed.\n• A GA (Go Around) switch is selected.\n• TCS (Touch Control Steering) is active. \n• The Manual Pitch Trim AP Disconnect discrete is set. \n• A Stall Warning AP Disconnect discrete from SPM#1 or SPM#2 is set.  \n• The AP disengagement warnings are active."
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Press and hold red AP DIS switch       on Pilot / Copilot control column \n– Then reset breakers\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n•"
+    },
+    {
+      "title": "FIM TASK 22-11-00-810-842",
+      "content": "24"
+    },
+    {
+      "title": "AP PITCH TRIM FAIL",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– FGM"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– A Failure of the AP Pitch Trim\n– No pitch trim motion when commanded by the Autopilot.\n– Pitch trim motion in the opposite sense of the Autopilot command.\n– FGM Monitor pitch actuator (APAU-P) torque values disagree.\n– There is a malfunction of the left and right channels of the FCECU"
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Circuit Breaker Reset"
+    },
+    {
+      "title": "• FCS ECU 2 RH DC L6",
+      "content": "•"
+    },
+    {
+      "title": "FIM TASK 22-10-00-810-802",
+      "content": "25"
+    },
+    {
+      "title": "AP/YD FAIL",
+      "content": "•\n\n•"
+    },
+    {
+      "title": "SOURCE:",
+      "content": "– FGM"
+    },
+    {
+      "title": "LOGIC:",
+      "content": "– Internal FGM or YDAU malfunction that prevents YD operation.\n– NOTE:  If the AP/YD was engaged, an AP/YD DISENGAGED message is shown until \n\ncancelled before this message is shown.\n\n– NOTE:  If the YD was engaged, an YD DISENGAGED message is shown until \n\ncancelled before this message is shown"
+    },
+    {
+      "title": "• MAINTENANCE",
+      "content": "– Press and hold red AP DIS switch on pilot or co-pilot control column \n– Then Reset Breakers\n\n• YD AU (ACTUATOR UNIT) Avionics E3\n\n– Then\n\n•\n•\n\nIOM/IOP FGM 1 Avionics F7\nIOM/IOP FGM 2 Avionics F6\n\n•"
+    },
+    {
+      "title": "FIM TASK 22-11-00-810-805",
+      "content": "26"
+    },
+    {
+      "title": "ATT1(2)",
+      "content": "•\n\n•"
+    }
+  ],
+  "components": [
+    "A GA",
+    "A Power",
+    "A Push",
+    "A Stall Warning AP Disconnect",
+    "ADU1",
+    "ADU2",
+    "AFCS",
+    "AHRS",
+    "AHRS1",
+    "AHRS2",
+    "AHRU",
+    "AHRU1",
+    "AHRU2",
+    "ALT MISMATCH",
+    "AOA1",
+    "AP DIS",
+    "AP DISENGAGED",
+    "AP Disengage Switch",
+    "APAU",
+    "ARINC",
+    "AUPC",
+    "AUTOFEATHER",
+    "AVIONICS",
+    "Activating TCS",
+    "Aircraft",
+    "Aircraft Power Reset",
+    "Airspeed",
+    "Altitude",
+    "An AP",
+    "An ILS",
+    "Autofeather",
+    "Automatic",
+    "Autopilot",
+    "Avionics",
+    "Avionics  A6",
+    "Avionics  A7",
+    "Avionics A10",
+    "Avionics A3",
+    "Avionics A4",
+    "Avionics A9",
+    "Avionics F2",
+    "Avionics F5",
+    "Avionics F6",
+    "Avionics F7\nIOM",
+    "Avionics L3",
+    "Avionics L4",
+    "BLEED",
+    "Bleed",
+    "CONDITION",
+    "Changing"
+  ],
+  "key_facts": [
+    "(Manual disengagement)\nThe crew operates manual pitch trim, setting the Manual Pitch Trim AP Disconnect discrete, except if TCS is \nactive",
+    "– ADU1(2) CAS, TAS or pitot pressure input is defective \n– AHRS1(2) input is defective \n– FADEC1(2) (A and B channels) engine torque input is defective \n– NOTE:  The CUE flag is out of view when WOW and KIAS is < 60 knots",
+    "– NOTE:  The Cat II ILS mode operates when the DH is set less than 200 feet and more \n\nthan 50 feet",
+    "– NOTE:  Each Display Unit has a feed back output bus that supplies the \n\nstatus of its monitoring function to the set ED",
+    "– White reverse video for 5 seconds, then normal video for 60 seconds when\n\nice is detected and the REF SPEEDS is already on INCR position",
+    "If not, then check breakers: \n\n• PLT SPKR Avionics C9\n• COPILOT SPKR Avionics C11\n\n78\n\n\fMCL\n\n•\n\n•\n\nSOURCE\n\n– FADECs\n\nLOGIC\n\n– Maximum Climb Power: The maximum approved power in climb rating",
+    "BLEED is not displayed\n\n•\n\nFIM 77-11-00-810-847 (Eng 1), -848 (Eng 2)  (If MCP does not appear)\n\n80\n\n\fMCR\n\n•\n\n•\n\nSOURCE\n\n– FADECs\n\nLOGIC\n\n– Maximum Cruise Power: The maximum approved power in cruise rating",
+    "– NOTE: Normally this just means the pilot needs to adjust the Aileron trim in \n\nthe direction the message indicates",
+    "• MAINTENANCE\n\n– Select MSG button on either FMS\n\n85\n\n\fMTOP\n\n•\n\n•\n\nSOURE\n\n– FADEC\n\nLOGIC\n\n– Maximum Take-Off Power: The maximum available power certified for take-\n\noff operation",
+    "10% higher than the Normal Take-off Power",
+    "Then follow any on-screen failure \nmessages\n\n88\n\n\fNTOP\n\n•\n\n•\n\nSOURCE\n\n– FADEC\n\nLOGIC\n\n– Normal Take-off Power : The nominal take-off power which the engine will \ndeliver for a 2 engine take-off"
+  ]
+}

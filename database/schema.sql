@@ -1,0 +1,463 @@
+-- Q400 Aircraft Systems Study Database Schema
+-- MySQL InnoDB with UTF8MB4 character set
+-- Version: 1.0
+
+-- Drop and recreate database
+DROP DATABASE IF EXISTS q400_study;
+CREATE DATABASE IF NOT EXISTS q400_study CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE q400_study;
+
+-- ============================================================================
+-- CORE TABLES
+-- ============================================================================
+
+-- Users table
+CREATE TABLE users (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('admin','learner') NOT NULL DEFAULT 'learner',
+    avatar VARCHAR(255) NULL,
+    study_streak INT DEFAULT 0,
+    last_active DATETIME NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_email (email),
+    INDEX idx_role (role),
+    INDEX idx_created_at (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Aircraft Systems table (22 Q400 systems)
+CREATE TABLE systems (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    slug VARCHAR(100) NOT NULL UNIQUE,
+    ata_code VARCHAR(10) NOT NULL,
+    description LONGTEXT,
+    color_hex VARCHAR(7),
+    icon VARCHAR(50),
+    sort_order INT DEFAULT 0,
+    is_published TINYINT(1) DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_slug (slug),
+    INDEX idx_sort_order (sort_order),
+    INDEX idx_ata_code (ata_code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Subtopics within systems
+CREATE TABLE subtopics (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    system_id BIGINT UNSIGNED NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    slug VARCHAR(255) NOT NULL,
+    sort_order INT DEFAULT 0,
+    is_published TINYINT(1) DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_system_slug (system_id, slug),
+    INDEX idx_system_id (system_id),
+    INDEX idx_sort_order (sort_order)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================================
+-- LESSON & CONTENT TABLES
+-- ============================================================================
+
+-- Lessons table
+CREATE TABLE lessons (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    system_id BIGINT UNSIGNED NOT NULL,
+    subtopic_id BIGINT UNSIGNED NULL,
+    title VARCHAR(255) NOT NULL,
+    slug VARCHAR(255) NOT NULL,
+    content_type ENUM('overview','detail','revision','procedure') NOT NULL DEFAULT 'overview',
+    body LONGTEXT,
+    summary TEXT,
+    key_facts JSON NULL,
+    must_know JSON NULL,
+    exam_traps JSON NULL,
+    sort_order INT DEFAULT 0,
+    is_published TINYINT(1) DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE,
+    FOREIGN KEY (subtopic_id) REFERENCES subtopics(id) ON DELETE SET NULL,
+    INDEX idx_system_id (system_id),
+    INDEX idx_subtopic_id (subtopic_id),
+    INDEX idx_slug (slug),
+    INDEX idx_content_type (content_type),
+    INDEX idx_is_published (is_published)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Lesson sections for detailed content organization
+CREATE TABLE lesson_sections (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    lesson_id BIGINT UNSIGNED NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    body LONGTEXT,
+    section_type ENUM('overview','components','operation','normal','abnormal','indications','limitations','memory') NOT NULL DEFAULT 'overview',
+    sort_order INT DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (lesson_id) REFERENCES lessons(id) ON DELETE CASCADE,
+    INDEX idx_lesson_id (lesson_id),
+    INDEX idx_section_type (section_type)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================================
+-- ASSETS & DIAGRAMS
+-- ============================================================================
+
+-- Study assets (PDFs, images, diagrams, SVGs)
+CREATE TABLE study_assets (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    system_id BIGINT UNSIGNED NULL,
+    lesson_id BIGINT UNSIGNED NULL,
+    filename VARCHAR(255) NOT NULL,
+    original_name VARCHAR(255),
+    file_type ENUM('pdf','image','diagram','svg') NOT NULL,
+    file_path VARCHAR(500) NOT NULL,
+    title VARCHAR(255),
+    description TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE,
+    FOREIGN KEY (lesson_id) REFERENCES lessons(id) ON DELETE CASCADE,
+    INDEX idx_system_id (system_id),
+    INDEX idx_lesson_id (lesson_id),
+    INDEX idx_file_type (file_type)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Interactive diagrams
+CREATE TABLE diagrams (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    system_id BIGINT UNSIGNED NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    image_path VARCHAR(500),
+    svg_data MEDIUMTEXT NULL,
+    is_interactive TINYINT(1) DEFAULT 0,
+    diagram_type ENUM('schematic','flow','location','electrical','hydraulic') NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE,
+    INDEX idx_system_id (system_id),
+    INDEX idx_diagram_type (diagram_type)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Diagram hotspots (clickable elements)
+CREATE TABLE diagram_hotspots (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    diagram_id BIGINT UNSIGNED NOT NULL,
+    label VARCHAR(100),
+    description TEXT,
+    x_pct DECIMAL(5,2),
+    y_pct DECIMAL(5,2),
+    hotspot_type ENUM('component','flow','note') NOT NULL DEFAULT 'component',
+    color_hex VARCHAR(7),
+    state_group VARCHAR(50),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (diagram_id) REFERENCES diagrams(id) ON DELETE CASCADE,
+    INDEX idx_diagram_id (diagram_id),
+    INDEX idx_state_group (state_group)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Diagram states (interactive states)
+CREATE TABLE diagram_states (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    diagram_id BIGINT UNSIGNED NOT NULL,
+    state_name VARCHAR(100) NOT NULL,
+    state_label VARCHAR(100),
+    description TEXT,
+    hotspot_overrides JSON NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (diagram_id) REFERENCES diagrams(id) ON DELETE CASCADE,
+    INDEX idx_diagram_id (diagram_id),
+    UNIQUE KEY unique_diagram_state (diagram_id, state_name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================================
+-- FLASHCARD TABLES
+-- ============================================================================
+
+-- Flashcards for spaced repetition learning
+CREATE TABLE flashcards (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    system_id BIGINT UNSIGNED NULL,
+    subtopic_id BIGINT UNSIGNED NULL,
+    front TEXT NOT NULL,
+    back TEXT NOT NULL,
+    hint TEXT,
+    difficulty ENUM('easy','medium','hard') NOT NULL DEFAULT 'medium',
+    tags JSON NULL,
+    created_by BIGINT UNSIGNED NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE,
+    FOREIGN KEY (subtopic_id) REFERENCES subtopics(id) ON DELETE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL,
+    INDEX idx_system_id (system_id),
+    INDEX idx_subtopic_id (subtopic_id),
+    INDEX idx_difficulty (difficulty)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Flashcard review tracking (spaced repetition SM2 algorithm)
+CREATE TABLE flashcard_reviews (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    flashcard_id BIGINT UNSIGNED NOT NULL,
+    user_id BIGINT UNSIGNED NOT NULL,
+    rating TINYINT,
+    next_review_at DATETIME,
+    interval_days INT DEFAULT 1,
+    ease_factor DECIMAL(4,2) DEFAULT 2.50,
+    review_count INT DEFAULT 0,
+    reviewed_at DATETIME,
+    FOREIGN KEY (flashcard_id) REFERENCES flashcards(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_user_flashcard (flashcard_id, user_id),
+    INDEX idx_user_id (user_id),
+    INDEX idx_next_review_at (next_review_at),
+    INDEX idx_user_next_review (user_id, next_review_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================================
+-- QUIZ TABLES
+-- ============================================================================
+
+-- Quizzes
+CREATE TABLE quizzes (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    system_id BIGINT UNSIGNED NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    quiz_type ENUM('practice','exam','scenario') NOT NULL DEFAULT 'practice',
+    time_limit_mins INT NULL,
+    pass_score TINYINT DEFAULT 70,
+    is_published TINYINT(1) DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE,
+    INDEX idx_system_id (system_id),
+    INDEX idx_quiz_type (quiz_type),
+    INDEX idx_is_published (is_published)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Quiz questions
+CREATE TABLE quiz_questions (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    quiz_id BIGINT UNSIGNED NOT NULL,
+    question_text TEXT NOT NULL,
+    question_type ENUM('mcq','true_false','sequence','label') NOT NULL DEFAULT 'mcq',
+    options JSON,
+    correct_answer JSON,
+    explanation TEXT,
+    difficulty ENUM('easy','medium','hard') NOT NULL DEFAULT 'medium',
+    sort_order INT DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE,
+    INDEX idx_quiz_id (quiz_id),
+    INDEX idx_question_type (question_type)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Quiz attempts
+CREATE TABLE quiz_attempts (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    quiz_id BIGINT UNSIGNED NOT NULL,
+    user_id BIGINT UNSIGNED NOT NULL,
+    score TINYINT,
+    time_taken_secs INT,
+    started_at DATETIME NOT NULL,
+    completed_at DATETIME NULL,
+    status ENUM('in_progress','completed','abandoned') NOT NULL DEFAULT 'in_progress',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_user_id (user_id),
+    INDEX idx_quiz_id (quiz_id),
+    INDEX idx_status (status),
+    INDEX idx_completed_at (completed_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Quiz answers (individual question responses)
+CREATE TABLE quiz_answers (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    attempt_id BIGINT UNSIGNED NOT NULL,
+    question_id BIGINT UNSIGNED NOT NULL,
+    user_answer JSON,
+    is_correct TINYINT(1) DEFAULT 0,
+    time_taken_secs INT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (attempt_id) REFERENCES quiz_attempts(id) ON DELETE CASCADE,
+    FOREIGN KEY (question_id) REFERENCES quiz_questions(id) ON DELETE CASCADE,
+    INDEX idx_attempt_id (attempt_id),
+    INDEX idx_is_correct (is_correct)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================================
+-- STUDY TRACKING TABLES
+-- ============================================================================
+
+-- Study sessions
+CREATE TABLE study_sessions (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT UNSIGNED NOT NULL,
+    system_id BIGINT UNSIGNED NULL,
+    session_type ENUM('detail','revision','flashcard','quiz','diagram') NOT NULL,
+    started_at DATETIME NOT NULL,
+    ended_at DATETIME NULL,
+    duration_secs INT,
+    notes TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE,
+    INDEX idx_user_id (user_id),
+    INDEX idx_system_id (system_id),
+    INDEX idx_session_type (session_type),
+    INDEX idx_started_at (started_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Study plans
+CREATE TABLE study_plans (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT UNSIGNED NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    exam_date DATE NULL,
+    daily_minutes INT DEFAULT 60,
+    status ENUM('active','paused','completed') NOT NULL DEFAULT 'active',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_user_id (user_id),
+    INDEX idx_status (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Study plan items
+CREATE TABLE study_plan_items (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    plan_id BIGINT UNSIGNED NOT NULL,
+    system_id BIGINT UNSIGNED NOT NULL,
+    scheduled_date DATE NOT NULL,
+    duration_mins INT,
+    status ENUM('pending','completed','skipped') NOT NULL DEFAULT 'pending',
+    completed_at DATETIME NULL,
+    FOREIGN KEY (plan_id) REFERENCES study_plans(id) ON DELETE CASCADE,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE,
+    INDEX idx_plan_id (plan_id),
+    INDEX idx_scheduled_date (scheduled_date),
+    INDEX idx_status (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Revision schedule (spaced repetition)
+CREATE TABLE revision_schedule (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT UNSIGNED NOT NULL,
+    system_id BIGINT UNSIGNED NOT NULL,
+    lesson_id BIGINT UNSIGNED NULL,
+    next_review_date DATE NOT NULL,
+    interval_days INT DEFAULT 1,
+    priority TINYINT DEFAULT 5,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE,
+    FOREIGN KEY (lesson_id) REFERENCES lessons(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_user_system_lesson (user_id, system_id, lesson_id),
+    INDEX idx_user_id (user_id),
+    INDEX idx_next_review_date (next_review_date),
+    INDEX idx_user_next_review (user_id, next_review_date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- User progress tracking
+CREATE TABLE user_progress (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT UNSIGNED NOT NULL,
+    system_id BIGINT UNSIGNED NOT NULL,
+    lesson_id BIGINT UNSIGNED NULL,
+    status ENUM('not_started','in_progress','completed') NOT NULL DEFAULT 'not_started',
+    confidence TINYINT DEFAULT 0,
+    time_spent_secs INT DEFAULT 0,
+    last_studied DATETIME NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE,
+    FOREIGN KEY (lesson_id) REFERENCES lessons(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_user_system_lesson (user_id, system_id, lesson_id),
+    INDEX idx_user_id (user_id),
+    INDEX idx_status (status),
+    INDEX idx_last_studied (last_studied)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- User topic strength tracking
+CREATE TABLE user_topic_strength (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT UNSIGNED NOT NULL,
+    system_id BIGINT UNSIGNED NOT NULL,
+    subtopic_id BIGINT UNSIGNED NULL,
+    strength_score TINYINT DEFAULT 50,
+    quiz_attempts INT DEFAULT 0,
+    correct_answers INT DEFAULT 0,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE,
+    FOREIGN KEY (subtopic_id) REFERENCES subtopics(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_user_system_subtopic (user_id, system_id, subtopic_id),
+    INDEX idx_user_id (user_id),
+    INDEX idx_strength_score (strength_score)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================================
+-- NOTES & TAGGING
+-- ============================================================================
+
+-- User notes
+CREATE TABLE notes (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT UNSIGNED NOT NULL,
+    system_id BIGINT UNSIGNED NULL,
+    lesson_id BIGINT UNSIGNED NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE,
+    FOREIGN KEY (lesson_id) REFERENCES lessons(id) ON DELETE CASCADE,
+    INDEX idx_user_id (user_id),
+    INDEX idx_system_id (system_id),
+    INDEX idx_lesson_id (lesson_id),
+    INDEX idx_created_at (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Tags for content
+CREATE TABLE tags (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    slug VARCHAR(100) NOT NULL UNIQUE,
+    color_hex VARCHAR(7),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_slug (slug)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Content tags mapping
+CREATE TABLE content_tags (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    tag_id BIGINT UNSIGNED NOT NULL,
+    content_type ENUM('lesson','flashcard','quiz') NOT NULL,
+    content_id BIGINT UNSIGNED NOT NULL,
+    FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_content_tag (tag_id, content_type, content_id),
+    INDEX idx_content_type_id (content_type, content_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================================
+-- IMPORT & LOGGING
+-- ============================================================================
+
+-- Content import logs
+CREATE TABLE content_import_logs (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    filename VARCHAR(255) NOT NULL,
+    import_type VARCHAR(50),
+    status ENUM('pending','processing','completed','failed') NOT NULL DEFAULT 'pending',
+    records_imported INT DEFAULT 0,
+    errors JSON NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    completed_at DATETIME NULL,
+    INDEX idx_status (status),
+    INDEX idx_created_at (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

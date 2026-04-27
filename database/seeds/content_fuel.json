@@ -1,0 +1,491 @@
+{
+  "system_name": "Fuel",
+  "ata_code": "ATA28",
+  "pdf_file": "Q400-Fuel.pdf",
+  "full_text": "12.9\n\n(ATA 28) FUEL\n\n12.9.1\n\nIntroduction\n\nFuel is contained in two integral main wing tanks designated No. 1 and No. 2. The fuel system\nprovides  for  indicating,  storing,  venting,  fuel  feeding  and  scavenging,  refueling/defueling,  and\ntransferring. Only tank to tank transfer is available; there is no engine crossfeed capability. The\naircraft may be gravity or pressure refueled.\n\n12.9.2\n\nGeneral\n\nA fuel gauging system supplies quantity data to the flight compartment and refuel/defuel panel\nfor display. Fuel quantity may also be checked on the ground by use of the magnetic dipsticks.\n\nEach wing tank includes a surge bay and a collector bay. The left tank supplies fuel to the left\nengine  and  the  optional  Auxiliary  Power  Unit  (APU).  The  right  tank  supplies  fuel  to  the  right\nengine. A vent system keeps the air pressure in the fuel tanks between structural limits.\n\nFuel can be transferred between the tanks for lateral balancing or for fuel management. A single\npoint pressure refuel/defuel system shares selected common components with the fuel transfer\nsystem. Gravity refueling may also be done through two overwing fuel filler points.\n\nDash8 - Q400 - FuelPage 1\f12.9.3\n\nControls and Indications - Fuel\n\nDash8 - Q400 - FuelPage 2\f1\n\n2\n\n3\n\nNAV\n\nPFD\n\nSYS\n\nENG\n\nELEC\n SYS\n\nENG\nSYS\n\nFUEL\n SYS\n\nSYS\n\nNAV\n\nPFD\n\nENG\n\nMFD1\n\nNORM\n\n1\n\n2\n\nDOORS\n   SYS\n\nALL\n\nTEST\n\nED BRT\n\nEFIS\nATT/HDG\n\nSOURCE\n\nOFF\n\nMFD2\n\nNORM\n\n2\n\n1\n\nEFIS\n\nADC\nSOURCE\n\nFigure 12.9-1 Engine and System Integrated Displays Control Panel (ESCP)\n\nDash8 - Q400 - FuelPage 3\fESCP CALLOUTS PERTAINING TO FUEL ITEMS\n\n1. MFD 1 REVISION SELECTOR (4 position, rotary action)\n\nTURN - selectable positions are PFD, NAV, SYS, ENG\n-  ESCP provides the pilot with the ability to select any page on the MFD1 and to control\n\nthe EIS reversion after display failures\n\n2. FUEL SYS PUSHBUTTON (momentary action)\n\nPUSH - provides a display of the fuel system page on the MFD (upper area) with MFD 1 or\n\nMFD 2 set at SYS\nthere is no action with another push\n\n- \n\nPUSH AND HOLD - (with both MFDs not set to SYS)\n-\n-\n\nfuel system page shown on the Engine Display (ED)\nED images are shown again when the pushbutton is released\n\n3. MFD 2 REVISION SELECTOR (4 position, rotary action)\nsame as MFD1 selector except selects pages on MFD2\n\n- \n\nDash8 - Q400 - FuelPage 4\fFigure 12.9-2 Fuel Control Panel\n\nDash8 - Q400 - FuelPage 5\fFUEL CONTROL PANEL CALLOUTS\n\n1. TANK 1 AUX PUMP SWITCHLIGHT (alternate action)\n\nactivates auxiliary fuel pump in left collector bay\n\nPUSH - ON segment (green)\n- \nPUSH - ON segment (out)\n- \nON segment (green) without pushing\n- \n\ndeactivates auxiliary fuel pump in left collector bay\n\nauxiliary fuel pump has been activated by the fuel transfer system (TANK 1 to TANK 2)\n\n2. FUEL TRANSFER SWITCH (three position, lever latched)\n\nTO TANK 1 - activates transfer system to transfer fuel from tank No. 2 to tank No. 1\n\nCENTER - transfer system deactivated\n\nTO TANK 2 - activates transfer system to transfer fuel from tank No. 1 to tank No. 2\n\n3. TANK 2 AUX PUMP SWITCHLIGHT (alternate action)\n\nsame as TANK 1 AUX PUMP switchlight, except auxiliary pump in No. 2 collector bay\n\n- \nON segment (green) without pushing\n-\n\nauxiliary fuel pump has been activated by the fuel transfer system (TANK 2 to TANK 1)\n\nDash8 - Q400 - FuelPage 6\f4\n\n3\n\n2\n\n1\n\nVALVE\n\nCLOSED\n\nFUEL\n\nTRANSFER SW\n\nTO\nTANK1\n\nOFF\n\nTO\nTANK2\n\nVALVE\n\nCLOSED\n\n2\n\n1\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n7\n0\n\n5\n\n6\n\nTANK +20°C\n\nTANK1\nAUX PUMP\n\nTANK2\nAUX PUMP\n\nSW\nOFF\n\nSW\nON\n\nTOTAL FUEL\n4800 LBS\n\n2\n\n1\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n0\n7\n\n5\n\n6\n\n50\n\n10\n\nFLAP\nDEG\n\n35\n35\n\nHYD  PRESS\nPSI x 1000\n2\n1\n\nSTBY\n\nPK\nBRK\n\n3\n\nHYD  QTY\n% x 1000\n3\n2\n\n1\n\n4\n\n2\n\n0\n\n4\n\n3\n\n1\n\n5\n\nFigure 12.9-3 MFD2 Fuel Page - Quantity Indications\n\nDash8 - Q400 - FuelPage 7\fMULTI FUNCTION DISPLAY (MFD) FUEL PAGE CALLOUTS\n\n1.AUXILIARY FUEL PUMPS SWITCH ANNUNCIATOR\n\nthe respective TANK 1 or TANK 2 AUX PUMP switchlight is not in the depressed position\n\nOFF segment (white text surrounded by a white box)\n- \nON segment (reverse video, black text on green background)\n-\n\nthe respective TANK 1 or TANK 2 AUX PUMP switchlight is in the depressed position\n\n-  white dashes replace the text (without a box), when no data is available\n\n2. DIGITAL DISPLAY OF FUEL TANK TEMPERATURE \n\n(digital value and TANK segment in white, °C segment in blue)\n-\n- \n\n indicates temperature in left collector bay with a ± sign\nif  using  JET  B/JP-4  and  TANK  temperature  is  more  than  35°C,  maximum  altitude  is\n20.000 ft\nindicates from -99 to +99 in 1° increments\ndigits are replaced by white dashes when the data is not valid\n\n- \n- \n\n3. ANALOG DISPLAY OF FUEL QUANTITY\n\n- \n\ngives an analog readout of fuel quantity in the left and right tanks\n\nQTY segment (white)\nKGx1000 segment (cyan)\nScale and digit segments (white)\n- \nPointer segment (white) - normal\nPointer segment (yellow) - during an imbalance condition\n- \n\nremoved when the parameter is not valid\n\nscale marks and digits are removed when the parameter is not valid\n\n4. TANK AUXILIARY PUMP PRESSURE STATUS INDICATOR\n\nCircle segment (white outline with black fill) - low or no pressure \nCircle segment (white outline with green fill) - normal pressure\n\n5. DIGITAL DISPLAY OF TOTAL FUEL QUANTITY\n\n(digital value and TOTAL FUEL in white, KG segment in blue)\n- \n- \n- \n\ntotal fuel quantity given in KG\nindicates from 0 to 15000 in 5 KG increments\ndigits are replaced by white dashes when the data is not valid\n\nDash8 - Q400 - FuelPage 8\f1\n\n2\n\n1\n\nVALVE\n\nOPEN\n\nFUEL\n\nTRANSFER SW\n\nVALVE\n\nTO\nTANK1\n\nTO\nTANK2\n\nOPEN\n\n2\n\n1\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n7\n0\n\n5\n\n6\n\nTANK +20°C\n\nTANK1\nAUX PUMP\n\nTANK2\nAUX PUMP\n\nSW\nOFF\n\nSW\nON\nOFF\n\nTOTAL FUEL\n4000 LBS\n\n2\n\n1\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n0\n7\n\n5\n\n6\n\n50\n\n10\n\nFLAP\nDEG\n\n35\n35\n\nHYD  PRESS\nPSI x 1000\n2\n1\n\nSTBY\n\nPK\nBRK\n\n3\n\nHYD  QTY\n% x 1000\n3\n2\n\n1\n\n4\n\n2\n\n0\n\nFigure 12.9-4 MFD Fuel Page - Transfer Indications\n\nDash8 - Q400 - FuelPage 9\fMULTI FUNCTION DISPLAY (MFD) FUEL PAGE CALLOUTS\n\n1. FUEL SHUTOFF VALVE ANNUNCIATOR\n\nindicates shutoff valve state in response to a crew transfer request\n\n- \nVALVE segment (white)\nCLOSED segment (white in upper white outline rectangle)\n- \nOPEN segment (reverse video, black text on green in lower rectangle)\n- \n-  when the valve is neither fully closed nor fully open (typical case during valve transition),\n\nindicates fuel transfer valve is closed\n\nindicates fuel transfer valve is open\n\n- \n\nnothing is displayed\nthree white dashes are displayed instead of the CLOSED and OPEN indication when no\ndata is available\n\n2. FUEL TRANSFER SWITCH INDICATION\n\nindicates the position of the FUEL TRANSFER switch on the FUEL CONTROL panel\n\n- \nTRANSFER SW segment (white)\nTO TANK 1 and TO TANK 2 segment (white)\nTriangle segment (white in white outline rectangle)\n- \n- \n- \n\npointing towards the left indicates that a transfer is active from right to left\npointing towards the right indicates that a transfer is active from left to right\nin case of inconsistency (transfer fault towards both sides), both triangles are displayed\nas the data is received\nthree white dashes are displayed when no data is available\n\n- \nOFF segment (white in white outline rectangle)\nindicates no fuel transfer is requested\n- \n\nDash8 - Q400 - FuelPage 10\fMCR\n75%\nBLEED\n\nTRQ\n%\n\nNH\n%RPM\n\n75\n\n75\n\n92.3\n\nFF\nPPH\n1020\n\nNL\n%RPM\n74\n\n1\n\n2\n\nPROP\nRPM\n\n850\n\n850\n\nITT\n°C\n\n755\n\n755\n\n°C\n50\n\nOIL\n\nPSI\n50\n\n[ BALANCE ]\nFUEL\nLBS\n°C\n\n1020\n+18\n\n1625\n+18\n\nMCR\n75%\nBLEED\n\nNH\n%RPM\n\n92.3\n\nFF\nPPH\n- - - -\n\nNL\n%RPM\n74\n\n°C\n75\n\nOIL\n\nPSI\n50\n\n1\n\nSAT  +22°C\n\n3\n\n4\n\n4\n\n3\n\nFigure 12.9-5 ED Fuel Parameters\n\nDash8 - Q400 - FuelPage 11\fED CALLOUTS PERTAINING TO FUEL ITEMS\n\n1. FUEL FLOW INDICATOR\n\n(FF and digital value in white, PPH or KG/H in blue)\n- \n- \n\nindicates from 0 to 9990 in 10 PPH or 5 KG/H increments\ndigits are replaced by white dashes when the data is not valid\n\n2.\n\n[BALANCE] MESSAGE (yellow, flashings)\n- \n\nindicates a fuel imbalance condition is detected by the left or right Fuel Gauging Com-\nputer (FGC1 or FGC2)\n\n3. LEFT/RIGHT FUEL TANK QUANTITY DIGITAL VALUE \n(Digital value white, yellow if imbalance, KG in blue)\n- \n- \n- \n\ntotal fuel quantity given in KG\nindicates from 0 to 9990 in 5 KG increments\ndigits are replaced by white dashes when the data is not valid\n\n4. LEFT/RIGHT FUEL INLET TEMPERATURE DIGITAL VALUE\n\n(Digital value in white, yellow, or red, °C segment in blue)\n- \n\nindicates temperature of the fuel with a ± sign, after it has passed through the Fuel Oil\nHeat Exchanger (FOHE)\nindicates from -99 to +99 in 1° increments\ndigits are normally displayed in white\ndigits will turn yellow if the temperature is below 0°C\ndigits will turn red if the temperature is above 71°C\ndigits are replaced by white dashes when the data is not valid\ncontinuous operation with fuel heater outlet temperature below 0°C or above 71°C is pro-\nhibited.\n\n-\n-\n-\n-\n-\n-\n\nDash8 - Q400 - FuelPage 12\fA\n\n3\n1\n\n1\n3\n\n1\n\n2\n\n4\n\nIN USE\n\nSTOWED\n\n2\n\n4\n\n2\n\n4\n\nA\n\nFigure 12.9-6 Magnastick Operation Locator\n\nDash8 - Q400 - FuelPage 13\fMAGNETIC DIPSTICK CALLOUTS AND OPERATION\n\n1.MAGNATIC DISPSTICK MAGNET\n\n2.FLOAT MAGNET\n\n3.FUEL LEVEL IN MAIN TANK\n\n4. CALIBRATED MAGNETIC DIPSTICK\n-\n\nthe magnetic dipsticks give an alternate means to measure the fuel quantity when the aircraft\nis on the ground\nthe magnetic dipstick is accessed at the bottom of the wing\n\n-\n- when the rod is released, it moves slowly down until the rod magnet is attracted by the float\n\nmagnet\nthe fuel quantity is shown in US gallons or in liters\nthe reading will indicate full whenever the tank is more than 700 U.S. Gal (2700 L)\nthe reading will indicate empty whenever the tank is less than 100 U.S. Gal (400 L)\n\n-\n-\n-\n\nDash8 - Q400 - FuelPage 14\f6\n\n7\n\n7\n\n6\n\n5\n\nn\no\n\nd\ne\nt\na\nc\no\n\nl\n\nt\nn\ne\nn\no\np\nm\no\nC\n\nl\n\n.\ny\nn\no\n\ne\n\nl\nl\n\ne\nc\na\nN\n\nt\nh\ng\ni\nr\n\nE\nT\nO\nN\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\n2\nK\nN\nA\nT\n\n1\nK\nN\nA\nT\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\n2\nK\nN\nA\nT\n\n1\nK\nN\nA\nT\n\nF\nF\nO\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nR\n\nB\nL\n\nY\nT\nQ\nL\nE\nU\nF\n\n0\n0\n1\n3\n\n0\n0\n1\n3\n\n0\n0\n2\n6\n\n1\nK\nN\nA\nT\n\n2\nK\nN\nA\nT\n\nL\nE\nS\nE\nR\nP\n\nA\n\n8\n\n8\n\n9\n\nA\n\n2\nK\nN\nA\nT\n\nN\nE\nP\nO\n\n1\nK\nN\nA\nT\n\nE\nS\nO\nL\nC\n\nK\nC\nE\nH\nC\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nL\nE\nU\nF\nE\nR\n\nR\nC\nN\n\nI\n\nT\nS\nE\nT\n\nR\nC\nE\nD\n\nT\nE\nS\nE\nR\n\nW\nE\nR\nC\nD\nN\nU\nO\nR\nG\n\nK\nC\nA\nJ\n\n4 3\n\n2 1\n\nFigure 12.9-7 Refuel/Defuel Panel (1 of 2)\n\nDash8 - Q400 - FuelPage 15 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\fREFUEL/DEFUEL PANEL CALLOUTS\n\n1.REFUEL/DEFUEL INDICATOR (RDI)\n\n2. PRESELECTED FUEL QUANTITY\n\n-\n\ndesired  amount  of  fuel  for processing  a  refueling or defueling  operation, as set  by the\nINCR/DECR switch\n\n3. TANK 2 ACTUAL FUEL QUANTITY\n\n4.TANK 1 ACTUAL FUEL QUANTITY\n\n5. MASTER VALVE INDICATOR LIGHT (amber)\n\n- master refuel/defuel valve is closed\n- \n\nturning selector switch from OFF will open the valve and light will go off\n\n6. TANK 1/TANK 2 DUMP VALVE LIGHT (amber)\nvent/dump valve related tank is open\n\n-\n\n7. TANK 1/TANK 2 REFUEL SHUTOFF VALVE LIGHT (white)\n\n-\n\nlevel control shutoff valve is closed (i.e. no fuel is flowing into related tank)\n\n8. TANK 1/2 LEVEL CONTROL SHUTOFF VALVE SWITCHES \n\n(three position spring loaded away from PRECHECK, toggle switch)\n\nPRECHECK - simulates full fuel signal to the High Level Control Unit (HLCU) stopping refu-\neling of related tank\nOPEN - opens related Refuel/Defuel/Transfer shutoff valve for refueling or defueling\nCLOSE - closes related Refuel/Defuel/Transfer shutoff valve to stop fuel flow\n\n9. REFUEL/DEFUEL SELECTOR SWITCH (5 position)\n\nREFUEL or DEFUEL- manual refueling or defueling continues until the selected switch is set\nto OFF, the HLCU detects a full tank, or the level control shutoff valve switches are placed in\nthe CLOSE position\nPRESELECT REFUEL or DEFUEL - refuel/defuel operation stops automatically, when the\npreselected levels are reached\nOFF - power removed from the refuel/defuel control panel\n\nDash8 - Q400 - FuelPage 16\fn\no\n\nd\ne\nt\na\nc\no\n\nl\n\nt\nn\ne\nn\no\np\nm\no\nC\n\nl\n\n.\ny\nn\no\n\ne\n\nl\nl\n\ne\nc\na\nN\n\nt\nh\ng\ni\nr\n\nE\nT\nO\nN\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\n2\nK\nN\nA\nT\n\n1\nK\nN\nA\nT\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\n2\nK\nN\nA\nT\n\n1\nK\nN\nA\nT\n\nF\nF\nO\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nR\n\nB\nL\n\nY\nT\nQ\nL\nE\nU\nF\n\n0\n0\n1\n3\n\n0\n0\n1\n3\n\n0\n0\n2\n6\n\n1\nK\nN\nA\nT\n\n2\nK\nN\nA\nT\n\nL\nE\nS\nE\nR\nP\n\nA\n\n2\nK\nN\nA\nT\n\nN\nE\nP\nO\n\n1\nK\nN\nA\nT\n\nE\nS\nO\nL\nC\n\nK\nC\nE\nH\nC\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nL\nE\nU\nF\nE\nR\n\nR\nC\nN\n\nI\n\nT\nS\nE\nT\n\nR\nC\nE\nD\n\nT\nE\nS\nE\nR\n\nW\nE\nR\nC\nD\nN\nU\nO\nR\nG\n\nK\nC\nA\nJ\n\n1\n1\n\nA\n\n0\n1\n\nFigure 12.9-8 Refuel/Defuel Panel (2 of 2)\n\nDash8 - Q400 - FuelPage 17 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\fREFUEL/DEFUEL PANEL CALLOUTS (cont’d)\n\n10. INCR/DECR SWITCH (three position, spring loaded to center)\n\n-\nused to set the desired amount of fuel for processing a refueling or defueling operation\nINCR or DECR - the current PRESEL display value on the RDI will increase/decrease by 10\n\n-\n\n-\n-\n\n-\n\n-\n\n-\n\nkg\nthis is repeated 10 times after which the current PRESEL display will increase/decrease\nby 100 kg\nindicates from 0 5800 kg\nthe displayed preselect value will never rise above the total fuel quantity when the refuel\nmode status indicates a defuel operation is in progress\nthe displayed preselect value will never fall below the total fuel quantity when the refuel\nmode status indicates a refuel operation is in progress\nfour seconds after the INCR/DECR switch is stable at the neutral position, the automatic\nrefuel/defuel function will start\nif refueling/defueling is in process and the INCR/DECR switch is moved out of its neutral\nposition, the refuel/defuel operation will stop and will restart four seconds after the INCR/\nDECR switch activity is stopped\n\n11. TEST/RESET SWITCH (three position, spring loaded to center)\n\nTEST - starts display test\n-\n\ndisplays a checkerboard pattern for 2 ± 1 seconds, followed by an inverse checkerboard\npattern for 2 ± 1 seconds and finally, followed by all segments turned off for 2 ± 1 sec-\nonds\n\nRESET - for maintenance purposes\n-\n\nselecting RESET during refueling/defueling will cause the operation to stop and ABORT\nwill be displayed in the PRESEL window. The PRESEL value will then display the current\ntotal  fuel  quantity.  To  restart  refueling/defueling,  the  PRESEL  value  will  have  to  be\nincrease or decrease using the INCR/DECR switch\n\nDash8 - Q400 - FuelPage 18\f12.9.4\n\nFuel - Indications\n\nFuel quantity and temperature data is shown in white on the Engine Display (ED) and the Fuel\nPage of the Multi Function Display (MFD). White dashes replace the digits or simulated dials if\nthe data is not valid or not available.\n\nA Fuel Quantity Computer (FQC) uses nine capacitance type fuel probes in each tank to deter-\nmine the total fuel quantity. The fuel quantity of each tank is shown in digital form on the bottom\ncenter  of  the  Engine  Display  (ED).  The  Fuel  Page  of  the  Multi  Function  Display  (MFD)  also\nshows the fuel quantity of each tank on two simulated analog dials and below that the total fuel\nquantity in digital form. The fuel quantity can be shown in kilograms (KG). The fuel flow for each\nengine is shown in digital form on the ED in units of KG/H.\n\nThe fuel temperature (°C) in the left collector tank is shown in digital form on the MFD Fuel Page,\njust below the left fuel quantity dial. The engine inlet temperature of the fuel after it has passed\nthrough  the  Fuel/Oil  Heat  Exchanger  (FOHE)  for  the  left  and  right  engines  is  shown  in  digital\nform on the bottom of the ED, just below the related fuel tank quantity. The digits are shown in\nwhite with a ± sign, and change to yellow or red if the temperature is not in the preset range. A °C\nunit is shown between the two inlet temperatures.\n\nThe fuel quantity of each tank is also shown on the refuel/defuel panel located at the back under-\nside of the right nacelle. One magnetic dipstick on the underside of each tank can also be used\non the ground to give an independent mechanical indication of the fuel quantity in liters or U.S.\ngallons. The magnetic dipstick is a calibrated rod with a magnet attached to  the top.  It moves\nwithin a tube that extends vertically from the bottom of the fuel tank. A float moves up and down\non the outside surface of this tube to match the fuel level in the tank. The float contains a magnet\nthat is attracted to the magnet on the magnetic dipstick, holding the dipstick at that level.\n\nDash8 - Q400 - FuelPage 19\f1\n\n2\n\n3\n\n5\n\n4\n\n4\n\n3\n\n2\n\n1\n\nFigure 12.9-9 Fuel Tank Layout\n\n.\nl\ne\nn\na\nP\n\nl\n\no\nr\nt\nn\no\nC\n\nl\n\ne\nu\nf\n\ne\nD\n\nf\n\n/\nl\ne\nu\ne\nR\ne\nr\nu\ns\ns\ne\nr\nP\n\n.\np\na\nC\n\nr\ne\n\nl\nl\ni\n\ni\n\nF\ng\nn\nw\nr\ne\nv\nO\n\n.\ny\na\nB\ne\ng\nr\nu\nS\n\n.\ny\na\nB\n\nr\no\n\nt\nc\ne\n\nl\nl\n\no\nC\n\n.\nk\nn\na\nT\nn\na\nM\n\ni\n\n.\n\n1\n\n.\n\n2\n\n.\n\n3\n\n.\n\n4\n\n.\n\n5\n\nD\nN\nE\nG\nE\nL\n\nDash8 - Q400 - FuelPage 20 \n \n \n \n \n \n \n \n \n \n \n \n \n\f12.9.5\n\nStorage And Distribution\n\nThere  are  two  integral  (wet)  wing  tanks  that  extend  laterally  from  the  fuselage  to  the  rib  just\ninboard of the ailerons (Figure 12.9-9). Each wing tank is divided into three sections:\n\nSurge bay \n\n•\n• Main tank\n• Collector bay\n\nThe surge bay is located between the two ribs inboard of the aileron. The main tank extends from\nthe surge bay to the fuselage and collector bay. The collector bay is located at the inboard and\naft part of the wing tank. Fuel is contained in the main tanks and the collector bays.\n\nTotal usable fuel from the tanks is 5,318 kg. The maximum lateral imbalance permitted between\ntanks is 272 kg. Water drain valves in the low points of the surge bays, main tanks, and collector\nbays are located on the underside of the wings.\n\nThe surge bay is used for main tank venting and fuel recovery. Two outboard float vent valves\nand  one  inboard  vent  line,  control  the  pressure  between  the  related  surge  bay  and  main  tank\n(Figure  12.9-10).  The  two  float  vent  valves,  located  near  the  top  of  the  tank,  open  and  close\ndepending on the fuel level in the main tank. Each surge bay is vented through integral stand-\npipes to two separate NACA vents on the bottom of the wings. During flight, any fuel that may\nspill into the surge bay, is returned to the tank by the reduced pressure in the main tank, as fuel is\nused.\n\nThe collector bay supplies engine fuel regardless of aircraft attitude. Fuel tank scavenging takes\nplace using scavenge ejector pumps in each tank which draw fuel from tank low points, to keep\nthe collector bay full. A primary ejector pump in the collector bay then provides a constant low-\npressure fuel supply to the engine. High-pressure motive flow is used to operate the scavenge\nand primary ejector pumps.\n\nFlapper check valves are located at the base of each collector bay, and select ribs. They ensure\ngravity fed fuel flow into the collector bay if the scavenge flow is not sufficient.\n\nThe related #1 TANK or #2 TANK FUEL LOW caution light will come on if:\n\n•\n•\n•\n\npark brake is off\nrelated collector bay level drops below approximately 150 kg.\nrelated engine is operating.\n\nDash8 - Q400 - FuelPage 21\fFigure 12.9-10 Fuel Tank Venting\n\nDash8 - Q400 - FuelPage 22\f12.9.6\n\nEngine Fuel Feed\n\nFuel to each engine is fed from the collector tank, from a primary ejector pump or an AC driven\nauxiliary pump, and delivered to the engine driven pump (Figure 12.9-11). If the engine driven\npump inlet pressure drops below a preset limit, the related #1 or #2 ENG FUEL PRESS caution\nlight comes on.\n\nAn AC (Variable Frequency) auxiliary pump in each collector bay serves as a back up source of\nfuel boost pressure for takeoff and landing, and in case the related primary ejector pump does\nnot supply the necessary fuel pressure. Related TANK 1 or TANK 2 AUX PUMP switchlights on\nthe FUEL CONTROL TRANSFER panel control the auxiliary pumps manually (Figure 12.9-12).\nA TANK 1 or TANK 2 AUX PUMP switch indicator on the MFD Fuel Page shows the position of\nthe switchlight. When the pump is supplying sufficient boost pressure, the TANK 1 or TANK 2\nAUX PUMP light on the Fuel Page will turn green, and the related ON switchlight segment turns\ngreen.\n\nThe engine feed shutoff valve closes when the related PULL FUEL/HYD OFF handle, on the Fire\nProtection Panel  (FPP), is  pulled  (Figure 12.9-12). Advisory  lights on the  FPP  show when the\nvalve is open or closed.\n\nThe fuel is filtered and heated by Fuel Oil Heat Exchanger (FOHE) before entering the FMU. If\nthe fuel filter becomes blocked, fuel bypasses the filter. The #1 or #2 FUEL FLTR BYPASS cau-\ntion light will come on if a related bypass is impending.\n\nDash8 - Q400 - FuelPage 23\fD\nE\nE\nF\nU\nP\nA\n\n)\n\nU\nP\nA\nO\nT\n(\n\nE\nN\nL\n\nP\n\nP\nM\nU\nP\nY\nR\nA\nL\nX\nU\nA\n\nI\n\nI\n\nH\nC\nT\nW\nS\nE\nR\nU\nS\nS\nE\nR\nP\n\nT\nF\nA\n\nE\nG\nN\nE\nV\nA\nC\nS\n\nR\nO\nT\nC\nE\nJ\nE\n\nE\nR\nU\nT\nA\nR\nE\nP\nM\nE\nT\n\nR\nO\nS\nN\nE\nS\n\nD\nE\nE\nF\nE\nN\nG\nN\nE\n\nI\n\nE\nV\nL\nA\nV\nF\nF\nO\n-\nT\nU\nH\nS\n\nE\nG\nN\nE\nV\nA\nC\nS\n\nR\nO\nT\nC\nE\nJ\nE\n\nI\n\nG\nN\nW\nD\nM\n\nI\n\nD\nR\nA\nO\nB\nT\nU\nO\n\nE\nG\nN\nE\nV\nA\nC\nS\n\nR\nO\nT\nC\nE\nJ\nE\n\nI\n\nY\nR\nA\nM\nR\nP\nO\nT\n\nR\nO\nT\nC\nE\nJ\nE\n\nP\nM\nU\nP\n\nT\nE\nL\nN\n\nI\n\nI\n\nR\nE\nN\nA\nR\nT\nS\n\nF\nF\nO\n-\nT\nU\nH\nS\nU\nP\nA\n\nE\nV\nL\nA\nV\n\nY\nR\nD\n\nY\nA\nB\n\nD\nR\nA\nW\nR\nO\nF\n\nE\nG\nN\nE\nV\nA\nC\nS\n\nR\nO\nT\nC\nE\nJ\nE\n\nR\nE\nP\nP\nA\nL\nF\n\nS\nE\nV\nL\nA\nV\n\n)\nL\nA\nC\nP\nY\nT\n(\n\nI\n\nR\nO\nT\nC\nE\nL\nL\nO\nC\n\nY\nA\nB\n\nP\nM\nU\nP\n\nI\n\nH\nC\nT\nW\nS\nT\nA\nO\nL\nF\n\nI\n\nY\nR\nA\nL\nX\nU\nA\n\nI\n\nCL\n\nT\nF\nA\nR\nC\nR\nA\n\nI\n\nD\nE\nE\nF\nE\nN\nG\nN\nE\n\nI\n\nI\n\nH\nC\nT\nW\nS\nE\nR\nU\nS\nS\nE\nR\nP\n\nI\n\nE\nN\nG\nN\nE\n\nP\n\nW\nO\nL\nF\nE\nV\nT\nO\nM\n\nI\n\nE\nV\nL\nA\nV\nK\nC\nE\nH\nC\n\nE\nG\nR\nU\nS\n\nY\nA\nB\n\nA\nC\nA\nN\n\nS\nT\nN\nE\nV\n\nFigure 12.9-11 Engine Fuel Feed Schematic\n\nfs number\n\nDash8 - Q400 - FuelPage 24 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\f°C\n50\n\nOIL PSI\n50\n\nFUEL\nLBS\n°C\n\n2400\n+18\n\n2400\n+18\nSAT +22°C\n\nVALVE\n\nCLOSED\n\nFUEL\n\nTRASFER SW\n\nTO\nTANK 1\n\nOFF\n\nTO\nTANK 2\n\nVALVE\n\nCLOSED\n\n2\n\n1\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n7\n0\n\nTANK1\nAUX PUMP\nSW\nON\n\nTANK2\nAUX PUMP\nSW\nOFF\n\n2\n\n1\n\n5\n\n6\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n7\n0\n\n5\n\n6\n\nTANK +15°C\n\nTOTAL FUEL\n4800 LBS\n\n°C\n75\n\nOIL PSI\n50\n\nT\n\nFOHE\n\nIFC 1\nIFC 2\n\nP\n\n#1 ENG\nFUEL PRESS\n\nIFC 1\nIFC 2\n\n#1 TANK\nFUEL LOW\n\nP\n\nEXTG\nAFT BTL\n\nFWD BTL\n\nFAULT\nA\n\nVALVES\nFUEL\n\nOPEN CLOSED\n\nB\nLO\n\nHYD\n\nFAULT\nB\n\nENGINE 1\n\nPULL FUEL/HYD OFF\n\nTEST\nDETECTIO\n\nTANK 1\nAUX PUMP\n\nON\n\nFUEL CONTROL\nTRANSFER\n\nTO\nTANK\n1\n\nTO\nTANK\n2\n\nLEGEND\n\nELECTRICAL\nSIGNAL\n\nFigure 12.9-12 Engine Fuel Feed Operation\n\nDash8 - Q400 - FuelPage 25\fTANK 1\nAUX PUMP\n\nFUEL CONTROL\nTRANSFER\n\nTO\nTANK\n1\n\nTO\nTANK\n2\n\nTANK 2\nAUX PUMP\n\nON\n\nLEVEL CONTROL\n\nSHUTOFF VALVE\n\nFROM REFUELING\n\nADAPTER\n\nFUEL TRANSFER\n\nSHUTOFF VALVE\n\nAUXILIARY\n\nPUMP\n\nCOLLECTOR\n\nBAY\n\nCOLLECTOR\n\nBAY\n\nIFC 1\nIFC 2\n\nLEVEL CONTROL\n\nSOLENOID\n\nVALVE\n\nOPEN\n\nFUEL\n\nTRANSFER SW\n\nVALVE\n\nTO\nTANK1\n\nTO\nTANK2\n\nOPEN\n\n2\n\n1\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n7\n0\n\n5\n\n6\n\nTANK  +20°C\n\nTANK1\n\nTANK2\n\nAUX PUMP\nSW\nOFF\n\nAUX PUMP\nSW\nOFF\n\n2\n\n1\n\nTOTAL FUEL\n4000 LBS\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n7\n0\n\n5\n\n6\n\nLEGEND\n\nELECTRICAL\nSIGNAL\n\nPRESSURE SWITCH\n\nFigure 12.9-13 Fuel Transfer Schematic\n\nDash8 - Q400 - FuelPage 26\f12.9.7\n\nFuel Transfer\n\nFuel can be transferred from one tank to the other to correct fuel imbalances or for fuel manage-\nment. If the Fuel Quantity Computer (FQC) detects a fuel imbalance of more than 272 kg, a yel-\nlow [BALANCE] message flashes just above the FUEL legend of the ED. The message will flash\nuntil the imbalance is corrected. An imbalance condition will also be shown on the Fuel Page by\nthe analog quantity dials changing to solid yellow.\n\nA TRANSFER switch on the FUEL CONTROL TRANSFER panel controls the fuel transfer sys-\ntem (Figure 12.9-13). When the TRANSFER switch is selected, the auxiliary pump in the donor\ntank operates automatically to pump fuel to the receiver tank. A signal from the operating pump\ncauses the related ON switchlight segment to turn green. Electrically operated fuel transfer shut-\noff valves open for fuel transfer and close when the transfer is stopped. Fuel transfer indications\nare also shown on the MFD Fuel Page. Once selected, fuel transfer will continue until deselected\nby the flight crew or until a high-level sensor in the wing tank which is receiving fuel detects an\noverfill condition, which automatically halts fuel transfer. Fuel cannot be transferred if the FUEL-\nING ON caution light is on. The FUELING ON caution light is on if the refuel/defuel access door\nis open.\n\nDash8 - Q400 - FuelPage 27\fI\n\nL\nA\nC\nR\nT\nC\nE\nL\nE\n\nL\nA\nN\nG\nS\n\nI\n\nD\nN\nE\nG\nE\nL\n\n2\nK\nN\nA\nT\n\nN\nE\nP\nO\n\n1\nK\nN\nA\nT\n\nE\nS\nO\nL\nC\n\nK\nC\nE\nH\nC\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nL\nE\nU\nF\nE\nR\n\nR\nC\nN\n\nI\n\nT\nS\nE\nT\n\nR\nC\nE\nD\n\nT\nE\nS\nE\nR\n\nW\nE\nR\nC\nD\nN\nU\nO\nR\nG\n\nK\nC\nA\nJ\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\n2\nK\nN\nA\nT\n\n1\nK\nN\nA\nT\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\n2\nK\nN\nA\nT\n\n1\nK\nN\nA\nT\n\nF\nF\nO\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nR\n\nB\nL\n\nY\nT\nQ\nL\nE\nU\nF\n\n0\n0\n1\n3\n\n0\n0\n1\n3\n\n0\n0\n2\n6\n\n1\nK\nN\nA\nT\n\n2\nK\nN\nA\nT\n\nL\nE\nS\nE\nR\nP\n\nL\nE\nV\nE\nL\nH\nG\nH\n\nI\n\nR\nO\nS\nN\nE\nS\n\nL\nE\nU\nF\nE\nD\n/\nL\nE\nU\nF\nE\nR\n\nE\nV\nL\nA\nV\nF\nF\nO\nT\nU\nH\nS\n\n/\nL\nE\nU\nF\nE\nR\n\nL\nE\nU\nF\nE\nD\n\nR\nE\nT\nP\nA\nD\nA\n\nR\nO\nT\nC\nE\nL\nL\nO\nC\n\nY\nA\nB\n\nR\nO\nT\nC\nE\nL\nL\nO\nC\n\nY\nA\nB\n\nL\nE\nV\nE\nL\n\nL\nO\nR\nT\nN\nO\nC\n\nI\n\nD\nO\nN\nE\nL\nO\nS\n\nR\nE\nF\nS\nN\nA\nR\nT\nL\nE\nU\nF\n\nS\nE\nV\nL\nA\nV\nF\nF\nO\nT\nU\nH\nS\n\nL\nO\nR\nT\nN\nO\nC\nL\nE\nV\nE\nL\n\nE\nV\nL\nA\nV\nF\nF\nO\nT\nU\nH\nS\n\nP\nM\nU\nD\nT\nN\nE\nV\n\n/\n\nE\nV\nL\nA\nV\n\nFigure 12.9-14 Refueling Schematic\n\nfs number\n\nDash8 - Q400 - FuelPage 28 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\f12.9.8\n\nRefueling\n\nThe refuel/defuel panel controls all refuel and defuel operations (Figure 12.9-14). Access to the\npanel is gained through a flush door on the rear underside of No. 2 nacelle. DC power must be\navailable for refueling. The FUELING ON caution light will come on when the refuel/defuel door\nis open with electrical power supplied. Refueling can be accomplished either automatically (PRE-\nSELECT REFUEL), or manually (REFUEL).\n\nWhen the rotary selector is turned to the PRESELECT REFUEL or REFUEL position, the MAS-\nTER VALVE CLOSED light goes out to show that the refuel/defuel shutoff valve is open (Figure\n12.9-15,16).  The  refuel/defuel  shutoff  valve  will  close  when  the  refuel/defuel  door  is  closed,\nregardless of the rotary selector position. During pressure refueling, fuel pressure opens a vent/\ndump valve in each tank to vent the tanks through the surge bay. For automatic refueling, the\ndesired quantity is selected adjacent the PRESEL display on the Refuel/Defuel Indicator (RDI),\nby using the INCR DECR toggle switch (Figure 12.9-17). When the selected quantity is reached,\nthe level control shutoff valve automatically stops fuel flow to the related tank. The PRECHECK,\nOPEN, CLOSE switches must be set to OPEN for refueling.\n\nDuring  manual  refueling,  the  desired  quantity  in  each  tank  is  controlled  by  the  PRECHECK,\nOPEN,  CLOSE  switches.  The  RDI  will  display  the  individual  tank  quantities.  With  the  rotary\nselector  turned  to  the  REFUEL  position,  refueling  continues  until  the  PRECHECK,  OPEN,\nCLOSE switches are in the CLOSE position, the selector switch is turned to the OFF position, or\nuntil the high level sensors sense a full tank condition.\n\nWhen fueling is in progress, advisory lights on the refuel/defuel control panel indicate the position\nof the fuel control valves. The amber DUMP VALVE OPEN indicator light comes on when the\nrelated vent/dump valve opens. The vent/dump valve allows air to vent from the tank as it fills,\nand prevents damage should the tank overfill due to failure of both normal and backup shutoff\nfeatures. In the latter case, fuel flows into the surge bay through the refuel vent valve and, if it\nreaches the height of the standpipes, is spilled overboard through the surge bay NACA vents.\n\nTwo  PRECHECK,  OPEN,  CLOSE  switches  test  the  automatic  shutoff  operation  of  the  related\nhigh level control unit during refueling, ensuring operation of the overfill shut off system. With the\nswitch in the PRECHECK position a full tank is simulated for the related tank, and the high level\nsensor shuts off refueling to that tank by closing the level control shut off valve. This causes the\nrelated  amber  REFUEL  SHUTOFF  light  to  turn  on.  Refueling  restarts  when  the  switch  is\nreleased. If DC power is lost during refueling, refueling stops.\n\nGravity refueling can be done through the wing mounted gravity refuel adapter located on the top\nsurface of the wing (Figure 12.9-18).\n\nDash8 - Q400 - FuelPage 29\fFUEL QTY\n\nTANK 1\n\nTANK 2\n\nPRESEL\n\nTEST\n\nINCR\n\nRESET\n\nDECR\n\nGROUND CREW\n          JACK\n\nDUMP VALVE OPEN\nTANK 1\n\nDUMP VALVE OPEN\nTANK 2\n\nREFUEL SHUTOFF\nTANK 1\n\nREFUEL SHUTOFF\nTANK 2\n\nOFF\n\nPRESELECT\nREFUEL\n\nPRESELECT\nDEFUEL\n\nREFUEL\n\nDEFUEL\n\nPRECHECK\n\nTANK 1\n\nOPEN\n\nTANK 2\n\nCLOSE\n\nINITIAL CONFIGURATION\n\nFUEL QTY\n\nTANK 1\n\nTANK 2\n\nPRESEL\n\n3100\n3100\n10000\n\nLB\n\nOFF\n\nPRESELECT\nREFUEL\n\nPRESELECT\nDEFUEL\n\nDUMP VALVE OPEN\nTANK 1\n\nDUMP VALVE OPEN\nTANK 2\n\nREFUEL SHUTOFF\nTANK 1\n\nREFUEL SHUTOFF\nTANK 2\n\nTEST\n\nI\n\nR\n\nRESET\n\nDECR\n\nGROUND CREW\n          JACK\n\nREFUEL\n\nDEFUEL\n\nPRECHECK\n\nTANK 1\n\nOPEN\n\nTANK 2\n\nCLOSE\n\nPANEL SET TO INITIATE REFUELING\n\nFUEL QTY\n\nTANK 1\n\nTANK 2\n\nPRESEL\n\n4000\n4000\n10000\n\nLB\n\nOFF\n\nPRESELECT\nREFUEL\n\nPRESELECT\nDEFUEL\n\nDUMP VALVE OPEN\nTANK 1\n\nDUMP VALVE OPEN\nTANK 2\n\nREFUEL SHUTOFF\nTANK 1\n\nREFUEL SHUTOFF\nTANK 2\n\nTEST\n\nINCR\n\nRESET\n\nDECR\n\nGROUND CREW\n          JACK\n\nREFUEL\n\nDEFUEL\n\nPRECHECK\n\nTANK 1\n\nOPEN\n\nTANK 2\n\nCLOSE\n\nREFUELING IN PROGRESS\n\nLEGEND\n\nLight Off.\n\nLight On.\n\nFigure 12.9-15 Refueling Operation (1 of 2)\n\nDash8 - Q400 - FuelPage 30\fFUEL QTY\n\nTANK 1\n\nTANK 2\n\nPRESEL\n\n4100\n4200\n10000\n\nLB\n\nOFF\n\nPRESELECT\nREFUEL\n\nPRESELECT\nDEFUEL\n\nDUMP VALVE OPEN\nTANK 1\n\nDUMP VALVE OPEN\nTANK 2\n\nREFUEL SHUTOFF\nTANK 1\n\nREFUEL SHUTOFF\nTANK 2\n\nTEST\n\nINCR\n\nRESET\n\nDECR\n\nGROUND CREW\n          JACK\n\nREFUEL\n\nDEFUEL\n\nPRECHECK\n\nTANK 1\n\nOPEN\n\nTANK 2\n\nCLOSE\n\nPRE-CHECK TEST (No. 1 TANK) DURING REFUELING\n\nFUEL QTY\n\nTANK 1\n\nTANK 2\n\nPRESEL\n\n5000\n5000\n10000\n\nLB\n\nOFF\n\nPRESELECT\nREFUEL\n\nPRESELECT\nDEFUEL\n\nDUMP VALVE OPEN\nTANK 1\n\nDUMP VALVE OPEN\nTANK 2\n\nREFUEL SHUTOFF\nTANK 1\n\nREFUEL SHUTOFF\nTANK 2\n\nTEST\n\nINCR\n\nRESET\n\nDECR\n\nGROUND CREW\n          JACK\n\nREFUEL\n\nDEFUEL\n\nPRECHECK\n\nTANK 1\n\nOPEN\n\nTANK 2\n\nCLOSE\n\nTANKS FULL\n\nFUEL QTY\n\nTANK 1\n\nTANK 2\n\nPRESEL\n\nTEST\n\nINCR\n\nRESET\n\nDECR\n\nGROUND CREW\n          JACK \n\nDUMP VALVE OPEN\nTANK 1\n\nDUMP VALVE OPEN\nTANK 2\n\nREFUEL SHUTOFF\nTANK 1\n\nREFUEL SHUTOFF\nTANK 2\n\nOFF\n\nPRESELECT\nREFUEL\n\nPRESELECT\nDEFUEL\n\nREFUEL\n\nDEFUEL\n\nPRECHECK\n\nTANK 1\n\nOPEN\n\nTANK 2\n\nCLOSE\n\nREFUELING COMPLETE\n\nFigure 12.9-16 Refueling Operation (2 of 2)\n\nDash8 - Q400 - FuelPage 31\fPOWER ON\n\nFUEL QTY\nlb\nlb\nlb\n\n3120\n3180\n6300\n\nTANK 1\n\nTANK 2\n\nPRESEL\n\nTEST\n\nINCR\n\nPreselect\nQuantity is set \nto Total Quantity\n\nRESET\n\nDECR\n\nRefuel Shutoff Valves are Closed\n\nReset Switch Sets\nPreselect = Total\n\nNew\nPreselect\nis entered\n\nTank 1 &\nTank 2\nFuel\nquantities\nare\nUpdated\n\nFUEL QTY\nlb\nlb\nlb\n\n3120\n3120\n10000\n\nTANK 1\n\nTANK 2\n\nPRESEL\n\nTEST\n\nINCR\n\nRESET\n\nDECR\n\n4 Seconds After\nINCR/DECR is\nneutral\n\nMove INC/DECR\nSwitch\n\nShuttoff valves are opened\nFUEL QTY\nlb\nlb\nlb\n\n4430\n4500\n10000\n\nTANK 1\n\nTANK 2\n\nPRESEL\n\nUse INCR/DECR \nSwitch to set\nPreselect Quantity\n\n5 Second Delay\nFUEL QTY\nlb\nlb\nABORT\n\n4600\n4650\n\nTANK 1\n\nTANK 2\n\nPRESEL\n\nTEST\n\nINCR\n\nTEST\n\nINCR\n\nReset Switch\n\nRESET\n\nDECR\n\nAutomatic Fuel Shutoff\n\nFUEL QTY\nlb\nlb\nlb\n\n5000\n5000\n10000\n\nTEST\n\nINCR\n\nRESET\n\nDECR\n\nRESET\n\nDECR\n\nRefuel Shutoff\nValves are Closed\nFuel flow stopped\n\nTotal Fuel = Preselect.\nRefuel Shutoff Valves are Closed\nFuel flow stopped\n\nPreselect\nRefuel\nCompleted\n\nTANK 1\n\nTANK 2\n\nNew Preselect\n\nPRESEL\n\nFigure 12.9-17 Refuel/Defuel Indicator Operation\n\nDash8 - Q400 - FuelPage 32\fA\n\nFWD\n\nCLOSE\n\nOPEN\n\nA\n\nFigure 12.9-18 Overviewing Filler Cap\n\nDash8 - Q400 - FuelPage 33\f12.9.9\n\nDefueling\n\nWhen  the  rotary  selector  is  turned  to  the  PRESELECT  DEFUEL  position,  the  FGC  closes  the\nrefuel/defuel valves to automatically stop defueling at the preset quantity. When the rotary selec-\ntor is turned to the DEFUEL position, defueling continues until the selector switch is turned to the\nOFF position. If AC (variable frequency) power is available, the related auxiliary fuel pump oper-\nates to help the defueling process. Without an AC power source, suction defueling must be used.\nDC power is required for defueling regardless of AC power availability.\n\n12.9.10\n\nLimitations\n\nThe maximum refueling pressure is 50 psi, which gives a refueling flow rate of approximately 125 \ngallons per minute. A minimum of 20 psi refueling pressure is necessary for the system to oper-\nate properly.\n\nDash8 - Q400 - FuelPage 34\f",
+  "full_text_truncated": false,
+  "word_count": 6369,
+  "sections": [
+    {
+      "title": "(ATA 28) FUEL",
+      "content": "12.9.1\n\nIntroduction\n\nFuel is contained in two integral main wing tanks designated No. 1 and No. 2. The fuel system\nprovides  for  indicating,  storing,  venting,  fuel  feeding  and  scavenging,  refueling/defueling,  and\ntransferring. Only tank to tank transfer is available; there is no engine crossfeed capability. The\naircraft may be gravity or pressure refueled.\n\n12.9.2\n\nGeneral\n\nA fuel gauging system supplies quantity data to the flight compartment and refuel/defuel panel\nfor display. Fuel quantity may also be checked on the ground by use of the magnetic dipsticks.\n\nEach wing tank includes a surge bay and a collector bay. The left tank supplies fuel to the left\nengine  and  the  optional  Auxiliary  Power  Unit  (APU).  The  right  tank  supplies  fuel  to  the  right\nengine. A vent system keeps the air pressure in the fuel tanks between structural limits.\n\nFuel can be transferred between the tanks for lateral balancing or for fuel management. A single\npoint pressure refuel/defuel system shares selected common components with the fuel transfer\nsystem. Gravity refueling may also be done through two overwing fuel filler points.\n\nDash8 - Q400 - FuelPage 1\f12.9.3\n\nControls and Indications - Fuel\n\nDash8 - Q400 - FuelPage 2\f1\n\n2\n\n3\n\nNAV\n\nPFD\n\nSYS\n\nENG\n\nELEC\n SYS\n\nENG\nSYS\n\nFUEL\n SYS\n\nSYS\n\nNAV\n\nPFD\n\nENG\n\nMFD1\n\nNORM\n\n1\n\n2\n\nDOORS\n   SYS\n\nALL\n\nTEST"
+    },
+    {
+      "title": "ED BRT",
+      "content": "EFIS"
+    },
+    {
+      "title": "SOURCE",
+      "content": "OFF\n\nMFD2\n\nNORM\n\n2\n\n1\n\nEFIS\n\nADC"
+    },
+    {
+      "title": "SOURCE",
+      "content": "Figure 12.9-1 Engine and System Integrated Displays Control Panel (ESCP)\n\nDash8 - Q400 - FuelPage 3\fESCP CALLOUTS PERTAINING TO FUEL ITEMS\n\n1. MFD 1 REVISION SELECTOR (4 position, rotary action)\n\nTURN - selectable positions are PFD, NAV, SYS, ENG\n-  ESCP provides the pilot with the ability to select any page on the MFD1 and to control\n\nthe EIS reversion after display failures\n\n2. FUEL SYS PUSHBUTTON (momentary action)\n\nPUSH - provides a display of the fuel system page on the MFD (upper area) with MFD 1 or\n\nMFD 2 set at SYS\nthere is no action with another push\n\n- \n\nPUSH AND HOLD - (with both MFDs not set to SYS)\n-\n-\n\nfuel system page shown on the Engine Display (ED)\nED images are shown again when the pushbutton is released\n\n3. MFD 2 REVISION SELECTOR (4 position, rotary action)\nsame as MFD1 selector except selects pages on MFD2\n\n- \n\nDash8 - Q400 - FuelPage 4\fFigure 12.9-2 Fuel Control Panel\n\nDash8 - Q400 - FuelPage 5\fFUEL CONTROL PANEL CALLOUTS\n\n1. TANK 1 AUX PUMP SWITCHLIGHT (alternate action)\n\nactivates auxiliary fuel pump in left collector bay\n\nPUSH - ON segment (green)\n- \nPUSH - ON segment (out)\n- \nON segment (green) without pushing\n- \n\ndeactivates auxiliary fuel pump in left collector bay\n\nauxiliary fuel pump has been activated by the fuel transfer system (TANK 1 to TANK 2)\n\n2. FUEL TRANSFER SWITCH (three position, lever latched)\n\nTO TANK 1 - activates transfer system to transfer fuel from tank No. 2 to tank No. 1\n\nCENTER - transfer system deactivated\n\nTO TANK 2 - activates transfer system to transfer fuel from tank No. 1 to tank No. 2\n\n3. TANK 2 AUX PUMP SWITCHLIGHT (alternate action)\n\nsame as TANK 1 AUX PUMP switchlight, except auxiliary pump in No. 2 collector bay\n\n- \nON segment (green) without pushing\n-\n\nauxiliary fuel pump has been activated by the fuel transfer system (TANK 2 to TANK 1)\n\nDash8 - Q400 - FuelPage 6\f4\n\n3\n\n2\n\n1\n\nVALVE"
+    },
+    {
+      "title": "CLOSED",
+      "content": "FUEL"
+    },
+    {
+      "title": "TRANSFER SW",
+      "content": "TO\nTANK1\n\nOFF\n\nTO\nTANK2\n\nVALVE"
+    },
+    {
+      "title": "CLOSED",
+      "content": "2\n\n1\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n7\n0\n\n5\n\n6"
+    },
+    {
+      "title": "TANK +20°C",
+      "content": "TANK1"
+    },
+    {
+      "title": "AUX PUMP",
+      "content": "TANK2"
+    },
+    {
+      "title": "AUX PUMP",
+      "content": "SW\nOFF\n\nSW\nON"
+    },
+    {
+      "title": "4800 LBS",
+      "content": "2\n\n1\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n0\n7\n\n5\n\n6\n\n50\n\n10\n\nFLAP\nDEG\n\n35\n35"
+    },
+    {
+      "title": "HYD  PRESS",
+      "content": "PSI x 1000\n2\n1\n\nSTBY\n\nPK\nBRK\n\n3"
+    },
+    {
+      "title": "HYD  QTY",
+      "content": "% x 1000\n3\n2\n\n1\n\n4\n\n2\n\n0\n\n4\n\n3\n\n1\n\n5\n\nFigure 12.9-3 MFD2 Fuel Page - Quantity Indications\n\nDash8 - Q400 - FuelPage 7\fMULTI FUNCTION DISPLAY (MFD) FUEL PAGE CALLOUTS\n\n1.AUXILIARY FUEL PUMPS SWITCH ANNUNCIATOR\n\nthe respective TANK 1 or TANK 2 AUX PUMP switchlight is not in the depressed position\n\nOFF segment (white text surrounded by a white box)\n- \nON segment (reverse video, black text on green background)\n-\n\nthe respective TANK 1 or TANK 2 AUX PUMP switchlight is in the depressed position\n\n-  white dashes replace the text (without a box), when no data is available\n\n2. DIGITAL DISPLAY OF FUEL TANK TEMPERATURE \n\n(digital value and TANK segment in white, °C segment in blue)\n-\n- \n\n indicates temperature in left collector bay with a ± sign\nif  using  JET  B/JP-4  and  TANK  temperature  is  more  than  35°C,  maximum  altitude  is"
+    },
+    {
+      "title": "20.000 ft",
+      "content": "indicates from -99 to +99 in 1° increments\ndigits are replaced by white dashes when the data is not valid\n\n- \n- \n\n3. ANALOG DISPLAY OF FUEL QUANTITY\n\n- \n\ngives an analog readout of fuel quantity in the left and right tanks\n\nQTY segment (white)\nKGx1000 segment (cyan)\nScale and digit segments (white)\n- \nPointer segment (white) - normal\nPointer segment (yellow) - during an imbalance condition\n- \n\nremoved when the parameter is not valid\n\nscale marks and digits are removed when the parameter is not valid\n\n4. TANK AUXILIARY PUMP PRESSURE STATUS INDICATOR\n\nCircle segment (white outline with black fill) - low or no pressure \nCircle segment (white outline with green fill) - normal pressure\n\n5. DIGITAL DISPLAY OF TOTAL FUEL QUANTITY\n\n(digital value and TOTAL FUEL in white, KG segment in blue)\n- \n- \n- \n\ntotal fuel quantity given in KG\nindicates from 0 to 15000 in 5 KG increments\ndigits are replaced by white dashes when the data is not valid\n\nDash8 - Q400 - FuelPage 8\f1\n\n2\n\n1\n\nVALVE\n\nOPEN\n\nFUEL"
+    },
+    {
+      "title": "TRANSFER SW",
+      "content": "VALVE\n\nTO\nTANK1\n\nTO\nTANK2\n\nOPEN\n\n2\n\n1\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n7\n0\n\n5\n\n6"
+    },
+    {
+      "title": "TANK +20°C",
+      "content": "TANK1"
+    },
+    {
+      "title": "AUX PUMP",
+      "content": "TANK2"
+    },
+    {
+      "title": "AUX PUMP",
+      "content": "SW\nOFF\n\nSW\nON\nOFF"
+    },
+    {
+      "title": "4000 LBS",
+      "content": "2\n\n1\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n0\n7\n\n5\n\n6\n\n50\n\n10\n\nFLAP\nDEG\n\n35\n35"
+    },
+    {
+      "title": "HYD  PRESS",
+      "content": "PSI x 1000\n2\n1\n\nSTBY\n\nPK\nBRK\n\n3"
+    },
+    {
+      "title": "HYD  QTY",
+      "content": "% x 1000\n3\n2\n\n1\n\n4\n\n2\n\n0\n\nFigure 12.9-4 MFD Fuel Page - Transfer Indications\n\nDash8 - Q400 - FuelPage 9\fMULTI FUNCTION DISPLAY (MFD) FUEL PAGE CALLOUTS\n\n1. FUEL SHUTOFF VALVE ANNUNCIATOR\n\nindicates shutoff valve state in response to a crew transfer request\n\n- \nVALVE segment (white)\nCLOSED segment (white in upper white outline rectangle)\n- \nOPEN segment (reverse video, black text on green in lower rectangle)\n- \n-  when the valve is neither fully closed nor fully open (typical case during valve transition),\n\nindicates fuel transfer valve is closed\n\nindicates fuel transfer valve is open\n\n- \n\nnothing is displayed\nthree white dashes are displayed instead of the CLOSED and OPEN indication when no\ndata is available\n\n2. FUEL TRANSFER SWITCH INDICATION\n\nindicates the position of the FUEL TRANSFER switch on the FUEL CONTROL panel\n\n- \nTRANSFER SW segment (white)\nTO TANK 1 and TO TANK 2 segment (white)\nTriangle segment (white in white outline rectangle)\n- \n- \n- \n\npointing towards the left indicates that a transfer is active from right to left\npointing towards the right indicates that a transfer is active from left to right\nin case of inconsistency (transfer fault towards both sides), both triangles are displayed\nas the data is received\nthree white dashes are displayed when no data is available\n\n- \nOFF segment (white in white outline rectangle)\nindicates no fuel transfer is requested\n- \n\nDash8 - Q400 - FuelPage 10\fMCR\n75%\nBLEED\n\nTRQ\n%\n\nNH\n%RPM\n\n75\n\n75\n\n92.3\n\nFF\nPPH\n1020\n\nNL\n%RPM\n74\n\n1\n\n2\n\nPROP\nRPM\n\n850\n\n850\n\nITT\n°C\n\n755\n\n755\n\n°C\n50\n\nOIL\n\nPSI\n50"
+    },
+    {
+      "title": "[ BALANCE ]",
+      "content": "FUEL\nLBS\n°C\n\n1020\n+18\n\n1625\n+18\n\nMCR\n75%\nBLEED\n\nNH\n%RPM\n\n92.3\n\nFF\nPPH\n- - - -\n\nNL\n%RPM\n74\n\n°C\n75\n\nOIL\n\nPSI\n50\n\n1"
+    },
+    {
+      "title": "SAT  +22°C",
+      "content": "3\n\n4\n\n4\n\n3\n\nFigure 12.9-5 ED Fuel Parameters\n\nDash8 - Q400 - FuelPage 11\fED CALLOUTS PERTAINING TO FUEL ITEMS\n\n1. FUEL FLOW INDICATOR\n\n(FF and digital value in white, PPH or KG/H in blue)\n- \n- \n\nindicates from 0 to 9990 in 10 PPH or 5 KG/H increments\ndigits are replaced by white dashes when the data is not valid\n\n2.\n\n[BALANCE] MESSAGE (yellow, flashings)\n- \n\nindicates a fuel imbalance condition is detected by the left or right Fuel Gauging Com-\nputer (FGC1 or FGC2)\n\n3. LEFT/RIGHT FUEL TANK QUANTITY DIGITAL VALUE \n(Digital value white, yellow if imbalance, KG in blue)\n- \n- \n- \n\ntotal fuel quantity given in KG\nindicates from 0 to 9990 in 5 KG increments\ndigits are replaced by white dashes when the data is not valid\n\n4. LEFT/RIGHT FUEL INLET TEMPERATURE DIGITAL VALUE\n\n(Digital value in white, yellow, or red, °C segment in blue)\n- \n\nindicates temperature of the fuel with a ± sign, after it has passed through the Fuel Oil\nHeat Exchanger (FOHE)\nindicates from -99 to +99 in 1° increments\ndigits are normally displayed in white\ndigits will turn yellow if the temperature is below 0°C\ndigits will turn red if the temperature is above 71°C\ndigits are replaced by white dashes when the data is not valid\ncontinuous operation with fuel heater outlet temperature below 0°C or above 71°C is pro-\nhibited.\n\n-\n-\n-\n-\n-\n-\n\nDash8 - Q400 - FuelPage 12\fA\n\n3\n1\n\n1\n3\n\n1\n\n2\n\n4"
+    },
+    {
+      "title": "STOWED",
+      "content": "2\n\n4\n\n2\n\n4\n\nA\n\nFigure 12.9-6 Magnastick Operation Locator\n\nDash8 - Q400 - FuelPage 13\fMAGNETIC DIPSTICK CALLOUTS AND OPERATION\n\n1.MAGNATIC DISPSTICK MAGNET\n\n2.FLOAT MAGNET\n\n3.FUEL LEVEL IN MAIN TANK\n\n4. CALIBRATED MAGNETIC DIPSTICK\n-\n\nthe magnetic dipsticks give an alternate means to measure the fuel quantity when the aircraft\nis on the ground\nthe magnetic dipstick is accessed at the bottom of the wing\n\n-\n- when the rod is released, it moves slowly down until the rod magnet is attracted by the float\n\nmagnet\nthe fuel quantity is shown in US gallons or in liters\nthe reading will indicate full whenever the tank is more than 700 U.S. Gal (2700 L)\nthe reading will indicate empty whenever the tank is less than 100 U.S. Gal (400 L)\n\n-\n-\n-\n\nDash8 - Q400 - FuelPage 14\f6\n\n7\n\n7\n\n6\n\n5\n\nn\no\n\nd\ne\nt\na\nc\no\n\nl\n\nt\nn\ne\nn\no\np\nm\no\nC\n\nl\n\n.\ny\nn\no\n\ne\n\nl\nl\n\ne\nc\na\nN\n\nt\nh\ng\ni\nr\n\nE\nT\nO\nN\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\n2\nK\nN\nA\nT\n\n1\nK\nN\nA\nT\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\n2\nK\nN\nA\nT\n\n1\nK\nN\nA\nT\n\nF\nF\nO\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nR\n\nB\nL\n\nY\nT\nQ\nL\nE\nU\nF\n\n0\n0\n1\n3\n\n0\n0\n1\n3\n\n0\n0\n2\n6\n\n1\nK\nN\nA\nT\n\n2\nK\nN\nA\nT\n\nL\nE\nS\nE\nR\nP\n\nA\n\n8\n\n8\n\n9\n\nA\n\n2\nK\nN\nA\nT\n\nN\nE\nP\nO\n\n1\nK\nN\nA\nT\n\nE\nS\nO\nL\nC\n\nK\nC\nE\nH\nC\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nL\nE\nU\nF\nE\nR\n\nR\nC\nN\n\nI\n\nT\nS\nE\nT\n\nR\nC\nE\nD\n\nT\nE\nS\nE\nR\n\nW\nE\nR\nC\nD\nN\nU\nO\nR\nG\n\nK\nC\nA\nJ"
+    },
+    {
+      "title": "2 1",
+      "content": "Figure 12.9-7 Refuel/Defuel Panel (1 of 2)\n\nDash8 - Q400 - FuelPage 15"
+    },
+    {
+      "title": "REFUEL/DEFUEL PANEL CALLOUTS",
+      "content": "1.REFUEL/DEFUEL INDICATOR (RDI)\n\n2. PRESELECTED FUEL QUANTITY\n\n-\n\ndesired  amount  of  fuel  for processing  a  refueling or defueling  operation, as set  by the\nINCR/DECR switch\n\n3. TANK 2 ACTUAL FUEL QUANTITY\n\n4.TANK 1 ACTUAL FUEL QUANTITY\n\n5. MASTER VALVE INDICATOR LIGHT (amber)\n\n- master refuel/defuel valve is closed\n- \n\nturning selector switch from OFF will open the valve and light will go off\n\n6. TANK 1/TANK 2 DUMP VALVE LIGHT (amber)\nvent/dump valve related tank is open\n\n-\n\n7. TANK 1/TANK 2 REFUEL SHUTOFF VALVE LIGHT (white)\n\n-\n\nlevel control shutoff valve is closed (i.e. no fuel is flowing into related tank)\n\n8. TANK 1/2 LEVEL CONTROL SHUTOFF VALVE SWITCHES \n\n(three position spring loaded away from PRECHECK, toggle switch)\n\nPRECHECK - simulates full fuel signal to the High Level Control Unit (HLCU) stopping refu-\neling of related tank\nOPEN - opens related Refuel/Defuel/Transfer shutoff valve for refueling or defueling\nCLOSE - closes related Refuel/Defuel/Transfer shutoff valve to stop fuel flow\n\n9. REFUEL/DEFUEL SELECTOR SWITCH (5 position)\n\nREFUEL or DEFUEL- manual refueling or defueling continues until the selected switch is set\nto OFF, the HLCU detects a full tank, or the level control shutoff valve switches are placed in\nthe CLOSE position\nPRESELECT REFUEL or DEFUEL - refuel/defuel operation stops automatically, when the\npreselected levels are reached\nOFF - power removed from the refuel/defuel control panel\n\nDash8 - Q400 - FuelPage 16\fn\no\n\nd\ne\nt\na\nc\no\n\nl\n\nt\nn\ne\nn\no\np\nm\no\nC\n\nl\n\n.\ny\nn\no\n\ne\n\nl\nl\n\ne\nc\na\nN\n\nt\nh\ng\ni\nr\n\nE\nT\nO\nN\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\n2\nK\nN\nA\nT\n\n1\nK\nN\nA\nT\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\n2\nK\nN\nA\nT\n\n1\nK\nN\nA\nT\n\nF\nF\nO\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nR\n\nB\nL\n\nY\nT\nQ\nL\nE\nU\nF\n\n0\n0\n1\n3\n\n0\n0\n1\n3\n\n0\n0\n2\n6\n\n1\nK\nN\nA\nT\n\n2\nK\nN\nA\nT\n\nL\nE\nS\nE\nR\nP\n\nA\n\n2\nK\nN\nA\nT\n\nN\nE\nP\nO\n\n1\nK\nN\nA\nT\n\nE\nS\nO\nL\nC\n\nK\nC\nE\nH\nC\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nL\nE\nU\nF\nE\nR\n\nR\nC\nN\n\nI\n\nT\nS\nE\nT\n\nR\nC\nE\nD\n\nT\nE\nS\nE\nR\n\nW\nE\nR\nC\nD\nN\nU\nO\nR\nG\n\nK\nC\nA\nJ\n\n1\n1\n\nA\n\n0\n1\n\nFigure 12.9-8 Refuel/Defuel Panel (2 of 2)\n\nDash8 - Q400 - FuelPage 17 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\fREFUEL/DEFUEL PANEL CALLOUTS (cont’d)\n\n10. INCR/DECR SWITCH (three position, spring loaded to center)\n\n-\nused to set the desired amount of fuel for processing a refueling or defueling operation\nINCR or DECR - the current PRESEL display value on the RDI will increase/decrease by 10\n\n-\n\n-\n-\n\n-\n\n-\n\n-\n\nkg\nthis is repeated 10 times after which the current PRESEL display will increase/decrease\nby 100 kg\nindicates from 0 5800 kg\nthe displayed preselect value will never rise above the total fuel quantity when the refuel\nmode status indicates a defuel operation is in progress\nthe displayed preselect value will never fall below the total fuel quantity when the refuel\nmode status indicates a refuel operation is in progress\nfour seconds after the INCR/DECR switch is stable at the neutral position, the automatic\nrefuel/defuel function will start\nif refueling/defueling is in process and the INCR/DECR switch is moved out of its neutral\nposition, the refuel/defuel operation will stop and will restart four seconds after the INCR/\nDECR switch activity is stopped\n\n11. TEST/RESET SWITCH (three position, spring loaded to center)\n\nTEST - starts display test\n-\n\ndisplays a checkerboard pattern for 2 ± 1 seconds, followed by an inverse checkerboard\npattern for 2 ± 1 seconds and finally, followed by all segments turned off for 2 ± 1 sec-\nonds\n\nRESET - for maintenance purposes\n-\n\nselecting RESET during refueling/defueling will cause the operation to stop and ABORT\nwill be displayed in the PRESEL window. The PRESEL value will then display the current\ntotal  fuel  quantity.  To  restart  refueling/defueling,  the  PRESEL  value  will  have  to  be\nincrease or decrease using the INCR/DECR switch\n\nDash8 - Q400 - FuelPage 18\f12.9.4\n\nFuel - Indications\n\nFuel quantity and temperature data is shown in white on the Engine Display (ED) and the Fuel\nPage of the Multi Function Display (MFD). White dashes replace the digits or simulated dials if\nthe data is not valid or not available.\n\nA Fuel Quantity Computer (FQC) uses nine capacitance type fuel probes in each tank to deter-\nmine the total fuel quantity. The fuel quantity of each tank is shown in digital form on the bottom\ncenter  of  the  Engine  Display  (ED).  The  Fuel  Page  of  the  Multi  Function  Display  (MFD)  also\nshows the fuel quantity of each tank on two simulated analog dials and below that the total fuel\nquantity in digital form. The fuel quantity can be shown in kilograms (KG). The fuel flow for each\nengine is shown in digital form on the ED in units of KG/H.\n\nThe fuel temperature (°C) in the left collector tank is shown in digital form on the MFD Fuel Page,\njust below the left fuel quantity dial. The engine inlet temperature of the fuel after it has passed\nthrough  the  Fuel/Oil  Heat  Exchanger  (FOHE)  for  the  left  and  right  engines  is  shown  in  digital\nform on the bottom of the ED, just below the related fuel tank quantity. The digits are shown in\nwhite with a ± sign, and change to yellow or red if the temperature is not in the preset range. A °C\nunit is shown between the two inlet temperatures.\n\nThe fuel quantity of each tank is also shown on the refuel/defuel panel located at the back under-\nside of the right nacelle. One magnetic dipstick on the underside of each tank can also be used\non the ground to give an independent mechanical indication of the fuel quantity in liters or U.S.\ngallons. The magnetic dipstick is a calibrated rod with a magnet attached to  the top.  It moves\nwithin a tube that extends vertically from the bottom of the fuel tank. A float moves up and down\non the outside surface of this tube to match the fuel level in the tank. The float contains a magnet\nthat is attracted to the magnet on the magnetic dipstick, holding the dipstick at that level.\n\nDash8 - Q400 - FuelPage 19\f1\n\n2\n\n3\n\n5\n\n4\n\n4\n\n3\n\n2\n\n1\n\nFigure 12.9-9 Fuel Tank Layout\n\n.\nl\ne\nn\na\nP\n\nl\n\no\nr\nt\nn\no\nC\n\nl\n\ne\nu\nf\n\ne\nD\n\nf\n\n/\nl\ne\nu\ne\nR\ne\nr\nu\ns\ns\ne\nr\nP\n\n.\np\na\nC\n\nr\ne\n\nl\nl\ni\n\ni\n\nF\ng\nn\nw\nr\ne\nv\nO\n\n.\ny\na\nB\ne\ng\nr\nu\nS\n\n.\ny\na\nB\n\nr\no\n\nt\nc\ne\n\nl\nl\n\no\nC\n\n.\nk\nn\na\nT\nn\na\nM\n\ni\n\n.\n\n1\n\n.\n\n2\n\n.\n\n3\n\n.\n\n4\n\n.\n\n5\n\nD\nN\nE\nG\nE\nL\n\nDash8 - Q400 - FuelPage 20 \n \n \n \n \n \n \n \n \n \n \n \n \n\f12.9.5\n\nStorage And Distribution\n\nThere  are  two  integral  (wet)  wing  tanks  that  extend  laterally  from  the  fuselage  to  the  rib  just\ninboard of the ailerons (Figure 12.9-9). Each wing tank is divided into three sections:\n\nSurge bay \n\n•\n• Main tank\n• Collector bay\n\nThe surge bay is located between the two ribs inboard of the aileron. The main tank extends from\nthe surge bay to the fuselage and collector bay. The collector bay is located at the inboard and\naft part of the wing tank. Fuel is contained in the main tanks and the collector bays.\n\nTotal usable fuel from the tanks is 5,318 kg. The maximum lateral imbalance permitted between\ntanks is 272 kg. Water drain valves in the low points of the surge bays, main tanks, and collector\nbays are located on the underside of the wings.\n\nThe surge bay is used for main tank venting and fuel recovery. Two outboard float vent valves\nand  one  inboard  vent  line,  control  the  pressure  between  the  related  surge  bay  and  main  tank\n(Figure  12.9-10).  The  two  float  vent  valves,  located  near  the  top  of  the  tank,  open  and  close\ndepending on the fuel level in the main tank. Each surge bay is vented through integral stand-\npipes to two separate NACA vents on the bottom of the wings. During flight, any fuel that may\nspill into the surge bay, is returned to the tank by the reduced pressure in the main tank, as fuel is\nused.\n\nThe collector bay supplies engine fuel regardless of aircraft attitude. Fuel tank scavenging takes\nplace using scavenge ejector pumps in each tank which draw fuel from tank low points, to keep\nthe collector bay full. A primary ejector pump in the collector bay then provides a constant low-\npressure fuel supply to the engine. High-pressure motive flow is used to operate the scavenge\nand primary ejector pumps.\n\nFlapper check valves are located at the base of each collector bay, and select ribs. They ensure\ngravity fed fuel flow into the collector bay if the scavenge flow is not sufficient.\n\nThe related #1 TANK or #2 TANK FUEL LOW caution light will come on if:\n\n•\n•\n•\n\npark brake is off\nrelated collector bay level drops below approximately 150 kg.\nrelated engine is operating.\n\nDash8 - Q400 - FuelPage 21\fFigure 12.9-10 Fuel Tank Venting\n\nDash8 - Q400 - FuelPage 22\f12.9.6\n\nEngine Fuel Feed\n\nFuel to each engine is fed from the collector tank, from a primary ejector pump or an AC driven\nauxiliary pump, and delivered to the engine driven pump (Figure 12.9-11). If the engine driven\npump inlet pressure drops below a preset limit, the related #1 or #2 ENG FUEL PRESS caution\nlight comes on.\n\nAn AC (Variable Frequency) auxiliary pump in each collector bay serves as a back up source of\nfuel boost pressure for takeoff and landing, and in case the related primary ejector pump does\nnot supply the necessary fuel pressure. Related TANK 1 or TANK 2 AUX PUMP switchlights on\nthe FUEL CONTROL TRANSFER panel control the auxiliary pumps manually (Figure 12.9-12).\nA TANK 1 or TANK 2 AUX PUMP switch indicator on the MFD Fuel Page shows the position of\nthe switchlight. When the pump is supplying sufficient boost pressure, the TANK 1 or TANK 2\nAUX PUMP light on the Fuel Page will turn green, and the related ON switchlight segment turns\ngreen.\n\nThe engine feed shutoff valve closes when the related PULL FUEL/HYD OFF handle, on the Fire\nProtection Panel  (FPP), is  pulled  (Figure 12.9-12). Advisory  lights on the  FPP  show when the\nvalve is open or closed.\n\nThe fuel is filtered and heated by Fuel Oil Heat Exchanger (FOHE) before entering the FMU. If\nthe fuel filter becomes blocked, fuel bypasses the filter. The #1 or #2 FUEL FLTR BYPASS cau-\ntion light will come on if a related bypass is impending.\n\nDash8 - Q400 - FuelPage 23\fD\nE\nE\nF\nU\nP\nA\n\n)\n\nU\nP\nA\nO\nT\n(\n\nE\nN\nL\n\nP\n\nP\nM\nU\nP\nY\nR\nA\nL\nX\nU\nA\n\nI\n\nI\n\nH\nC\nT\nW\nS\nE\nR\nU\nS\nS\nE\nR\nP\n\nT\nF\nA\n\nE\nG\nN\nE\nV\nA\nC\nS\n\nR\nO\nT\nC\nE\nJ\nE\n\nE\nR\nU\nT\nA\nR\nE\nP\nM\nE\nT\n\nR\nO\nS\nN\nE\nS\n\nD\nE\nE\nF\nE\nN\nG\nN\nE\n\nI\n\nE\nV\nL\nA\nV\nF\nF\nO\n-\nT\nU\nH\nS\n\nE\nG\nN\nE\nV\nA\nC\nS\n\nR\nO\nT\nC\nE\nJ\nE\n\nI\n\nG\nN\nW\nD\nM\n\nI\n\nD\nR\nA\nO\nB\nT\nU\nO\n\nE\nG\nN\nE\nV\nA\nC\nS\n\nR\nO\nT\nC\nE\nJ\nE\n\nI\n\nY\nR\nA\nM\nR\nP\nO\nT\n\nR\nO\nT\nC\nE\nJ\nE\n\nP\nM\nU\nP\n\nT\nE\nL\nN\n\nI\n\nI\n\nR\nE\nN\nA\nR\nT\nS\n\nF\nF\nO\n-\nT\nU\nH\nS\nU\nP\nA\n\nE\nV\nL\nA\nV\n\nY\nR\nD\n\nY\nA\nB\n\nD\nR\nA\nW\nR\nO\nF\n\nE\nG\nN\nE\nV\nA\nC\nS\n\nR\nO\nT\nC\nE\nJ\nE\n\nR\nE\nP\nP\nA\nL\nF\n\nS\nE\nV\nL\nA\nV\n\n)\nL\nA\nC\nP\nY\nT\n(\n\nI\n\nR\nO\nT\nC\nE\nL\nL\nO\nC\n\nY\nA\nB\n\nP\nM\nU\nP\n\nI\n\nH\nC\nT\nW\nS\nT\nA\nO\nL\nF\n\nI\n\nY\nR\nA\nL\nX\nU\nA\n\nI\n\nCL\n\nT\nF\nA\nR\nC\nR\nA\n\nI\n\nD\nE\nE\nF\nE\nN\nG\nN\nE\n\nI\n\nI\n\nH\nC\nT\nW\nS\nE\nR\nU\nS\nS\nE\nR\nP\n\nI\n\nE\nN\nG\nN\nE\n\nP\n\nW\nO\nL\nF\nE\nV\nT\nO\nM\n\nI\n\nE\nV\nL\nA\nV\nK\nC\nE\nH\nC\n\nE\nG\nR\nU\nS\n\nY\nA\nB\n\nA\nC\nA\nN\n\nS\nT\nN\nE\nV\n\nFigure 12.9-11 Engine Fuel Feed Schematic\n\nfs number\n\nDash8 - Q400 - FuelPage 24 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\f°C\n50"
+    },
+    {
+      "title": "OIL PSI",
+      "content": "50\n\nFUEL\nLBS\n°C\n\n2400\n+18\n\n2400\n+18"
+    },
+    {
+      "title": "SAT +22°C",
+      "content": "VALVE"
+    },
+    {
+      "title": "CLOSED",
+      "content": "FUEL"
+    },
+    {
+      "title": "TRASFER SW",
+      "content": "TO"
+    },
+    {
+      "title": "TANK 1",
+      "content": "OFF\n\nTO"
+    },
+    {
+      "title": "TANK 2",
+      "content": "VALVE"
+    },
+    {
+      "title": "CLOSED",
+      "content": "2\n\n1\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n7\n0\n\nTANK1"
+    },
+    {
+      "title": "AUX PUMP",
+      "content": "SW\nON\n\nTANK2"
+    },
+    {
+      "title": "AUX PUMP",
+      "content": "SW\nOFF\n\n2\n\n1\n\n5\n\n6\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n7\n0\n\n5\n\n6"
+    },
+    {
+      "title": "4800 LBS",
+      "content": "°C\n75"
+    },
+    {
+      "title": "OIL PSI",
+      "content": "50\n\nT\n\nFOHE\n\nIFC 1\nIFC 2\n\nP\n\n#1 ENG"
+    },
+    {
+      "title": "FUEL PRESS",
+      "content": "IFC 1\nIFC 2\n\n#1 TANK"
+    },
+    {
+      "title": "FUEL LOW",
+      "content": "P\n\nEXTG"
+    },
+    {
+      "title": "FWD BTL",
+      "content": "FAULT\nA"
+    },
+    {
+      "title": "VALVES",
+      "content": "FUEL"
+    },
+    {
+      "title": "OPEN CLOSED",
+      "content": "B\nLO\n\nHYD\n\nFAULT\nB"
+    },
+    {
+      "title": "PULL FUEL/HYD OFF",
+      "content": "TEST"
+    },
+    {
+      "title": "AUX PUMP",
+      "content": "ON"
+    },
+    {
+      "title": "TRANSFER",
+      "content": "TO\nTANK\n1\n\nTO\nTANK\n2"
+    },
+    {
+      "title": "SIGNAL",
+      "content": "Figure 12.9-12 Engine Fuel Feed Operation\n\nDash8 - Q400 - FuelPage 25\fTANK 1"
+    },
+    {
+      "title": "TRANSFER",
+      "content": "TO\nTANK\n1\n\nTO\nTANK\n2"
+    },
+    {
+      "title": "AUX PUMP",
+      "content": "ON"
+    },
+    {
+      "title": "AUXILIARY",
+      "content": "PUMP"
+    },
+    {
+      "title": "COLLECTOR",
+      "content": "BAY"
+    },
+    {
+      "title": "COLLECTOR",
+      "content": "BAY\n\nIFC 1\nIFC 2"
+    },
+    {
+      "title": "SOLENOID",
+      "content": "VALVE\n\nOPEN\n\nFUEL"
+    },
+    {
+      "title": "TRANSFER SW",
+      "content": "VALVE\n\nTO\nTANK1\n\nTO\nTANK2\n\nOPEN\n\n2\n\n1\n\n3\n\n4\n\nQTY\n\nLBS\nx1000\n7\n0\n\n5\n\n6"
+    },
+    {
+      "title": "TANK  +20°C",
+      "content": "TANK1\n\nTANK2"
+    },
+    {
+      "title": "AUX PUMP",
+      "content": "SW\nOFF"
+    },
+    {
+      "title": "AUX PUMP",
+      "content": "SW\nOFF\n\n2\n\n1"
+    },
+    {
+      "title": "4000 LBS",
+      "content": "3\n\n4\n\nQTY\n\nLBS\nx1000\n7\n0\n\n5\n\n6"
+    },
+    {
+      "title": "PRESSURE SWITCH",
+      "content": "Figure 12.9-13 Fuel Transfer Schematic\n\nDash8 - Q400 - FuelPage 26\f12.9.7\n\nFuel Transfer\n\nFuel can be transferred from one tank to the other to correct fuel imbalances or for fuel manage-\nment. If the Fuel Quantity Computer (FQC) detects a fuel imbalance of more than 272 kg, a yel-\nlow [BALANCE] message flashes just above the FUEL legend of the ED. The message will flash\nuntil the imbalance is corrected. An imbalance condition will also be shown on the Fuel Page by\nthe analog quantity dials changing to solid yellow.\n\nA TRANSFER switch on the FUEL CONTROL TRANSFER panel controls the fuel transfer sys-\ntem (Figure 12.9-13). When the TRANSFER switch is selected, the auxiliary pump in the donor\ntank operates automatically to pump fuel to the receiver tank. A signal from the operating pump\ncauses the related ON switchlight segment to turn green. Electrically operated fuel transfer shut-\noff valves open for fuel transfer and close when the transfer is stopped. Fuel transfer indications\nare also shown on the MFD Fuel Page. Once selected, fuel transfer will continue until deselected\nby the flight crew or until a high-level sensor in the wing tank which is receiving fuel detects an\noverfill condition, which automatically halts fuel transfer. Fuel cannot be transferred if the FUEL-\nING ON caution light is on. The FUELING ON caution light is on if the refuel/defuel access door\nis open.\n\nDash8 - Q400 - FuelPage 27\fI\n\nL\nA\nC\nR\nT\nC\nE\nL\nE\n\nL\nA\nN\nG\nS\n\nI\n\nD\nN\nE\nG\nE\nL\n\n2\nK\nN\nA\nT\n\nN\nE\nP\nO\n\n1\nK\nN\nA\nT\n\nE\nS\nO\nL\nC\n\nK\nC\nE\nH\nC\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nL\nE\nU\nF\nE\nR\n\nR\nC\nN\n\nI\n\nT\nS\nE\nT\n\nR\nC\nE\nD\n\nT\nE\nS\nE\nR\n\nW\nE\nR\nC\nD\nN\nU\nO\nR\nG\n\nK\nC\nA\nJ\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\n2\nK\nN\nA\nT\n\n1\nK\nN\nA\nT\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\n2\nK\nN\nA\nT\n\n1\nK\nN\nA\nT\n\nF\nF\nO\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nR\n\nB\nL\n\nY\nT\nQ\nL\nE\nU\nF\n\n0\n0\n1\n3\n\n0\n0\n1\n3\n\n0\n0\n2\n6\n\n1\nK\nN\nA\nT\n\n2\nK\nN\nA\nT\n\nL\nE\nS\nE\nR\nP\n\nL\nE\nV\nE\nL\nH\nG\nH\n\nI\n\nR\nO\nS\nN\nE\nS\n\nL\nE\nU\nF\nE\nD\n/\nL\nE\nU\nF\nE\nR\n\nE\nV\nL\nA\nV\nF\nF\nO\nT\nU\nH\nS\n\n/\nL\nE\nU\nF\nE\nR\n\nL\nE\nU\nF\nE\nD\n\nR\nE\nT\nP\nA\nD\nA\n\nR\nO\nT\nC\nE\nL\nL\nO\nC\n\nY\nA\nB\n\nR\nO\nT\nC\nE\nL\nL\nO\nC\n\nY\nA\nB\n\nL\nE\nV\nE\nL\n\nL\nO\nR\nT\nN\nO\nC\n\nI\n\nD\nO\nN\nE\nL\nO\nS\n\nR\nE\nF\nS\nN\nA\nR\nT\nL\nE\nU\nF\n\nS\nE\nV\nL\nA\nV\nF\nF\nO\nT\nU\nH\nS\n\nL\nO\nR\nT\nN\nO\nC\nL\nE\nV\nE\nL\n\nE\nV\nL\nA\nV\nF\nF\nO\nT\nU\nH\nS\n\nP\nM\nU\nD\nT\nN\nE\nV\n\n/\n\nE\nV\nL\nA\nV\n\nFigure 12.9-14 Refueling Schematic\n\nfs number\n\nDash8 - Q400 - FuelPage 28 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\f12.9.8\n\nRefueling\n\nThe refuel/defuel panel controls all refuel and defuel operations (Figure 12.9-14). Access to the\npanel is gained through a flush door on the rear underside of No. 2 nacelle. DC power must be\navailable for refueling. The FUELING ON caution light will come on when the refuel/defuel door\nis open with electrical power supplied. Refueling can be accomplished either automatically (PRE-\nSELECT REFUEL), or manually (REFUEL).\n\nWhen the rotary selector is turned to the PRESELECT REFUEL or REFUEL position, the MAS-\nTER VALVE CLOSED light goes out to show that the refuel/defuel shutoff valve is open (Figure\n12.9-15,16).  The  refuel/defuel  shutoff  valve  will  close  when  the  refuel/defuel  door  is  closed,\nregardless of the rotary selector position. During pressure refueling, fuel pressure opens a vent/\ndump valve in each tank to vent the tanks through the surge bay. For automatic refueling, the\ndesired quantity is selected adjacent the PRESEL display on the Refuel/Defuel Indicator (RDI),\nby using the INCR DECR toggle switch (Figure 12.9-17). When the selected quantity is reached,\nthe level control shutoff valve automatically stops fuel flow to the related tank. The PRECHECK,\nOPEN, CLOSE switches must be set to OPEN for refueling.\n\nDuring  manual  refueling,  the  desired  quantity  in  each  tank  is  controlled  by  the  PRECHECK,\nOPEN,  CLOSE  switches.  The  RDI  will  display  the  individual  tank  quantities.  With  the  rotary\nselector  turned  to  the  REFUEL  position,  refueling  continues  until  the  PRECHECK,  OPEN,\nCLOSE switches are in the CLOSE position, the selector switch is turned to the OFF position, or\nuntil the high level sensors sense a full tank condition.\n\nWhen fueling is in progress, advisory lights on the refuel/defuel control panel indicate the position\nof the fuel control valves. The amber DUMP VALVE OPEN indicator light comes on when the\nrelated vent/dump valve opens. The vent/dump valve allows air to vent from the tank as it fills,\nand prevents damage should the tank overfill due to failure of both normal and backup shutoff\nfeatures. In the latter case, fuel flows into the surge bay through the refuel vent valve and, if it\nreaches the height of the standpipes, is spilled overboard through the surge bay NACA vents.\n\nTwo  PRECHECK,  OPEN,  CLOSE  switches  test  the  automatic  shutoff  operation  of  the  related\nhigh level control unit during refueling, ensuring operation of the overfill shut off system. With the\nswitch in the PRECHECK position a full tank is simulated for the related tank, and the high level\nsensor shuts off refueling to that tank by closing the level control shut off valve. This causes the\nrelated  amber  REFUEL  SHUTOFF  light  to  turn  on.  Refueling  restarts  when  the  switch  is\nreleased. If DC power is lost during refueling, refueling stops.\n\nGravity refueling can be done through the wing mounted gravity refuel adapter located on the top\nsurface of the wing (Figure 12.9-18).\n\nDash8 - Q400 - FuelPage 29\fFUEL QTY"
+    },
+    {
+      "title": "PRESEL",
+      "content": "TEST\n\nINCR\n\nRESET\n\nDECR"
+    },
+    {
+      "title": "GROUND CREW",
+      "content": "JACK"
+    },
+    {
+      "title": "TANK 2",
+      "content": "OFF"
+    },
+    {
+      "title": "TANK 1",
+      "content": "OPEN"
+    },
+    {
+      "title": "TANK 2",
+      "content": "CLOSE"
+    },
+    {
+      "title": "PRESEL",
+      "content": "3100\n3100\n10000\n\nLB\n\nOFF"
+    },
+    {
+      "title": "TANK 2",
+      "content": "TEST\n\nI\n\nR\n\nRESET\n\nDECR"
+    },
+    {
+      "title": "GROUND CREW",
+      "content": "JACK"
+    },
+    {
+      "title": "TANK 1",
+      "content": "OPEN"
+    },
+    {
+      "title": "TANK 2",
+      "content": "CLOSE"
+    },
+    {
+      "title": "PRESEL",
+      "content": "4000\n4000\n10000\n\nLB\n\nOFF"
+    },
+    {
+      "title": "TANK 2",
+      "content": "TEST\n\nINCR\n\nRESET\n\nDECR"
+    },
+    {
+      "title": "GROUND CREW",
+      "content": "JACK"
+    },
+    {
+      "title": "TANK 1",
+      "content": "OPEN"
+    },
+    {
+      "title": "TANK 2",
+      "content": "CLOSE"
+    },
+    {
+      "title": "LEGEND",
+      "content": "Light Off.\n\nLight On.\n\nFigure 12.9-15 Refueling Operation (1 of 2)\n\nDash8 - Q400 - FuelPage 30\fFUEL QTY"
+    },
+    {
+      "title": "PRESEL",
+      "content": "4100\n4200\n10000\n\nLB\n\nOFF"
+    },
+    {
+      "title": "TANK 2",
+      "content": "TEST\n\nINCR\n\nRESET\n\nDECR"
+    },
+    {
+      "title": "GROUND CREW",
+      "content": "JACK"
+    },
+    {
+      "title": "TANK 1",
+      "content": "OPEN"
+    },
+    {
+      "title": "TANK 2",
+      "content": "CLOSE\n\nPRE-CHECK TEST (No. 1 TANK) DURING REFUELING"
+    },
+    {
+      "title": "PRESEL",
+      "content": "5000\n5000\n10000\n\nLB\n\nOFF"
+    },
+    {
+      "title": "TANK 2",
+      "content": "TEST\n\nINCR\n\nRESET\n\nDECR"
+    },
+    {
+      "title": "GROUND CREW",
+      "content": "JACK"
+    },
+    {
+      "title": "TANK 1",
+      "content": "OPEN"
+    },
+    {
+      "title": "TANK 2",
+      "content": "CLOSE"
+    },
+    {
+      "title": "PRESEL",
+      "content": "TEST\n\nINCR\n\nRESET\n\nDECR"
+    },
+    {
+      "title": "GROUND CREW",
+      "content": "JACK"
+    },
+    {
+      "title": "TANK 2",
+      "content": "OFF"
+    },
+    {
+      "title": "TANK 1",
+      "content": "OPEN"
+    },
+    {
+      "title": "TANK 2",
+      "content": "CLOSE"
+    },
+    {
+      "title": "REFUELING COMPLETE",
+      "content": "Figure 12.9-16 Refueling Operation (2 of 2)\n\nDash8 - Q400 - FuelPage 31\fPOWER ON"
+    },
+    {
+      "title": "FUEL QTY",
+      "content": "lb\nlb\nlb\n\n3120\n3180\n6300"
+    },
+    {
+      "title": "PRESEL",
+      "content": "TEST\n\nINCR\n\nPreselect\nQuantity is set \nto Total Quantity\n\nRESET\n\nDECR\n\nRefuel Shutoff Valves are Closed\n\nReset Switch Sets\nPreselect = Total\n\nNew\nPreselect\nis entered\n\nTank 1 &\nTank 2\nFuel\nquantities\nare\nUpdated"
+    },
+    {
+      "title": "FUEL QTY",
+      "content": "lb\nlb\nlb\n\n3120\n3120\n10000"
+    },
+    {
+      "title": "PRESEL",
+      "content": "TEST\n\nINCR\n\nRESET\n\nDECR"
+    },
+    {
+      "title": "4 Seconds After",
+      "content": "INCR/DECR is\nneutral\n\nMove INC/DECR\nSwitch\n\nShuttoff valves are opened"
+    },
+    {
+      "title": "FUEL QTY",
+      "content": "lb\nlb\nlb\n\n4430\n4500\n10000"
+    },
+    {
+      "title": "PRESEL",
+      "content": "Use INCR/DECR \nSwitch to set\nPreselect Quantity"
+    },
+    {
+      "title": "FUEL QTY",
+      "content": "lb\nlb\nABORT\n\n4600\n4650"
+    },
+    {
+      "title": "PRESEL",
+      "content": "TEST\n\nINCR\n\nTEST\n\nINCR\n\nReset Switch\n\nRESET\n\nDECR\n\nAutomatic Fuel Shutoff"
+    },
+    {
+      "title": "FUEL QTY",
+      "content": "lb\nlb\nlb\n\n5000\n5000\n10000\n\nTEST\n\nINCR\n\nRESET\n\nDECR\n\nRESET\n\nDECR\n\nRefuel Shutoff\nValves are Closed\nFuel flow stopped\n\nTotal Fuel = Preselect.\nRefuel Shutoff Valves are Closed\nFuel flow stopped\n\nPreselect\nRefuel\nCompleted"
+    }
+  ],
+  "components": [
+    "ABORT",
+    "ACTUAL FUEL QUANTITY",
+    "AUX PUMP",
+    "AUX PUMP SWITCHLIGHT",
+    "BALANCE",
+    "CLOSE",
+    "CLOSED",
+    "Closed\nFuel",
+    "DECR",
+    "DEFUEL",
+    "DEFUEL PANEL CALLOUTS",
+    "DUMP VALVE OPEN\nTANK",
+    "Dash8",
+    "Defuel",
+    "Defuel Panel",
+    "Digital",
+    "During",
+    "E\nT\nO\nN\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD\n\nN\nE\nP\nO\nE\nV\nL\nA\nV\nP\nM\nU\nD",
+    "ESCP",
+    "Each",
+    "Engine Display",
+    "FF\nPPH",
+    "FLAP\nDEG",
+    "FOHE",
+    "FUEL",
+    "FUEL\nLBS",
+    "FUEL CONTROL TRANSFER",
+    "FUEL PAGE CALLOUTS",
+    "FUEL QTY\n\nTANK",
+    "Figure",
+    "Fuel",
+    "Fuel Page",
+    "FuelPage",
+    "Gravity",
+    "HLCU",
+    "HYD  PRESS\nPSI",
+    "HYD  QTY",
+    "INCR",
+    "K\nN\nA\nT",
+    "K\nN\nA\nT\n\nE\nS\nO\nL\nC\n\nK\nC\nE\nH\nC\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nL\nE\nU\nF\nE\nR\n\nR\nC\nN\n\nI\n\nT\nS\nE\nT\n\nR\nC\nE\nD\n\nT\nE\nS\nE\nR\n\nW\nE\nR\nC\nD\nN\nU\nO\nR\nG\n\nK\nC\nA\nJ",
+    "K\nN\nA\nT\n\nF\nF\nO\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nD\n\nT\nC\nE\nL\nE\nS\nE\nR\nP\n\nL\nE\nU\nF\nE\nR\n\nB\nL\n\nY\nT\nQ\nL\nE\nU\nF",
+    "K\nN\nA\nT\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR\n\nF\nF\nO\nT\nU\nH\nS\nL\nE\nU\nF\nE\nR",
+    "K\nN\nA\nT\n\nL\nE\nS\nE\nR\nP\n\nA",
+    "K\nN\nA\nT\n\nN\nE\nP\nO",
+    "LB\n\nOFF\n\nPRESELECT\nREFUEL\n\nPRESELECT\nDEFUEL\n\nDUMP VALVE OPEN\nTANK",
+    "LEFT",
+    "MFD Fuel Page",
+    "MFD1",
+    "MULTI FUNCTION DISPLAY",
+    "NACA"
+  ],
+  "key_facts": [
+    "The fuel system\nprovides  for  indicating,  storing,  venting,  fuel  feeding  and  scavenging,  refueling/defueling,  and\ntransferring",
+    "The\naircraft may be gravity or pressure refueled",
+    "2\n\nGeneral\n\nA fuel gauging system supplies quantity data to the flight compartment and refuel/defuel panel\nfor display",
+    "The left tank supplies fuel to the left\nengine  and  the  optional  Auxiliary  Power  Unit  (APU)",
+    "The  right  tank  supplies  fuel  to  the  right\nengine",
+    "A vent system keeps the air pressure in the fuel tanks between structural limits",
+    "A single\npoint pressure refuel/defuel system shares selected common components with the fuel transfer\nsystem",
+    "3\n\nControls and Indications - Fuel\n\nDash8 - Q400 - FuelPage 2\f1\n\n2\n\n3\n\nNAV\n\nPFD\n\nSYS\n\nENG\n\nELEC\n SYS\n\nENG\nSYS\n\nFUEL\n SYS\n\nSYS\n\nNAV\n\nPFD\n\nENG\n\nMFD1\n\nNORM\n\n1\n\n2\n\nDOORS\n   SYS\n\nALL\n\nTEST\n\nED BRT\n\nEFIS\nATT/HDG\n\nSOURCE\n\nOFF\n\nMFD2\n\nNORM\n\n2\n\n1\n\nEFIS\n\nADC\nSOURCE\n\nFigure 12",
+    "MFD 1 REVISION SELECTOR (4 position, rotary action)\n\nTURN - selectable positions are PFD, NAV, SYS, ENG\n-  ESCP provides the pilot with the ability to select any page on the MFD1 and to control\n\nthe EIS reversion after display failures\n\n2",
+    "DIGITAL DISPLAY OF FUEL TANK TEMPERATURE \n\n(digital value and TANK segment in white, °C segment in blue)\n-\n- \n\n indicates temperature in left collector bay with a ± sign\nif  using  JET  B/JP-4  and  TANK  temperature  is  more  than  35°C,  maximum  altitude  is\n20",
+    "TANK AUXILIARY PUMP PRESSURE STATUS INDICATOR\n\nCircle segment (white outline with black fill) - low or no pressure \nCircle segment (white outline with green fill) - normal pressure\n\n5",
+    "The maximum lateral imbalance permitted between\ntanks is 272 kg",
+    "Two outboard float vent valves\nand  one  inboard  vent  line,  control  the  pressure  between  the  related  surge  bay  and  main  tank\n(Figure  12",
+    "During flight, any fuel that may\nspill into the surge bay, is returned to the tank by the reduced pressure in the main tank, as fuel is\nused",
+    "The collector bay supplies engine fuel regardless of aircraft attitude",
+    "A primary ejector pump in the collector bay then provides a constant low-\npressure fuel supply to the engine",
+    "High-pressure motive flow is used to operate the scavenge\nand primary ejector pumps",
+    "If the engine driven\npump inlet pressure drops below a preset limit, the related #1 or #2 ENG FUEL PRESS caution\nlight comes on",
+    "An AC (Variable Frequency) auxiliary pump in each collector bay serves as a back up source of\nfuel boost pressure for takeoff and landing, and in case the related primary ejector pump does\nnot supply the necessary fuel pressure",
+    "When the pump is supplying sufficient boost pressure, the TANK 1 or TANK 2\nAUX PUMP light on the Fuel Page will turn green, and the related ON switchlight segment turns\ngreen",
+    "A TRANSFER switch on the FUEL CONTROL TRANSFER panel controls the fuel transfer sys-\ntem (Figure 12",
+    "When the TRANSFER switch is selected, the auxiliary pump in the donor\ntank operates automatically to pump fuel to the receiver tank",
+    "8\n\nRefueling\n\nThe refuel/defuel panel controls all refuel and defuel operations (Figure 12",
+    "During pressure refueling, fuel pressure opens a vent/\ndump valve in each tank to vent the tanks through the surge bay",
+    "The vent/dump valve allows air to vent from the tank as it fills,\nand prevents damage should the tank overfill due to failure of both normal and backup shutoff\nfeatures",
+    "10\n\nLimitations\n\nThe maximum refueling pressure is 50 psi, which gives a refueling flow rate of approximately 125 \ngallons per minute",
+    "A minimum of 20 psi refueling pressure is necessary for the system to oper-\nate properly"
+  ]
+}

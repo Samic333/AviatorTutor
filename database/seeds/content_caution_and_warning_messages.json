@@ -1,0 +1,18 @@
+{
+  "system_name": "Caution & Warning Messages",
+  "ata_code": "CW",
+  "pdf_file": "Q400 Caution Draft.pdf",
+  "full_text": "[Large PDF - 34.6MB, ~510 pages]\nCaution & Warning Messages for Q400 Aircraft\nPlease refer to original PDF for full content.",
+  "full_text_truncated": true,
+  "full_text_original_length": 0,
+  "word_count": 0,
+  "extraction_note": "PDF file too large for full extraction. Recommend accessing original PDF directly.",
+  "sections": [
+    {
+      "title": "Note",
+      "content": "This is a very large PDF (34.6MB). Please access the original PDF: Q400 Caution Draft.pdf"
+    }
+  ],
+  "components": [],
+  "key_facts": []
+}

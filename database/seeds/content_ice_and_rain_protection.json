@@ -1,0 +1,405 @@
+{
+  "system_name": "Ice & Rain Protection",
+  "ata_code": "ATA30",
+  "pdf_file": "Q400-Ice_and_Rain_Protection_1.pdf",
+  "full_text": "p\n\n12.11 (ATA 30) ICE AND RAIN PROTECTION\n\n12.11.1\n\nIntroduction\n\nThe Dash 8-Q400 aeroplane is approved for flight into known icing conditions. Ice and rain pro-\ntection includes de-icing, anti-icing, and rain removal systems. An ice detection system supplies\nearly indication of aeroplane icing conditions.\n\n12.11.2\n\nGeneral\n\nThe ice detection system uses probes to actively detect icing conditions and displays ice detec-\ntion information on the flight deck.\n\nThe  de-icing  system  uses  engine  bleed  air  to  operate  conventional  inflatable  boot  sections\ninstalled  on  the  leading  edge  surfaces  of  the  wings,  horizontal  and  vertical  stabilizers,  and\nnacelle inlet lips (Figure 12.11-1).\n\nThe  anti-icing  systems  use  electrical  heating  elements  to  prevent  ice  formation.  The  system\nheats: \n\n• \n• \n• \n• \n• \n\nleading edges of the propeller blades (de-icing)\npilot’s, copilot’s and standby pitot/static probes\nleft and right AOA vanes\nleft and right engine intake flanges\nboth windshields and pilot’s side window\n\nConventional electrically operated windshield wipers supply rain removal for the windshields.\n\nDash8 - Q400 - Ice & Rain ProtectionPage 1\fp\n\nLEGEND\n\n  1. Outboard Horizontal Stabilizer Boots. \n  2. Inboard Horizontal Stabilizer Boots.\n  3. Upper Vertical Stabilizer Boot. \n  4. Lower Vertical Stabilizer Boot. \n  5. Extension and Outboard Wing Boots.\n  6. Outboard and Inboard Centre Wing Boots.\n  7. Inboard Wing Boots.\n  8. Propeller Blade Heaters (All Blades).\n  9. Nacelle Inlet Lip Boot (Both Sides).\n10. Centre Boots.\n11. Angle of Attack Vane (Both Sides).\n12. Pilot's Side Window.\n13. Pilot's Windshield.\n14. Ice Detector Probe (Both Sides).\n15. Pitot/Static Probes.\n16. Copilot's Windshield.\n\n1\n\n2\n3\n4\n\n1\n\n5\n\n6\n\n9\n\n7\n\n16\n\n10\n\n10\n\n8\n\n6\n\n7\n\n5\n\n14\n\n15\n\n11\n\n12\n\n13\n\nFigure 12.11-1 Airframe De-icing System Components\n\nNOTE\n\nRight propeller removed\nfor clarity.\n\nDash8 - Q400 - Ice & Rain ProtectionPage 2\f12.11.3\n\nControls and Indications - Ice and Rain Protection\n\np\n\nDash8 - Q400 - Ice & Rain ProtectionPage 3\fp\n\nDEICE\n\n30\n\nPRESS\n\n30\n\n1\n\n2\n\n10\n\n20\n\n0\n\n20\n\n10\n\n0\n\n1\n\nPSI\n\nPSI\n\n2\n\nFigure 12.11-2 Airframe De-Ice Press Indicator\n\nDE-ICE PRESS INDICATOR CALLOUT (copilot’s side panel)\n\n1. LEFT SIDE AIRFRAME DEICE PRESSURE GAUGE\n\n- \n\n- \n\nindicates pneumatic pressure in left system when BOOT AIR switch is in the ISO position\n(normally at 18 ± 3 psi)\nindicates average pneumatic pressure of left and right system when BOOT AIR switch is\nin the NORM position\n\n2. RIGHT SIDE AIRFRAME DEICE PRESSURE GAUGE\n\n- \n\n- \n\nindicates pneumatic pressure in right system when BOOT AIR switch is in the ISO posi-\ntion (normally at 18 ± 3 psi)\nindicates average pneumatic pressure of right and left system when BOOT AIR switch is\nin the NORM position\n\nDash8 - Q400 - Ice & Rain ProtectionPage 4\fp\n\nGPWS FLAP\n OVERRIDE\n\nGRD CREW\n FWD AFT\n\nSTEERING RANGE\n\nOR\nF WA\nR\nD\n\nALTERNATE PILOT WIPER\n\n1\n\nFigure 12.11-3 Alternate Pilot Wiper Switch \n\nALTERNATE PILOT WIPER CALLOUT\n\n1. ALTERNATE PILOT WIPER PUSHBUTTON (guarded, alternate action)\n\nPUSH - (in)\n-\n\npilot’s windshield wiper operates at high speed\n\nPUSH - (out)\n-\n\npilot’s windshield wiper stops\n\nDash8 - Q400 - Ice & Rain ProtectionPage 5\fp\n\n2\n\nMCR\n75%\nBLEED\n\nTRQ\n%\n\nNH\n%RPM\n\n75\n\n75\n\nMCR\n75%\nBLEED\n\nNH\n%RPM\n\n92.3\nOSG TEST\nIN PROG\n\nFF\nPPH\n1020\n\nNL\n%RPM\n74\n\nPROP\nRPM\n\n850\n\n850\n\nITT\n°C\n\n755\n\n755\n\n°C\n50\n\nOIL\n\nPSI\n50\n\nFUEL\n1620\n1620\nLBS\n+22\n+22\n°C\nSAT  -10 °C\nICE DETECTED\n[\n]\n INCR REF SPEED \n\n1\n\nOSG TEST\nIN PROG\n\nFF\nPPH\n1020\n\nNL\n%RPM\n74\n\n°C\n75\n\nOIL\n\nPSI\n50\n\nFigure 12.11-4 Engine Display (ED) Ice and Rain Parameters\n\nDash8 - Q400 - Ice & Rain ProtectionPage 6\fp\n\nED CALLOUTS PERTAINING TO ICE AND RAIN PROTECTION\n\n1.\n\nICE DETECTED MESSAGE (flashing white, reverse video for the first 5 sec.)\n- \none or both ice detector probes have detected more than 0.5 mm of ice\n-  message will flash for 5 seconds, and if the REF SPEEDS switch is not set to the INCR\n\nposition, message will continue in normal video\n\n(white normal video, not flashing)\n\n- \n\naeroplane is in icing conditions with the REF SPEEDS switch set to the INCR position\n\n2.\n\n[INCR REF SPEED] MESSAGE (white)\n-\nREF SPEEDS switch set to INCR\n-  Stall Protection System (SPS) adjusts stall margin for icing conditions \n\nDash8 - Q400 - Ice & Rain ProtectionPage 7\fp\n\n2\n\nICE PROTECTION\n\nTAIL\n\nAIRFRAME MODE SELECT\n\nOFF\n\nMANUAL\n\nSLOW\n\nOFF\n\nAIRFRAME\nMANUAL\nSELECT\n\nFAST\n\nWING\n\nPROPS\n\nPROPS\n\nOFF\n\nTEST\n\nPROP\n\nBOOT AIR\n\nNORM\n\nISO\n\nHEAT\nOFF\n\nON ENGINE\n\nINTAKE\n\nOPN HTR\n\nOPN HTR\n\nREF SPEEDS\n\nCLOSED\n\nCLOSED\n\nOFF\n\nINCR\n\n PITOT STATIC\n\nOFF\n\nOFF\n\nSTBY\n\n1\n\n2\n\nWINDSHIELD\n\nWARM\n   UP\n\nPARK\n\nNORM\n\nWIPER\nOFF\n\nLOW\n\nPLT SIDE\nWDO/HT\n\nOFF\n\nHIGH\n\nON\n\n1\n\n3\n\n4\n\nFigure 12.11-5 Ice-Protection Panel (1 of 4)\n\nDash8 - Q400 - Ice & Rain ProtectionPage 8\fp\n\nICE PROTECTION PANEL CALLOUTS\n\n1. AIRFRAME MODE SELECT SELECTOR (four position, rotary action)\n\nOFF - automatic boot sequencer off\n-\n\nDual  Distributor  Valves  (DDV)  and  check  valve  heaters  Timer  and  Monitor  Unit  (TMU)\ncontrolled\n\nSLOW - automatic sequencing of deice boots with 3 minute cycle (144 sec. dwell time)\n\nFAST - automatic sequencing of deice boots with 1 minute cycle (24 sec. dwell time)\n\nMANUAL - DDV and heated check valve heaters on manually\n-\n\nboots  can  inflate  with  manual  selection  of  DDV  valves  using  AIRFRAME  MANUAL\nSELECT switch\n\n2. AIRFRAME MANUAL SELECT SELECTOR (eight position, rotary action)\n\nOFF - (two positions)\n-\n\nautomatic sequencing of de-ice boots can be done \n\nBOOT DETENT - (six positions)\n-\n-\n- minimum dwell time of 24 seconds before inflating boots again\n\ninflates related boots by energizing related DDV\nAIRFRAME MODE SELECT switch must be at OFF or MANUAL\n\n3. BOOT INFLATION ADVISORY LIGHT (green)\n\n-\n\nrelated boot pressure is 15 psi or above\n\n4. BOOT AIR SWITCH (two position toggle)\n\nNORM - isolator shut off valve energized open\nleft and right bleed air systems connected\n-\n\nISO - isolator shut off valve closed\n-\n-\n\nleft and right bleed air systems isolated from each other\nboots must be selected manually\n\nDash8 - Q400 - Ice & Rain ProtectionPage 9\fp\n\n8\n\n7\n\nICE PROTECTION\n\nTAIL\n\nAIRFRAME MODE SELECT\n\nOFF\n\nMANUAL\n\nSLOW\n\nOFF\n\nAIRFRAME\nMANUAL\nSELECT\n\nFAST\n\nWING\n\nPROPS\n\nPROPS\n\n5\n\n6\n\nOFF\n\nTEST\n\nPROP\n\nBOOT AIR\n\nNORM\n\nON ENGINE\n\nINTAKE\n\nOPN HTR\n\nOPN HTR\n\nREF SPEEDS\n\nCLOSED\n\nCLOSED\n\nOFF\n\nINCR\n\n PITOT STATIC\n\nOFF\n\nOFF\n\nSTBY\n\n1\n\n2\n\nWINDSHIELD\n\nWARM\n   UP\n\nPARK\n\nNORM\n\nWIPER\nOFF\n\nLOW\n\nPLT SIDE\nWDO/HT\n\nOFF\n\nHIGH\n\nON\n\nISO\n\nHEAT\nOFF\n\nFigure 12.11-6 Ice-Protection Panel (2 of 4)\n\nDash8 - Q400 - Ice & Rain ProtectionPage 10\fp\n\nICE PROTECTION PANEL CALLOUTS (cont’d)\n\n5. PROPS ADVISORY LIGHT (green)\n\n-\n\nall blade heater elements of related propeller are energized\n\n6. PROP SELECTOR (rotary action)\n\nTEST - each propeller will be heated separately for a cycle of 5 sec.\n-\n-\n\nNP must be above 400 RPM (CL at MIN or greater)\nAC power must be available\n\nOFF - propeller heaters not energized\n\nON - propeller heaters controlled by Timer Monitor Control Unit (TMCU)\n-\n-\n-\n-\n\nall blades on one propeller come on, then the other propeller is heated\nheating cycle is determined by TMCU using Total Air Temp (TAT) data\ntemperature must be less than 5°C\nNP above 400 RPM (CL at MIN or greater)\n\n7. REF SPEED SWITCH (two position toggle)\n\n-\n\n[INCR REF SPEED] is shown on ED\n\n8. ENGINE INTAKE SWITCHLIGHT (alternate action)\n\nPUSH - OPN segment (amber)\n- \n\nbypass door open\n\nHTR - segment (amber)\n- \nswitchlight pushed\n-  OPN segment (amber)\n- \n- \n-  main or back up engine intake adapter heater energized \n\ntemperature less than 15°C\nengine oil pressure in operating range\n\nPUSH - CLOSED segment (green)\n- \n- \n\nbypass door closed\nengine intake adapter heater off (bypass door must be open for heater to operate)\n\nDash8 - Q400 - Ice & Rain ProtectionPage 11\fp\n\nICE PROTECTION\n\nTAIL\n\nAIRFRAME MODE SELECT\n\nOFF\n\nMANUAL\n\nSLOW\n\nOFF\n\nAIRFRAME\nMANUAL\nSELECT\n\nFAST\n\nWING\n\nPROPS\n\nPROPS\n\nOFF\n\nTEST\n\nPROP\n\nBOOT AIR\n\nNORM\n\nON ENGINE\n\nINTAKE\n\nOPN HTR\n\nOPN HTR\n\nREF SPEEDS\n\nCLOSED\n\nCLOSED\n\nOFF\n\nINCR\n\n PITOT STATIC\n\nOFF\n\nOFF\n\nSTBY\n\n1\n\n2\n\nISO\n\nHEAT\nOFF\n\n9\n\nWINDSHIELD\n\nWARM\n   UP\n\nPARK\n\nNORM\n\nWIPER\nOFF\n\nLOW\n\nPLT SIDE\nWDO/HT\n\nOFF\n\nHIGH\n\nON\n\n11\n\n10\n\nFigure 12.11-7 Ice-Protection Panel (3 of 4)\n\nDash8 - Q400 - Ice & Rain ProtectionPage 12\fp\n\nICE PROTECTION PANEL CALLOUTS (cont’d)\n\n9. STBY PITOT/STATIC PORT SWITCH (two position toggle)\n\nOFF - standby pitot/static probe heater not energized\n-  PITOT HEAT STBY caution light comes on\n\nSTBY - standby pitot/static probe heater energized\n- \n\nsee that PITOT HEAT STBY caution light goes off\n\n10. 1 PITOT/STATIC PORT SWITCH (two position toggle)\n\nOFF - No. 1 pitot/static probe heater not energized\n-  PITOT HEAT 1 caution light comes on\n\n1 -  No. 1 pitot/static probe heater energized\n-  PITOT HEAT 1 caution light goes off\n\n11. 2 PITOT/STATIC PORT SWITCH (two position toggle)\n\nOFF - No. 2 pitot/static probe heater not energized\n-  PITOT HEAT 2 caution light comes on\n\n2 - No. 2 pitot/static probe heater energized\n-  PITOT HEAT 2 caution light goes off\n\nDash8 - Q400 - Ice & Rain ProtectionPage 13\fp\n\nICE PROTECTION\n\nTAIL\n\nAIRFRAME MODE SELECT\n\nOFF\n\nMANUAL\n\nSLOW\n\nOFF\n\nAIRFRAME\nMANUAL\nSELECT\n\nFAST\n\nWING\n\nPROPS\n\nPROPS\n\nOFF\n\nTEST\n\nPROP\n\nBOOT AIR\n\nNORM\n\nISO\n\nHEAT\nOFF\n\nON ENGINE\n\nINTAKE\n\nOPN HTR\n\nOPN HTR\n\nREF SPEEDS\n\nCLOSED\n\nCLOSED\n\nOFF\n\nINCR\n\n PITOT STATIC\n\nOFF\n\nOFF\n\nSTBY\n\n1\n\n2\n\nWINDSHIELD\n\nWARM\n   UP\n\nPARK\n\nNORM\n\nWIPER\nOFF\n\nLOW\n\nPLT SIDE\nWDO/HT\n\nOFF\n\nHIGH\n\nON\n\n12\n\n14\n\n13\n\nFigure 12.11-8 Ice-Protection Panel (4 of 4)\n\nDash8 - Q400 - Ice & Rain ProtectionPage 14\fp\n\nICE PROTECTION PANEL CALLOUTS (cont’d)\n\n12. HEAT SWITCH (rotary action)\n\nOFF - both windshield heaters off\n\nWARM UP - both windshields heated in series with power from 115 VAC left bus\n- \n\nif  preset  threshold  temperature  is  not  reached  in  5  min,  WSHLD  CTRL  caution  light\ncomes on\n\nNORM - pilot’s windshield heated with power from 115 VAC left bus\n- \n- \n\ncopilot’s windshield heated with power from 115 VAC right bus\nif  preset  threshold  temperature  is  not  reached  in  5  min,  WSHLD  CTRL  caution  light\ncomes on\n\n-  windshield temperature controlled by separate Anti-Ice Controllers (AIC) using overheat\n\nsensor\nif windshield temperature is too hot, WSHLD HOT caution light comes on\n\n- \n\n13. PLT SIDE WDO/HT SWITCH (two position toggle)\n\nOFF - pilot’s side window heater off\n\nON - pilot’s side window heated with power from 115 VAC right bus\n- \n- \n- \n\nonly forward part of pilot’s side window is heated\npilot’s side window temperature controlled by right AIC using overheat sensor\noverheat relay opens if side window temperature is too hot and SIDE WDO HOT caution\nlight comes on\n\n14. WIPER SWITCH (rotary action with spring loaded position)\n\nOFF - both windshield wipers stop at existing position\n\nLOW - both windshield wipers operate at slow speed from two independent wiper motors\n\nHIGH - both windshield wipers operate at high speed\n\nPARK - (spring loaded position)\n- \n\nboth windshield wipers automatically stop at the lower outboard park positions\n\nDash8 - Q400 - Ice & Rain ProtectionPage 15\fp\n\n1\n\nCIR BKR\n  LIGHT\n\n W/S WIPER\nICE DETECT\n\nPILOTS\nFLT PNL\n\nPROP O'SPEED\nGOVERNOR\n\nOFF\n\nLIGHT\n\nOFF BRT\n\nTEST\n\nT/O WARN\n    TEST\n\n  ADC\nTEST 1\n\nSTALL WARN\n     TEST 1\n\nSTEERING\n\nOFF\n\nOFF\n\nTEST 2\n\nTEST 2\n\nFigure 12.11-9 Pilot’s W/S Wiper Ice Detect Pushbutton\n\nPILOT’S SIDE PANEL CALLOUT PERTAINING TO ICE AND RAIN\n\n1. W/S WIPER ICE DETECT PUSHBUTTON (momentary action)\n\nPUSH  -  windshield  wiper  ice  detection  light,  above  glareshield,  shines  on  the  pilot’s  wind-\nshield wiper spigot\n\nDash8 - Q400 - Ice & Rain ProtectionPage 16\fp\n\n1\n\n W/S WIPER\nICE DETECT\n\nCOPILOTS\n  FLT PNL\n\nLIGHT\n\nOFF BRT\n\nCIRCUIT\nBREAKER\nPNL LTG\n\nOFF\n\nINPH\n\nXMIT\n\nFigure 12.11-10 Copilot’s W/S Wiper Ice Detect Pushbutton\n\nCOPILOT SIDE PANEL CALLOUT PERTAINING TO ICE AND RAIN\n\n1. W/S WIPER ICE DETECT PUSHBUTTON (momentary action)\n\nPUSH - windshield wiper ice detection light, above glareshield, shines on the copilot’s wind-\nshield wiper spigot\n\nDash8 - Q400 - Ice & Rain ProtectionPage 17\fp\n\nNOTE\n\nLeft side shown.\nRight side similar. \n\nFigure 12.11-11 Ice Detector Probe\n\nDash8 - Q400 - Ice & Rain ProtectionPage 18\f12.11.4\n\nIce Detection System\n\nThere is no flight deck control for the Ice Detection System (IDS). The system automatically oper-\nates as soon as 115 VAC power is available. The IDS uses two Ice Detector Probes (IDP) on the\nleft and right side of the front fuselage (Figure 12.11-10). If either IDP detects more than 0.5 mm\nof ice, it is heated with power from the related 115 VAC bus. This deices the probe so that it can\ndetect ice again.\n\nIf either IDP detects ice, an ICE DETECTED message will flash in white reverse video for 5 sec-\nonds, or until the PROP selector is set to the ON position. The message is shown on the ED just\nbelow  the  SAT  indication.  An  [INCR  REF  SPEED]  command  message  is  shown  in  white  just\nbelow  the  ICE  DETECTED  message  when  the  Stall  Protection  System  (SPS)  is  modified  for\nicing conditions, as a result of turning the PROPs selector on.\n\nThe ICE DETECT FAIL caution light will come on if both ice detector probes fail. Failure of only\none probe will not cause the caution light to come on, as the system is redundant.\n\n12.11.5\n\nAirframe De-icing System\n\nAirframe de-icing can be controlled automatically or manually. Pneumatically actuated rubber de-\nicing boots are bonded to the leading edges of the wings, horizontal and vertical stabilizers, and\nnacelle inlet lips (Figure 12.11-11). De-icing bleed air is taken from the bleed port of each engine\nand is available to inflate the boots regardless of the position of BLEED control switches. System\npressure is regulated to 18 psi and shown on the DEICE PRESS indicator, located on the copi-\nlot's side panel. An isolator valve interconnects the two systems. A BOOT AIR switch is used to\ncontrol the isolator valve, which is normally open to ensure uninterrupted operation of either sys-\ntem if one engine is not operating. The ISO position can be used to check regulated pressure in\neach system individually or to isolate a system leak.\n\nRegulated de-icer pressure is also used to inflate the forward passenger and aft baggage door\nseals, and to operate ejector for the pressurization system AFT safety valve.\n\nThe boots inflate, and stay inflated, with pressurized air when the Dual Distributing Valves (DDV)\nare energized open. When not activated, boot ports are connected to suction to deflate and hold\nthe boots flush with the leading edges.\n\nThe  AIRFRAME  MODE  SELECT  rotary  switch  selects  automatic  de-icing,  when  set  to  SLOW\n(3 min.) or FAST (1 min.). The selector is self-homing such that a selection to SLOW or FAST\nand back to OFF will complete a full cycle. Automatic boot inflation sequence is controlled and\nmonitored by the Timer and Monitor Unit (TMU) (Figure 12.11-11, 12.11-12). The TMU controls\nthe  sequence  and  supplies  a  dwell  period  related  to  the  selected  rate  (Table  12.11-1).  Green\nWING, TAIL and nacelle inlet lip boot inflation lights show boot inflation sequence and confirm\ncorrect boot inflation pressure.\n\nNOTE:\n\nTo make sure deice pressure is maintained at 15 psi or greater during decent, hold-\ning  and  approach,  it  may  be  necessary  to  increase  NL  by  advancing  the  POWER\nlevers.\n\nDash8 - Q400 - Ice & Rain ProtectionPage 19\fp\n\n6\n7\n5\n2\n 3\n&\n,\n7\n$\n7\n 6\n7\n2\n7\n,\n 3\n\n6\n3\n2\n5\n3\n\n5\n,\n\n $\n7\n2\n2\n%\n\n)\n)\n2\n\n)\n)\n2\n\n0\n5\n2\n1\n\n<\n%\n7\n6\n\n2\n6\n,\n\n/\n$\n&\n,\n7\n5\n(\n9\n\n5\n(\n=\n\n,\n/\n,\n\n%\n$\n7\n6\n\n6\n7\n2\n2\n %\n*\n1\n,\n&\n\n,\n(\n '\n5\n(\n=\n\n,\n/\n,\n\n%\n$\n7\n 6\n/\n$\n7\n1\n2\n=\n,\n5\n2\n+\n\nH\nU\nX\nV\nV\nH\nU\n 3\nQ\nR\nL\nW\nD\nO\nQ\nW\nR\nR\n%\n\n ,\n\nI\n\n /\n\nW\nK\nJ\nL\nH\nF\nQ\nH\nX\nT\nH\n 6\nW\nR\nR\n%\n\nU\nL\n $\nG\nH\nH\nO\n %\nG\nH\nW\nD\nO\nX\nJ\nH\n5\n\nU\nL\n $\nG\nH\nH\nO\n %\nH\nQ\nL\nJ\nQ\n\n(\n\n'\n\n1\n(\n*\n(\n /\n5\n8\n2\n/\n2\n&\n\n7\n&\n\n(\n/\n(\n6\n\n/\n$\n8\n1\n$\n0\n\n(\n0\n$\n5\n)\n5\n,\n$\n\n)\n)\n2\n\n6\n3\n2\n5\n3\n\n/\n,\n$\n7\n\n1\n2\n,\n7\n&\n(\n7\n2\n5\n 3\n(\n&\n\n,\n\n*\n1\n,\n:\n\n7\n6\n$\n)\n\n:\n2\n/\n6\n\n'\n(\n6\n2\n/\n&\n\n'\n(\n6\n2\n/\n&\n\n5\n7\n +\n1\n3\n2\n\n5\n7\n +\n1\n3\n2\n\n(\n.\n$\n7\n1\n,\n\n(\n1\n,\n*\n1\n(\n\n1\n2\n\n1\n2\n,\n7\n8\n$\n&\n\n6\n7\n+\n*\n,\n/\n\n5\n(\n0\n,\n7\n\n(\n\n&\n\n,\n(\n '\n\n6\n6\n(\n5\n3\n\n(\n\n&\n\n,\n(\n '\n\n)\n)\n2\n\n7\n&\n\n(\n/\n(\n 6\n(\n'\n2\n 0\n(\n0\n$\n5\n)\n5\n,\n$\n\n/\n$\n8\n1\n$\n0\n\n6\n3\n2\n5\n3\n\n)\n)\n2\n\n7\n6\n(\n7\n\n5\n(\n0\n7\n\n,\n\n,\n\n*\n1\n5\n2\n7\n1\n2\n0\n\n,\n\n,\n\n7\n1\n8\n\n7\n2\n2\n %\n\n(\n.\n$\n7\n1\n ,\n(\n/\n/\n(\n\n&\n$\n1\n\n6\n7\n2\n2\n %\n*\n1\n,\n&\n\n,\n(\n'\n\n*\n1\n,\n :\n(\n5\n7\n1\n(\n&\n\n6\n7\n2\n2\n %\n*\n1\n,\n&\n\n,\n(\n '\n*\n1\n,\n :\n5\n(\n7\n8\n2\n\nFigure 12.11-12 Airframe De-Icing Schematic\n\n6\n&\n3\n &\n2\n7\n\n5\n2\n7\n&\n\n(\n-\n (\n\n+\n\n.\n1\n$\n 7\n5\n,\n2\n9\n5\n(\n6\n(\n5\n\n/\n$\n(\n 6\n5\n2\n2\n '\n2\n7\n\n+\n\n+\n\nH\nY\nO\nD\n 9\nJ\nQ\nL\nW\nX\nE\nL\nU\nW\nV\nL\n '\nO\nD\nX\n\n'\n\nO\nD\nF\nL\nU\nW\nF\nH\nO\n\n(\n\nH\nY\nO\nD\n 9\nN\nF\nH\nK\n &\nG\nH\nW\nD\nH\n+\n\nH\nY\nO\nD\n 9\nN\nF\nH\nK\n&\n\nU\nR\nW\nF\nL\nU\nW\nV\nH\n5\n\n'\n\n1\n(\n*\n(\n/\n\n+\n\nDash8 - Q400 - Ice & Rain ProtectionPage 20 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\fICE PROTECTION\n\n6\n\n5\n\nTAIL\n\n5\n\n6\n\nAIRFRAME MODE SELECT\n\nOFF\n\nMANUAL\n\nSLOW\n\nFAST\n\nOFF\n\nAIRFRAME\nMANUAL\nSELECT\n\n1\n\n2\n\n4\n\n3\n\n5\n\nWING\n\n3\n\n2\n\n1\n\n4\n\n6\n\nNOTE\n\nManual switch positions and\nrelated indicator light\nsequence correspond with\ndeice boot inflation sequence\nshown below. Numbers do\nnot actually appear on panel.\n\n5\n\np\n\n6\n\n1\n\n2\n\n3\n\n6\n\n4\n\n5\n\n4\n\n2\n\n3\n\n1\n\nfs number\n\nFigure 12.11-13 Airframe De-ice Boots Inflation Sequence and Lights\n\nDash8 - Q400 - Ice & Rain ProtectionPage 21\fBOOT SEQUENCE\n\nINFLATION\nTIME\n\nDWELL TIME\n\np\n\nDISTRIBUTING \nVALVES\n\n1A & 2A\n\n1B & 2B\n\n3B\n\n4B\n\n3A & 5A & 6A\n\n4A & 5B & 6B\n\nBOOT LOCATION\n\nFAST\n\nSLOW\n\nExtension and Outboard on \nEach Wing\n\nOutboard Center and \nInboard Center on Each \nWing\n\nRight Inboard and Left Cen-\nter (Root)\n\nLeft Inboard and Right Cen-\nter (Root)\n\nLeft Nacelle, Upper Vertical \nand Inboard Horizontal Sta-\nbilizers\n\nRight Nacelle, Lower Verti-\ncal and Outboard Horizontal \nStabilizers\n\n6 Seconds for \neach combina-\ntion of boots\n\n24 Sec. \nbetween \nend of (6) \nand restart \nof (1)\n\n144 Sec. \n(2 min + \n24 Sec.) \nbetween \nend of (6) \nand restart \nof (1)\n\nTable 12.11-1 Deicer Boot Operation Sequence\n\nIntegral DDV and check valve heaters automatically come on when the:\n\n•  TMU temperature monitor parameter has not failed\n•  AIRFRAME MODE SELECT switch set to OFF, SLOW or FAST\n•  Static Air Temperature (SAT) is less than +5°C.\n\nIf the TMU temperature monitoring parameter fails, the valve heaters stay on by default. If the\nTMU heater activation parameter fails, the valve heaters will not come on automatically. The DE-\nICE TIMER caution light comes on if there is a failure of the TMU:\n\n• \n• \n• \n\nautomatic deice sequencer\nlogic\ninput disagreement\n\nWhen the AIRFRAME MODE SELECT switch is set to the MANUAL position, the DDV and check\nvalve heaters come on permanently and do not cycle. \n\nDash8 - Q400 - Ice & Rain ProtectionPage 22\fp\n\nIf a malfunction occurs in the automatic timer or a leak occurs in the system, the boots can be\ncycled  manually  with  the  AIRFRAME  MANUAL  SELECT  switch.  Rotating  the  switch  through\neach of the six detent positions duplicates the automatic inflation sequence. Each set of related\nboots  will  inflate  as  long  as  the  switch  stays  at  the  set  position.  The  related  WING,  TAIL  and\nnacelle inlet boot inflation light come on to show full inflation. A minimum dwell time of 24 sec-\nonds should be observed before inflating the boots again.\n\nNOTE:\n\nEach selection should be held until the corresponding pair of lights come on before\nmoving to the next position.\n\nIf a rupture or leak occurs to the pneumatic lines of either deice system, the affected side will\nhave  to  be  isolated  to  ensure  that  deice  pressure  is  available  to  the  leakless  side.  When  the\nBOOT AIR switch is set to ISO, the isolation shutoff valve closes. Isolating the failed side from\nthe functioning pressure side. All the boots on the horizontal and vertical stabilizers are pneumat-\nically cross connected to ensure boot pressure, even if one half of the system loses pressure.\n\nThe DE-ICE PRESS caution light will come on if the:\n\n• main de-ice pressure on either side is less than 15 psi,\n•\n•\n\nboot pressure does not reach 15 psi after the DDV opens,\nboot pressure stays at 15 psi after the DDV closes.\n\nDash8 - Q400 - Ice & Rain ProtectionPage 23\fp\n\nNOTE\n\nOne of six Prop Blades shown.\nOther Prop Blades similar.\n\n1\n\nLEGEND\n\n1. Heating Element (70% of Blade).\n\nFigure 12.11-14 Propeller De-ice Heating Element\n\nDash8 - Q400 - Ice & Rain ProtectionPage 24\f12.11.6\n\nPropeller Heaters\n\nThe propeller blade leading edges are protected from ice accumulation by electrically heated ele-\nments bonded onto each blade (Figure 12.11-13). Electrical power is supplied from the related\n115 VAC variable frequency bus.\n\nThe propeller deice system is operated by the PROPs selector. All six blades on one propeller\nare heated at the same time during a de-icing cycle. To minimize the electrical load on the sys-\ntem,  one  propeller  is  heated  then  the  other  propeller  is  heated.  Two  PROPs  de-ice  indicator\nlights,  on  the  ICE  PROTECTION  panel,  come  on  when  the  related  propeller  is  heated.  The\nheater cycle for each propeller is controlled by a related Timer Monitor Control Unit (TMCU). The\nTMCU heater cycle times depend on the Total Air Temperature (TAT) as shown in Table 12.11-\n2.\n\nTAT/°C\n(average)\n\n> 5 (hold state)\n-7 < TAT (cid:2) 5 (default mode)\n-12 < TAT (cid:2) -7\n-17 < TAT (cid:2) -12\n-22 < TAT (cid:2) -17\nTAT (cid:2) -22\n\nON\n(SECONDS)\n\nOFF\n\n12\n\n45\n\n74\n\n84\n\n92\n\nPROP HEATER\n\nOFF\n(SECONDS)\n\n–\n\n78\n\n80\n\n76\n\n96\n\n108\n\nTable 12.11-2 Propeller Heater Cycle Times\n\nThe Total Air Temperature, TAT, must be equal to or lower than 5°C for the propeller heaters to \noperate. TAT is always higher (warmer) than the Static Air Temperature (SAT) with the TAT \nincreasing as the airspeed increases. Therefore, with an indicated SAT of approximately 5°C and \na high airspeed, the propeller heaters may not cycle.\n\nNote:\n\nWith observed ice accumulation, the propeller \ndeice system should function regardless of the \nobserved SAT.\n\nThe TMCU will heat all six blades of its propeller when the:\n\n•  PROP switch is set to ON\n•  TAT is less than or equal to +5°C\n•  NP is above 400 RPM\n\nWhen the PROP switch is set to the TEST position, each propeller will be heated separately for a\ncycle of 5 seconds, if NP is above 400 RPM. The propeller indicator lights will come on to confirm\nheater/timer operation. The test cannot be started again for 30 seconds to prevent overheating of\n\nDash8 - Q400 - Ice & Rain ProtectionPage 25\fthe blade elements. Fuselage ice protection panels, installed on both sides of the fuselage adja-\ncent to the propeller arc, prevent damage to the fuselage from ice thrown by the propellers.\n\nNote:\n\nThe effectiveness of the propeller de-icing sys-\ntem can be improved and propeller vibration \nreduced by operation of the propellers at 1020 \nRPM (CL at max).\n\nIf there is a failure of the propeller de-icing system, the PROP DEICE caution light will come on.\n\n12.11.7\n\nEngine Intake Heaters/Bypass Doors \n\nAn electric heater is installed in the intake flange of each engine. The heaters are powered by\n115  VAC  variable  frequency  and  are  energized  when  the  engine  intake  bypass  doors  are\nopened.  An  oil  pressure  switch  and  temperature  sensor  in  the  heater  control  circuit  prevents\nheater operation when the engine is shutdown  and/or  air temperature is  above +15°C. Heater\noperation is confirmed by the HTR segment on the ENGINE INTAKE switchlight coming on when\nthe doors are opened.\n\nThe engine intake heaters are controlled by thermostates, attached internally to the fuselage skin\nbelow the pilot's seat. The thermostat mechanical switch close at an Outside Air Temperature of\n15+/- 2 degrees C, and opens when OAT is 1-3 degrees C above 15+/- 2 degrees C.\n\nSince the thermostates are installed internally to the fuselage skin they reacts to the skin temper-\nature and not to actual SAT. \n\nTherefore in summerperiod, depending of the time the a/c has been on ground and weather con-\nditions it is fully normal that the engine intake heaters do not turn on during climb at a SAT of 15\ndegrees C.\n\n12.11.8\n\nPitot/static Probe Heat\n\nThe No. 1, No. 2 and standby pitot/static probes (Figure 12.11-14 and 12.11-15) incorporate inte-\ngral heaters which are activated by the flight crew to prevent ice build up. The No.1 pitot/static\nprobe heater is powered from the left 115 VAC C phase Left bus, and the No. 2 probe is powered\nfrom the right 115 VAC C phase Right bus. The standby pitot/static probe heater is powered from\nthe 28 VDC Right Essential bus. All three pitot/static probes are controlled and monitored by sep-\narate modules of the TMU, controlled by the PITOT/STATIC PROBE switches on the ICE PRO-\nTECTION panel.\n\nThe PITOT HEAT STBY, 1, and 2 caution lights come on when the related probe heater is inop-\nerative or when the related PITOT/STATIC PROBE switch is set to the OFF position.\n\nDash8 - Q400 - Ice & Rain ProtectionPage 26\fp\n\nNOTE\n\nLeft component shown.\nRight component similar.\n\nFWD\n\nFigure 12.11-15 Pilot’s and Copilot’s / Static Probe\n\nfs number\n\nDash8 - Q400 - Ice & Rain ProtectionPage 27\fp\n\nFigure 12.11-16 Standby Pitot Static Probe\n\nfs number\n\nDash8 - Q400 - Ice & Rain ProtectionPage 28\fp\n\nFigure 12.11-17 AOA Vane\n\nDash8 - Q400 - Ice & Rain ProtectionPage 29\f12.11.9\n\nAOA Vane Heaters\n\nThere is no flight deck control for the Angle of Attack (AOA) vane (Figure 12.11-16) heaters. The\nleft and right AOA vanes are heated to prevent ice build up whenever variable 115 VAC power is\navailable. The left AOA vane is powered from the left 115 VAC B phase Left bus, and the right\nAOA is powered from the right 115 VAC B phase Right bus. The AOA vane heaters are directly\nconnected to their power supply through the TMU.\n\nThere is no direct caution light for an AOA heater failure. If the Stall Protection Module (SPM)\nsenses an AOA heater failure, it causes the PUSHER SYS FAIL caution light to come on, and\nthe applicable STALL SYS FAIL caution light.\n\n12.11.10 Windshield And Pilot’s Window\n\nThe  left  and  right  windshields  and  the  pilot’s  side  window  are  heated  to  supply  anti-icing  and\ndemisting.  When  the  WINDSHIELD  HEAT  selector  is  set  to  WARM  UP,  both  windshields  are\nheated at half power from the left 115 VAC bus. When the selector is set to NORM, each wind-\nshield is heated at full power from its related 115 VAC bus. When the PLT SIDE WDO/HT toggle\nswitch is set to ON the forward part of the pilot’s side window is heated from the right 115 VAC\nbus.\n\nAnti-ice controllers control the windshield and side window heaters. If either windshield controller\nfails, the WSHLD CTRL caution light comes on. If either windshield overheats, the WSHLD HOT\ncaution light comes on. If the pilot’s side window overheats, the SIDE WDO HOT caution light\ncomes on. An overheat condition also shuts off power to the related windshield or side window\nheater.\n\n12.11.11 Windshield Wipers\n\nEach windshield is equipped with a wiper and is controlled simultaneously from a single WIPER\nswitch on the WINDSHIELD control panel, with positions PARK, OFF, LOW and HIGH. Selection\nfrom LOW or HIGH to OFF stops the blades at their existing position.\n\nWhen the switch is set and held at the spring-loaded PARK position, the blades resume opera-\ntion at low speed until stopped at the parked position. An ice detector spigot is installed on each\nwindshield wiper arm for determining the amount of ice accumulation. Momentary W/S WIPER\nICE DETECT pushbuttons, one on each side console, are used to light both spigots in dark con-\nditions.\n\nThe ALTERNATE PILOT WIPER pushbutton, located on the pilot’s side panel, provides back-up\ncapability of activating the pilot’s side windshield wiper.\n\nDash8 - Q400 - Ice & Rain ProtectionPage 30\f",
+  "full_text_truncated": false,
+  "word_count": 4987,
+  "sections": [
+    {
+      "title": "12.11 (ATA 30) ICE AND RAIN PROTECTION",
+      "content": "12.11.1\n\nIntroduction\n\nThe Dash 8-Q400 aeroplane is approved for flight into known icing conditions. Ice and rain pro-\ntection includes de-icing, anti-icing, and rain removal systems. An ice detection system supplies\nearly indication of aeroplane icing conditions.\n\n12.11.2\n\nGeneral\n\nThe ice detection system uses probes to actively detect icing conditions and displays ice detec-\ntion information on the flight deck.\n\nThe  de-icing  system  uses  engine  bleed  air  to  operate  conventional  inflatable  boot  sections\ninstalled  on  the  leading  edge  surfaces  of  the  wings,  horizontal  and  vertical  stabilizers,  and\nnacelle inlet lips (Figure 12.11-1).\n\nThe  anti-icing  systems  use  electrical  heating  elements  to  prevent  ice  formation.  The  system\nheats: \n\n• \n• \n• \n• \n• \n\nleading edges of the propeller blades (de-icing)\npilot’s, copilot’s and standby pitot/static probes\nleft and right AOA vanes\nleft and right engine intake flanges\nboth windshields and pilot’s side window\n\nConventional electrically operated windshield wipers supply rain removal for the windshields.\n\nDash8 - Q400 - Ice & Rain ProtectionPage 1\fp"
+    },
+    {
+      "title": "LEGEND",
+      "content": "1. Outboard Horizontal Stabilizer Boots. \n  2. Inboard Horizontal Stabilizer Boots.\n  3. Upper Vertical Stabilizer Boot. \n  4. Lower Vertical Stabilizer Boot. \n  5. Extension and Outboard Wing Boots.\n  6. Outboard and Inboard Centre Wing Boots.\n  7. Inboard Wing Boots.\n  8. Propeller Blade Heaters (All Blades).\n  9. Nacelle Inlet Lip Boot (Both Sides).\n10. Centre Boots.\n11. Angle of Attack Vane (Both Sides).\n12. Pilot's Side Window.\n13. Pilot's Windshield.\n14. Ice Detector Probe (Both Sides).\n15. Pitot/Static Probes.\n16. Copilot's Windshield.\n\n1\n\n2\n3\n4\n\n1\n\n5\n\n6\n\n9\n\n7\n\n16\n\n10\n\n10\n\n8\n\n6\n\n7\n\n5\n\n14\n\n15\n\n11\n\n12\n\n13\n\nFigure 12.11-1 Airframe De-icing System Components\n\nNOTE\n\nRight propeller removed\nfor clarity.\n\nDash8 - Q400 - Ice & Rain ProtectionPage 2\f12.11.3\n\nControls and Indications - Ice and Rain Protection\n\np\n\nDash8 - Q400 - Ice & Rain ProtectionPage 3\fp\n\nDEICE\n\n30\n\nPRESS\n\n30\n\n1\n\n2\n\n10\n\n20\n\n0\n\n20\n\n10\n\n0\n\n1\n\nPSI\n\nPSI\n\n2\n\nFigure 12.11-2 Airframe De-Ice Press Indicator\n\nDE-ICE PRESS INDICATOR CALLOUT (copilot’s side panel)\n\n1. LEFT SIDE AIRFRAME DEICE PRESSURE GAUGE\n\n- \n\n- \n\nindicates pneumatic pressure in left system when BOOT AIR switch is in the ISO position\n(normally at 18 ± 3 psi)\nindicates average pneumatic pressure of left and right system when BOOT AIR switch is\nin the NORM position\n\n2. RIGHT SIDE AIRFRAME DEICE PRESSURE GAUGE\n\n- \n\n- \n\nindicates pneumatic pressure in right system when BOOT AIR switch is in the ISO posi-\ntion (normally at 18 ± 3 psi)\nindicates average pneumatic pressure of right and left system when BOOT AIR switch is\nin the NORM position\n\nDash8 - Q400 - Ice & Rain ProtectionPage 4\fp"
+    },
+    {
+      "title": "STEERING RANGE",
+      "content": "OR\nF WA\nR\nD"
+    },
+    {
+      "title": "ALTERNATE PILOT WIPER",
+      "content": "1\n\nFigure 12.11-3 Alternate Pilot Wiper Switch"
+    },
+    {
+      "title": "ALTERNATE PILOT WIPER CALLOUT",
+      "content": "1. ALTERNATE PILOT WIPER PUSHBUTTON (guarded, alternate action)\n\nPUSH - (in)\n-\n\npilot’s windshield wiper operates at high speed\n\nPUSH - (out)\n-\n\npilot’s windshield wiper stops\n\nDash8 - Q400 - Ice & Rain ProtectionPage 5\fp\n\n2\n\nMCR\n75%\nBLEED\n\nTRQ\n%\n\nNH\n%RPM\n\n75\n\n75\n\nMCR\n75%\nBLEED\n\nNH\n%RPM\n\n92.3"
+    },
+    {
+      "title": "IN PROG",
+      "content": "FF\nPPH\n1020\n\nNL\n%RPM\n74\n\nPROP\nRPM\n\n850\n\n850\n\nITT\n°C\n\n755\n\n755\n\n°C\n50\n\nOIL\n\nPSI\n50\n\nFUEL\n1620\n1620\nLBS\n+22\n+22\n°C"
+    },
+    {
+      "title": "ICE DETECTED",
+      "content": "[\n]"
+    },
+    {
+      "title": "INCR REF SPEED",
+      "content": "1"
+    },
+    {
+      "title": "IN PROG",
+      "content": "FF\nPPH\n1020\n\nNL\n%RPM\n74\n\n°C\n75\n\nOIL\n\nPSI\n50\n\nFigure 12.11-4 Engine Display (ED) Ice and Rain Parameters\n\nDash8 - Q400 - Ice & Rain ProtectionPage 6\fp"
+    },
+    {
+      "title": "ED CALLOUTS PERTAINING TO ICE AND RAIN PROTECTION",
+      "content": "1.\n\nICE DETECTED MESSAGE (flashing white, reverse video for the first 5 sec.)\n- \none or both ice detector probes have detected more than 0.5 mm of ice\n-  message will flash for 5 seconds, and if the REF SPEEDS switch is not set to the INCR\n\nposition, message will continue in normal video\n\n(white normal video, not flashing)\n\n- \n\naeroplane is in icing conditions with the REF SPEEDS switch set to the INCR position\n\n2.\n\n[INCR REF SPEED] MESSAGE (white)\n-\nREF SPEEDS switch set to INCR\n-  Stall Protection System (SPS) adjusts stall margin for icing conditions \n\nDash8 - Q400 - Ice & Rain ProtectionPage 7\fp\n\n2"
+    },
+    {
+      "title": "ICE PROTECTION",
+      "content": "TAIL"
+    },
+    {
+      "title": "AIRFRAME MODE SELECT",
+      "content": "OFF"
+    },
+    {
+      "title": "MANUAL",
+      "content": "SLOW\n\nOFF"
+    },
+    {
+      "title": "SELECT",
+      "content": "FAST\n\nWING\n\nPROPS\n\nPROPS\n\nOFF\n\nTEST\n\nPROP"
+    },
+    {
+      "title": "BOOT AIR",
+      "content": "NORM\n\nISO\n\nHEAT\nOFF"
+    },
+    {
+      "title": "CLOSED",
+      "content": "OFF\n\nINCR"
+    },
+    {
+      "title": "PITOT STATIC",
+      "content": "OFF\n\nOFF\n\nSTBY\n\n1\n\n2"
+    },
+    {
+      "title": "WINDSHIELD",
+      "content": "WARM\n   UP\n\nPARK\n\nNORM\n\nWIPER\nOFF\n\nLOW"
+    },
+    {
+      "title": "WDO/HT",
+      "content": "OFF\n\nHIGH\n\nON\n\n1\n\n3\n\n4\n\nFigure 12.11-5 Ice-Protection Panel (1 of 4)\n\nDash8 - Q400 - Ice & Rain ProtectionPage 8\fp"
+    },
+    {
+      "title": "ICE PROTECTION PANEL CALLOUTS",
+      "content": "1. AIRFRAME MODE SELECT SELECTOR (four position, rotary action)\n\nOFF - automatic boot sequencer off\n-\n\nDual  Distributor  Valves  (DDV)  and  check  valve  heaters  Timer  and  Monitor  Unit  (TMU)\ncontrolled\n\nSLOW - automatic sequencing of deice boots with 3 minute cycle (144 sec. dwell time)\n\nFAST - automatic sequencing of deice boots with 1 minute cycle (24 sec. dwell time)\n\nMANUAL - DDV and heated check valve heaters on manually\n-\n\nboots  can  inflate  with  manual  selection  of  DDV  valves  using  AIRFRAME  MANUAL\nSELECT switch\n\n2. AIRFRAME MANUAL SELECT SELECTOR (eight position, rotary action)\n\nOFF - (two positions)\n-\n\nautomatic sequencing of de-ice boots can be done \n\nBOOT DETENT - (six positions)\n-\n-\n- minimum dwell time of 24 seconds before inflating boots again\n\ninflates related boots by energizing related DDV\nAIRFRAME MODE SELECT switch must be at OFF or MANUAL\n\n3. BOOT INFLATION ADVISORY LIGHT (green)\n\n-\n\nrelated boot pressure is 15 psi or above\n\n4. BOOT AIR SWITCH (two position toggle)\n\nNORM - isolator shut off valve energized open\nleft and right bleed air systems connected\n-\n\nISO - isolator shut off valve closed\n-\n-\n\nleft and right bleed air systems isolated from each other\nboots must be selected manually\n\nDash8 - Q400 - Ice & Rain ProtectionPage 9\fp\n\n8\n\n7"
+    },
+    {
+      "title": "ICE PROTECTION",
+      "content": "TAIL"
+    },
+    {
+      "title": "AIRFRAME MODE SELECT",
+      "content": "OFF"
+    },
+    {
+      "title": "MANUAL",
+      "content": "SLOW\n\nOFF"
+    },
+    {
+      "title": "SELECT",
+      "content": "FAST\n\nWING\n\nPROPS\n\nPROPS\n\n5\n\n6\n\nOFF\n\nTEST\n\nPROP"
+    },
+    {
+      "title": "BOOT AIR",
+      "content": "NORM"
+    },
+    {
+      "title": "CLOSED",
+      "content": "OFF\n\nINCR"
+    },
+    {
+      "title": "PITOT STATIC",
+      "content": "OFF\n\nOFF\n\nSTBY\n\n1\n\n2"
+    },
+    {
+      "title": "WINDSHIELD",
+      "content": "WARM\n   UP\n\nPARK\n\nNORM\n\nWIPER\nOFF\n\nLOW"
+    },
+    {
+      "title": "WDO/HT",
+      "content": "OFF\n\nHIGH\n\nON\n\nISO\n\nHEAT\nOFF\n\nFigure 12.11-6 Ice-Protection Panel (2 of 4)\n\nDash8 - Q400 - Ice & Rain ProtectionPage 10\fp\n\nICE PROTECTION PANEL CALLOUTS (cont’d)\n\n5. PROPS ADVISORY LIGHT (green)\n\n-\n\nall blade heater elements of related propeller are energized\n\n6. PROP SELECTOR (rotary action)\n\nTEST - each propeller will be heated separately for a cycle of 5 sec.\n-\n-\n\nNP must be above 400 RPM (CL at MIN or greater)\nAC power must be available\n\nOFF - propeller heaters not energized\n\nON - propeller heaters controlled by Timer Monitor Control Unit (TMCU)\n-\n-\n-\n-\n\nall blades on one propeller come on, then the other propeller is heated\nheating cycle is determined by TMCU using Total Air Temp (TAT) data\ntemperature must be less than 5°C\nNP above 400 RPM (CL at MIN or greater)\n\n7. REF SPEED SWITCH (two position toggle)\n\n-\n\n[INCR REF SPEED] is shown on ED\n\n8. ENGINE INTAKE SWITCHLIGHT (alternate action)\n\nPUSH - OPN segment (amber)\n- \n\nbypass door open\n\nHTR - segment (amber)\n- \nswitchlight pushed\n-  OPN segment (amber)\n- \n- \n-  main or back up engine intake adapter heater energized \n\ntemperature less than 15°C\nengine oil pressure in operating range\n\nPUSH - CLOSED segment (green)\n- \n- \n\nbypass door closed\nengine intake adapter heater off (bypass door must be open for heater to operate)\n\nDash8 - Q400 - Ice & Rain ProtectionPage 11\fp"
+    },
+    {
+      "title": "ICE PROTECTION",
+      "content": "TAIL"
+    },
+    {
+      "title": "AIRFRAME MODE SELECT",
+      "content": "OFF"
+    },
+    {
+      "title": "MANUAL",
+      "content": "SLOW\n\nOFF"
+    },
+    {
+      "title": "SELECT",
+      "content": "FAST\n\nWING\n\nPROPS\n\nPROPS\n\nOFF\n\nTEST\n\nPROP"
+    },
+    {
+      "title": "BOOT AIR",
+      "content": "NORM"
+    },
+    {
+      "title": "CLOSED",
+      "content": "OFF\n\nINCR"
+    },
+    {
+      "title": "PITOT STATIC",
+      "content": "OFF\n\nOFF\n\nSTBY\n\n1\n\n2\n\nISO\n\nHEAT\nOFF\n\n9"
+    },
+    {
+      "title": "WINDSHIELD",
+      "content": "WARM\n   UP\n\nPARK\n\nNORM\n\nWIPER\nOFF\n\nLOW"
+    },
+    {
+      "title": "WDO/HT",
+      "content": "OFF\n\nHIGH\n\nON\n\n11\n\n10\n\nFigure 12.11-7 Ice-Protection Panel (3 of 4)\n\nDash8 - Q400 - Ice & Rain ProtectionPage 12\fp\n\nICE PROTECTION PANEL CALLOUTS (cont’d)\n\n9. STBY PITOT/STATIC PORT SWITCH (two position toggle)\n\nOFF - standby pitot/static probe heater not energized\n-  PITOT HEAT STBY caution light comes on\n\nSTBY - standby pitot/static probe heater energized\n- \n\nsee that PITOT HEAT STBY caution light goes off\n\n10. 1 PITOT/STATIC PORT SWITCH (two position toggle)\n\nOFF - No. 1 pitot/static probe heater not energized\n-  PITOT HEAT 1 caution light comes on"
+    },
+    {
+      "title": "1 -  No. 1 pitot/static probe heater energized",
+      "content": "-  PITOT HEAT 1 caution light goes off\n\n11. 2 PITOT/STATIC PORT SWITCH (two position toggle)\n\nOFF - No. 2 pitot/static probe heater not energized\n-  PITOT HEAT 2 caution light comes on"
+    },
+    {
+      "title": "2 - No. 2 pitot/static probe heater energized",
+      "content": "-  PITOT HEAT 2 caution light goes off\n\nDash8 - Q400 - Ice & Rain ProtectionPage 13\fp"
+    },
+    {
+      "title": "ICE PROTECTION",
+      "content": "TAIL"
+    },
+    {
+      "title": "AIRFRAME MODE SELECT",
+      "content": "OFF"
+    },
+    {
+      "title": "MANUAL",
+      "content": "SLOW\n\nOFF"
+    },
+    {
+      "title": "SELECT",
+      "content": "FAST\n\nWING\n\nPROPS\n\nPROPS\n\nOFF\n\nTEST\n\nPROP"
+    },
+    {
+      "title": "BOOT AIR",
+      "content": "NORM\n\nISO\n\nHEAT\nOFF"
+    },
+    {
+      "title": "CLOSED",
+      "content": "OFF\n\nINCR"
+    },
+    {
+      "title": "PITOT STATIC",
+      "content": "OFF\n\nOFF\n\nSTBY\n\n1\n\n2"
+    },
+    {
+      "title": "WINDSHIELD",
+      "content": "WARM\n   UP\n\nPARK\n\nNORM\n\nWIPER\nOFF\n\nLOW"
+    },
+    {
+      "title": "WDO/HT",
+      "content": "OFF\n\nHIGH\n\nON\n\n12\n\n14\n\n13\n\nFigure 12.11-8 Ice-Protection Panel (4 of 4)\n\nDash8 - Q400 - Ice & Rain ProtectionPage 14\fp\n\nICE PROTECTION PANEL CALLOUTS (cont’d)\n\n12. HEAT SWITCH (rotary action)\n\nOFF - both windshield heaters off\n\nWARM UP - both windshields heated in series with power from 115 VAC left bus\n- \n\nif  preset  threshold  temperature  is  not  reached  in  5  min,  WSHLD  CTRL  caution  light\ncomes on\n\nNORM - pilot’s windshield heated with power from 115 VAC left bus\n- \n- \n\ncopilot’s windshield heated with power from 115 VAC right bus\nif  preset  threshold  temperature  is  not  reached  in  5  min,  WSHLD  CTRL  caution  light\ncomes on\n\n-  windshield temperature controlled by separate Anti-Ice Controllers (AIC) using overheat\n\nsensor\nif windshield temperature is too hot, WSHLD HOT caution light comes on\n\n- \n\n13. PLT SIDE WDO/HT SWITCH (two position toggle)\n\nOFF - pilot’s side window heater off\n\nON - pilot’s side window heated with power from 115 VAC right bus\n- \n- \n- \n\nonly forward part of pilot’s side window is heated\npilot’s side window temperature controlled by right AIC using overheat sensor\noverheat relay opens if side window temperature is too hot and SIDE WDO HOT caution\nlight comes on\n\n14. WIPER SWITCH (rotary action with spring loaded position)\n\nOFF - both windshield wipers stop at existing position\n\nLOW - both windshield wipers operate at slow speed from two independent wiper motors\n\nHIGH - both windshield wipers operate at high speed\n\nPARK - (spring loaded position)\n- \n\nboth windshield wipers automatically stop at the lower outboard park positions\n\nDash8 - Q400 - Ice & Rain ProtectionPage 15\fp\n\n1"
+    },
+    {
+      "title": "CIR BKR",
+      "content": "LIGHT"
+    },
+    {
+      "title": "GOVERNOR",
+      "content": "OFF\n\nLIGHT"
+    },
+    {
+      "title": "OFF BRT",
+      "content": "TEST"
+    },
+    {
+      "title": "T/O WARN",
+      "content": "TEST\n\n  ADC"
+    },
+    {
+      "title": "STEERING",
+      "content": "OFF\n\nOFF"
+    },
+    {
+      "title": "TEST 2",
+      "content": "Figure 12.11-9 Pilot’s W/S Wiper Ice Detect Pushbutton"
+    },
+    {
+      "title": "PILOT’S SIDE PANEL CALLOUT PERTAINING TO ICE AND RAIN",
+      "content": "1. W/S WIPER ICE DETECT PUSHBUTTON (momentary action)\n\nPUSH  -  windshield  wiper  ice  detection  light,  above  glareshield,  shines  on  the  pilot’s  wind-\nshield wiper spigot\n\nDash8 - Q400 - Ice & Rain ProtectionPage 16\fp\n\n1"
+    },
+    {
+      "title": "FLT PNL",
+      "content": "LIGHT"
+    },
+    {
+      "title": "PNL LTG",
+      "content": "OFF\n\nINPH\n\nXMIT\n\nFigure 12.11-10 Copilot’s W/S Wiper Ice Detect Pushbutton"
+    },
+    {
+      "title": "COPILOT SIDE PANEL CALLOUT PERTAINING TO ICE AND RAIN",
+      "content": "1. W/S WIPER ICE DETECT PUSHBUTTON (momentary action)\n\nPUSH - windshield wiper ice detection light, above glareshield, shines on the copilot’s wind-\nshield wiper spigot\n\nDash8 - Q400 - Ice & Rain ProtectionPage 17\fp\n\nNOTE\n\nLeft side shown.\nRight side similar. \n\nFigure 12.11-11 Ice Detector Probe\n\nDash8 - Q400 - Ice & Rain ProtectionPage 18\f12.11.4\n\nIce Detection System\n\nThere is no flight deck control for the Ice Detection System (IDS). The system automatically oper-\nates as soon as 115 VAC power is available. The IDS uses two Ice Detector Probes (IDP) on the\nleft and right side of the front fuselage (Figure 12.11-10). If either IDP detects more than 0.5 mm\nof ice, it is heated with power from the related 115 VAC bus. This deices the probe so that it can\ndetect ice again.\n\nIf either IDP detects ice, an ICE DETECTED message will flash in white reverse video for 5 sec-\nonds, or until the PROP selector is set to the ON position. The message is shown on the ED just\nbelow  the  SAT  indication.  An  [INCR  REF  SPEED]  command  message  is  shown  in  white  just\nbelow  the  ICE  DETECTED  message  when  the  Stall  Protection  System  (SPS)  is  modified  for\nicing conditions, as a result of turning the PROPs selector on.\n\nThe ICE DETECT FAIL caution light will come on if both ice detector probes fail. Failure of only\none probe will not cause the caution light to come on, as the system is redundant.\n\n12.11.5\n\nAirframe De-icing System\n\nAirframe de-icing can be controlled automatically or manually. Pneumatically actuated rubber de-\nicing boots are bonded to the leading edges of the wings, horizontal and vertical stabilizers, and\nnacelle inlet lips (Figure 12.11-11). De-icing bleed air is taken from the bleed port of each engine\nand is available to inflate the boots regardless of the position of BLEED control switches. System\npressure is regulated to 18 psi and shown on the DEICE PRESS indicator, located on the copi-\nlot's side panel. An isolator valve interconnects the two systems. A BOOT AIR switch is used to\ncontrol the isolator valve, which is normally open to ensure uninterrupted operation of either sys-\ntem if one engine is not operating. The ISO position can be used to check regulated pressure in\neach system individually or to isolate a system leak.\n\nRegulated de-icer pressure is also used to inflate the forward passenger and aft baggage door\nseals, and to operate ejector for the pressurization system AFT safety valve.\n\nThe boots inflate, and stay inflated, with pressurized air when the Dual Distributing Valves (DDV)\nare energized open. When not activated, boot ports are connected to suction to deflate and hold\nthe boots flush with the leading edges.\n\nThe  AIRFRAME  MODE  SELECT  rotary  switch  selects  automatic  de-icing,  when  set  to  SLOW\n(3 min.) or FAST (1 min.). The selector is self-homing such that a selection to SLOW or FAST\nand back to OFF will complete a full cycle. Automatic boot inflation sequence is controlled and\nmonitored by the Timer and Monitor Unit (TMU) (Figure 12.11-11, 12.11-12). The TMU controls\nthe  sequence  and  supplies  a  dwell  period  related  to  the  selected  rate  (Table  12.11-1).  Green\nWING, TAIL and nacelle inlet lip boot inflation lights show boot inflation sequence and confirm\ncorrect boot inflation pressure.\n\nNOTE:\n\nTo make sure deice pressure is maintained at 15 psi or greater during decent, hold-\ning  and  approach,  it  may  be  necessary  to  increase  NL  by  advancing  the  POWER\nlevers.\n\nDash8 - Q400 - Ice & Rain ProtectionPage 19\fp\n\n6\n7\n5\n2\n 3\n&\n,\n7\n$\n7\n 6\n7\n2\n7\n,\n 3\n\n6\n3\n2\n5\n3\n\n5\n,\n\n $\n7\n2\n2\n%\n\n)\n)\n2\n\n)\n)\n2\n\n0\n5\n2\n1\n\n<\n%\n7\n6\n\n2\n6\n,\n\n/\n$\n&\n,\n7\n5\n(\n9\n\n5\n(\n=\n\n,\n/\n,\n\n%\n$\n7\n6\n\n6\n7\n2\n2\n %\n*\n1\n,\n&\n\n,\n(\n '\n5\n(\n=\n\n,\n/\n,\n\n%\n$\n7\n 6\n/\n$\n7\n1\n2\n=\n,\n5\n2\n+\n\nH\nU\nX\nV\nV\nH\nU\n 3\nQ\nR\nL\nW\nD\nO\nQ\nW\nR\nR\n%\n\n ,\n\nI\n\n /\n\nW\nK\nJ\nL\nH\nF\nQ\nH\nX\nT\nH\n 6\nW\nR\nR\n%\n\nU\nL\n $\nG\nH\nH\nO\n %\nG\nH\nW\nD\nO\nX\nJ\nH\n5\n\nU\nL\n $\nG\nH\nH\nO\n %\nH\nQ\nL\nJ\nQ\n\n(\n\n'\n\n1\n(\n*\n(\n /\n5\n8\n2\n/\n2\n&\n\n7\n&\n\n(\n/\n(\n6\n\n/\n$\n8\n1\n$\n0\n\n(\n0\n$\n5\n)\n5\n,\n$\n\n)\n)\n2\n\n6\n3\n2\n5\n3\n\n/\n,\n$\n7\n\n1\n2\n,\n7\n&\n(\n7\n2\n5\n 3\n(\n&\n\n,\n\n*\n1\n,\n:\n\n7\n6\n$\n)\n\n:\n2\n/\n6\n\n'\n(\n6\n2\n/\n&\n\n'\n(\n6\n2\n/\n&\n\n5\n7\n +\n1\n3\n2\n\n5\n7\n +\n1\n3\n2\n\n(\n.\n$\n7\n1\n,\n\n(\n1\n,\n*\n1\n(\n\n1\n2\n\n1\n2\n,\n7\n8\n$\n&\n\n6\n7\n+\n*\n,\n/\n\n5\n(\n0\n,\n7\n\n(\n\n&\n\n,\n(\n '\n\n6\n6\n(\n5\n3\n\n(\n\n&\n\n,\n(\n '\n\n)\n)\n2\n\n7\n&\n\n(\n/\n(\n 6\n(\n'\n2\n 0\n(\n0\n$\n5\n)\n5\n,\n$\n\n/\n$\n8\n1\n$\n0\n\n6\n3\n2\n5\n3\n\n)\n)\n2\n\n7\n6\n(\n7\n\n5\n(\n0\n7\n\n,\n\n,\n\n*\n1\n5\n2\n7\n1\n2\n0\n\n,\n\n,\n\n7\n1\n8\n\n7\n2\n2\n %\n\n(\n.\n$\n7\n1\n ,\n(\n/\n/\n(\n\n&\n$\n1\n\n6\n7\n2\n2\n %\n*\n1\n,\n&\n\n,\n(\n'\n\n*\n1\n,\n :\n(\n5\n7\n1\n(\n&\n\n6\n7\n2\n2\n %\n*\n1\n,\n&\n\n,\n(\n '\n*\n1\n,\n :\n5\n(\n7\n8\n2\n\nFigure 12.11-12 Airframe De-Icing Schematic\n\n6\n&\n3\n &\n2\n7\n\n5\n2\n7\n&\n\n(\n-\n (\n\n+\n\n.\n1\n$\n 7\n5\n,\n2\n9\n5\n(\n6\n(\n5\n\n/\n$\n(\n 6\n5\n2\n2\n '\n2\n7\n\n+\n\n+\n\nH\nY\nO\nD\n 9\nJ\nQ\nL\nW\nX\nE\nL\nU\nW\nV\nL\n '\nO\nD\nX\n\n'\n\nO\nD\nF\nL\nU\nW\nF\nH\nO\n\n(\n\nH\nY\nO\nD\n 9\nN\nF\nH\nK\n &\nG\nH\nW\nD\nH\n+\n\nH\nY\nO\nD\n 9\nN\nF\nH\nK\n&\n\nU\nR\nW\nF\nL\nU\nW\nV\nH\n5\n\n'\n\n1\n(\n*\n(\n/\n\n+\n\nDash8 - Q400 - Ice & Rain ProtectionPage 20"
+    },
+    {
+      "title": "ICE PROTECTION",
+      "content": "6\n\n5\n\nTAIL\n\n5\n\n6"
+    },
+    {
+      "title": "AIRFRAME MODE SELECT",
+      "content": "OFF"
+    },
+    {
+      "title": "MANUAL",
+      "content": "SLOW\n\nFAST\n\nOFF"
+    },
+    {
+      "title": "SELECT",
+      "content": "1\n\n2\n\n4\n\n3\n\n5\n\nWING\n\n3\n\n2\n\n1\n\n4\n\n6\n\nNOTE\n\nManual switch positions and\nrelated indicator light\nsequence correspond with\ndeice boot inflation sequence\nshown below. Numbers do\nnot actually appear on panel.\n\n5\n\np\n\n6\n\n1\n\n2\n\n3\n\n6\n\n4\n\n5\n\n4\n\n2\n\n3\n\n1\n\nfs number\n\nFigure 12.11-13 Airframe De-ice Boots Inflation Sequence and Lights\n\nDash8 - Q400 - Ice & Rain ProtectionPage 21\fBOOT SEQUENCE"
+    },
+    {
+      "title": "INFLATION",
+      "content": "TIME"
+    },
+    {
+      "title": "DWELL TIME",
+      "content": "p"
+    },
+    {
+      "title": "VALVES",
+      "content": "1A & 2A\n\n1B & 2B\n\n3B\n\n4B\n\n3A & 5A & 6A\n\n4A & 5B & 6B"
+    },
+    {
+      "title": "BOOT LOCATION",
+      "content": "FAST\n\nSLOW\n\nExtension and Outboard on \nEach Wing\n\nOutboard Center and \nInboard Center on Each \nWing\n\nRight Inboard and Left Cen-\nter (Root)\n\nLeft Inboard and Right Cen-\nter (Root)\n\nLeft Nacelle, Upper Vertical \nand Inboard Horizontal Sta-\nbilizers\n\nRight Nacelle, Lower Verti-\ncal and Outboard Horizontal \nStabilizers"
+    },
+    {
+      "title": "6 Seconds for",
+      "content": "each combina-\ntion of boots"
+    },
+    {
+      "title": "24 Sec.",
+      "content": "between \nend of (6) \nand restart \nof (1)"
+    },
+    {
+      "title": "144 Sec.",
+      "content": "(2 min +"
+    },
+    {
+      "title": "24 Sec.)",
+      "content": "between \nend of (6) \nand restart \nof (1)\n\nTable 12.11-1 Deicer Boot Operation Sequence\n\nIntegral DDV and check valve heaters automatically come on when the:\n\n•  TMU temperature monitor parameter has not failed\n•  AIRFRAME MODE SELECT switch set to OFF, SLOW or FAST\n•  Static Air Temperature (SAT) is less than +5°C.\n\nIf the TMU temperature monitoring parameter fails, the valve heaters stay on by default. If the\nTMU heater activation parameter fails, the valve heaters will not come on automatically. The DE-\nICE TIMER caution light comes on if there is a failure of the TMU:\n\n• \n• \n• \n\nautomatic deice sequencer\nlogic\ninput disagreement\n\nWhen the AIRFRAME MODE SELECT switch is set to the MANUAL position, the DDV and check\nvalve heaters come on permanently and do not cycle. \n\nDash8 - Q400 - Ice & Rain ProtectionPage 22\fp\n\nIf a malfunction occurs in the automatic timer or a leak occurs in the system, the boots can be\ncycled  manually  with  the  AIRFRAME  MANUAL  SELECT  switch.  Rotating  the  switch  through\neach of the six detent positions duplicates the automatic inflation sequence. Each set of related\nboots  will  inflate  as  long  as  the  switch  stays  at  the  set  position.  The  related  WING,  TAIL  and\nnacelle inlet boot inflation light come on to show full inflation. A minimum dwell time of 24 sec-\nonds should be observed before inflating the boots again.\n\nNOTE:\n\nEach selection should be held until the corresponding pair of lights come on before\nmoving to the next position.\n\nIf a rupture or leak occurs to the pneumatic lines of either deice system, the affected side will\nhave  to  be  isolated  to  ensure  that  deice  pressure  is  available  to  the  leakless  side.  When  the\nBOOT AIR switch is set to ISO, the isolation shutoff valve closes. Isolating the failed side from\nthe functioning pressure side. All the boots on the horizontal and vertical stabilizers are pneumat-\nically cross connected to ensure boot pressure, even if one half of the system loses pressure.\n\nThe DE-ICE PRESS caution light will come on if the:\n\n• main de-ice pressure on either side is less than 15 psi,\n•\n•\n\nboot pressure does not reach 15 psi after the DDV opens,\nboot pressure stays at 15 psi after the DDV closes.\n\nDash8 - Q400 - Ice & Rain ProtectionPage 23\fp\n\nNOTE\n\nOne of six Prop Blades shown.\nOther Prop Blades similar.\n\n1"
+    },
+    {
+      "title": "LEGEND",
+      "content": "1. Heating Element (70% of Blade).\n\nFigure 12.11-14 Propeller De-ice Heating Element\n\nDash8 - Q400 - Ice & Rain ProtectionPage 24\f12.11.6\n\nPropeller Heaters\n\nThe propeller blade leading edges are protected from ice accumulation by electrically heated ele-\nments bonded onto each blade (Figure 12.11-13). Electrical power is supplied from the related"
+    },
+    {
+      "title": "115 VAC variable frequency bus.",
+      "content": "The propeller deice system is operated by the PROPs selector. All six blades on one propeller\nare heated at the same time during a de-icing cycle. To minimize the electrical load on the sys-\ntem,  one  propeller  is  heated  then  the  other  propeller  is  heated.  Two  PROPs  de-ice  indicator\nlights,  on  the  ICE  PROTECTION  panel,  come  on  when  the  related  propeller  is  heated.  The\nheater cycle for each propeller is controlled by a related Timer Monitor Control Unit (TMCU). The\nTMCU heater cycle times depend on the Total Air Temperature (TAT) as shown in Table 12.11-\n2."
+    },
+    {
+      "title": "TAT/°C",
+      "content": "(average)\n\n> 5 (hold state)\n-7 < TAT (cid:2) 5 (default mode)\n-12 < TAT (cid:2) -7\n-17 < TAT (cid:2) -12\n-22 < TAT (cid:2) -17\nTAT (cid:2) -22\n\nON"
+    },
+    {
+      "title": "(SECONDS)",
+      "content": "OFF\n\n12\n\n45\n\n74\n\n84\n\n92"
+    },
+    {
+      "title": "PROP HEATER",
+      "content": "OFF"
+    },
+    {
+      "title": "(SECONDS)",
+      "content": "–\n\n78\n\n80\n\n76\n\n96\n\n108\n\nTable 12.11-2 Propeller Heater Cycle Times\n\nThe Total Air Temperature, TAT, must be equal to or lower than 5°C for the propeller heaters to \noperate. TAT is always higher (warmer) than the Static Air Temperature (SAT) with the TAT \nincreasing as the airspeed increases. Therefore, with an indicated SAT of approximately 5°C and \na high airspeed, the propeller heaters may not cycle.\n\nNote:\n\nWith observed ice accumulation, the propeller \ndeice system should function regardless of the \nobserved SAT.\n\nThe TMCU will heat all six blades of its propeller when the:\n\n•  PROP switch is set to ON\n•  TAT is less than or equal to +5°C\n•  NP is above 400 RPM\n\nWhen the PROP switch is set to the TEST position, each propeller will be heated separately for a\ncycle of 5 seconds, if NP is above 400 RPM. The propeller indicator lights will come on to confirm\nheater/timer operation. The test cannot be started again for 30 seconds to prevent overheating of\n\nDash8 - Q400 - Ice & Rain ProtectionPage 25\fthe blade elements. Fuselage ice protection panels, installed on both sides of the fuselage adja-\ncent to the propeller arc, prevent damage to the fuselage from ice thrown by the propellers.\n\nNote:\n\nThe effectiveness of the propeller de-icing sys-\ntem can be improved and propeller vibration \nreduced by operation of the propellers at 1020 \nRPM (CL at max).\n\nIf there is a failure of the propeller de-icing system, the PROP DEICE caution light will come on.\n\n12.11.7\n\nEngine Intake Heaters/Bypass Doors \n\nAn electric heater is installed in the intake flange of each engine. The heaters are powered by"
+    },
+    {
+      "title": "115  VAC  variable  frequency  and  are  energized  when  the  engine  intake  bypass  doors  are",
+      "content": "opened.  An  oil  pressure  switch  and  temperature  sensor  in  the  heater  control  circuit  prevents\nheater operation when the engine is shutdown  and/or  air temperature is  above +15°C. Heater\noperation is confirmed by the HTR segment on the ENGINE INTAKE switchlight coming on when\nthe doors are opened.\n\nThe engine intake heaters are controlled by thermostates, attached internally to the fuselage skin\nbelow the pilot's seat. The thermostat mechanical switch close at an Outside Air Temperature of\n15+/- 2 degrees C, and opens when OAT is 1-3 degrees C above 15+/- 2 degrees C.\n\nSince the thermostates are installed internally to the fuselage skin they reacts to the skin temper-\nature and not to actual SAT. \n\nTherefore in summerperiod, depending of the time the a/c has been on ground and weather con-\nditions it is fully normal that the engine intake heaters do not turn on during climb at a SAT of 15\ndegrees C.\n\n12.11.8\n\nPitot/static Probe Heat\n\nThe No. 1, No. 2 and standby pitot/static probes (Figure 12.11-14 and 12.11-15) incorporate inte-\ngral heaters which are activated by the flight crew to prevent ice build up. The No.1 pitot/static\nprobe heater is powered from the left 115 VAC C phase Left bus, and the No. 2 probe is powered\nfrom the right 115 VAC C phase Right bus. The standby pitot/static probe heater is powered from\nthe 28 VDC Right Essential bus. All three pitot/static probes are controlled and monitored by sep-\narate modules of the TMU, controlled by the PITOT/STATIC PROBE switches on the ICE PRO-\nTECTION panel.\n\nThe PITOT HEAT STBY, 1, and 2 caution lights come on when the related probe heater is inop-\nerative or when the related PITOT/STATIC PROBE switch is set to the OFF position.\n\nDash8 - Q400 - Ice & Rain ProtectionPage 26\fp\n\nNOTE\n\nLeft component shown.\nRight component similar.\n\nFWD\n\nFigure 12.11-15 Pilot’s and Copilot’s / Static Probe\n\nfs number\n\nDash8 - Q400 - Ice & Rain ProtectionPage 27\fp\n\nFigure 12.11-16 Standby Pitot Static Probe\n\nfs number\n\nDash8 - Q400 - Ice & Rain ProtectionPage 28\fp\n\nFigure 12.11-17 AOA Vane\n\nDash8 - Q400 - Ice & Rain ProtectionPage 29\f12.11.9\n\nAOA Vane Heaters\n\nThere is no flight deck control for the Angle of Attack (AOA) vane (Figure 12.11-16) heaters. The\nleft and right AOA vanes are heated to prevent ice build up whenever variable 115 VAC power is\navailable. The left AOA vane is powered from the left 115 VAC B phase Left bus, and the right\nAOA is powered from the right 115 VAC B phase Right bus. The AOA vane heaters are directly\nconnected to their power supply through the TMU.\n\nThere is no direct caution light for an AOA heater failure. If the Stall Protection Module (SPM)\nsenses an AOA heater failure, it causes the PUSHER SYS FAIL caution light to come on, and\nthe applicable STALL SYS FAIL caution light."
+    },
+    {
+      "title": "12.11.10 Windshield And Pilot’s Window",
+      "content": "The  left  and  right  windshields  and  the  pilot’s  side  window  are  heated  to  supply  anti-icing  and\ndemisting.  When  the  WINDSHIELD  HEAT  selector  is  set  to  WARM  UP,  both  windshields  are\nheated at half power from the left 115 VAC bus. When the selector is set to NORM, each wind-\nshield is heated at full power from its related 115 VAC bus. When the PLT SIDE WDO/HT toggle\nswitch is set to ON the forward part of the pilot’s side window is heated from the right 115 VAC\nbus.\n\nAnti-ice controllers control the windshield and side window heaters. If either windshield controller\nfails, the WSHLD CTRL caution light comes on. If either windshield overheats, the WSHLD HOT\ncaution light comes on. If the pilot’s side window overheats, the SIDE WDO HOT caution light\ncomes on. An overheat condition also shuts off power to the related windshield or side window\nheater."
+    },
+    {
+      "title": "12.11.11 Windshield Wipers",
+      "content": "Each windshield is equipped with a wiper and is controlled simultaneously from a single WIPER\nswitch on the WINDSHIELD control panel, with positions PARK, OFF, LOW and HIGH. Selection\nfrom LOW or HIGH to OFF stops the blades at their existing position.\n\nWhen the switch is set and held at the spring-loaded PARK position, the blades resume opera-\ntion at low speed until stopped at the parked position. An ice detector spigot is installed on each\nwindshield wiper arm for determining the amount of ice accumulation. Momentary W/S WIPER\nICE DETECT pushbuttons, one on each side console, are used to light both spigots in dark con-\nditions.\n\nThe ALTERNATE PILOT WIPER pushbutton, located on the pilot’s side panel, provides back-up\ncapability of activating the pilot’s side windshield wiper.\n\nDash8 - Q400 - Ice & Rain ProtectionPage 30"
+    }
+  ],
+  "components": [
+    "AIRFRAME MODE SELECT",
+    "Airframe De",
+    "Angle",
+    "Anti",
+    "BOOT AIR",
+    "Both Sides",
+    "Copilot",
+    "Dash8",
+    "Each",
+    "FAST",
+    "Figure",
+    "G\nH\nH\nO",
+    "H\nY\nO\nD",
+    "HIGH",
+    "HT\n\nOFF\n\nHIGH\n\nON",
+    "ICE PROTECTION\n\nTAIL\n\nAIRFRAME MODE SELECT\n\nOFF\n\nMANUAL\n\nSLOW\n\nOFF\n\nAIRFRAME\nMANUAL\nSELECT\n\nFAST\n\nWING\n\nPROPS\n\nPROPS\n\nOFF\n\nTEST\n\nPROP\n\nBOOT AIR\n\nNORM\n\nISO\n\nHEAT\nOFF\n\nON ENGINE\n\nINTAKE\n\nOPN HTR\n\nOPN HTR\n\nREF SPEEDS\n\nCLOSED\n\nCLOSED\n\nOFF\n\nINCR\n\n PITOT STATIC\n\nOFF\n\nOFF\n\nSTBY",
+    "ICE PROTECTION PANEL CALLOUTS",
+    "INCR",
+    "INCR REF SPEED",
+    "LEGEND",
+    "Left",
+    "MANUAL",
+    "N\nF\nH\nK",
+    "NORM",
+    "NOTE",
+    "NOTE\n\nLeft",
+    "Note",
+    "OIL\n\nPSI",
+    "OSG TEST\nIN PROG\n\nFF\nPPH",
+    "Outboard",
+    "PARK",
+    "PITOT",
+    "PITOT HEAT",
+    "PITOT HEAT STBY",
+    "PLT SIDE WDO",
+    "PROP",
+    "PROPs",
+    "PUSH",
+    "Pilot",
+    "Pitot",
+    "Protection Panel",
+    "Q400",
+    "REF SPEEDS",
+    "Rain ProtectionPage",
+    "Right",
+    "Root",
+    "S WIPER ICE DETECT PUSHBUTTON",
+    "SECONDS",
+    "SIDE WDO HOT",
+    "SLOW"
+  ],
+  "key_facts": [
+    "An ice detection system supplies\nearly indication of aeroplane icing conditions",
+    "3\n\nControls and Indications - Ice and Rain Protection\n\np\n\nDash8 - Q400 - Ice & Rain ProtectionPage 3\fp\n\nDEICE\n\n30\n\nPRESS\n\n30\n\n1\n\n2\n\n10\n\n20\n\n0\n\n20\n\n10\n\n0\n\n1\n\nPSI\n\nPSI\n\n2\n\nFigure 12",
+    "LEFT SIDE AIRFRAME DEICE PRESSURE GAUGE\n\n- \n\n- \n\nindicates pneumatic pressure in left system when BOOT AIR switch is in the ISO position\n(normally at 18 ± 3 psi)\nindicates average pneumatic pressure of left and right system when BOOT AIR switch is\nin the NORM position\n\n2",
+    "ALTERNATE PILOT WIPER PUSHBUTTON (guarded, alternate action)\n\nPUSH - (in)\n-\n\npilot’s windshield wiper operates at high speed\n\nPUSH - (out)\n-\n\npilot’s windshield wiper stops\n\nDash8 - Q400 - Ice & Rain ProtectionPage 5\fp\n\n2\n\nMCR\n75%\nBLEED\n\nTRQ\n%\n\nNH\n%RPM\n\n75\n\n75\n\nMCR\n75%\nBLEED\n\nNH\n%RPM\n\n92",
+    "5 mm of ice\n-  message will flash for 5 seconds, and if the REF SPEEDS switch is not set to the INCR\n\nposition, message will continue in normal video\n\n(white normal video, not flashing)\n\n- \n\naeroplane is in icing conditions with the REF SPEEDS switch set to the INCR position\n\n2",
+    "BOOT INFLATION ADVISORY LIGHT (green)\n\n-\n\nrelated boot pressure is 15 psi or above\n\n4",
+    "System\npressure is regulated to 18 psi and shown on the DEICE PRESS indicator, located on the copi-\nlot's side panel",
+    "A BOOT AIR switch is used to\ncontrol the isolator valve, which is normally open to ensure uninterrupted operation of either sys-\ntem if one engine is not operating",
+    "The ISO position can be used to check regulated pressure in\neach system individually or to isolate a system leak",
+    "Regulated de-icer pressure is also used to inflate the forward passenger and aft baggage door\nseals, and to operate ejector for the pressurization system AFT safety valve",
+    "The TMU controls\nthe  sequence  and  supplies  a  dwell  period  related  to  the  selected  rate  (Table  12",
+    "Green\nWING, TAIL and nacelle inlet lip boot inflation lights show boot inflation sequence and confirm\ncorrect boot inflation pressure",
+    "NOTE:\n\nTo make sure deice pressure is maintained at 15 psi or greater during decent, hold-\ning  and  approach,  it  may  be  necessary  to  increase  NL  by  advancing  the  POWER\nlevers",
+    "A minimum dwell time of 24 sec-\nonds should be observed before inflating the boots again",
+    "If a rupture or leak occurs to the pneumatic lines of either deice system, the affected side will\nhave  to  be  isolated  to  ensure  that  deice  pressure  is  available  to  the  leakless  side",
+    "Isolating the failed side from\nthe functioning pressure side",
+    "All the boots on the horizontal and vertical stabilizers are pneumat-\nically cross connected to ensure boot pressure, even if one half of the system loses pressure",
+    "The DE-ICE PRESS caution light will come on if the:\n\n• main de-ice pressure on either side is less than 15 psi,\n•\n•\n\nboot pressure does not reach 15 psi after the DDV opens,\nboot pressure stays at 15 psi after the DDV closes",
+    "An  oil  pressure  switch  and  temperature  sensor  in  the  heater  control  circuit  prevents\nheater operation when the engine is shutdown  and/or  air temperature is  above +15°C",
+    "Therefore in summerperiod, depending of the time the a/c has been on ground and weather con-\nditions it is fully normal that the engine intake heaters do not turn on during climb at a SAT of 15\ndegrees C",
+    "The ALTERNATE PILOT WIPER pushbutton, located on the pilot’s side panel, provides back-up\ncapability of activating the pilot’s side windshield wiper"
+  ]
+}

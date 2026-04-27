@@ -1,0 +1,54 @@
+{
+  "name": "Electrical Power",
+  "slug": "electrical",
+  "ata_code": "ATA24",
+  "description": "DC and AC generation, distribution, batteries, TRUs and external power",
+  "full_text": "The Q400 electrical system consists of two independent electrical power sources - the engine-driven alternators and the battery system. The primary power source is the engine-driven alternators which provide both AC and DC electrical power throughout the aircraft during normal operations. The battery system provides emergency power and is used for engine starting. Two nickel-cadmium batteries provide backup power when the alternators are not available. The electrical system is protected by numerous circuit breakers and relays to ensure safe operation and prevent overloading of critical circuits. The system operates at 28 VDC and maintains AC power at 115V AC for various aircraft systems. The electrical distribution system includes multiple buses and contactors to route power to different aircraft systems. Each alternator produces approximately 100 amps of 28 VDC power. The TRU (Transformer Rectifier Unit) converts the 115V AC from the alternators to 28 VDC for distribution throughout the aircraft. Battery capacity is 28 Ah per battery. The electrical system is continuously monitored by the EICAS (Engine Indication and Crew Alerting System) which provides real-time information on system status. Critical systems such as the flight computers, instruments, and autopilot are powered by the essential bus which is backed up by the battery. Non-essential systems can be shed in emergency situations to preserve battery power. Ground power from external sources can be connected via the external power connector to supplement or replace the aircraft's own electrical generation.",
+  "sections": [
+    {
+      "title": "System Overview",
+      "type": "overview",
+      "content": "The Q400 electrical system is designed to provide reliable, redundant power for all aircraft systems. The system architecture includes two independent power generation sources (alternators), battery backup, and comprehensive protection and monitoring systems."
+    },
+    {
+      "title": "Alternator System",
+      "type": "components",
+      "content": "Two engine-driven alternators, one on each PT6A engine, serve as the primary electrical power source. Each alternator produces 28 VDC power and is coupled to the engine via a constant-speed drive unit. Alternator output is approximately 100 amps at 28 VDC. The alternators are equipped with automatic voltage regulation to maintain consistent output voltage. Remote voltage sensing ensures accurate regulation regardless of lead length."
+    },
+    {
+      "title": "Battery System",
+      "type": "components",
+      "content": "The Q400 is equipped with three independent Nickel-Cadmium batteries for emergency power. Each battery provides 28 Ah capacity and operates at 28 VDC. The batteries are charged by the alternators during normal operation. Battery chargers maintain proper charge level when the aircraft is powered off. The battery system can sustain essential aircraft systems for approximately 15-20 minutes in the event of alternator failure."
+    },
+    {
+      "title": "Power Distribution",
+      "type": "operation",
+      "content": "Electrical power is distributed throughout the aircraft via multiple distribution buses. The main bus receives power from the alternators and distributes it to non-essential systems. The essential bus receives power from the main bus through an auto-transfer relay and is maintained by the battery in emergency situations. Essential systems connected to the essential bus include flight instruments, autopilot, primary flight computers, and emergency lighting."
+    },
+    {
+      "title": "Normal Operations",
+      "type": "normal",
+      "content": "During normal flight operations, power is supplied by the engine-driven alternators. The system automatically maintains proper voltage regulation. Electrical load is distributed across the multiple buses. The battery is charged by the alternators and maintained for emergency use. The pilot monitors electrical system status on the EICAS display."
+    },
+    {
+      "title": "Abnormal Operations",
+      "type": "abnormal",
+      "content": "If one alternator fails, the other alternator can supply all required aircraft power. The failed alternator line is automatically isolated. If both alternators fail, the essential bus automatically transfers to battery power. Non-essential electrical loads are shed automatically to preserve battery power. The pilot must declare an emergency and proceed to nearest suitable airfield."
+    },
+    {
+      "title": "Indications",
+      "type": "indications",
+      "content": "Electrical system status is displayed on the EICAS screen showing alternator output, bus voltages, and battery status. Individual circuit breakers provide protection and indication of circuit status. Annunciator lights alert the pilot to system abnormalities. The main electrical panel displays voltages for each bus and alternator output."
+    },
+    {
+      "title": "Limitations",
+      "type": "limitations",
+      "content": "Battery emergency power is limited to approximately 15-20 minutes. Continuous operation is not possible on battery power alone. External power input voltage must be within acceptable limits (24-29 VDC). High electrical loads reduce alternator cooling capacity. Cold weather operations may reduce battery capacity."
+    },
+    {
+      "title": "Memory Items",
+      "type": "memory",
+      "content": "Dual Alternator Failure: 1) Essential bus auto-transfers to battery 2) Shed all non-essential electrical loads 3) Declare emergency 4) Proceed to nearest suitable airfield. Single Alternator Failure: 1) Monitor electrical loads 2) Shed non-essential loads if required 3) Divert to nearest airfield if unable to land within 30 minutes."
+    }
+  ]
+}

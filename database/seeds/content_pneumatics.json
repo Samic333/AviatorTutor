@@ -1,0 +1,246 @@
+{
+  "system_name": "Pneumatics",
+  "ata_code": "ATA36",
+  "pdf_file": "Q400-Pneumatics_1.pdf",
+  "full_text": "12.19.1\n\nIntroduction\n\nThe Auxiliary Power Unit (APU) replaces the standard composite tailcone with a titanium tailcone\nand firewall. The APU is accessed by two clamshell type doors on the bottom of the tail cone. It\nconsists of a gas turbine engine driving a DC starter-generator. The APU supplies bleed air for\nthe Environmental Control System (ECS), and 28 VDC to the electrical system. The APU cannot\nbe operated in flight.\n\n12.19.2\n\nGeneral\n\nThe start control, normal operation, and malfunction monitoring of the APU is automatically per-\nformed  by  the  APU  FADEC.  The  APU  starter-generator  can  be  powered  from  either  the\naeroplane main battery or external power. Intake air is drawn through a screened inlet duct on\nthe right rear of the fuselage. Exhaust gases flow through an exhaust ejector and are discharged\nthrough an upwards pointing outlet at the aft end of the titanium tailcone. The APU is protected\nby its own automatic fire detection and extinguishing system that continuously monitors the APU\nand its compartment whenever electrical power is supplied to the system. The APU control panel\nis mounted on the overhead console in the flight deck.\n\nAPU Louvered Inlet Cover\n\nA louvered cover is provided for the APU Air Inlet to help prevent snow and sleet from entering\nthe APU Inlet when the aeroplane is on a long turnaround or remaining overnight.\n\nDash8 - Q400 - PneumaticsPage 1\f12.19.3\n\nControls and Indications - Auxiliary Power Unit\n\nDash8 - Q400 - PneumaticsPage 2\f  1\n\n  2\n\n  3\n\n  4\n\n 5\n\nAPU CONTROL\n\nPWR\n\nSTART\n\nGEN\n\nBL AIR\n\nRUN\n\nFAIL\n\nSTARTER\n\nON\n\nOPEN\n\nWARN\n\nGEN OHT\n\nFigure 12.19-1 APU Control Panel \n\nDash8 - Q400 - PneumaticsPage 3\fAPU CONTROL PANEL CALLOUTS\n\n1. PWR SWITCHLIGHT (alternate action)\n\nonly arms if aeroplane on ground, no fire detected, and EXTG switch not selected\n\nPUSH  -  arms  APU  start  circuits  and  opens  the  APU  fuel  valve,  APU  FUEL  VALVE  OPEN\nlight (green) shown on the APU fire protection panel\n- \nRUN segment (green)\n-  APU is at operating speed after the START switchlight is pushed\nPUSH - RUN segment (out)\n- \n\ncloses APU fuel valve, APU FUEL VALVE CLOSED light (white) shown on the APU fire\nprotection panel, and the APU stops\n\nFAIL - a failure is detected and the APU automatically stops\n\n2. START SWITCHLIGHT (alternate action)\n\nstarts automatic APU start sequence\n\nPUSH - STARTER segment (amber)\n- \nSTARTER segment (out)\n-  APU start sequence complete or stopped\n\n3. GEN SWITCHLIGHT (alternate action)\n\nPUSH - ON segment (green)\n-  APU starter-generator is supplying DC power\nPUSH - ON segment (out)\n- \nWARN segment (amber)\n-  APU starter-generator off line with APU running\n\nselects APU generator off line\n\n4. BL AIR SWITCHLIGHT (alternate action)\n\nPUSH - OPEN segment (green)\n-  APU bleed air valve open\n-  APU bleed air supplies air to the ECS if engine bleed air is off\nPUSH - OPEN segment (out)\n-  APU bleed air valve is closed\nselects APU bleed air off\n- \n\n5. GEN OHT ADVISORY LIGHT\n\nGEN OHT segment (amber)\nAPU starter-generator overheat condition\nAPU automatically shuts down\n\nDash8 - Q400 - PneumaticsPage 4\fE\nK\nO\nM\nS\n\nG\nT\nX\nE\n\nE\nV\nL\nA\nV\n\nT\nL\nT\nO\n\nT\nN\nE\nV\n\nT\nL\nN\n\nI\n\nE\nG\nA\nG\nG\nA\nB\n\nT\nF\nA\n\nE\nL\nT\nT\nO\nB\nE\nR\nF\n\nI\n\n2\n\n1\n\nT\nS\nE\nT\n\nD\nE\nS\nO\nL\nC\n\nT\nF\nA\n\nW\nO\nL\n\nM\nR\nA\n\nT\nF\nA\n\nD\nW\nF\n\nW\nO\nL\n\nM\nR\nA\n\nD\nW\nF\n\nE\nK\nO\nM\nS\n\nG\nT\nX\nE\n\nE\nG\nA\nG\nG\nA\nB\n\nD\nW\nF\n\nT\nS\nE\nT\n\nG\nT\nX\nE\n\nL\nT\nB\nT\nF\nA\n\nL\nT\nB\nD\nW\nF\n\nS\nE\nV\nL\nA\nV\n\nL\nE\nU\nF\n\nS\nE\nV\nL\nA\nV\n\nL\nE\nU\nF\n\nD\nE\nS\nO\nL\nC\n\nN\nE\nP\nO\n\nD\nE\nS\nO\nL\nC\n\nN\nE\nP\nO\n\nL\nT\nB\n\nW\nO\nL\n\nD\nY\nH\n\nD\nY\nH\n\nG\nT\nX\nE\n\nL\nT\nB\nT\nF\nA\n\nL\nT\nB\nD\nW\nF\n\n7\n\nT\nL\nU\nA\nF\n\nB\n\nT\nL\nU\nA\nF\n\nA\n\nT\nL\nU\nA\nF\n\nB\n\nT\nL\nU\nA\nF\n\nA\n\nI\n\nN\nO\nT\nC\nE\nT\nE\nD\n\nT\nS\nE\nT\n\n2\nE\nN\nG\nN\nE\n\nI\n\n1\nE\nN\nG\nN\nE\n\nI\n\n/\n\nF\nF\nO\nD\nY\nH\nL\nE\nU\nF\nL\nL\nU\nP\n\n/\n\nF\nF\nO\nD\nY\nH\nL\nE\nU\nF\nL\nL\nU\nP\n\nU\nP\nA\n\nL\nT\nB\n\nE\nV\nL\nA\nV\n\nL\nE\nU\nF\n\nM\nR\nA\n\nD\nE\nS\nO\nL\nC\n\nN\nE\nP\nO\n\nE\nR\nF\n\nI\n\nG\nT\nX\nE\n\nE\nR\nF\n\nI\n\nT\nS\nE\nT\n\nW\nO\nL\nL\nT\nB\n\nT\nL\nU\nA\nF\n\n1\n\n2\n\n3 4\n\n5\n\n6\n\nFigure 12.19-2 APU Fire Protection Panel (1 of 2)\n\nDash8 - Q400 - PneumaticsPage 5 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\fAPU FIRE PROTECTION PANEL CALLOUTS\n\n1. FUEL SHUT-OFF VALVE CLOSED ADVISORY LIGHT (white)\n\n-  APU fuel shut-off valve closed\n-  APU shutdown, manually or automatically\n\n2. FUEL SHUT-OFF VALVE OPEN ADVISORY LIGHT (green)\n\n-  APU fuel shut-off valve open\n-  PWR switchlight pushed\n-  APU circuits armed for starting or fire test\n\n3. FIRE ADVISORY LIGHT (red)\n\n-  APU fire detected\n-\n\nafter  7  seconds  extiguishing  agent  automatically  releases,  and  amber  BTL  ARM  light\ngoes out\n\n4. EXTG SWITCHLIGHT (guarded, alternate action)\n\nAPU fire extinguisher bottle can be activated manually if BTL ARM light is on\n\nEXTG segment (white)\n-\nPUSH - EXTG segment (out)\n-  APU fire bottle cannot be activated, or has been set off\n\n5. BOTTLE LOW LIGHT (amber)\n\n- \n\nfire extinguisher bottle is low or empty\n\n6. FAULT ADVISORY LIGHT (AMBER)\n\n- \n- \n\nfault in the APU fire extinguisher system\nfault in the APU FPP\n\n7. BTL ARM ADVISORY LIGHT\n\nAPU fire extinguisher bottle ready to be activated\n\n(amber)\n-\n(OUT)\n-  APU fire extinguishing bottle cannot be activated\n-\n\nno power to the system\n\nDash8 - Q400 - PneumaticsPage 6\fE\nK\nO\nM\nS\n\nG\nT\nX\nE\n\nE\nV\nL\nA\nV\n\nT\nL\nT\nO\n\nT\nN\nE\nV\n\nT\nL\nN\n\nI\n\nE\nG\nA\nG\nG\nA\nB\n\nT\nF\nA\n\nE\nL\nT\nT\nO\nB\nE\nR\nF\n\nI\n\n2\n\n1\n\nT\nS\nE\nT\n\nD\nE\nS\nO\nL\nC\n\nT\nF\nA\n\nW\nO\nL\n\nM\nR\nA\n\nT\nF\nA\n\nD\nW\nF\n\nW\nO\nL\n\nM\nR\nA\n\nD\nW\nF\n\nE\nK\nO\nM\nS\n\nG\nT\nX\nE\n\nE\nG\nA\nG\nG\nA\nB\n\nD\nW\nF\n\nT\nS\nE\nT\n\nG\nT\nX\nE\n\nL\nT\nB\nT\nF\nA\n\nL\nT\nB\nD\nW\nF\n\nS\nE\nV\nL\nA\nV\n\nL\nE\nU\nF\n\nS\nE\nV\nL\nA\nV\n\nL\nE\nU\nF\n\nD\nE\nS\nO\nL\nC\n\nN\nE\nP\nO\n\nD\nE\nS\nO\nL\nC\n\nN\nE\nP\nO\n\nL\nT\nB\n\nW\nO\nL\n\nD\nY\nH\n\nD\nY\nH\n\nG\nT\nX\nE\n\nL\nT\nB\nT\nF\nA\n\nL\nT\nB\nD\nW\nF\n\nU\nP\nA\n\nL\nT\nB\n\nE\nV\nL\nA\nV\n\nL\nE\nU\nF\n\nM\nR\nA\n\nD\nE\nS\nO\nL\nC\n\nN\nE\nP\nO\n\nT\nL\nU\nA\nF\n\nB\n\nT\nL\nU\nA\nF\n\nA\n\nT\nL\nU\nA\nF\n\nB\n\nT\nL\nU\nA\nF\n\nA\n\nI\n\nN\nO\nT\nC\nE\nT\nE\nD\n\nT\nS\nE\nT\n\n2\nE\nN\nG\nN\nE\n\nI\n\n1\nE\nN\nG\nN\nE\n\nI\n\n/\n\nF\nF\nO\nD\nY\nH\nL\nE\nU\nF\nL\nL\nU\nP\n\n/\n\nF\nF\nO\nD\nY\nH\nL\nE\nU\nF\nL\nL\nU\nP\n\n8\n\nE\nR\nF\n\nI\n\nG\nT\nX\nE\n\nE\nR\nF\n\nI\n\nT\nS\nE\nT\n\nW\nO\nL\nL\nT\nB\n\nT\nL\nU\nA\nF\n\nFigure 12.19-3 APU Fire Protection Panel (2 of 2)\n\nDash8 - Q400 - PneumaticsPage 7 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\fAPU FIRE PROTECTION PANEL CALLOUTS (cont’d)\n\n8. FIRE TEST PUSHBUTTON (momentary action)\n\nPUSH AND HOLD - check the following lights:\n MASTER WARNING light (red) flashes\n•\n CHECK FIRE DET warning light (red) flashes\n•\n FIRE segment (red)\n•\n BTL ARM light (amber)\n•\n FUEL VALVE OPEN (out)\n•\n FUEL VALVE CLOSED (white)\n•\n FAULT light (amber)\n•\n EXTG segment (white)\n•\nRELEASE - check the FUEL VALVE OPEN (green) comes on\n\nDash8 - Q400 - PneumaticsPage 8\f2\n\n3\n\n1\n1\n\nDC  EXT\nPOWER\n\nBATT\n\nLOAD\n+1. 00\n-  . 34\n-  . 34\n\n°C\n+22\n+22\n+22\n\nMAIN\nAUX\nSTBY\n\nDC BUS\nVOLT\n\nL\n28.1\n28.1\n28.1\n\nESS\nMAIN\nSEC\n\nR\n28.1\n28.1\n28.1\n\nELECTRICAL\n\nAPU GEN\nLOAD\n+1. 00\n\nDC GEN\n2\n1\nLOAD\n.  00\n+0. 00\n\nTRU\nLOAD\n+1. 00 +1. 00\n\n2\n\n1\n\nAC  EXT\nPOWER\n\nAC  GEN 1\nLOAD\nVOLT\n.  06\n1 1 5\n.  06\n1 1 5\n.  06\n1 1 5\n\nAC  GEN 1\nLOAD\nVOLT\n.  06\n1 1 5\n.  06\n1 1 5\n.  06\n1 1 5\n\nA\nB\nC\n\nA\nB\nC\n\n50\n\n10\n\nFLAP\nDEG\n\n35\n35\n\nSPOILERS\n\nLO L1\n\nRUD\n\nR1\n\nPK BRK STBY\n0\n3000\n\nHYD  PRESS PSI\n1\n3000\n\n2\n3000\n\nL\nELEV\n\nR\nELEV\nHYD  QTY %\n2\n100\n\n3\n100\n\n3\n\n1\n\n0 100\n\nFigure 12.19-4 MFD Electrical Page with APU Generator Operating (1 of 2)\n\nDash8 - Q400 - PneumaticsPage 9\fMFD ELECTRICAL PAGE CALLOUTS\n\n1. DIGITAL DISPLAY OF APU GENERATOR LOAD (white)\n\nAPU GEN (white)\nLOAD (cyan)\n- \n- \n\nis activated only if the APU is installed depending on the aeroplane configuration\nthe load demand on the APU generator is displayed in the following format:\n•\n\n“+”  sign  is  displayed  on  the  left  of  the  lead  digit  to  indicate  an  overload  of  the  DC\npower source\n\n•\n\n•\n\n•\n\nnothing is displayed when the load is in the expected range\n\nleading zero is suppressed in the lead digit position\n\ndigital number gives the rate of the load, with 1.00 equal to 100% of load\n\n-\n\nexamples:\n•\n\n“.60” indicates that the DC generator or TRU is loaded at 60% of the maximum out-\nput.\n\n•     “+1.30” indicates an overload of the DC generator or TRU\n\n2. BATTERY LOAD AND TEMPERATURE ANNUNCIATION AREA\n\nBATT (white)\nLOAD, °C (cyan)\nMAIN, AUX, STBY (white)\n\n3. DIGITAL DISPLAY OF BATTERY LOAD (white)\n\n- \n- \n\n- \n- \n- \n- \n\ndisplays the load of the battery\n+ or - sign on the left of the lead digit, whether the battery is in overcharge (“+” displayed)\nor in discharge (“-” displayed)\nnothing is displayed when the battery is in charge within the expected range\nleading zero is suppressed in the lead digit position\ndigital number gives the rate of the load, with 1.00 equal to 100% of load\nexamples:\n•\n\n “.60” indicates that the battery is in charge at 60% of its maximum rate of charge\n\n•\n\n “-1.30” indicates  that  the  battery  is  discharging  at  30%  over  the  maximum  rate of\ndischarge\n\nDash8 - Q400 - PneumaticsPage 10\fELECTRICAL\n\nAPU GEN\nLOAD\n. 64\n\nDC GEN\n2\n1\nLOAD\n.  00\n.00\n\nTRU\nLOAD\n\n1\n. 00\n\n2\n. 00\n\nAC  GEN 1\nLOAD\nVOLT\n.  00\n 0\n.  00\n 0\n.  00\n0\n\nAC  GEN 2\nLOAD\nVOLT\n.  00\n0\n.  00\n0\n.  00\n0\n\nA\nB\nC\n\nA\nB\nC\n\nBATT\n\nLOAD\n. 06\n  . 04\n  . 03\n\n°C\n+22\n+19\n+20\n\nDC BUS\nVOLT\n\nL\n27.2\n28.0\n28.0\n\nR\n27.2\n28.0\n28.0\n\nMAIN\nAUX\nSTBY\n\nESS\nMAIN\nSEC\n\n4\n5\n\n6\n\n50\n\n10\n\nFLAP\nDEG\n\n35\n\nLO LI\n\nL\nELEV\n\nPK BRK STBY\n0\n3000\n\nHYD  PRESS PSI\n1\n3000\n\n2\n3000\n\nSPOILERS\n\nRUD\n\nRI\n\nRO\n\nR\nELEV\nHYD  QTY %\n2\n100\n\n3\n100\n\n3\n\n1\n\n0 100\n\nFigure 12.19-5 MFD Electrical Page with APU Generator Operating (2 of 2)\n\nDash8 - Q400 - PneumaticsPage 11\fMFD ELECTRICAL PAGE CALLOUTS (cont’d)\n\n4. DIGITAL DISPLAY OF BATTERY TEMPERATURE\n\n- \n\nbattery temperature digits are displayed in white with a + or - sign on the left of the lead\ndigit, when the temperature is within normal limits\n\n-  when the temperature is in the range (+50°C to +65°C) the digits turn yellow\n-  when the temperature exceeds 65°C the digits are displayed in red\n\n5. DC bus voltage annunciation area\n\nDC BUS (white)\nL, R (white)\nVOLT (cyan)\n\n6. DIGITAL DISPLAY OF DC BUS VOLTAGE (white)\n\n- \n\nindicates the voltage on the associated bus\n\nDash8 - Q400 - PneumaticsPage 12\fENGINE\n\nCL\nAIRCRAFT\n\nDRY\nBAY\n\nINLET\nSTRAINER\n\nCOLLECTOR\nBAY\n\nAPU SHUT-OFF\nVALVE\n\nENGINE FEED LINE\n\nAPU FEED\nLNE\n\nFigure 12.19-6 APU Fuel Schematic\n\nDash8 - Q400 - PneumaticsPage 13 \n\f12.19.4\n\nAuxiliary Power Unit - Description\n\n12.19.4.1 APU Fuel System\n\nAPU fuel is supplied from the left wing collector bay through an APU shutoff valve. A rigid fuel\nline  is  routed  from  the  shutoff  valve  to  the  APU/tailcone  firewall  (Figure  12.19-6),  outside  the\npressurized part of the fuselage. A gravity-fed, APU-driven fuel pump keeps positive fuel pres-\nsure to the APU engine. \n\nThe  APU shutoff valve opens when the  APU PWR switchlight is pushed and closes when the\nAPU is shut down. The position of the shutoff valve is shown on the APU Fire Protection Panel\n(FPP). Fuel is automatically scheduled for starting, acceleration, and speed regulation.\n\nThe APU shutoff valve will close if:\n\n•\n•\n•\n•\n\nPWR switchlight is pushed off\nFire is detected in the tailcone\nEXTG switchlight is pushed\nAeroplane is in flight\n\nDash8 - Q400 - PneumaticsPage 14\fF\nF\nO\n\nY\nR\nE\nT\nT\nA\nB\n\nR\nE\nT\nS\nA\nM\n\nI\n\nN\nA\nM\n\nT\nT\nA\nB\n\nI\n\nL\nA\nT\nN\nE\nS\nS\nE\nT\nH\nG\nR\n\nI\n\nF\nF\nO\n\nI\n\nN\nA\nM\n\nN\nE\nG\n\nN\nO\n\nN\nR\nA\nW\n\nC\nD\n2\n#\n\nN\nE\nG\n\nF\nF\nO\n\nU\nC\nG\n\nU\nP\nA\n\nN\nE\nG\nC\nD\n\nU\nC\nG\n\nC\nD\n2\n#\n\nN\nE\nG\n\nU\nR\nT\nR\n\nI\n\nN\nA\nM\nR\n\nR\nE\nD\nE\nE\nF\n\nC\nE\nS\nR\n\nR\nE\nD\nE\nE\nF\n\nF\nF\nO\n\nS\nU\nB\nN\nA\nM\n\nI\n\nE\nT\n\nI\n\nU\nC\nP\nE\n\nF\nF\nO\n\nT\nX\nE\n\nR\nW\nP\n\nX\nU\nA\n\nT\nT\nA\nB\n\nY\nR\nE\nT\nT\nA\nB\n\nS\nU\nB\n\nY\nB\nT\nS\n\nT\nT\nA\nB\n\nC\nE\nS\nL\n\nR\nE\nD\nE\nE\nF\n\nC\nD\n1\n#\n\nN\nE\nG\n\nU\nR\nT\nL\n\nU\nC\nG\n\nF\nF\nO\n\nC\nD\n1\n#\n\nN\nE\nG\n\nI\n\nN\nA\nM\nL\n\nR\nE\nD\nE\nE\nF\n\nX\nU\nA\n\nY\nB\nT\nS\n\nI\n\nL\nA\nT\nN\nE\nS\nS\nE\nT\nF\nE\nL\n\nFigure 12.19-7 Starter-Generator Schematic\n\nY\nE\nL\nL\nA\nG\n\nS\nU\nB\n\nI\n\nE\nL\nB\nA\nR\nA\nV\nR\n\nS\nU\nB\nC\nA\n\nI\n\nE\nL\nB\nA\nR\nA\nV\nL\n\nS\nU\nB\nC\nA\n\nY\nE\nL\nL\nA\nG\n\nS\nU\nB\n\nF\nF\nO\n\nC\nA\n2\n#\n\nN\nE\nG\n\nU\nC\nG\n\nC\nA\n2\n#\n\nN\nE\nG\n\nC\nA\n1\n#\n\nN\nE\nG\n\nU\nC\nG\n\nF\nF\nO\n\nC\nA\n1\n#\n\nN\nE\nG\n\nDash8 - Q400 - PneumaticsPage 15 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\f12.19.4.2 Starter-Generator \n\nThe  APU  has  a  gearbox  mounted  28  VDC  starter-generator  (Figure  12.19-7).  An  APU  start\nrequires  either  aeroplane  batteries  or  external  power.  When  the  APU  starts,  the  starter  stays\nengaged until the APU reaches half its operating speed. When the APU is operating, the RUN\nsegment comes on to show that, the generator mode is available to supply 28 VDC. The WARN\nsegment of the GEN switchlight comes on when the generator is off-line.\n\nThe APU electrical load and voltage can be monitored on the ELECTRICAL page of the MFD.\n\nAfter the aeroplane main engine DC starter-generators are on line, the APU generator will con-\ntinue  to  supply  power  in  parallel  to  the  DC  buses.  The  APU  system  will  automatically  prevent\nAPU generator output if external AC or DC power is applied to the aeroplane.\n\nThe starter-generator is cooled by air which enters through a metal mask screen at the bottom\nforward section of the tailcone and exits through the tailcone right side door (Figure 12.19-8). If\nthe starter-generator overheats, the APU will automatically shut down, shown by the GEN HOT\nadvisory light.\n\nIf a starter-generator fault is detected, the:\n\nStarter-generator is removed from the right main feeder bus\n\n•\n• ON segment of the GEN switchlight goes out\n• WARN segment of the GEN switchlight goes amber\n\nThe APU utilizes 2x40 Ahr NiCad batteries for starting when external DC power is not available.\nThe characteristics of the Starter are such that the initial current draw is not highly dependent on\nthe load being driven, but more a function of the Starter itself, and the state of charge of the bat-\nteries.Due to the high inrush currents during starting, there is a drop in voltage at the battery, and\nhence  the  Main  Buses.  Technical  data  shows  that  for  a  “battery  only  start”,  with  a  battery  at\n100% charge, bus voltage drops to about 20 VDC (value varies with temperature). For a battery\nat 50% charge, the bus voltage drops to about 18 VDC (value varies with temperature). It is clear\nthat starting the APU using batteries with insufficient charge can lead to system problems which\njeopardize successful start.\n\nDash8 - Q400 - PneumaticsPage 16\f1\n\n2\n3\n\n4\n\n5\n\n8\n\n7\n\n6\n\n4\n\n5\n\n9\n\n10\n\nLEGEND\n\n1. Drain Mast.\n2. Drain Outlet Opening.\n3. Left APU Door.\n4. Strut Push-Release.\n5. Telescopic Struts.\n6. Right APU Door.\n\n  7. Starter/Generator Exhaust\n      Air Duct Opening.\n  8. Starter/Generator Exhaust\n      Air Duct.\n  9. APU Ventilation Inlet.\n10. APU Starter/Generator \n      Air Inlet.\n\nFigure 12.19-8 APU Starter-Generator Air Inlet and Exhaust\n\nDash8 - Q400 - PneumaticsPage 17\f12.19.4.3 APU Compartment Ventilation\n\nAPU compartment ventilation is established by the APU exhaust air ejector system.\n\nVentilation air enters the compartment through a screened inlet near the bottom forward end of\nthe tailcone. Air is directed by a composite duct to the area in front of the oil sump to assist oil\ncooling. Air then flows around the APU before being mixed with the exhaust ejector flow.\n\nDash8 - Q400 - PneumaticsPage 18\fT\nC\nU\nD\nG\nN\nW\n\nI\n\nE\nV\nL\nA\nV\nK\nC\nE\nH\nC\n\nT\nC\nU\nD\nG\nN\nW\n\nI\n\nE\nV\nL\nA\nV\nK\nC\nE\nH\nC\n\nM\nO\nR\nF\n\n2\n#\nE\nN\nG\nN\nE\n\nI\n\nM\nO\nR\nF\n\n1\n#\nE\nN\nG\nN\nE\n\nI\n\nL\nA\nT\nN\nE\nM\nN\nO\nR\nV\nN\nE\nO\nT\n\nI\n\nM\nE\nT\nS\nY\nS\nL\nO\nR\nT\nN\nO\nC\n\nE\nV\nL\nA\nV\nY\nT\nE\nF\nA\nS\nT\nF\nA\nO\nT\n\nE\nR\nU\nS\nS\nE\nR\nP\nN\nB\nA\nC\n\nI\n\n(\n\n)\n\nM\nE\nT\nY\nS\nL\nO\nR\nT\nN\nO\nC\n\nL\nL\nA\nW\nE\nR\nF\n\nI\n\nK\nC\nE\nH\nC\nU\nP\nA\n\nE\nV\nL\nA\nV\n\nM\n\nD\nE\nE\nL\nB\nU\nP\nA\n\nE\nV\nL\nA\nV\n\nD\nE\nE\nL\nB\nU\nP\nA\n\nD\nL\nO\nF\nN\nA\nM\n\nI\n\nFigure 12.19-9 APU Bleed Air System Schematic\n\nDash8 - Q400 - PneumaticsPage 19 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\f12.19.5\n\nAPU Bleed-Air System\n\nWhen  the  APU  is  operating,  the  APU  bleed  air  valve  can  be  opened  by  pushing  the  BL  AIR\nswitchlight on the APU control panel. APU bleed air supplies bleed air for the ECS, and holds the\nCabin Pressure Control System (CPCS) aft safety valve open (Figure 12.19-9). When the valve\nis not closed, the OPEN segment (green) of the BL AIR switchlight will come on. The bleed air\nsupply is reduced if the APU exhaust temperature reaches an established temperature limit. This\ngives APU generator load priority over bleed air.\n\nAn APU check valve and wing duct check valves prevent APU bleed air from entering the engine\nbleed air supply, including airframe de-icing. If either main engine BLEED air toggle switch is set\nto 1 or 2, the APU BL AIR switchlight is automatically de-energized. This ensures that bleed air is\nnot supplied from the engines and APU at the same time.\n\nDash8 - Q400 - PneumaticsPage 20\fAPU\nAPD\nSENSOR\n\nCONTROL\nAMPLIFIER\n\nSQUIB\n\nPRESSURE\nSWITCH\n\nAPU\nFIRE\nBTL\n\nFIRE\nPROTECTION\nPANEL\n\nMASTER\nWARNING/\nCAUTION PANEL\n\nFigure 12.19-10 APU Fire Detection Schematic\n\nDash8 - Q400 - PneumaticsPage 21\f12.19.6\n\nAPU Fire Protection\n\nThe  APU has a fully automatic fire detection and  extinguishing system (Figure  12.19-10).  The\nsystem monitors the APU hot section and exhaust whenever the right essential 28 VDC bus is\nenergized. The system is operated from the Fire Protection Panel (FPP) on the overhead con-\nsole.\n\nThe system includes a:\n\n•\n•\n•\n\nstainless steel fire extinguisher bottle and distribution tubing\nloop sensor routed along the tailcone above the APU\ncontrol circuit\n\nWhen a fire or overheat condition is sensed by the detection loop, the:\n\n•\nFIRE light (red), on the FPP illuminates\n• MASTER WARNING light flashes (red)\n• CHECK FIRE DET warning light flashes (red)\n•\n•\n•\n•\n• MASTER CAUTION light flashes (amber)\nAPU caution light (amber) illuminates\n•\n\nBTL ARM advisory light (amber); then (out) if the bottle has discharged\nAPU FUEL VALVE CLOSED advisory light (white) illuminates\nAPU FUEL VALVE OPEN advisory light (out) extinguishes\nEXTG segment of EXTG switchlight (white) illuminates\n\n12.19.7\n\nAPU Fire Extinguishing\n\nIf  a  fire  is  detected,  the  APU  automatically  shuts  down  and  the  fire  extinguishing  agent  is\nreleased after 7 seconds. If automatic fire extinguisher discharge fails, the BTL ARM light stays\non. The guarded EXTG switchlight can be pushed to discharge the fire extinguishing agent, if the\nBTL ARM is on.\n\nNOTE:\n\nOnce the bottle has been discharged, restarting the APU is prevented until the bottle\nhas been replaced.\n\nDash8 - Q400 - PneumaticsPage 22\f12.19.8\n\nAPU Faults\n\nThe APU system can detect a fault, isolate the APU and supply protection. The system will pro-\ntect and shut down the APU.\n\nThe APU system monitors:\n\n•  Overspeed\n•  Underspeed\n•  Start Failure\n•  Accelerate Failure\n•  EGT overtemperature\nLow Oil pressure\n• \n•  High Oil temperature\n•  Failed Sensors\n•  Failed Valves, relays, circuits\n• \n\nInternal failure\n\nIf an APU fault is detected, the:\n\n•\n•\n•\n•\n•\n\nAPU automatically shuts down\nFAIL segment of the APU PWR switchlight (amber)\nAPU FUEL VALVE CLOSED advisory light (white)\nAPU FUEL VALVE OPEN advisory light (out)\nAPU caution light (amber)\n\nThe APU PWR switchlight must be reselected after an automatic shutdown or failure to start.\n\n12.19.9\n\nAPU Shutdown\n\nBefore shutting down the APU, close the bleed air valve and select the GEN off. Normal APU\nshut down is then accomplished by pushing the PWR switchlight.\n\n12.19.10\n\nLimitations\n\nItem 1 (Ref. Para 12.19.4.3)\nWith  composite  cooling  duct  removed,  ambient  temperature  limitation  applies:  30°C  or  ISA\n+25°C, whichever is lower.\n\nItem 2\nFor  APU  operation  with  the  Air  Inlet  Louvre  installed,  ambient  temperature  Limitation  of  21°C\napplies.\n\nDash8 - Q400 - PneumaticsPage 23\f",
+  "full_text_truncated": false,
+  "word_count": 3971,
+  "sections": [
+    {
+      "title": "APU CONTROL",
+      "content": "PWR\n\nSTART\n\nGEN"
+    },
+    {
+      "title": "BL AIR",
+      "content": "RUN\n\nFAIL"
+    },
+    {
+      "title": "STARTER",
+      "content": "ON\n\nOPEN\n\nWARN"
+    },
+    {
+      "title": "GEN OHT",
+      "content": "Figure 12.19-1 APU Control Panel \n\nDash8 - Q400 - PneumaticsPage 3\fAPU CONTROL PANEL CALLOUTS\n\n1. PWR SWITCHLIGHT (alternate action)\n\nonly arms if aeroplane on ground, no fire detected, and EXTG switch not selected\n\nPUSH  -  arms  APU  start  circuits  and  opens  the  APU  fuel  valve,  APU  FUEL  VALVE  OPEN\nlight (green) shown on the APU fire protection panel\n- \nRUN segment (green)\n-  APU is at operating speed after the START switchlight is pushed\nPUSH - RUN segment (out)\n- \n\ncloses APU fuel valve, APU FUEL VALVE CLOSED light (white) shown on the APU fire\nprotection panel, and the APU stops\n\nFAIL - a failure is detected and the APU automatically stops\n\n2. START SWITCHLIGHT (alternate action)\n\nstarts automatic APU start sequence\n\nPUSH - STARTER segment (amber)\n- \nSTARTER segment (out)\n-  APU start sequence complete or stopped\n\n3. GEN SWITCHLIGHT (alternate action)\n\nPUSH - ON segment (green)\n-  APU starter-generator is supplying DC power\nPUSH - ON segment (out)\n- \nWARN segment (amber)\n-  APU starter-generator off line with APU running\n\nselects APU generator off line\n\n4. BL AIR SWITCHLIGHT (alternate action)\n\nPUSH - OPEN segment (green)\n-  APU bleed air valve open\n-  APU bleed air supplies air to the ECS if engine bleed air is off\nPUSH - OPEN segment (out)\n-  APU bleed air valve is closed\nselects APU bleed air off\n- \n\n5. GEN OHT ADVISORY LIGHT\n\nGEN OHT segment (amber)\nAPU starter-generator overheat condition\nAPU automatically shuts down\n\nDash8 - Q400 - PneumaticsPage 4\fE\nK\nO\nM\nS\n\nG\nT\nX\nE\n\nE\nV\nL\nA\nV\n\nT\nL\nT\nO\n\nT\nN\nE\nV\n\nT\nL\nN\n\nI\n\nE\nG\nA\nG\nG\nA\nB\n\nT\nF\nA\n\nE\nL\nT\nT\nO\nB\nE\nR\nF\n\nI\n\n2\n\n1\n\nT\nS\nE\nT\n\nD\nE\nS\nO\nL\nC\n\nT\nF\nA\n\nW\nO\nL\n\nM\nR\nA\n\nT\nF\nA\n\nD\nW\nF\n\nW\nO\nL\n\nM\nR\nA\n\nD\nW\nF\n\nE\nK\nO\nM\nS\n\nG\nT\nX\nE\n\nE\nG\nA\nG\nG\nA\nB\n\nD\nW\nF\n\nT\nS\nE\nT\n\nG\nT\nX\nE\n\nL\nT\nB\nT\nF\nA\n\nL\nT\nB\nD\nW\nF\n\nS\nE\nV\nL\nA\nV\n\nL\nE\nU\nF\n\nS\nE\nV\nL\nA\nV\n\nL\nE\nU\nF\n\nD\nE\nS\nO\nL\nC\n\nN\nE\nP\nO\n\nD\nE\nS\nO\nL\nC\n\nN\nE\nP\nO\n\nL\nT\nB\n\nW\nO\nL\n\nD\nY\nH\n\nD\nY\nH\n\nG\nT\nX\nE\n\nL\nT\nB\nT\nF\nA\n\nL\nT\nB\nD\nW\nF\n\n7\n\nT\nL\nU\nA\nF\n\nB\n\nT\nL\nU\nA\nF\n\nA\n\nT\nL\nU\nA\nF\n\nB\n\nT\nL\nU\nA\nF\n\nA\n\nI\n\nN\nO\nT\nC\nE\nT\nE\nD\n\nT\nS\nE\nT\n\n2\nE\nN\nG\nN\nE\n\nI\n\n1\nE\nN\nG\nN\nE\n\nI\n\n/\n\nF\nF\nO\nD\nY\nH\nL\nE\nU\nF\nL\nL\nU\nP\n\n/\n\nF\nF\nO\nD\nY\nH\nL\nE\nU\nF\nL\nL\nU\nP\n\nU\nP\nA\n\nL\nT\nB\n\nE\nV\nL\nA\nV\n\nL\nE\nU\nF\n\nM\nR\nA\n\nD\nE\nS\nO\nL\nC\n\nN\nE\nP\nO\n\nE\nR\nF\n\nI\n\nG\nT\nX\nE\n\nE\nR\nF\n\nI\n\nT\nS\nE\nT\n\nW\nO\nL\nL\nT\nB\n\nT\nL\nU\nA\nF\n\n1\n\n2"
+    },
+    {
+      "title": "3 4",
+      "content": "5\n\n6\n\nFigure 12.19-2 APU Fire Protection Panel (1 of 2)\n\nDash8 - Q400 - PneumaticsPage 5"
+    },
+    {
+      "title": "APU FIRE PROTECTION PANEL CALLOUTS",
+      "content": "1. FUEL SHUT-OFF VALVE CLOSED ADVISORY LIGHT (white)\n\n-  APU fuel shut-off valve closed\n-  APU shutdown, manually or automatically\n\n2. FUEL SHUT-OFF VALVE OPEN ADVISORY LIGHT (green)\n\n-  APU fuel shut-off valve open\n-  PWR switchlight pushed\n-  APU circuits armed for starting or fire test\n\n3. FIRE ADVISORY LIGHT (red)\n\n-  APU fire detected\n-\n\nafter  7  seconds  extiguishing  agent  automatically  releases,  and  amber  BTL  ARM  light\ngoes out\n\n4. EXTG SWITCHLIGHT (guarded, alternate action)\n\nAPU fire extinguisher bottle can be activated manually if BTL ARM light is on\n\nEXTG segment (white)\n-\nPUSH - EXTG segment (out)\n-  APU fire bottle cannot be activated, or has been set off\n\n5. BOTTLE LOW LIGHT (amber)\n\n- \n\nfire extinguisher bottle is low or empty\n\n6. FAULT ADVISORY LIGHT (AMBER)\n\n- \n- \n\nfault in the APU fire extinguisher system\nfault in the APU FPP\n\n7. BTL ARM ADVISORY LIGHT\n\nAPU fire extinguisher bottle ready to be activated\n\n(amber)\n-\n(OUT)\n-  APU fire extinguishing bottle cannot be activated\n-\n\nno power to the system\n\nDash8 - Q400 - PneumaticsPage 6\fE\nK\nO\nM\nS\n\nG\nT\nX\nE\n\nE\nV\nL\nA\nV\n\nT\nL\nT\nO\n\nT\nN\nE\nV\n\nT\nL\nN\n\nI\n\nE\nG\nA\nG\nG\nA\nB\n\nT\nF\nA\n\nE\nL\nT\nT\nO\nB\nE\nR\nF\n\nI\n\n2\n\n1\n\nT\nS\nE\nT\n\nD\nE\nS\nO\nL\nC\n\nT\nF\nA\n\nW\nO\nL\n\nM\nR\nA\n\nT\nF\nA\n\nD\nW\nF\n\nW\nO\nL\n\nM\nR\nA\n\nD\nW\nF\n\nE\nK\nO\nM\nS\n\nG\nT\nX\nE\n\nE\nG\nA\nG\nG\nA\nB\n\nD\nW\nF\n\nT\nS\nE\nT\n\nG\nT\nX\nE\n\nL\nT\nB\nT\nF\nA\n\nL\nT\nB\nD\nW\nF\n\nS\nE\nV\nL\nA\nV\n\nL\nE\nU\nF\n\nS\nE\nV\nL\nA\nV\n\nL\nE\nU\nF\n\nD\nE\nS\nO\nL\nC\n\nN\nE\nP\nO\n\nD\nE\nS\nO\nL\nC\n\nN\nE\nP\nO\n\nL\nT\nB\n\nW\nO\nL\n\nD\nY\nH\n\nD\nY\nH\n\nG\nT\nX\nE\n\nL\nT\nB\nT\nF\nA\n\nL\nT\nB\nD\nW\nF\n\nU\nP\nA\n\nL\nT\nB\n\nE\nV\nL\nA\nV\n\nL\nE\nU\nF\n\nM\nR\nA\n\nD\nE\nS\nO\nL\nC\n\nN\nE\nP\nO\n\nT\nL\nU\nA\nF\n\nB\n\nT\nL\nU\nA\nF\n\nA\n\nT\nL\nU\nA\nF\n\nB\n\nT\nL\nU\nA\nF\n\nA\n\nI\n\nN\nO\nT\nC\nE\nT\nE\nD\n\nT\nS\nE\nT\n\n2\nE\nN\nG\nN\nE\n\nI\n\n1\nE\nN\nG\nN\nE\n\nI\n\n/\n\nF\nF\nO\nD\nY\nH\nL\nE\nU\nF\nL\nL\nU\nP\n\n/\n\nF\nF\nO\nD\nY\nH\nL\nE\nU\nF\nL\nL\nU\nP\n\n8\n\nE\nR\nF\n\nI\n\nG\nT\nX\nE\n\nE\nR\nF\n\nI\n\nT\nS\nE\nT\n\nW\nO\nL\nL\nT\nB\n\nT\nL\nU\nA\nF\n\nFigure 12.19-3 APU Fire Protection Panel (2 of 2)\n\nDash8 - Q400 - PneumaticsPage 7 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\fAPU FIRE PROTECTION PANEL CALLOUTS (cont’d)\n\n8. FIRE TEST PUSHBUTTON (momentary action)\n\nPUSH AND HOLD - check the following lights:\n MASTER WARNING light (red) flashes\n•\n CHECK FIRE DET warning light (red) flashes\n•\n FIRE segment (red)\n•\n BTL ARM light (amber)\n•\n FUEL VALVE OPEN (out)\n•\n FUEL VALVE CLOSED (white)\n•\n FAULT light (amber)\n•\n EXTG segment (white)\n•\nRELEASE - check the FUEL VALVE OPEN (green) comes on\n\nDash8 - Q400 - PneumaticsPage 8\f2\n\n3\n\n1\n1"
+    },
+    {
+      "title": "DC  EXT",
+      "content": "POWER\n\nBATT\n\nLOAD\n+1. 00\n-  . 34\n-  . 34\n\n°C\n+22\n+22\n+22\n\nMAIN\nAUX\nSTBY"
+    },
+    {
+      "title": "DC BUS",
+      "content": "VOLT\n\nL\n28.1\n28.1\n28.1\n\nESS\nMAIN\nSEC\n\nR\n28.1\n28.1\n28.1"
+    },
+    {
+      "title": "APU GEN",
+      "content": "LOAD\n+1. 00"
+    },
+    {
+      "title": "DC GEN",
+      "content": "2\n1\nLOAD\n.  00\n+0. 00\n\nTRU\nLOAD\n+1. 00 +1. 00\n\n2\n\n1"
+    },
+    {
+      "title": "AC  EXT",
+      "content": "POWER"
+    },
+    {
+      "title": "AC  GEN 1",
+      "content": "LOAD\nVOLT\n.  06"
+    },
+    {
+      "title": "1 1 5",
+      "content": ".  06"
+    },
+    {
+      "title": "1 1 5",
+      "content": ".  06"
+    },
+    {
+      "title": "AC  GEN 1",
+      "content": "LOAD\nVOLT\n.  06"
+    },
+    {
+      "title": "1 1 5",
+      "content": ".  06"
+    },
+    {
+      "title": "1 1 5",
+      "content": ".  06"
+    },
+    {
+      "title": "1 1 5",
+      "content": "A\nB\nC\n\nA\nB\nC\n\n50\n\n10\n\nFLAP\nDEG\n\n35\n35"
+    },
+    {
+      "title": "SPOILERS",
+      "content": "LO L1\n\nRUD\n\nR1"
+    },
+    {
+      "title": "PK BRK STBY",
+      "content": "0\n3000"
+    },
+    {
+      "title": "HYD  PRESS PSI",
+      "content": "1\n3000\n\n2\n3000\n\nL\nELEV\n\nR\nELEV"
+    },
+    {
+      "title": "HYD  QTY %",
+      "content": "2\n100\n\n3\n100\n\n3\n\n1"
+    },
+    {
+      "title": "0 100",
+      "content": "Figure 12.19-4 MFD Electrical Page with APU Generator Operating (1 of 2)\n\nDash8 - Q400 - PneumaticsPage 9\fMFD ELECTRICAL PAGE CALLOUTS\n\n1. DIGITAL DISPLAY OF APU GENERATOR LOAD (white)\n\nAPU GEN (white)\nLOAD (cyan)\n- \n- \n\nis activated only if the APU is installed depending on the aeroplane configuration\nthe load demand on the APU generator is displayed in the following format:\n•\n\n“+”  sign  is  displayed  on  the  left  of  the  lead  digit  to  indicate  an  overload  of  the  DC\npower source\n\n•\n\n•\n\n•\n\nnothing is displayed when the load is in the expected range\n\nleading zero is suppressed in the lead digit position\n\ndigital number gives the rate of the load, with 1.00 equal to 100% of load\n\n-\n\nexamples:\n•\n\n“.60” indicates that the DC generator or TRU is loaded at 60% of the maximum out-\nput.\n\n•     “+1.30” indicates an overload of the DC generator or TRU\n\n2. BATTERY LOAD AND TEMPERATURE ANNUNCIATION AREA\n\nBATT (white)\nLOAD, °C (cyan)\nMAIN, AUX, STBY (white)\n\n3. DIGITAL DISPLAY OF BATTERY LOAD (white)\n\n- \n- \n\n- \n- \n- \n- \n\ndisplays the load of the battery\n+ or - sign on the left of the lead digit, whether the battery is in overcharge (“+” displayed)\nor in discharge (“-” displayed)\nnothing is displayed when the battery is in charge within the expected range\nleading zero is suppressed in the lead digit position\ndigital number gives the rate of the load, with 1.00 equal to 100% of load\nexamples:\n•\n\n “.60” indicates that the battery is in charge at 60% of its maximum rate of charge\n\n•\n\n “-1.30” indicates  that  the  battery  is  discharging  at  30%  over  the  maximum  rate of\ndischarge\n\nDash8 - Q400 - PneumaticsPage 10\fELECTRICAL"
+    },
+    {
+      "title": "APU GEN",
+      "content": "LOAD\n. 64"
+    },
+    {
+      "title": "DC GEN",
+      "content": "2\n1\nLOAD\n.  00\n.00\n\nTRU\nLOAD\n\n1\n. 00\n\n2\n. 00"
+    },
+    {
+      "title": "AC  GEN 1",
+      "content": "LOAD\nVOLT\n.  00\n 0\n.  00\n 0\n.  00\n0"
+    },
+    {
+      "title": "AC  GEN 2",
+      "content": "LOAD\nVOLT\n.  00\n0\n.  00\n0\n.  00\n0\n\nA\nB\nC\n\nA\nB\nC\n\nBATT\n\nLOAD\n. 06\n  . 04\n  . 03\n\n°C\n+22\n+19\n+20"
+    },
+    {
+      "title": "DC BUS",
+      "content": "VOLT\n\nL\n27.2\n28.0\n28.0\n\nR\n27.2\n28.0\n28.0\n\nMAIN\nAUX\nSTBY\n\nESS\nMAIN\nSEC\n\n4\n5\n\n6\n\n50\n\n10\n\nFLAP\nDEG\n\n35\n\nLO LI\n\nL\nELEV"
+    },
+    {
+      "title": "PK BRK STBY",
+      "content": "0\n3000"
+    },
+    {
+      "title": "HYD  PRESS PSI",
+      "content": "1\n3000\n\n2\n3000"
+    },
+    {
+      "title": "SPOILERS",
+      "content": "RUD\n\nRI\n\nRO\n\nR\nELEV"
+    },
+    {
+      "title": "HYD  QTY %",
+      "content": "2\n100\n\n3\n100\n\n3\n\n1"
+    },
+    {
+      "title": "0 100",
+      "content": "Figure 12.19-5 MFD Electrical Page with APU Generator Operating (2 of 2)\n\nDash8 - Q400 - PneumaticsPage 11\fMFD ELECTRICAL PAGE CALLOUTS (cont’d)\n\n4. DIGITAL DISPLAY OF BATTERY TEMPERATURE\n\n- \n\nbattery temperature digits are displayed in white with a + or - sign on the left of the lead\ndigit, when the temperature is within normal limits\n\n-  when the temperature is in the range (+50°C to +65°C) the digits turn yellow\n-  when the temperature exceeds 65°C the digits are displayed in red\n\n5. DC bus voltage annunciation area\n\nDC BUS (white)\nL, R (white)\nVOLT (cyan)\n\n6. DIGITAL DISPLAY OF DC BUS VOLTAGE (white)\n\n- \n\nindicates the voltage on the associated bus\n\nDash8 - Q400 - PneumaticsPage 12\fENGINE\n\nCL"
+    },
+    {
+      "title": "AIRCRAFT",
+      "content": "DRY\nBAY\n\nINLET"
+    },
+    {
+      "title": "COLLECTOR",
+      "content": "BAY"
+    },
+    {
+      "title": "APU SHUT-OFF",
+      "content": "VALVE"
+    },
+    {
+      "title": "APU FEED",
+      "content": "LNE\n\nFigure 12.19-6 APU Fuel Schematic\n\nDash8 - Q400 - PneumaticsPage 13 \n\f12.19.4\n\nAuxiliary Power Unit - Description"
+    },
+    {
+      "title": "12.19.4.1 APU Fuel System",
+      "content": "APU fuel is supplied from the left wing collector bay through an APU shutoff valve. A rigid fuel\nline  is  routed  from  the  shutoff  valve  to  the  APU/tailcone  firewall  (Figure  12.19-6),  outside  the\npressurized part of the fuselage. A gravity-fed, APU-driven fuel pump keeps positive fuel pres-\nsure to the APU engine. \n\nThe  APU shutoff valve opens when the  APU PWR switchlight is pushed and closes when the\nAPU is shut down. The position of the shutoff valve is shown on the APU Fire Protection Panel\n(FPP). Fuel is automatically scheduled for starting, acceleration, and speed regulation.\n\nThe APU shutoff valve will close if:\n\n•\n•\n•\n•\n\nPWR switchlight is pushed off\nFire is detected in the tailcone\nEXTG switchlight is pushed\nAeroplane is in flight\n\nDash8 - Q400 - PneumaticsPage 14\fF\nF\nO\n\nY\nR\nE\nT\nT\nA\nB\n\nR\nE\nT\nS\nA\nM\n\nI\n\nN\nA\nM\n\nT\nT\nA\nB\n\nI\n\nL\nA\nT\nN\nE\nS\nS\nE\nT\nH\nG\nR\n\nI\n\nF\nF\nO\n\nI\n\nN\nA\nM\n\nN\nE\nG\n\nN\nO\n\nN\nR\nA\nW\n\nC\nD\n2\n#\n\nN\nE\nG\n\nF\nF\nO\n\nU\nC\nG\n\nU\nP\nA\n\nN\nE\nG\nC\nD\n\nU\nC\nG\n\nC\nD\n2\n#\n\nN\nE\nG\n\nU\nR\nT\nR\n\nI\n\nN\nA\nM\nR\n\nR\nE\nD\nE\nE\nF\n\nC\nE\nS\nR\n\nR\nE\nD\nE\nE\nF\n\nF\nF\nO\n\nS\nU\nB\nN\nA\nM\n\nI\n\nE\nT\n\nI\n\nU\nC\nP\nE\n\nF\nF\nO\n\nT\nX\nE\n\nR\nW\nP\n\nX\nU\nA\n\nT\nT\nA\nB\n\nY\nR\nE\nT\nT\nA\nB\n\nS\nU\nB\n\nY\nB\nT\nS\n\nT\nT\nA\nB\n\nC\nE\nS\nL\n\nR\nE\nD\nE\nE\nF\n\nC\nD\n1\n#\n\nN\nE\nG\n\nU\nR\nT\nL\n\nU\nC\nG\n\nF\nF\nO\n\nC\nD\n1\n#\n\nN\nE\nG\n\nI\n\nN\nA\nM\nL\n\nR\nE\nD\nE\nE\nF\n\nX\nU\nA\n\nY\nB\nT\nS\n\nI\n\nL\nA\nT\nN\nE\nS\nS\nE\nT\nF\nE\nL\n\nFigure 12.19-7 Starter-Generator Schematic\n\nY\nE\nL\nL\nA\nG\n\nS\nU\nB\n\nI\n\nE\nL\nB\nA\nR\nA\nV\nR\n\nS\nU\nB\nC\nA\n\nI\n\nE\nL\nB\nA\nR\nA\nV\nL\n\nS\nU\nB\nC\nA\n\nY\nE\nL\nL\nA\nG\n\nS\nU\nB\n\nF\nF\nO\n\nC\nA\n2\n#\n\nN\nE\nG\n\nU\nC\nG\n\nC\nA\n2\n#\n\nN\nE\nG\n\nC\nA\n1\n#\n\nN\nE\nG\n\nU\nC\nG\n\nF\nF\nO\n\nC\nA\n1\n#\n\nN\nE\nG\n\nDash8 - Q400 - PneumaticsPage 15"
+    },
+    {
+      "title": "12.19.4.2 Starter-Generator",
+      "content": "The  APU  has  a  gearbox  mounted  28  VDC  starter-generator  (Figure  12.19-7).  An  APU  start\nrequires  either  aeroplane  batteries  or  external  power.  When  the  APU  starts,  the  starter  stays\nengaged until the APU reaches half its operating speed. When the APU is operating, the RUN\nsegment comes on to show that, the generator mode is available to supply 28 VDC. The WARN\nsegment of the GEN switchlight comes on when the generator is off-line.\n\nThe APU electrical load and voltage can be monitored on the ELECTRICAL page of the MFD.\n\nAfter the aeroplane main engine DC starter-generators are on line, the APU generator will con-\ntinue  to  supply  power  in  parallel  to  the  DC  buses.  The  APU  system  will  automatically  prevent\nAPU generator output if external AC or DC power is applied to the aeroplane.\n\nThe starter-generator is cooled by air which enters through a metal mask screen at the bottom\nforward section of the tailcone and exits through the tailcone right side door (Figure 12.19-8). If\nthe starter-generator overheats, the APU will automatically shut down, shown by the GEN HOT\nadvisory light.\n\nIf a starter-generator fault is detected, the:\n\nStarter-generator is removed from the right main feeder bus\n\n•\n• ON segment of the GEN switchlight goes out\n• WARN segment of the GEN switchlight goes amber\n\nThe APU utilizes 2x40 Ahr NiCad batteries for starting when external DC power is not available.\nThe characteristics of the Starter are such that the initial current draw is not highly dependent on\nthe load being driven, but more a function of the Starter itself, and the state of charge of the bat-\nteries.Due to the high inrush currents during starting, there is a drop in voltage at the battery, and\nhence  the  Main  Buses.  Technical  data  shows  that  for  a  “battery  only  start”,  with  a  battery  at\n100% charge, bus voltage drops to about 20 VDC (value varies with temperature). For a battery\nat 50% charge, the bus voltage drops to about 18 VDC (value varies with temperature). It is clear\nthat starting the APU using batteries with insufficient charge can lead to system problems which\njeopardize successful start.\n\nDash8 - Q400 - PneumaticsPage 16\f1\n\n2\n3\n\n4\n\n5\n\n8\n\n7\n\n6\n\n4\n\n5\n\n9\n\n10"
+    },
+    {
+      "title": "LEGEND",
+      "content": "1. Drain Mast.\n2. Drain Outlet Opening.\n3. Left APU Door.\n4. Strut Push-Release.\n5. Telescopic Struts.\n6. Right APU Door.\n\n  7. Starter/Generator Exhaust\n      Air Duct Opening.\n  8. Starter/Generator Exhaust\n      Air Duct.\n  9. APU Ventilation Inlet.\n10. APU Starter/Generator \n      Air Inlet.\n\nFigure 12.19-8 APU Starter-Generator Air Inlet and Exhaust\n\nDash8 - Q400 - PneumaticsPage 17\f12.19.4.3 APU Compartment Ventilation\n\nAPU compartment ventilation is established by the APU exhaust air ejector system.\n\nVentilation air enters the compartment through a screened inlet near the bottom forward end of\nthe tailcone. Air is directed by a composite duct to the area in front of the oil sump to assist oil\ncooling. Air then flows around the APU before being mixed with the exhaust ejector flow.\n\nDash8 - Q400 - PneumaticsPage 18\fT\nC\nU\nD\nG\nN\nW\n\nI\n\nE\nV\nL\nA\nV\nK\nC\nE\nH\nC\n\nT\nC\nU\nD\nG\nN\nW\n\nI\n\nE\nV\nL\nA\nV\nK\nC\nE\nH\nC\n\nM\nO\nR\nF\n\n2\n#\nE\nN\nG\nN\nE\n\nI\n\nM\nO\nR\nF\n\n1\n#\nE\nN\nG\nN\nE\n\nI\n\nL\nA\nT\nN\nE\nM\nN\nO\nR\nV\nN\nE\nO\nT\n\nI\n\nM\nE\nT\nS\nY\nS\nL\nO\nR\nT\nN\nO\nC\n\nE\nV\nL\nA\nV\nY\nT\nE\nF\nA\nS\nT\nF\nA\nO\nT\n\nE\nR\nU\nS\nS\nE\nR\nP\nN\nB\nA\nC\n\nI\n\n(\n\n)\n\nM\nE\nT\nY\nS\nL\nO\nR\nT\nN\nO\nC\n\nL\nL\nA\nW\nE\nR\nF\n\nI\n\nK\nC\nE\nH\nC\nU\nP\nA\n\nE\nV\nL\nA\nV\n\nM\n\nD\nE\nE\nL\nB\nU\nP\nA\n\nE\nV\nL\nA\nV\n\nD\nE\nE\nL\nB\nU\nP\nA\n\nD\nL\nO\nF\nN\nA\nM\n\nI\n\nFigure 12.19-9 APU Bleed Air System Schematic\n\nDash8 - Q400 - PneumaticsPage 19 \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\f12.19.5\n\nAPU Bleed-Air System\n\nWhen  the  APU  is  operating,  the  APU  bleed  air  valve  can  be  opened  by  pushing  the  BL  AIR\nswitchlight on the APU control panel. APU bleed air supplies bleed air for the ECS, and holds the\nCabin Pressure Control System (CPCS) aft safety valve open (Figure 12.19-9). When the valve\nis not closed, the OPEN segment (green) of the BL AIR switchlight will come on. The bleed air\nsupply is reduced if the APU exhaust temperature reaches an established temperature limit. This\ngives APU generator load priority over bleed air.\n\nAn APU check valve and wing duct check valves prevent APU bleed air from entering the engine\nbleed air supply, including airframe de-icing. If either main engine BLEED air toggle switch is set\nto 1 or 2, the APU BL AIR switchlight is automatically de-energized. This ensures that bleed air is\nnot supplied from the engines and APU at the same time.\n\nDash8 - Q400 - PneumaticsPage 20\fAPU\nAPD"
+    },
+    {
+      "title": "AMPLIFIER",
+      "content": "SQUIB"
+    },
+    {
+      "title": "SWITCH",
+      "content": "APU\nFIRE\nBTL\n\nFIRE"
+    },
+    {
+      "title": "PROTECTION",
+      "content": "PANEL"
+    },
+    {
+      "title": "CAUTION PANEL",
+      "content": "Figure 12.19-10 APU Fire Detection Schematic\n\nDash8 - Q400 - PneumaticsPage 21\f12.19.6\n\nAPU Fire Protection\n\nThe  APU has a fully automatic fire detection and  extinguishing system (Figure  12.19-10).  The\nsystem monitors the APU hot section and exhaust whenever the right essential 28 VDC bus is\nenergized. The system is operated from the Fire Protection Panel (FPP) on the overhead con-\nsole.\n\nThe system includes a:\n\n•\n•\n•\n\nstainless steel fire extinguisher bottle and distribution tubing\nloop sensor routed along the tailcone above the APU\ncontrol circuit\n\nWhen a fire or overheat condition is sensed by the detection loop, the:\n\n•\nFIRE light (red), on the FPP illuminates\n• MASTER WARNING light flashes (red)\n• CHECK FIRE DET warning light flashes (red)\n•\n•\n•\n•\n• MASTER CAUTION light flashes (amber)\nAPU caution light (amber) illuminates\n•\n\nBTL ARM advisory light (amber); then (out) if the bottle has discharged\nAPU FUEL VALVE CLOSED advisory light (white) illuminates\nAPU FUEL VALVE OPEN advisory light (out) extinguishes\nEXTG segment of EXTG switchlight (white) illuminates\n\n12.19.7\n\nAPU Fire Extinguishing\n\nIf  a  fire  is  detected,  the  APU  automatically  shuts  down  and  the  fire  extinguishing  agent  is\nreleased after 7 seconds. If automatic fire extinguisher discharge fails, the BTL ARM light stays\non. The guarded EXTG switchlight can be pushed to discharge the fire extinguishing agent, if the\nBTL ARM is on.\n\nNOTE:\n\nOnce the bottle has been discharged, restarting the APU is prevented until the bottle\nhas been replaced.\n\nDash8 - Q400 - PneumaticsPage 22\f12.19.8\n\nAPU Faults\n\nThe APU system can detect a fault, isolate the APU and supply protection. The system will pro-\ntect and shut down the APU.\n\nThe APU system monitors:\n\n•  Overspeed\n•  Underspeed\n•  Start Failure\n•  Accelerate Failure\n•  EGT overtemperature\nLow Oil pressure\n• \n•  High Oil temperature\n•  Failed Sensors\n•  Failed Valves, relays, circuits\n• \n\nInternal failure\n\nIf an APU fault is detected, the:\n\n•\n•\n•\n•\n•\n\nAPU automatically shuts down\nFAIL segment of the APU PWR switchlight (amber)\nAPU FUEL VALVE CLOSED advisory light (white)\nAPU FUEL VALVE OPEN advisory light (out)\nAPU caution light (amber)\n\nThe APU PWR switchlight must be reselected after an automatic shutdown or failure to start.\n\n12.19.9\n\nAPU Shutdown\n\nBefore shutting down the APU, close the bleed air valve and select the GEN off. Normal APU\nshut down is then accomplished by pushing the PWR switchlight.\n\n12.19.10\n\nLimitations\n\nItem 1 (Ref. Para 12.19.4.3)\nWith  composite  cooling  duct  removed,  ambient  temperature  limitation  applies:  30°C  or  ISA\n+25°C, whichever is lower.\n\nItem 2\nFor  APU  operation  with  the  Air  Inlet  Louvre  installed,  ambient  temperature  Limitation  of  21°C\napplies.\n\nDash8 - Q400 - PneumaticsPage 23"
+    }
+  ],
+  "components": [
+    "AC  GEN",
+    "APU FIRE PROTECTION PANEL CALLOUTS",
+    "APU FUEL VALVE CLOSED",
+    "APU FUEL VALVE OPEN",
+    "APU Fire Protection Panel",
+    "APU Generator Operating",
+    "APU PWR",
+    "APU Starter",
+    "BTL ARM",
+    "CHECK FIRE DET",
+    "DC GEN",
+    "Dash8",
+    "E\nK\nO\nM\nS\n\nG\nT\nX\nE\n\nE\nV\nL\nA\nV\n\nT\nL\nT\nO\n\nT\nN\nE\nV\n\nT\nL\nN\n\nI\n\nE\nG\nA\nG\nG\nA\nB\n\nT\nF\nA\n\nE\nL\nT\nT\nO\nB\nE\nR\nF\n\nI",
+    "E\nN\nG\nN\nE\n\nI",
+    "ELECTRICAL\n\nAPU GEN\nLOAD",
+    "EXTG",
+    "F\nF\nO\nD\nY\nH\nL\nE\nU\nF\nL\nL\nU\nP",
+    "FAIL",
+    "FIRE",
+    "FLAP\nDEG",
+    "FUEL SHUT",
+    "FUEL VALVE OPEN",
+    "Figure",
+    "HYD  PRESS PSI",
+    "LOAD",
+    "LOAD\nVOLT",
+    "MASTER WARNING",
+    "MFD ELECTRICAL PAGE CALLOUTS",
+    "MFD Electrical Page",
+    "OPEN",
+    "PUSH",
+    "PneumaticsPage",
+    "Q400",
+    "STARTER",
+    "Starter",
+    "TRU\nLOAD",
+    "The  APU",
+    "The APU",
+    "WARN",
+    "When"
+  ],
+  "key_facts": [
+    "The APU supplies bleed air for\nthe Environmental Control System (ECS), and 28 VDC to the electrical system",
+    "2\n\nGeneral\n\nThe start control, normal operation, and malfunction monitoring of the APU is automatically per-\nformed  by  the  APU  FADEC",
+    "3\n\nControls and Indications - Auxiliary Power Unit\n\nDash8 - Q400 - PneumaticsPage 2\f  1\n\n  2\n\n  3\n\n  4\n\n 5\n\nAPU CONTROL\n\nPWR\n\nSTART\n\nGEN\n\nBL AIR\n\nRUN\n\nFAIL\n\nSTARTER\n\nON\n\nOPEN\n\nWARN\n\nGEN OHT\n\nFigure 12",
+    "BL AIR SWITCHLIGHT (alternate action)\n\nPUSH - OPEN segment (green)\n-  APU bleed air valve open\n-  APU bleed air supplies air to the ECS if engine bleed air is off\nPUSH - OPEN segment (out)\n-  APU bleed air valve is closed\nselects APU bleed air off\n- \n\n5",
+    "60” indicates that the DC generator or TRU is loaded at 60% of the maximum out-\nput",
+    "60” indicates that the battery is in charge at 60% of its maximum rate of charge\n\n•\n\n “-1",
+    "30” indicates  that  the  battery  is  discharging  at  30%  over  the  maximum  rate of\ndischarge\n\nDash8 - Q400 - PneumaticsPage 10\fELECTRICAL\n\nAPU GEN\nLOAD",
+    "DC bus voltage annunciation area\n\nDC BUS (white)\nL, R (white)\nVOLT (cyan)\n\n6",
+    "DIGITAL DISPLAY OF DC BUS VOLTAGE (white)\n\n- \n\nindicates the voltage on the associated bus\n\nDash8 - Q400 - PneumaticsPage 12\fENGINE\n\nCL\nAIRCRAFT\n\nDRY\nBAY\n\nINLET\nSTRAINER\n\nCOLLECTOR\nBAY\n\nAPU SHUT-OFF\nVALVE\n\nENGINE FEED LINE\n\nAPU FEED\nLNE\n\nFigure 12",
+    "The APU electrical load and voltage can be monitored on the ELECTRICAL page of the MFD",
+    "Due to the high inrush currents during starting, there is a drop in voltage at the battery, and\nhence  the  Main  Buses",
+    "Technical  data  shows  that  for  a  “battery  only  start”,  with  a  battery  at\n100% charge, bus voltage drops to about 20 VDC (value varies with temperature)",
+    "For a battery\nat 50% charge, the bus voltage drops to about 18 VDC (value varies with temperature)",
+    "APU bleed air supplies bleed air for the ECS, and holds the\nCabin Pressure Control System (CPCS) aft safety valve open (Figure 12",
+    "Dash8 - Q400 - PneumaticsPage 20\fAPU\nAPD\nSENSOR\n\nCONTROL\nAMPLIFIER\n\nSQUIB\n\nPRESSURE\nSWITCH\n\nAPU\nFIRE\nBTL\n\nFIRE\nPROTECTION\nPANEL\n\nMASTER\nWARNING/\nCAUTION PANEL\n\nFigure 12",
+    "Normal APU\nshut down is then accomplished by pushing the PWR switchlight"
+  ]
+}
