@@ -208,10 +208,27 @@ class DashboardController extends Controller
             ];
         }
 
+        // Aircraft scope: which aircraft is this user studying right now?
+        // Brand-new users (no preference, no study activity, not admin) see a zero-state.
+        $currentAircraft   = \App\Services\AircraftService::currentForUser((int) $userId);
+        $studyableAircraft = \App\Services\AircraftService::studyable();
+        $totalSessions = (int) (\App\Core\DB::instance()
+            ->queryOne('SELECT COUNT(*) c FROM study_sessions WHERE user_id = ?', [$userId])['c'] ?? 0);
+        // Read preferred_aircraft_id from DB (session may be stale).
+        $userRow = \App\Core\DB::instance()
+            ->queryOne('SELECT preferred_aircraft_id FROM users WHERE id = ?', [$userId]) ?: [];
+        $hasPref = !empty($userRow['preferred_aircraft_id']);
+        $isAdmin = ($user['role'] ?? '') === 'admin';
+        $isFreshAccount = !$isAdmin
+            && !$hasPref
+            && $totalSessions === 0
+            && $systemsStudied === 0
+            && $flashcardsDue === 0;
+
         $data = [
             'user' => $user,
             'title' => 'Dashboard',
-            'page_title' => 'Welcome to Q400 Study',
+            'page_title' => 'Welcome to ' . ($currentAircraft['short_name'] ?? 'AviatorTutor'),
             'stats' => [
                 'systems_studied' => $systemsStudied,
                 'systems_completed' => $systemsCompleted,
@@ -225,6 +242,10 @@ class DashboardController extends Controller
             'suggestedTopic' => $suggestedTopic,
             'quizData' => $quizData,
             'streakData' => $streakData,
+            'currentAircraft'   => $currentAircraft,
+            'studyableAircraft' => $studyableAircraft,
+            'isFreshAccount'    => $isFreshAccount,
+            'csrf_token'        => \App\Core\CSRF::generate(),
         ];
 
         $html = $this->view('dashboard/index', $data);

@@ -73,7 +73,11 @@ $is = static fn(string $p): string => $path === $p ? ' active' : '';
                 <a href="/contact"<?= $is('/contact') ? ' class="active"' : '' ?>>Contact</a>
                 <?php if ($isLogged): ?>
                     <a href="/dashboard">Dashboard</a>
-                    <?php if (!$isActiveSub): ?>
+                    <?php if ($isAdmin): ?>
+                        <a href="/admin" class="active" style="color:var(--warn);">Admin</a>
+                    <?php endif; ?>
+                    <a href="/logout">Sign out</a>
+                    <?php if (!$isActiveSub && !$isAdmin): ?>
                         <a href="/redeem" class="btn btn-primary btn-sm">Redeem code</a>
                     <?php endif; ?>
                 <?php else: ?>

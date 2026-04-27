@@ -208,12 +208,7 @@ class MarketingController extends Controller
 
     /* ------------------------------------------------------------------ */
 
-    private function popFlash(string $key): ?string
-    {
-        $v = $_SESSION[$key] ?? null;
-        unset($_SESSION[$key]);
-        return $v;
-    }
+    // popFlash() lives on the base Controller class.
 
     public static function faqList(): array
     {

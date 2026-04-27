@@ -1,9 +1,40 @@
 <div class="dashboard-container">
-    <!-- Page Header -->
-    <div class="page-header">
-        <h1>Dashboard</h1>
-        <p class="subtitle">Your learning progress and recommendations</p>
+    <!-- Page Header + Aircraft scope chip -->
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
+        <div>
+            <h1>Dashboard</h1>
+            <p class="subtitle">Your learning progress and recommendations</p>
+        </div>
+        <?php if (!empty($currentAircraft) && !empty($studyableAircraft) && empty($isFreshAccount)): ?>
+            <form method="post" action="/aircraft/<?= htmlspecialchars($currentAircraft['slug']) ?>/study" class="scope-chip">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token ?? '') ?>">
+                <span class="scope-chip__label">Studying</span>
+                <select onchange="this.form.action='/aircraft/'+this.value+'/study';this.form.submit();" name="_slug">
+                    <?php foreach ($studyableAircraft as $a): ?>
+                        <option value="<?= htmlspecialchars($a['slug']) ?>" <?= (int) $a['id'] === (int) $currentAircraft['id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($a['short_name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </form>
+        <?php endif; ?>
     </div>
+
+    <?php if (!empty($isFreshAccount)): ?>
+        <!-- Welcome / zero-state for brand-new accounts -->
+        <section class="card card--accent" style="margin-bottom:24px;padding:36px;">
+            <span class="hero__chip">Welcome aboard <?= htmlspecialchars((string) ($user['name'] ?? 'pilot')) ?></span>
+            <h2 style="margin:12px 0 8px;font-size:1.4rem;">Pick an aircraft to start studying.</h2>
+            <p class="muted" style="margin:0 0 20px;max-width:60ch;">
+                The Q400 module is fully live with 22 ATA-organised systems, flashcards, quizzes, and progress tracking.
+                Other aircraft are coming soon — <a href="/aircraft">browse the catalog</a> to join their waitlists.
+            </p>
+            <div class="hero__cta">
+                <a href="/aircraft/q400" class="btn btn-primary btn-lg">Start with Q400 →</a>
+                <a href="/aircraft" class="btn btn-lg">See full catalog</a>
+            </div>
+        </section>
+    <?php endif; ?>
 
     <!-- Stats Row -->
     <div class="stats-grid">
