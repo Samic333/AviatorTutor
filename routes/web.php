@@ -32,6 +32,11 @@ $router->get('/register', 'AuthController@registerForm');
 $router->post('/register', 'AuthController@register');
 $router->get('/logout', 'AuthController@logout');
 
+// Subscription routes
+$router->get('/redeem',  'SubscriptionController@showRedeem');
+$router->post('/redeem', 'SubscriptionController@redeem');
+$router->get('/account', 'SubscriptionController@account');
+
 // Systems Routes
 $router->get('/systems', 'SystemsController@index');
 $router->get('/systems/{id}', 'SystemsController@show');

@@ -461,3 +461,126 @@ CREATE TABLE content_import_logs (
     INDEX idx_status (status),
     INDEX idx_created_at (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================================
+-- AviatorTutor self-study platform additions
+-- ============================================================================
+
+-- Password reset tokens (hashed)
+CREATE TABLE password_resets (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT UNSIGNED NOT NULL,
+    token_hash CHAR(64) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    used_at DATETIME NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uniq_token_hash (token_hash),
+    INDEX idx_user_id (user_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Email verification tokens (hashed)
+CREATE TABLE email_verifications (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT UNSIGNED NOT NULL,
+    token_hash CHAR(64) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    used_at DATETIME NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uniq_token_hash (token_hash),
+    INDEX idx_user_id (user_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Per-user email_verified_at column (separate ALTER for forward compatibility)
+ALTER TABLE users
+    ADD COLUMN email_verified_at DATETIME NULL AFTER role,
+    ADD COLUMN last_login_at DATETIME NULL AFTER email_verified_at;
+
+-- Subscriptions (one row per active period)
+CREATE TABLE subscriptions (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT UNSIGNED NOT NULL,
+    plan ENUM('monthly') NOT NULL DEFAULT 'monthly',
+    status ENUM('active','expired','cancelled') NOT NULL DEFAULT 'active',
+    payment_provider ENUM('activation_code','stripe') NOT NULL DEFAULT 'activation_code',
+    starts_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    expires_at DATETIME NOT NULL,
+    stripe_customer_id VARCHAR(120) NULL,
+    stripe_subscription_id VARCHAR(120) NULL,
+    activation_code_id BIGINT UNSIGNED NULL,
+    notes TEXT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_user_id (user_id),
+    INDEX idx_user_status (user_id, status),
+    INDEX idx_status_expires (status, expires_at),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Activation codes (one-time use, admin-generated)
+CREATE TABLE activation_codes (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(32) NOT NULL,
+    plan ENUM('monthly') NOT NULL DEFAULT 'monthly',
+    days INT UNSIGNED NOT NULL DEFAULT 30,
+    status ENUM('unused','redeemed','revoked') NOT NULL DEFAULT 'unused',
+    created_by_admin_id BIGINT UNSIGNED NULL,
+    redeemed_by_user_id BIGINT UNSIGNED NULL,
+    redeemed_at DATETIME NULL,
+    expires_at DATETIME NULL,
+    notes TEXT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uniq_code (code),
+    INDEX idx_status (status),
+    INDEX idx_redeemed_by_user_id (redeemed_by_user_id),
+    FOREIGN KEY (created_by_admin_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (redeemed_by_user_id) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Subscription audit log
+CREATE TABLE subscription_events (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT UNSIGNED NULL,
+    subscription_id BIGINT UNSIGNED NULL,
+    event_type VARCHAR(40) NOT NULL,
+    payload_json JSON NULL,
+    ip VARCHAR(45) NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_user_id (user_id),
+    INDEX idx_subscription_id (subscription_id),
+    INDEX idx_event_type (event_type),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (subscription_id) REFERENCES subscriptions(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Coming-soon waitlist signups (lead capture)
+CREATE TABLE lead_signups (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255) NOT NULL,
+    requested_module_slug VARCHAR(120) NULL,
+    ip VARCHAR(45) NULL,
+    user_agent VARCHAR(255) NULL,
+    notes TEXT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_email (email),
+    INDEX idx_module (requested_module_slug),
+    INDEX idx_created_at (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Generic admin audit log
+CREATE TABLE audit_log (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT UNSIGNED NULL,
+    action VARCHAR(60) NOT NULL,
+    target_type VARCHAR(60) NULL,
+    target_id BIGINT UNSIGNED NULL,
+    ip VARCHAR(45) NULL,
+    user_agent VARCHAR(255) NULL,
+    payload_json JSON NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_user_id (user_id),
+    INDEX idx_action (action),
+    INDEX idx_target (target_type, target_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

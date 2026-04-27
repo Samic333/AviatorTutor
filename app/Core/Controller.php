@@ -301,4 +301,26 @@ abstract class Controller
     {
         Auth::guardAdmin();
     }
+
+    /**
+     * Require an active subscription. If the user is not logged in we redirect
+     * to /login; if logged in but unsubscribed we redirect to /redeem.
+     * Stripe and activation-code subscriptions are both honoured.
+     *
+     * @return void
+     */
+    protected function requireActiveSubscription(): void
+    {
+        $this->requireAuth();
+        $userId = (int) ($this->user()['id'] ?? 0);
+        if ($userId === 0) {
+            $this->redirect('/login');
+            exit;
+        }
+        if (!\App\Services\SubscriptionService::hasActive($userId)) {
+            $_SESSION['flash_notice'] = 'A monthly subscription is required to access study content.';
+            $this->redirect('/redeem');
+            exit;
+        }
+    }
 }
