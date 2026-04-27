@@ -1,0 +1,23 @@
+# AviatorTutor — root .htaccess
+# Some shared hosts (incl. our cPanel addon-domain config) point the
+# document root at the project root rather than /public. This rewrites
+# every request through public/index.php while keeping the secure
+# project layout (app/, config/, database/ all stay outside web-reach).
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 1) Allow direct access to existing files inside public/.
+    #    Anything that maps to a real file under public/ is served as-is.
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Belt and braces: deny direct access to source dirs even if the rewrite
+# is bypassed. These dirs hold app code, config, and DB schema and must
+# never be served as plain files.
+RedirectMatch 403 ^/(\.git|\.env|app|config|database|routes|storage|tools|tests|node_modules)(/|$)
+
+# Prevent Apache from serving directory indexes anywhere in the tree.
+Options -Indexes
