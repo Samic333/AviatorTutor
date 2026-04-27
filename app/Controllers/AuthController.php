@@ -35,7 +35,7 @@ class AuthController extends Controller
             'csrf_token' => CSRF::generate(),
         ];
 
-        $html = $this->view('auth/login', $data);
+        $html = $this->view('auth/login', $data, 'marketing');
         $response->html($html);
     }
 
@@ -102,7 +102,7 @@ class AuthController extends Controller
             'csrf_token' => CSRF::generate(),
         ];
 
-        $html = $this->view('auth/register', $data);
+        $html = $this->view('auth/register', $data, 'marketing');
         $response->html($html);
     }
 
@@ -199,7 +199,7 @@ class AuthController extends Controller
             'error' => $error,
         ];
 
-        $html = $this->view('auth/login', $data);
+        $html = $this->view('auth/login', $data, 'marketing');
         $response->html($html);
     }
 
@@ -214,7 +214,7 @@ class AuthController extends Controller
             'error' => $error,
         ];
 
-        $html = $this->view('auth/register', $data);
+        $html = $this->view('auth/register', $data, 'marketing');
         $response->html($html);
     }
 }

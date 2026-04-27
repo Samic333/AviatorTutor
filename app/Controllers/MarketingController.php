@@ -77,12 +77,58 @@ class MarketingController extends Controller
             return;
         }
 
-        // For v1: just log the message; production deploy can wire PHP mail() or SMTP here.
+        $appConfig = require BASE_PATH . '/config/app.php';
+        $to        = (string) ($appConfig['contact_to'] ?? 'samickenya@gmail.com');
+        $fromAddr  = (string) ($appConfig['mail_from']  ?? 'no-reply@aviatortutor.com');
+        $fromName  = 'AviatorTutor Contact Form';
+
+        // Filter against header injection — strip CR/LF from any value placed in headers.
+        $clean = static fn(string $v): string => trim(preg_replace('/[\r\n]+/', ' ', $v) ?? '');
+        $cleanName  = $clean($name);
+        $cleanEmail = $clean($email);
+
+        $subject = '[AviatorTutor] New contact from ' . $cleanName;
+        $body    = "Name:    {$cleanName}\n"
+                 . "Email:   {$cleanEmail}\n"
+                 . "When:    " . date('c') . "\n"
+                 . "IP:      " . ($_SERVER['REMOTE_ADDR'] ?? '?') . "\n"
+                 . "Agent:   " . substr((string) ($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 200) . "\n"
+                 . "----------------------------------------\n"
+                 . $message
+                 . "\n";
+
+        $headers = implode("\r\n", [
+            'From: ' . $fromName . ' <' . $fromAddr . '>',
+            'Reply-To: ' . $cleanName . ' <' . $cleanEmail . '>',
+            'X-Mailer: AviatorTutor/1.0',
+            'MIME-Version: 1.0',
+            'Content-Type: text/plain; charset=UTF-8',
+            'Content-Transfer-Encoding: 8bit',
+        ]);
+
+        // Envelope sender (-f) helps cPanel pass SPF since the domain matches the From host.
+        $envelope = '-f' . $fromAddr;
+
+        $sent = @mail($to, $subject, $body, $headers, $envelope);
+
+        // Always log a record — both for audit and as a fallback if mail() fails silently.
         $logFile = BASE_PATH . '/storage/logs/contact.log';
-        $line = sprintf("[%s] %s <%s>\n%s\n----\n", date('c'), $name, $email, $message);
+        $line = sprintf(
+            "[%s] sent=%s to=%s from=%s name=%s email=%s ip=%s\n%s\n----\n",
+            date('c'),
+            $sent ? 'OK' : 'FAIL',
+            $to,
+            $fromAddr,
+            $cleanName,
+            $cleanEmail,
+            $_SERVER['REMOTE_ADDR'] ?? '?',
+            $message
+        );
         @file_put_contents($logFile, $line, FILE_APPEND);
 
-        $_SESSION['flash_ok'] = 'Thanks — your message is in. We reply within one business day.';
+        $_SESSION['flash_ok'] = $sent
+            ? 'Thanks — your message is in. We reply within one business day.'
+            : 'Thanks — your message was received and queued; if you don\'t hear back in 48h, email samickenya@gmail.com directly.';
         $this->redirect('/contact');
     }
 

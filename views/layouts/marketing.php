@@ -41,6 +41,7 @@ $is = static fn(string $p): string => $path === $p ? ' active' : '';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="/assets/css/marketing.css">
+    <link rel="stylesheet" href="/assets/css/app-theme.css">
     <meta name="theme-color" content="#0b1322">
 
     <?php if (!empty($jsonLd)): ?>
@@ -48,6 +49,7 @@ $is = static fn(string $p): string => $path === $p ? ' active' : '';
     <?php endif; ?>
 </head>
 <body>
+    <input type="checkbox" id="navToggle" class="nav-toggle" hidden>
     <header class="site-header">
         <div class="container site-header__inner">
             <a href="/" class="brand">
@@ -58,11 +60,15 @@ $is = static fn(string $p): string => $path === $p ? ' active' : '';
                 </span>
                 AviatorTutor
             </a>
+            <label for="navToggle" class="nav-toggle-btn" aria-label="Toggle menu">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+            </label>
             <nav>
-                <a href="/<?= $is('/') ?>"<?= $is('/') ?: '' ?>>Home</a>
+                <a href="/"<?= $is('/') ? ' class="active"' : '' ?>>Home</a>
                 <a href="/pricing"<?= $is('/pricing') ? ' class="active"' : '' ?>>Pricing</a>
                 <a href="/about"<?= $is('/about') ? ' class="active"' : '' ?>>About</a>
                 <a href="/faq"<?= $is('/faq') ? ' class="active"' : '' ?>>FAQ</a>
+                <a href="/contact"<?= $is('/contact') ? ' class="active"' : '' ?>>Contact</a>
                 <?php if ($isLogged): ?>
                     <a href="/dashboard">Dashboard</a>
                     <?php if (!$isActiveSub): ?>

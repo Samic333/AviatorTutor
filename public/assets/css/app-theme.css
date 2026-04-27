@@ -1,0 +1,234 @@
+/* =========================================================================
+   AviatorTutor — app + auth chrome on top of marketing.css
+   Extends the marketing palette so the study app and the auth pages
+   look like the same product as the marketing site.
+   ========================================================================= */
+
+/* ---------- Auth card (login / register) ---------- */
+.auth-shell {
+    min-height: calc(100vh - 64px);
+    display: flex; align-items: center;
+    padding: 56px 0;
+    position: relative;
+}
+.auth-shell::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+        radial-gradient(60% 40% at 30% 20%, rgba(56,189,248,0.10), transparent 70%),
+        radial-gradient(40% 35% at 80% 70%, rgba(34,197,94,0.06), transparent 75%);
+    pointer-events: none;
+    z-index: -1;
+}
+.auth-card {
+    margin: 0 auto;
+    padding: 36px 32px 28px;
+    max-width: 460px;
+    background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-elev) 100%);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card), 0 0 0 8px rgba(56,189,248,0.04);
+}
+.auth-card__brand {
+    display: inline-flex !important;
+    margin-bottom: 24px;
+}
+.auth-card__title {
+    margin: 0 0 6px;
+    font-size: 1.7rem;
+}
+.auth-card__sub {
+    margin: 0 0 24px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+.auth-card__alt {
+    margin: 18px 0 0;
+    text-align: center;
+    color: var(--text-soft);
+    font-size: 0.9rem;
+}
+
+/* ---------- Form rows + checkboxes shared with auth + contact ---------- */
+.form-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.form-check {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+    user-select: none;
+}
+.form-check input[type="checkbox"] {
+    width: 16px; height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+/* ---------- App-nav (study chrome top nav) ---------- */
+.app-body { padding-bottom: 32px; }
+.app-header { z-index: 60; }
+.app-nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+.app-nav a:not(.btn) {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+}
+.app-nav a:not(.btn):hover { color: var(--text); }
+.app-nav a:not(.btn).active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+.app-nav__sep {
+    width: 1px; height: 20px;
+    background: var(--line);
+    align-self: center;
+}
+.app-nav__user {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
+    color: var(--text) !important;
+    border-bottom: none !important;
+}
+.app-nav__avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #2563eb);
+    color: var(--text-on-accent);
+    font-weight: 700; font-size: 0.78rem;
+    display: grid; place-items: center;
+    box-shadow: 0 0 0 1px rgba(56,189,248,0.4);
+}
+.app-nav__name {
+    max-width: 14ch;
+    overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+.app-nav__logout {
+    color: var(--text-soft) !important;
+    font-size: 0.85rem !important;
+}
+
+/* ---------- Hamburger toggle (no JS) ---------- */
+.nav-toggle-btn {
+    display: none;
+    cursor: pointer;
+    color: var(--text);
+    width: 40px; height: 40px;
+    align-items: center; justify-content: center;
+    border-radius: 8px;
+    border: 1px solid var(--line-strong);
+    background: var(--bg-elev);
+}
+.nav-toggle-btn:hover { background: var(--bg-card); }
+
+/* Marketing site header — extend its mobile menu using same toggle */
+.site-header__inner { gap: 12px; }
+.app-main { padding-top: 24px; }
+
+/* ---------- Breadcrumb ---------- */
+.app-breadcrumb {
+    margin: 18px 0 22px;
+    color: var(--text-soft);
+    font-size: 0.85rem;
+    display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+}
+.app-breadcrumb a { color: var(--text-muted); }
+.app-breadcrumb a:hover { color: var(--text); }
+.app-breadcrumb__sep { color: var(--text-soft); }
+.app-breadcrumb__current { color: var(--text); font-weight: 500; }
+
+/* ---------- Footer adjustment for app pages ---------- */
+.app-footer {
+    margin-top: 48px;
+    padding: 24px 0;
+}
+
+/* ---------- Mobile breakpoint — hamburger + drawer ---------- */
+@media (max-width: 880px) {
+    .nav-toggle-btn { display: inline-flex; }
+
+    /* Both site-header.nav (marketing) AND .app-nav collapse into a vertical drawer */
+    .site-header nav,
+    .app-nav {
+        display: none;
+        position: absolute; left: 0; right: 0; top: 64px;
+        flex-direction: column;
+        gap: 0;
+        background: var(--bg-elev);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 8px 24px 16px;
+    }
+    .site-header nav a,
+    .app-nav a {
+        display: block !important;
+        padding: 12px 4px !important;
+        border-bottom: 1px solid var(--line) !important;
+        font-size: 0.95rem !important;
+        color: var(--text) !important;
+        width: 100%;
+    }
+    .site-header nav a.btn,
+    .app-nav a.btn {
+        margin: 12px 0 4px;
+        text-align: center;
+        border-bottom: 1px solid var(--accent) !important;
+    }
+    .app-nav__sep { display: none; }
+    .app-nav__user { padding: 10px 4px !important; }
+
+    .nav-toggle:checked ~ .site-header nav,
+    .nav-toggle:checked ~ .site-header .app-nav,
+    .nav-toggle:checked ~ .app-header .app-nav,
+    .nav-toggle:checked ~ .site-header .site-nav {
+        display: flex;
+    }
+
+    /* Auth card mobile adjust */
+    .auth-shell { padding: 28px 0; min-height: auto; }
+    .auth-card { padding: 28px 22px 22px; }
+    .auth-card__title { font-size: 1.45rem; }
+
+    /* Hero + sections tighter on phones */
+    .hero { padding: 48px 0 40px; }
+    .hero h1 { font-size: clamp(1.7rem, 7vw, 2.4rem); }
+    .hero .lead { font-size: 1rem; margin-bottom: 24px; }
+    .hero__cta .btn { width: 100%; justify-content: center; }
+
+    .section { padding: 48px 0; }
+    .section__head { margin-bottom: 32px; }
+    .pricing-card { padding: 28px 22px; }
+    .pricing-card__price { font-size: 2.6rem; }
+    .step { padding: 60px 22px 22px; }
+    .step::before { top: 18px; left: 22px; }
+
+    .container { padding: 0 18px; }
+}
+
+/* Tiny screens */
+@media (max-width: 420px) {
+    .app-nav__name { display: none; }
+    .auth-card__brand { font-size: 0.95rem; }
+    .pricing-card__price { font-size: 2.2rem; }
+}
+
+/* ---------- Tame the legacy q400 stylesheet (study pages still load app.css) ---------- */
+/* The legacy stylesheet defines its own --color-* tokens and a left sidebar;
+   reset what would conflict with the marketing chrome above. */
+.app-body { background: transparent; color: var(--text); }
+.app-body .topbar,
+.app-body .sidebar,
+.app-body .app-wrapper > .sidebar,
+.app-body .app-footer-old { display: none !important; }
+.app-body .app-wrapper { display: block; }
+.app-body .main-content { margin-left: 0; padding: 0; }
+.app-body .content-area { padding: 0; }
+.app-body .breadcrumb { display: none; } /* we render our own breadcrumb */

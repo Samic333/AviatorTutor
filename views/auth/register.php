@@ -1,176 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Q400 Study App</title>
-    <link rel="stylesheet" href="/assets/css/app.css">
-    <link rel="stylesheet" href="/assets/css/auth.css">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-</head>
-<body class="auth-page">
-    <div class="auth-container">
+<?php /** @var ?string $error */ /** @var ?string $success */ /** @var string $csrf_token */ ?>
+<section class="auth-shell">
+    <div class="container container-tight">
         <div class="auth-card">
-            <!-- Logo/Header -->
-            <div class="auth-header">
-                <div class="auth-logo">
-                    <i data-lucide="plane" class="logo-icon"></i>
-                </div>
-                <h1>Q400 Study App</h1>
-                <p class="auth-subtitle">Create your account</p>
-            </div>
+            <a href="/" class="brand auth-card__brand">
+                <span class="brand__logo">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+                    </svg>
+                </span>
+                AviatorTutor
+            </a>
 
-            <!-- Error Messages -->
+            <h1 class="auth-card__title">Start studying</h1>
+            <p class="auth-card__sub">One account, every aviation module — $10 / month after redeeming a code.</p>
+
             <?php if (!empty($error)): ?>
-                <div class="alert alert-danger" role="alert">
-                    <i data-lucide="alert-circle"></i>
-                    <span><?php echo htmlspecialchars($error); ?></span>
+                <div class="flash flash--error" role="alert">
+                    <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
                 </div>
             <?php endif; ?>
-
-            <!-- Success Messages -->
             <?php if (!empty($success)): ?>
-                <div class="alert alert-success" role="alert">
-                    <i data-lucide="check-circle"></i>
-                    <span><?php echo htmlspecialchars($success); ?></span>
+                <div class="flash flash--success" role="alert">
+                    <?= htmlspecialchars($success, ENT_QUOTES, 'UTF-8') ?>
                 </div>
             <?php endif; ?>
 
-            <!-- Registration Form -->
-            <form method="POST" action="/register" class="auth-form">
-                <!-- CSRF Token -->
-                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token ?? ''); ?>">
-                <input type="hidden" name="role" value="learner">
+            <form method="POST" action="/register" class="auth-form" novalidate>
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token ?? '', ENT_QUOTES, 'UTF-8') ?>">
 
-                <!-- Name Field -->
                 <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input 
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        class="form-control" 
-                        value="<?php echo htmlspecialchars($_POST['name'] ?? ''); ?>"
-                        required 
-                        autocomplete="name"
-                        placeholder="John Doe"
-                    >
-                </div>
-
-                <!-- Email Field -->
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        class="form-control" 
-                        value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
-                        required 
-                        autocomplete="email"
-                        placeholder="you@example.com"
-                    >
-                </div>
-
-                <!-- Password Field -->
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <div class="password-input-group">
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password" 
-                            class="form-control" 
-                            required 
-                            autocomplete="new-password"
-                            placeholder="Minimum 8 characters"
-                            minlength="8"
-                        >
-                        <button type="button" class="password-toggle" aria-label="Toggle password visibility" onclick="togglePasswordVisibility('password')">
-                            <i data-lucide="eye"></i>
-                        </button>
-                    </div>
-                    <small class="form-text text-muted">Minimum 8 characters, include uppercase, lowercase, and numbers</small>
-                </div>
-
-                <!-- Confirm Password Field -->
-                <div class="form-group">
-                    <label for="password_confirm">Confirm Password</label>
-                    <div class="password-input-group">
-                        <input 
-                            type="password" 
-                            id="password_confirm" 
-                            name="password_confirm" 
-                            class="form-control" 
-                            required 
-                            autocomplete="new-password"
-                            placeholder="Re-enter your password"
-                            minlength="8"
-                        >
-                        <button type="button" class="password-toggle" aria-label="Toggle password visibility" onclick="togglePasswordVisibility('password_confirm')">
-                            <i data-lucide="eye"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Terms Checkbox -->
-                <div class="form-group checkbox-group">
-                    <input 
-                        type="checkbox" 
-                        id="terms" 
-                        name="accept_terms" 
-                        class="form-checkbox"
-                        value="1"
+                    <label class="form-label" for="name">Full name</label>
+                    <input
+                        class="form-input"
+                        type="text"
+                        id="name"
+                        name="name"
+                        value="<?= htmlspecialchars($_POST['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
                         required
-                    >
-                    <label for="terms" class="checkbox-label">
-                        I agree to the Terms of Service and Privacy Policy
+                        autocomplete="name"
+                        autofocus
+                        placeholder="Captain First Last">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input
+                        class="form-input"
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="<?= htmlspecialchars($_POST['email'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                        required
+                        autocomplete="email"
+                        placeholder="you@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input
+                        class="form-input"
+                        type="password"
+                        id="password"
+                        name="password"
+                        required
+                        minlength="8"
+                        autocomplete="new-password"
+                        placeholder="At least 8 characters">
+                    <p class="form-help">8+ characters. Use a mix of letters, numbers, and a symbol.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password_confirm">Confirm password</label>
+                    <input
+                        class="form-input"
+                        type="password"
+                        id="password_confirm"
+                        name="password_confirm"
+                        required
+                        minlength="8"
+                        autocomplete="new-password"
+                        placeholder="Repeat the password">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-check">
+                        <input type="checkbox" name="accept_terms" value="1" required>
+                        <span>I agree to the <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>.</span>
                     </label>
                 </div>
 
-                <!-- Register Button -->
-                <button type="submit" class="btn btn-primary btn-lg btn-block">
-                    Create Account
-                </button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Create account</button>
             </form>
 
-            <!-- Divider -->
-            <div class="auth-divider">
-                <span>Already have an account?</span>
-            </div>
-
-            <!-- Login Link -->
-            <a href="/login" class="btn btn-secondary btn-lg btn-block">
-                Sign In
-            </a>
-
-            <!-- Footer -->
-            <div class="auth-footer">
-                <p class="text-muted">Q400 Aircraft Systems Study Application</p>
-                <p class="text-muted small">For training and educational purposes</p>
-            </div>
+            <p class="auth-card__alt">
+                Already have an account? <a href="/login">Sign in</a>
+            </p>
         </div>
-
-        <!-- Background Design -->
-        <div class="auth-bg-pattern"></div>
     </div>
-
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script>
-        lucide.createIcons();
-
-        function togglePasswordVisibility(fieldId) {
-            const input = document.getElementById(fieldId);
-            const toggle = event.currentTarget;
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                toggle.classList.add('visible');
-            } else {
-                input.type = 'password';
-                toggle.classList.remove('visible');
-            }
-        }
-    </script>
-</body>
-</html>
+</section>
