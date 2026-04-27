@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /redeem
+Disallow: /account
+Disallow: /dashboard
+
+Sitemap: https://aviatortutor.com/sitemap.xml

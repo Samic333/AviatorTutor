@@ -38,6 +38,10 @@ $router->get('/faq',      'MarketingController@faq');
 $router->get('/coming-soon/{slug}',         'MarketingController@comingSoon');
 $router->post('/coming-soon/{slug}/notify', 'MarketingController@comingSoonNotify');
 
+// SEO assets
+$router->get('/sitemap.xml', 'SeoController@sitemap');
+$router->get('/robots.txt',  'SeoController@robots');
+
 // Authentication Routes
 $router->get('/login', 'AuthController@loginForm');
 $router->post('/login', 'AuthController@login');

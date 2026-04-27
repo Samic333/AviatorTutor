@@ -6,8 +6,27 @@
  * All requests are routed through this file via .htaccess
  */
 
+// 301 redirects from the OLD instructor-marketplace concept → new platform.
+// This runs BEFORE session_start so search engines crawling old URLs aren't
+// hit with cookies. Match against the parsed path only.
+$__path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+$__legacyMap = [
+    '/instructors'  => '/',
+    '/classes'      => '/',
+    '/student'      => '/dashboard',
+    '/instructor'   => '/dashboard',
+];
+foreach ($__legacyMap as $prefix => $target) {
+    if ($__path === $prefix || str_starts_with($__path, $prefix . '/')) {
+        header('Location: ' . $target, true, 301);
+        header('Cache-Control: public, max-age=86400');
+        exit;
+    }
+}
+unset($__path, $__legacyMap, $prefix, $target);
+
 // Start session
-session_name('q400_study_session');
+session_name('aviatortutor_session');
 session_start();
 
 // Define base path
