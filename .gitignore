@@ -1,16 +1,22 @@
-# PHP / Shared Hosting GitIgnore
-# Config and Secrets
 .env
 .env.backup
 .DS_Store
-
-# Logs
-*.log
-logs/
-
-# Dependencies (if any vendor/ exists)
-vendor/
-
-# OS files
 Thumbs.db
-[Bb]ackup/
+
+# Logs and runtime state
+*.log
+storage/logs/*
+storage/cache/*
+storage/sessions/*
+storage/uploads/*
+!storage/logs/.gitkeep
+!storage/cache/.gitkeep
+!storage/sessions/.gitkeep
+!storage/uploads/.gitkeep
+
+# IDE
+.idea/
+.vscode/
+
+# Local Node toolchain (only used for optional CSS build)
+node_modules/
