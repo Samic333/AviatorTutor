@@ -64,47 +64,56 @@
     </div>
 </section>
 
-<!-- 3. STUDY CATEGORIES -->
+<!-- 3. AIRCRAFT MODULES (data-driven from aircrafts table) -->
 <section class="section section--alt">
     <div class="container">
         <div class="section__head">
-            <span class="section__chip">Study library</span>
-            <h2>What you can study</h2>
-            <p>Q400 is live now. The other tiles are in production — click any to be notified when they go live.</p>
+            <span class="section__chip">Aircraft library</span>
+            <h2>Every aircraft we cover.</h2>
+            <p>Q400 is live now. <?= count(array_filter($aircraftList ?? [], fn($a) => $a['status'] === 'coming_soon')) ?> more aircraft modules are in production — pick yours and we'll email you the day it lands.</p>
         </div>
         <div class="grid grid--auto">
-            <a href="/dashboard" class="card card--accent" style="text-decoration:none;color:inherit;">
-                <span style="font-size:.7rem;font-family:var(--font-mono);color:var(--success);font-weight:700;letter-spacing:.06em;">LIVE</span>
-                <h3 style="margin-top:8px;">Q400 — Aircraft Systems</h3>
-                <p>22 ATA-organised systems, chapter-by-chapter content, flashcards, quizzes, progress tracking.</p>
-            </a>
-            <a href="/coming-soon/cessna-caravan" class="card" style="text-decoration:none;color:inherit;">
-                <span style="font-size:.7rem;font-family:var(--font-mono);color:var(--warn);font-weight:700;letter-spacing:.06em;">COMING SOON</span>
-                <h3 style="margin-top:8px;">Cessna Caravan / C208</h3>
-                <p>Single-pilot turboprop systems and procedures for the GA market.</p>
-            </a>
+            <?php foreach (($aircraftList ?? []) as $a): ?>
+                <?php include __DIR__ . '/../partials/aircraft-tile.php'; ?>
+            <?php endforeach; ?>
+        </div>
+        <p class="text-center" style="margin-top:32px;">
+            <a href="/aircraft" class="btn">See full aircraft catalog →</a>
+        </p>
+    </div>
+</section>
+
+<!-- 3b. SKILL MODULES (non-aircraft topics) -->
+<section class="section">
+    <div class="container">
+        <div class="section__head">
+            <span class="section__chip">Skill modules</span>
+            <h2>Beyond the aircraft.</h2>
+            <p>Cross-cutting topics every pilot revisits — from interview prep to CRM and general aviation fundamentals.</p>
+        </div>
+        <div class="grid grid--auto">
             <a href="/coming-soon/pilot-interview" class="card" style="text-decoration:none;color:inherit;">
-                <span style="font-size:.7rem;font-family:var(--font-mono);color:var(--warn);font-weight:700;letter-spacing:.06em;">COMING SOON</span>
+                <span class="tile-badge tile-badge--soon">COMING SOON</span>
                 <h3 style="margin-top:8px;">Pilot Interview Questions</h3>
                 <p>Technical, HR, and scenario questions with model answers.</p>
             </a>
             <a href="/coming-soon/cabin-crew" class="card" style="text-decoration:none;color:inherit;">
-                <span style="font-size:.7rem;font-family:var(--font-mono);color:var(--warn);font-weight:700;letter-spacing:.06em;">COMING SOON</span>
+                <span class="tile-badge tile-badge--soon">COMING SOON</span>
                 <h3 style="margin-top:8px;">Cabin Crew Safety</h3>
                 <p>Recurrent training fundamentals for flight attendants and pursers.</p>
             </a>
             <a href="/coming-soon/emergency" class="card" style="text-decoration:none;color:inherit;">
-                <span style="font-size:.7rem;font-family:var(--font-mono);color:var(--warn);font-weight:700;letter-spacing:.06em;">COMING SOON</span>
+                <span class="tile-badge tile-badge--soon">COMING SOON</span>
                 <h3 style="margin-top:8px;">Emergency Procedures</h3>
                 <p>Memory items, abnormal/emergency checklists, decision-making drills.</p>
             </a>
             <a href="/coming-soon/crm" class="card" style="text-decoration:none;color:inherit;">
-                <span style="font-size:.7rem;font-family:var(--font-mono);color:var(--warn);font-weight:700;letter-spacing:.06em;">COMING SOON</span>
+                <span class="tile-badge tile-badge--soon">COMING SOON</span>
                 <h3 style="margin-top:8px;">CRM / Human Factors</h3>
                 <p>Crew Resource Management essentials, threat-and-error management, communication.</p>
             </a>
             <a href="/coming-soon/general-aviation" class="card" style="text-decoration:none;color:inherit;">
-                <span style="font-size:.7rem;font-family:var(--font-mono);color:var(--warn);font-weight:700;letter-spacing:.06em;">COMING SOON</span>
+                <span class="tile-badge tile-badge--soon">COMING SOON</span>
                 <h3 style="margin-top:8px;">General Aviation Knowledge</h3>
                 <p>Air law, meteorology, navigation, principles of flight, performance.</p>
             </a>

@@ -584,3 +584,74 @@ CREATE TABLE audit_log (
     INDEX idx_target (target_type, target_id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================================
+-- AIRCRAFT CATALOG (Phase 10: multi-aircraft platform)
+-- ============================================================================
+
+-- Aircraft catalog. Q400 is the only "live" entry today; the others advertise
+-- the platform's planned coverage and capture lead-signups via /aircraft/{slug}.
+CREATE TABLE IF NOT EXISTS aircrafts (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    slug VARCHAR(64) NOT NULL UNIQUE,                                      -- 'q400', 'b737', 'cessna-172'
+    name VARCHAR(120) NOT NULL,                                            -- 'Bombardier Q400 NextGen'
+    short_name VARCHAR(40) NOT NULL,                                       -- 'Q400'
+    manufacturer VARCHAR(80) NOT NULL,                                     -- 'Bombardier'
+    category ENUM('regional','narrowbody','widebody','ga','training') NOT NULL,
+    status ENUM('live','beta','coming_soon','archived') NOT NULL DEFAULT 'coming_soon',
+    tagline VARCHAR(255) NULL,                                             -- one-liner for catalog tile
+    description TEXT NULL,                                                 -- detail page body
+    cockpit_image_path VARCHAR(255) NULL,                                  -- /assets/aircraft/<slug>/cockpit.webp
+    cockpit_poster_path VARCHAR(255) NULL,                                 -- /assets/aircraft/<slug>/cockpit-poster.webp
+    cockpit_model_path VARCHAR(255) NULL,                                  -- /assets/aircraft/<slug>/cockpit.glb (future)
+    hero_image_path VARCHAR(255) NULL,                                     -- catalog tile background
+    sort_order INT NOT NULL DEFAULT 100,
+    waitlist_count INT NOT NULL DEFAULT 0,                                 -- denormalized count of lead_signups
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_status (status, sort_order),
+    INDEX idx_category (category)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Aircraft cockpit panels. Each row is a clickable hotspot on the cockpit
+-- image, mapping a (x,y,w,h) percent-rect to a study system. Tier-2 of the
+-- cockpit experience.
+CREATE TABLE IF NOT EXISTS aircraft_panels (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    aircraft_id BIGINT UNSIGNED NOT NULL,
+    slug VARCHAR(80) NOT NULL,                                             -- 'pfd-pilot', 'throttle-quadrant'
+    label VARCHAR(120) NOT NULL,                                           -- 'Pilot PFD'
+    description VARCHAR(255) NULL,
+    system_id BIGINT UNSIGNED NULL,                                        -- where clicking takes the user
+    sprite_path VARCHAR(255) NULL,                                         -- optional standalone PNG/WebP
+    pos_x DECIMAL(6,3) NOT NULL DEFAULT 0,                                 -- left % of cockpit image
+    pos_y DECIMAL(6,3) NOT NULL DEFAULT 0,                                 -- top  % of cockpit image
+    width DECIMAL(6,3) NOT NULL DEFAULT 10,                                -- width %
+    height DECIMAL(6,3) NOT NULL DEFAULT 10,                               -- height %
+    sort_order INT NOT NULL DEFAULT 100,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uniq_aircraft_panel (aircraft_id, slug),
+    INDEX idx_aircraft (aircraft_id),
+    INDEX idx_system (system_id),
+    FOREIGN KEY (aircraft_id) REFERENCES aircrafts(id) ON DELETE CASCADE,
+    FOREIGN KEY (system_id)   REFERENCES systems(id)   ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Audit trail of cockpit / diagram image uploads through the admin UI.
+CREATE TABLE IF NOT EXISTS asset_imports (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    aircraft_id BIGINT UNSIGNED NULL,
+    uploader_user_id BIGINT UNSIGNED NULL,
+    view_slug VARCHAR(80) NOT NULL,                                        -- 'cockpit','panels','overhead'
+    source_filename VARCHAR(255) NULL,
+    source_bytes INT UNSIGNED NULL,
+    output_path VARCHAR(255) NULL,
+    crop_rect_json JSON NULL,
+    mask_rects_json JSON NULL,
+    note TEXT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_aircraft (aircraft_id),
+    INDEX idx_uploader (uploader_user_id),
+    FOREIGN KEY (aircraft_id)      REFERENCES aircrafts(id) ON DELETE SET NULL,
+    FOREIGN KEY (uploader_user_id) REFERENCES users(id)     ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

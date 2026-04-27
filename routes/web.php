@@ -38,6 +38,12 @@ $router->get('/faq',      'MarketingController@faq');
 $router->get('/coming-soon/{slug}',         'MarketingController@comingSoon');
 $router->post('/coming-soon/{slug}/notify', 'MarketingController@comingSoonNotify');
 
+// Aircraft catalog
+$router->get('/aircraft',                'AircraftController@index');
+$router->get('/aircraft/{slug}',         'AircraftController@show');
+$router->post('/aircraft/{slug}/notify', 'AircraftController@notify');
+$router->post('/aircraft/{slug}/study',  'AircraftController@startStudying');
+
 // SEO assets
 $router->get('/sitemap.xml', 'SeoController@sitemap');
 $router->get('/robots.txt',  'SeoController@robots');
@@ -94,6 +100,14 @@ $router->get('/diagrams/{id}', 'DiagramController@show');
 
 $router->get('/admin', 'AdminController@dashboard');
 $router->get('/admin/dashboard', 'AdminController@dashboard');
+$router->get('/admin/codes', 'AdminController@codes');
+$router->post('/admin/codes/generate', 'AdminController@codesGenerate');
+$router->post('/admin/codes/revoke',   'AdminController@codesRevoke');
+$router->get('/admin/users', 'AdminController@users');
+$router->post('/admin/users/update', 'AdminController@usersUpdate');
+$router->get('/admin/leads', 'AdminController@leads');
+$router->get('/admin/aircrafts', 'AdminController@aircrafts');
+$router->post('/admin/aircrafts/update', 'AdminController@aircraftsUpdate');
 $router->get('/admin/content', 'AdminController@content');
 $router->post('/admin/content/create', 'AdminController@createContent');
 $router->get('/admin/import', 'AdminController@import');

@@ -1,0 +1,134 @@
+[
+    {
+        "slug": "q400",
+        "name": "Bombardier Q400 NextGen",
+        "short_name": "Q400",
+        "manufacturer": "Bombardier",
+        "category": "regional",
+        "status": "live",
+        "sort_order": 10,
+        "tagline": "22 ATA-organised systems with chapter-by-chapter lessons, flashcards, quizzes, and progress tracking.",
+        "description": "The Bombardier Q400 (DHC-8-400) is a 78–90 seat twin-turboprop regional airliner produced from 1999. The Q400 module is the flagship of the AviatorTutor self-study library — full ATA chapter coverage from Air Conditioning & Pressurization through Avionics, Powerplant, Hydraulics, Electrical, Landing Gear, Flight Controls, Fuel, and beyond. Flashcards drive long-term retention; quizzes mirror sim and recurrent-training question patterns."
+    },
+    {
+        "slug": "b737",
+        "name": "Boeing 737 (NG / MAX)",
+        "short_name": "737",
+        "manufacturer": "Boeing",
+        "category": "narrowbody",
+        "status": "coming_soon",
+        "sort_order": 20,
+        "tagline": "The world's most-flown narrowbody. Systems, FMC, performance, abnormal/emergency drills.",
+        "description": "Coverage planned for the Boeing 737-700/-800/-900 (Next Generation) and 737 MAX 8/9 variants. Air Systems, Hydraulic Power, Electrical, Flight Controls, FMC and CDU operations, Auto Flight, Fuel, Engines (CFM56-7 and LEAP-1B), Landing Gear, Anti-ice, and more."
+    },
+    {
+        "slug": "b757",
+        "name": "Boeing 757",
+        "short_name": "757",
+        "manufacturer": "Boeing",
+        "category": "narrowbody",
+        "status": "coming_soon",
+        "sort_order": 30,
+        "tagline": "Pilot-favourite long-range narrowbody. Systems, performance, ETOPS-relevant procedures.",
+        "description": "Coverage planned for the Boeing 757-200 and 757-300. EICAS, hydraulic system, electrical, fuel, engines (RB211 and PW2000 variants), pneumatics, anti-ice, auto-flight, FMS."
+    },
+    {
+        "slug": "b777",
+        "name": "Boeing 777 (200 / 300 / ER)",
+        "short_name": "777",
+        "manufacturer": "Boeing",
+        "category": "widebody",
+        "status": "coming_soon",
+        "sort_order": 40,
+        "tagline": "Long-haul widebody. FBW, EICAS, ETOPS-180/240/330, autoland.",
+        "description": "Coverage planned for the Boeing 777-200ER, -300ER, and 777F. Fly-by-wire flight control law, EICAS, autoland, ETOPS, hydraulics (4-system architecture), electrical, fuel (centre + main + reserve), engines (GE90, PW4000, Trent 800), and the comprehensive FMS."
+    },
+    {
+        "slug": "b787",
+        "name": "Boeing 787 Dreamliner",
+        "short_name": "787",
+        "manufacturer": "Boeing",
+        "category": "widebody",
+        "status": "coming_soon",
+        "sort_order": 50,
+        "tagline": "All-electric architecture, no-bleed engines, composite airframe.",
+        "description": "Coverage planned for the Boeing 787-8/-9/-10. The all-electric architecture (no engine bleed), high-voltage electrical buses, ECS, fly-by-wire, FMS, and the differences from earlier Boeing widebodies."
+    },
+    {
+        "slug": "a320",
+        "name": "Airbus A320 family",
+        "short_name": "A320",
+        "manufacturer": "Airbus",
+        "category": "narrowbody",
+        "status": "coming_soon",
+        "sort_order": 60,
+        "tagline": "FBW with flight control laws, ECAM, MCDU. The narrowbody other half.",
+        "description": "Coverage planned for the Airbus A318/A319/A320/A321 (CEO and NEO). Flight control laws (Normal/Alternate/Direct), ECAM, MCDU, hydraulic Y/G/B systems, electrical, fuel, engines (CFM56-5B and LEAP-1A, V2500 and PW1100G), and the philosophy of Airbus FBW."
+    },
+    {
+        "slug": "a330",
+        "name": "Airbus A330",
+        "short_name": "A330",
+        "manufacturer": "Airbus",
+        "category": "widebody",
+        "status": "coming_soon",
+        "sort_order": 70,
+        "tagline": "Twin-engine widebody. Long-haul ETOPS, ECAM-driven philosophy.",
+        "description": "Coverage planned for the A330-200/-300 and A330neo. ECAM, FMS, FBW laws, hydraulic G/B/Y systems with PTU, electrical, fuel (trim tank, centre, mains), engines (CF6-80E1, PW4000, Trent 700, Trent 7000)."
+    },
+    {
+        "slug": "crj-700",
+        "name": "Bombardier CRJ-700",
+        "short_name": "CRJ-700",
+        "manufacturer": "Bombardier",
+        "category": "regional",
+        "status": "coming_soon",
+        "sort_order": 80,
+        "tagline": "70-seat regional jet. ProLine 4 avionics, CF34-8 engines.",
+        "description": "Coverage planned for the CRJ-700 (and -550 derivative). ProLine 4 avionics suite, hydraulics, electrical, fuel, CF34-8C5 engines, anti-ice, flight controls."
+    },
+    {
+        "slug": "crj-900",
+        "name": "Bombardier CRJ-900",
+        "short_name": "CRJ-900",
+        "manufacturer": "Bombardier",
+        "category": "regional",
+        "status": "coming_soon",
+        "sort_order": 90,
+        "tagline": "76-90 seat regional jet. Heavy regional workhorse.",
+        "description": "Coverage planned for the CRJ-900/-1000. Same ProLine 4 family, longer fuselage, NACA inlet."
+    },
+    {
+        "slug": "embraer-190",
+        "name": "Embraer 190 / 195",
+        "short_name": "E190",
+        "manufacturer": "Embraer",
+        "category": "regional",
+        "status": "coming_soon",
+        "sort_order": 100,
+        "tagline": "Latin America's dominant regional. E-Jet philosophy, FBW spoilers.",
+        "description": "Coverage planned for the E170/E175/E190/E195 first-generation E-Jets. Honeywell Primus Epic avionics, hydraulics, electrical, FBW for spoilers/rudder, CF34-10E engines."
+    },
+    {
+        "slug": "cessna-208",
+        "name": "Cessna 208 Caravan",
+        "short_name": "C208",
+        "manufacturer": "Cessna",
+        "category": "ga",
+        "status": "coming_soon",
+        "sort_order": 110,
+        "tagline": "Single-pilot turboprop. Cargo and passenger workhorse for the GA market.",
+        "description": "Coverage planned for the Cessna Caravan / Grand Caravan / EX. PT6A-114 / -140 engines, fuel system, electrical, ice protection, flight controls, and single-pilot operations."
+    },
+    {
+        "slug": "cessna-172",
+        "name": "Cessna 172 Skyhawk",
+        "short_name": "C172",
+        "manufacturer": "Cessna",
+        "category": "training",
+        "status": "coming_soon",
+        "sort_order": 120,
+        "tagline": "The world's most-built aircraft. Where every pilot learns.",
+        "description": "Coverage planned for the Cessna 172 Skyhawk (G1000 variants). Lycoming O-320/O-360, fuel, electrical, basic flight controls, and the underlying principles every PPL student must master."
+    }
+]

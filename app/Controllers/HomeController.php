@@ -48,6 +48,7 @@ class HomeController extends Controller
             'title'       => 'AviatorTutor — Master aircraft systems, aviation interviews, and pilot knowledge',
             'description' => 'Self-study aviation platform for pilots and aviation learners. Aircraft systems, interview prep, quizzes, and a structured aviation question bank — for $10 a month.',
             'jsonLd'      => $jsonLd,
+            'aircraftList' => \App\Services\AircraftService::all(),
         ], 'marketing'));
     }
 }

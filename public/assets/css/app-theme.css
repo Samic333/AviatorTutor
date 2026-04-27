@@ -232,3 +232,323 @@
 .app-body .main-content { margin-left: 0; padding: 0; }
 .app-body .content-area { padding: 0; }
 .app-body .breadcrumb { display: none; } /* we render our own breadcrumb */
+
+/* =========================================================================
+   Phase 10 — Aircraft tiles, catalog, cockpit stage, scope chip
+   ========================================================================= */
+
+/* ---------- Aircraft tile (homepage + /aircraft catalog) ---------- */
+.aircraft-tile {
+    display: flex; flex-direction: column;
+    text-decoration: none; color: inherit;
+    min-height: 200px;
+    position: relative;
+}
+.aircraft-tile:hover { transform: translateY(-3px); border-color: var(--accent); }
+.aircraft-tile__name { margin: 12px 0 6px; font-size: 1.1rem; }
+.aircraft-tile__tagline {
+    flex: 1;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0 0 14px;
+}
+.aircraft-tile__meta {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.72rem; color: var(--text-soft);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+}
+.aircraft-tile__cat { color: var(--accent); }
+
+/* Status pill */
+.tile-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    border: 1px solid currentColor;
+}
+.tile-badge--live  { color: var(--success); background: rgba(52,211,153,0.10); }
+.tile-badge--beta  { color: var(--accent); background: var(--accent-soft); }
+.tile-badge--soon  { color: var(--warn); background: rgba(251,191,36,0.10); }
+
+/* ---------- Catalog category groupings ---------- */
+.aircraft-cat { margin-bottom: 56px; }
+.aircraft-cat:last-child { margin-bottom: 0; }
+.aircraft-cat__title {
+    font-size: 1rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin: 0;
+}
+
+/* ---------- Cockpit stage (tier-1 perspective + tier-2 hotspots) ---------- */
+.cockpit-stage {
+    position: relative;
+    perspective: 1800px;
+    perspective-origin: 50% 28%;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: radial-gradient(ellipse at center top, #1a2740 0%, var(--bg) 60%);
+    padding: 56px 24px;
+    isolation: isolate;
+}
+.cockpit-stage::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+        radial-gradient(45% 30% at 50% 0%, rgba(56,189,248,0.18), transparent 70%),
+        radial-gradient(35% 25% at 50% 100%, rgba(0,0,0,0.6), transparent 80%);
+    pointer-events: none;
+    z-index: 0;
+}
+.cockpit-stage__poster {
+    display: block;
+    width: 100%;
+    max-width: 920px;
+    height: auto;
+    margin: 0 auto;
+    transform: rotateX(22deg) translateZ(0);
+    transform-origin: 50% 0%;
+    box-shadow: 0 60px 120px -40px rgba(0,0,0,0.7);
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Tier 2 — clickable panel hotspots overlaying the (perspective-tilted) image */
+.cockpit-hotspots {
+    position: absolute; inset: 56px 24px;
+    transform: rotateX(22deg) translateZ(0);
+    transform-origin: 50% 0%;
+    pointer-events: none;
+    max-width: 920px;
+    margin: 0 auto;
+    left: 0; right: 0;
+}
+.cockpit-hotspot {
+    position: absolute;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.cockpit-hotspot:hover {
+    background: rgba(56,189,248,0.18);
+    border-color: var(--accent);
+    box-shadow: 0 0 24px -4px var(--accent);
+}
+.cockpit-hotspot__label {
+    position: absolute; bottom: -28px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    color: var(--text);
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.72rem; white-space: nowrap;
+    border: 1px solid var(--line-strong);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.12s;
+}
+.cockpit-hotspot:hover .cockpit-hotspot__label { opacity: 1; }
+
+/* ---------- Dashboard scope chip ---------- */
+.scope-chip {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    background: var(--bg-card);
+    border: 1px solid var(--line-strong);
+    color: var(--text);
+    font-size: 0.85rem;
+}
+.scope-chip__label { color: var(--text-soft); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.scope-chip select {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font: inherit; font-weight: 600;
+    cursor: pointer;
+    padding-right: 4px;
+}
+.scope-chip select:focus { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
+
+/* Mobile: don't tilt the cockpit (looks weird at narrow widths) */
+@media (max-width: 880px) {
+    .cockpit-stage { padding: 28px 12px; }
+    .cockpit-stage__poster, .cockpit-hotspots { transform: none; }
+}
+
+/* =========================================================================
+   Phase 10c — admin pages (dashboard, codes, users, leads, aircrafts)
+   Reuses marketing palette tokens; no new colors.
+   ========================================================================= */
+
+.admin-page { padding: 8px 0 60px; }
+.admin-page__head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    flex-wrap: wrap; gap: 16px;
+    margin: 8px 0 28px;
+}
+.admin-page__head h1 { margin: 0; font-size: clamp(1.5rem, 2.4vw, 2rem); }
+.admin-page__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Stats grid */
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+}
+.stat-card {
+    padding: 18px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    display: flex; flex-direction: column; gap: 4px;
+    transition: border-color 0.15s, transform 0.15s;
+}
+.stat-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.stat-card__label {
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-soft);
+}
+.stat-card__value {
+    font-size: 2rem; font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+    margin-top: 2px;
+}
+.stat-card__hint { color: var(--text-muted); font-size: 0.78rem; }
+
+/* Two-panel layout */
+.admin-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 24px;
+}
+.admin-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+    margin-bottom: 24px;
+}
+.admin-panel__title {
+    margin: 0 0 16px;
+    font-size: 1rem;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 10px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+}
+.admin-panel__sub {
+    margin: 18px 0 8px;
+    font-size: 0.78rem; font-weight: 600;
+    color: var(--text-soft);
+    text-transform: uppercase; letter-spacing: 0.08em;
+}
+
+/* Lists */
+.admin-list { list-style: none; padding: 0; margin: 0 0 8px; }
+.admin-list li {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.88rem;
+}
+.admin-list li:last-child { border-bottom: none; }
+.admin-list__primary { color: var(--text); font-weight: 500; }
+.admin-list__secondary { color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.admin-list__meta { color: var(--text-soft); font-size: 0.78rem; text-align: right; }
+
+/* Table */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+.admin-table th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text-soft);
+    border-bottom: 1px solid var(--line-strong);
+}
+.admin-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+}
+.admin-table tr:hover td { background: rgba(56,189,248,0.04); }
+.admin-table .num { text-align: right; }
+
+/* Badges (status pills, smaller variant of tile-badge) */
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    font-family: var(--font-mono);
+    border: 1px solid currentColor;
+}
+.badge--success { color: var(--success); background: rgba(52,211,153,0.10); }
+.badge--accent  { color: var(--accent);  background: var(--accent-soft); }
+.badge--warn    { color: var(--warn);    background: rgba(251,191,36,0.10); }
+
+/* Form-row layout used in codes generator */
+.admin-form-row {
+    display: flex; gap: 12px; align-items: end; flex-wrap: wrap;
+}
+.admin-form-row .form-group { margin-bottom: 0; min-width: 130px; }
+.admin-form-row .form-input { padding: 8px 12px; }
+
+/* Inline form inputs (in tables) */
+.form-input--inline {
+    padding: 6px 10px !important;
+    font-size: 0.85rem !important;
+}
+
+/* Tabs (used for status filter on codes page) */
+.admin-tabs {
+    display: inline-flex; gap: 4px;
+    margin-left: auto;
+}
+.admin-tabs a {
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.06em;
+}
+.admin-tabs a:hover { color: var(--text); }
+.admin-tabs a.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+
+/* Mobile: collapse the 1.6/1 grid */
+@media (max-width: 880px) {
+    .admin-grid { grid-template-columns: 1fr; }
+    .admin-list li { grid-template-columns: 1fr; gap: 2px; }
+    .admin-list__meta { text-align: left; }
+}

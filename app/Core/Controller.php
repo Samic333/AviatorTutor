@@ -328,4 +328,15 @@ abstract class Controller
             exit;
         }
     }
+
+    /**
+     * Pop a one-shot flash message off the session and return it.
+     * Used by views to render a success/error banner once after a redirect.
+     */
+    protected function popFlash(string $key): ?string
+    {
+        $value = $_SESSION[$key] ?? null;
+        unset($_SESSION[$key]);
+        return is_string($value) ? $value : null;
+    }
 }
