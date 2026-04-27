@@ -8,9 +8,11 @@ $ogImage     = $ogImage     ?? 'https://aviatortutor.com/assets/og/aviatortutor-
 $path        = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 $isLogged    = !empty($_SESSION['auth_user']);
 $isActiveSub = false;
+$isAdmin     = false;
 if ($isLogged) {
+    $isAdmin = ($_SESSION['auth_user']['role'] ?? '') === 'admin';
     try {
-        $isActiveSub = \App\Services\SubscriptionService::hasActive((int) $_SESSION['auth_user']['id']);
+        $isActiveSub = $isAdmin || \App\Services\SubscriptionService::hasActive((int) $_SESSION['auth_user']['id']);
     } catch (\Throwable $e) { /* swallow if service not loadable */ }
 }
 $is = static fn(string $p): string => $path === $p ? ' active' : '';

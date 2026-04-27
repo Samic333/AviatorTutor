@@ -312,10 +312,15 @@ abstract class Controller
     protected function requireActiveSubscription(): void
     {
         $this->requireAuth();
-        $userId = (int) ($this->user()['id'] ?? 0);
+        $user   = $this->user();
+        $userId = (int) ($user['id'] ?? 0);
         if ($userId === 0) {
             $this->redirect('/login');
             exit;
+        }
+        // Admins always have study access — they built the platform, no code needed.
+        if (($user['role'] ?? '') === 'admin') {
+            return;
         }
         if (!\App\Services\SubscriptionService::hasActive($userId)) {
             $_SESSION['flash_notice'] = 'A monthly subscription is required to access study content.';

@@ -28,7 +28,9 @@ class DashboardController extends Controller
         $userId = (int) $user['id'];
 
         // No active subscription? Render the paywall view instead of the full dashboard.
-        if (!\App\Services\SubscriptionService::hasActive($userId)) {
+        // Admins skip the paywall entirely.
+        $isAdmin = ($user['role'] ?? '') === 'admin';
+        if (!$isAdmin && !\App\Services\SubscriptionService::hasActive($userId)) {
             $latest = \App\Services\SubscriptionService::latest($userId);
             $response->html($this->view('subscription/paywall', [
                 'title'              => 'Subscribe to start studying',
