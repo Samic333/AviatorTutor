@@ -1,44 +1,55 @@
 <?php
 /**
- * Application Configuration
- * Q400 Aircraft Systems Study App
+ * Application configuration.
  *
- * base_url: set this to match where the app is served.
- * Example: If Apache serves /q400-study/public → 'http://localhost/q400-study/public'
- *          If the app root IS the document root → '' (empty string)
+ * Production override: create config/app.local.php (gitignored) returning
+ * an array with keys to override these defaults. Typical production values:
+ *   [
+ *     'debug'          => false,
+ *     'base_url'       => 'https://aviatortutor.com',
+ *     'encryption_key' => '...32+ random chars...',
+ *   ]
  */
 
-return [
-    // Application name and version
-    'name'    => 'Q400 System Study',
+$defaults = [
+    'name'    => 'AviatorTutor',
     'version' => '1.0.0',
 
     // Debug mode – shows full stack traces; set false in production
     'debug' => true,
 
-    // Application timezone
     'timezone' => 'UTC',
 
-    // Base URL (no trailing slash).
-    // Leave empty if public/ is your document root.
-    // Set to 'http://localhost/q400-study/public' for standard XAMPP/WAMP setups.
+    // Public origin (no trailing slash). Empty = serve from doc root.
+    // Production: 'https://aviatortutor.com'.
     'base_url' => '',
 
-    // Session configuration
-    'session_name'     => 'q400_study_session',
-    'session_lifetime' => 7200, // 2 hours
+    // Session
+    'session_name'     => 'aviatortutor_session',
+    'session_lifetime' => 7200,
 
-    // Upload storage (relative to project root)
+    // Storage paths (relative to project root)
     'upload_path' => __DIR__ . '/../public/assets/uploads',
     'pdf_path'    => __DIR__ . '/../public/assets/uploads/pdfs',
     'log_path'    => __DIR__ . '/../storage/logs',
 
-    // Pagination
-    'per_page' => 15,
+    'per_page'      => 15,
+    'csrf_enabled'  => true,
 
-    // CSRF protection
-    'csrf_enabled' => true,
+    // 32+ chars; override per environment.
+    'encryption_key' => 'aviatortutor-local-key-change-in-prod-please',
 
-    // Change this in production – must be 32+ chars
-    'encryption_key' => 'q400-study-local-key-change-in-prod',
+    // Contact form / outbound mail
+    'mail_from'   => 'no-reply@aviatortutor.com',
+    'contact_to'  => 'samickenya@gmail.com',
 ];
+
+$localPath = __DIR__ . '/app.local.php';
+if (is_file($localPath)) {
+    $local = require $localPath;
+    if (is_array($local)) {
+        return array_replace($defaults, $local);
+    }
+}
+
+return $defaults;

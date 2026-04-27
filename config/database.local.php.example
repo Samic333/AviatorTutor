@@ -1,0 +1,13 @@
+<?php
+/**
+ * Production database override.
+ * Copy to config/database.local.php on the server and fill in real values.
+ * config/database.local.php is gitignored — not pulled by deploys.
+ */
+
+return [
+    'host'     => 'localhost',
+    'database' => 'YOUR_NAMECHEAP_DB_NAME',     // e.g. samic_aviatortutor
+    'username' => 'YOUR_NAMECHEAP_DB_USER',     // e.g. samic_avtutor
+    'password' => 'YOUR_NAMECHEAP_DB_PASSWORD',
+];

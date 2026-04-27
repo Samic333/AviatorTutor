@@ -1,0 +1,12 @@
+<?php
+/**
+ * Production application override.
+ * Copy to config/app.local.php on the server and fill in real values.
+ * config/app.local.php is gitignored — not pulled by deploys.
+ */
+
+return [
+    'debug'          => false,
+    'base_url'       => 'https://aviatortutor.com',
+    'encryption_key' => 'REPLACE_WITH_32+_RANDOM_CHARS_BEFORE_DEPLOY',
+];

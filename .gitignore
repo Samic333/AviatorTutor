@@ -3,6 +3,9 @@
 .DS_Store
 Thumbs.db
 
+# Per-environment config overrides (loaded by config/*.php if present)
+config/*.local.php
+
 # Logs and runtime state
 *.log
 storage/logs/*

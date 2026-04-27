@@ -1,9 +1,17 @@
 <?php
-return [
+/**
+ * Database configuration.
+ *
+ * Production override: create config/database.local.php (gitignored) returning
+ * an array with the same keys to override these defaults — typically
+ * 'host', 'database', 'username', 'password'.
+ */
+
+$defaults = [
     'driver'    => 'mysql',
     'host'      => '127.0.0.1',
     'port'      => 3306,
-    'database'  => 'q400_study',
+    'database'  => 'aviatortutor',
     'username'  => 'root',
     'password'  => '',
     'charset'   => 'utf8mb4',
@@ -17,3 +25,17 @@ return [
     ],
     'log_queries' => false,
 ];
+
+$localPath = __DIR__ . '/database.local.php';
+if (is_file($localPath)) {
+    $local = require $localPath;
+    if (is_array($local)) {
+        // 'options' merges; everything else replaces
+        if (isset($local['options']) && is_array($local['options'])) {
+            $local['options'] = $local['options'] + $defaults['options'];
+        }
+        return array_replace($defaults, $local);
+    }
+}
+
+return $defaults;
