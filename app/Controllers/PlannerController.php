@@ -20,7 +20,7 @@ class PlannerController extends Controller
      */
     public function index(Request $request, Response $response): void
     {
-        $this->requireAuth();
+        $this->requireActiveSubscription();
 
         $userId = $this->user()['id'];
         $db = DB::instance();
@@ -64,7 +64,7 @@ class PlannerController extends Controller
      */
     public function create(Request $request, Response $response): void
     {
-        $this->requireAuth();
+        $this->requireActiveSubscription();
 
         if (!CSRF::check($request)) {
             $response->status(419);

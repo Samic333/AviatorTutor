@@ -24,7 +24,7 @@ class FlashcardController extends Controller
      */
     public function index(Request $request, Response $response): void
     {
-        $this->requireAuth();
+        $this->requireActiveSubscription();
 
         $userId = $this->user()['id'];
         $db = DB::instance();
@@ -102,7 +102,7 @@ class FlashcardController extends Controller
      */
     public function study(Request $request, Response $response): void
     {
-        $this->requireAuth();
+        $this->requireActiveSubscription();
 
         $id = $this->param('id');
         $userId = $this->user()['id'];
@@ -148,7 +148,7 @@ class FlashcardController extends Controller
      */
     public function review(Request $request, Response $response): void
     {
-        $this->requireAuth();
+        $this->requireActiveSubscription();
 
         if (!CSRF::check($request)) {
             $response->status(419);

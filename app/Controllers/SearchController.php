@@ -19,7 +19,7 @@ class SearchController extends Controller
      */
     public function index(Request $request, Response $response): void
     {
-        $this->requireAuth();
+        $this->requireActiveSubscription();
 
         $query = trim($this->query('q', ''));
         $results = [];

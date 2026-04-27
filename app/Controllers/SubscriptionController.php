@@ -34,7 +34,7 @@ class SubscriptionController extends Controller
             'flashError'  => self::popFlash('flash_error'),
             'flashOk'     => self::popFlash('flash_ok'),
         ];
-        $response->html($this->view('subscription/redeem', $data, 'app'));
+        $response->html($this->view('subscription/redeem', $data, 'marketing'));
     }
 
     /** POST /redeem */

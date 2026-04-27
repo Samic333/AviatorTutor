@@ -25,7 +25,19 @@ class DashboardController extends Controller
         $this->requireAuth();
 
         $user = $this->user();
-        $userId = $user['id'];
+        $userId = (int) $user['id'];
+
+        // No active subscription? Render the paywall view instead of the full dashboard.
+        if (!\App\Services\SubscriptionService::hasActive($userId)) {
+            $latest = \App\Services\SubscriptionService::latest($userId);
+            $response->html($this->view('subscription/paywall', [
+                'title'              => 'Subscribe to start studying',
+                'description'        => 'AviatorTutor self-study requires an active monthly subscription.',
+                'user'               => $user,
+                'latestSubscription' => $latest,
+            ], 'marketing'));
+            return;
+        }
 
         $db = \App\Core\DB::instance();
 

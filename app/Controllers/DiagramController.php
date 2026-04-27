@@ -22,7 +22,7 @@ class DiagramController extends Controller
      */
     public function show(Request $request, Response $response): void
     {
-        $this->requireAuth();
+        $this->requireActiveSubscription();
 
         $id = $this->param('id');
 

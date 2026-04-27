@@ -23,7 +23,7 @@ class StudyController extends Controller
      */
     public function detail(Request $request, Response $response): void
     {
-        $this->requireAuth();
+        $this->requireActiveSubscription();
 
         $id = $this->param('id');
         $userId = $this->user()['id'];
@@ -106,7 +106,7 @@ class StudyController extends Controller
      */
     public function revision(Request $request, Response $response): void
     {
-        $this->requireAuth();
+        $this->requireActiveSubscription();
 
         $id = $this->param('id');
         $userId = $this->user()['id'];

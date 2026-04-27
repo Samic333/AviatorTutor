@@ -23,7 +23,7 @@ class ProgressController extends Controller
      */
     public function index(Request $request, Response $response): void
     {
-        $this->requireAuth();
+        $this->requireActiveSubscription();
 
         $userId = $this->user()['id'];
         $db = DB::instance();
