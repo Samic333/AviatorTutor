@@ -32,16 +32,39 @@ class ApiController extends Controller
         }
 
         $userId = $this->user()['id'];
-        $moduleId = $this->input('module_id');
-        $progress = $this->input('progress');
+        $moduleId = (int) $this->input('module_id');
+        $progress = (int) $this->input('progress');
+        $db = \App\Core\DB::instance();
 
-        // TODO: Update progress in database
+        if (!$moduleId) {
+            $response->status(422);
+            $response->json(['error' => 'module_id required']);
+            return;
+        }
+
+        $progress = max(0, min(100, $progress));
+        if ($progress === 0) {
+            $status = 'not_started';
+        } elseif ($progress < 100) {
+            $status = 'in_progress';
+        } else {
+            $status = 'completed';
+        }
+        $confidence = (int) round($progress / 20);
+
+        $db->execute(
+            'INSERT INTO user_progress (user_id, system_id, lesson_id, status, confidence, last_studied)
+             VALUES (?, ?, NULL, ?, ?, NOW())
+             ON DUPLICATE KEY UPDATE status = ?, confidence = ?, last_studied = NOW()',
+            [$userId, $moduleId, $status, $confidence, $status, $confidence]
+        );
 
         $response->json([
             'success' => true,
             'user_id' => $userId,
             'module_id' => $moduleId,
             'progress' => $progress,
+            'status' => $status,
         ]);
     }
 
@@ -63,11 +86,45 @@ class ApiController extends Controller
         }
 
         $userId = $this->user()['id'];
-        $cardId = $this->input('card_id');
+        $cardId = (int) $this->input('card_id');
         $correct = $this->input('correct') === 'true';
-        $elapsedTime = $this->input('elapsed_time');
+        $db = \App\Core\DB::instance();
 
-        // TODO: Save review in database
+        if (!$cardId) {
+            $response->status(422);
+            $response->json(['error' => 'card_id required']);
+            return;
+        }
+
+        $quality = $correct ? 5 : 1;
+
+        $review = $db->queryOne(
+            'SELECT id, ease_factor, interval_days, review_count FROM flashcard_reviews
+             WHERE flashcard_id = ? AND user_id = ?',
+            [$cardId, $userId]
+        );
+
+        if ($review) {
+            $easeFactor = max(1.3, $review['ease_factor'] + (0.1 - (5 - $quality) * (0.08 + (5 - $quality) * 0.02)));
+            $interval = $review['review_count'] == 0 ? 1 : ($review['review_count'] == 1 ? 3 : (int) round($review['interval_days'] * $easeFactor));
+            $nextReview = date('Y-m-d H:i:s', strtotime("+$interval days"));
+
+            $db->execute(
+                'UPDATE flashcard_reviews SET
+                    rating = ?, ease_factor = ?, interval_days = ?,
+                    review_count = review_count + 1, reviewed_at = NOW(),
+                    next_review_at = ?
+                 WHERE flashcard_id = ? AND user_id = ?',
+                [$quality, $easeFactor, $interval, $nextReview, $cardId, $userId]
+            );
+        } else {
+            $db->insert(
+                'INSERT INTO flashcard_reviews
+                 (flashcard_id, user_id, rating, ease_factor, interval_days, review_count, reviewed_at, next_review_at)
+                 VALUES (?, ?, ?, ?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL 1 DAY))',
+                [$cardId, $userId, $quality, 2.5, 1, 1]
+            );
+        }
 
         $response->json([
             'success' => true,
@@ -87,18 +144,101 @@ class ApiController extends Controller
     {
         $this->requireAuth();
 
-        $query = $this->query('q', '');
+        $query = trim($this->query('q', ''));
         $type = $this->query('type', 'all'); // all, systems, flashcards, quizzes
 
         if (strlen($query) < 2) {
-            $response->json(['results' => []]);
+            $response->json(['results' => [], 'query' => $query, 'total' => 0]);
             return;
         }
 
-        // TODO: Search database
+        $db = \App\Core\DB::instance();
+        $searchTerm = "%{$query}%";
         $results = [];
 
-        $response->json(['results' => $results, 'query' => $query]);
+        if ($type === 'all' || $type === 'systems') {
+            $systems = $db->query(
+                'SELECT id, name, description, ata_code FROM systems
+                 WHERE (name LIKE ? OR description LIKE ? OR ata_code LIKE ?) AND is_published = 1
+                 LIMIT 5',
+                [$searchTerm, $searchTerm, $searchTerm]
+            );
+            foreach ($systems as $s) {
+                $results[] = [
+                    'type'        => 'system',
+                    'id'          => $s['id'],
+                    'title'       => $s['name'],
+                    'system_name' => $s['name'],
+                    'excerpt'     => substr(strip_tags($s['description'] ?? ''), 0, 150),
+                    'url'         => '/systems/' . $s['id'],
+                ];
+            }
+        }
+
+        if ($type === 'all' || $type === 'lessons') {
+            $lessons = $db->query(
+                'SELECT l.id, l.title, l.body, s.name as system_name, s.id as system_id
+                 FROM lessons l
+                 JOIN systems s ON l.system_id = s.id
+                 WHERE (l.title LIKE ? OR l.body LIKE ?) AND l.is_published = 1
+                 LIMIT 10',
+                [$searchTerm, $searchTerm]
+            );
+            foreach ($lessons as $l) {
+                $results[] = [
+                    'type'        => 'lesson',
+                    'id'          => $l['id'],
+                    'title'       => $l['title'],
+                    'system_name' => $l['system_name'],
+                    'excerpt'     => substr(strip_tags($l['body'] ?? ''), 0, 150),
+                    'url'         => '/systems/' . $l['system_id'] . '#lesson-' . $l['id'],
+                ];
+            }
+        }
+
+        if ($type === 'all' || $type === 'flashcards') {
+            $flashcards = $db->query(
+                'SELECT f.id, f.front, f.back, s.name as system_name, s.id as system_id
+                 FROM flashcards f
+                 JOIN systems s ON f.system_id = s.id
+                 WHERE (f.front LIKE ? OR f.back LIKE ?)
+                 LIMIT 5',
+                [$searchTerm, $searchTerm]
+            );
+            foreach ($flashcards as $f) {
+                $results[] = [
+                    'type'        => 'flashcard',
+                    'id'          => $f['id'],
+                    'title'       => $f['front'],
+                    'system_name' => $f['system_name'],
+                    'excerpt'     => substr(strip_tags($f['back'] ?? ''), 0, 150),
+                    'url'         => '/flashcards/' . $f['system_id'],
+                ];
+            }
+        }
+
+        if ($type === 'quizzes') {
+            $quizzes = $db->query(
+                'SELECT q.id, q.title, q.description, s.name as system_name
+                 FROM quizzes q
+                 LEFT JOIN systems s ON q.system_id = s.id
+                 WHERE q.title LIKE ? OR q.description LIKE ?
+                 LIMIT 5',
+                [$searchTerm, $searchTerm]
+            );
+            foreach ($quizzes as $q) {
+                $results[] = [
+                    'type'        => 'quiz',
+                    'id'          => $q['id'],
+                    'title'       => $q['title'],
+                    'system_name' => $q['system_name'] ?? '',
+                    'excerpt'     => substr(strip_tags($q['description'] ?? ''), 0, 150),
+                    'url'         => '/quiz/' . $q['id'],
+                ];
+            }
+        }
+
+        $response->json(['results' => $results, 'query' => $query, 'total' => count($results)]);
     }
 
     /**
