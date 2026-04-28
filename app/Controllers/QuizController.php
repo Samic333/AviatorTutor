@@ -32,8 +32,9 @@ class QuizController extends Controller
         $quizzes = $db->query(
             'SELECT q.id, q.title, q.description, q.quiz_type, q.time_limit_mins, q.pass_score,
                     s.name as system_name, s.id as system_id,
-                    COUNT(qa.id) as attempt_count,
-                    AVG(qa.score) as avg_score
+                    COUNT(DISTINCT qa.id) as attempt_count,
+                    AVG(qa.score) as avg_score,
+                    (SELECT COUNT(*) FROM quiz_questions qq WHERE qq.quiz_id = q.id) as question_count
              FROM quizzes q
              LEFT JOIN systems s ON q.system_id = s.id
              LEFT JOIN quiz_attempts qa ON q.id = qa.quiz_id AND qa.user_id = ?
@@ -176,7 +177,9 @@ class QuizController extends Controller
         $score = $totalQuestions > 0 ? round(($correctCount / $totalQuestions) * 100) : 0;
 
         $db->execute(
-            'UPDATE quiz_attempts SET status = "completed", score = ?, completed_at = NOW()
+            'UPDATE quiz_attempts SET status = "completed", score = ?,
+             completed_at = NOW(),
+             time_taken_secs = TIMESTAMPDIFF(SECOND, started_at, NOW())
              WHERE id = ?',
             [$score, $attemptId]
         );
