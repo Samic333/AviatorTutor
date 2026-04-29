@@ -34,9 +34,9 @@ $active = static function (string $href) use ($path): string {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
-    <link rel="stylesheet" href="/assets/css/marketing.css">
-    <link rel="stylesheet" href="/assets/css/app.css">
-    <link rel="stylesheet" href="/assets/css/app-theme.css">
+    <link rel="stylesheet" href="/assets/css/marketing.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/marketing.css') ?: '0' ?>">
+    <link rel="stylesheet" href="/assets/css/app.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/app.css') ?: '0' ?>">
+    <link rel="stylesheet" href="/assets/css/app-theme.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/app-theme.css') ?: '0' ?>">
     <?php include __DIR__ . '/../partials/head-favicons.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>

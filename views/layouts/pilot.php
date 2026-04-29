@@ -66,7 +66,7 @@ $isActive = function(string $href) use ($path): bool {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
-  <link rel="stylesheet" href="/assets/css/pilot.css">
+  <link rel="stylesheet" href="/assets/css/pilot.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/pilot.css') ?: '0' ?>">
   <?php include __DIR__ . '/../partials/head-favicons.php'; ?>
   <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>

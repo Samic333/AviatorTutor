@@ -42,8 +42,8 @@ $is = static fn(string $p): string => $path === $p ? ' active' : '';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
-    <link rel="stylesheet" href="/assets/css/marketing.css">
-    <link rel="stylesheet" href="/assets/css/app-theme.css">
+    <link rel="stylesheet" href="/assets/css/marketing.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/marketing.css') ?: '0' ?>">
+    <link rel="stylesheet" href="/assets/css/app-theme.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/app-theme.css') ?: '0' ?>">
     <meta name="theme-color" content="#0b1322">
 
     <!-- Favicons -->

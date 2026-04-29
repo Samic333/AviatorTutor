@@ -342,7 +342,7 @@ $systemColor = $system['color'] ?? '#34d399';
 </div>
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<script src="/assets/js/lesson_slides.js"></script>
+<script src="/assets/js/lesson_slides.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/lesson_slides.js') ?: '0' ?>"></script>
 <script>
   if (window.lucide && typeof window.lucide.createIcons === 'function') {
     window.lucide.createIcons();
