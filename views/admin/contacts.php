@@ -77,7 +77,7 @@ $statusBadge = function (string $s): string {
               <tr>
                 <th>Status</th>
                 <th>From</th>
-                <th>Message</th>
+                <th>Subject &amp; preview</th>
                 <th>When</th>
                 <th style="width:80px;">Action</th>
               </tr>
@@ -91,7 +91,8 @@ $statusBadge = function (string $s): string {
                     <div class="adm-muted adm-mono" style="font-size:11px;"><?= htmlspecialchars((string) $m['email']) ?></div>
                   </td>
                   <td style="max-width:480px;">
-                    <span style="display:block;color:var(--adm-text);font-size:13px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">
+                    <strong style="color:var(--adm-text);font-size:13.5px;display:block;margin-bottom:2px;"><?= htmlspecialchars((string) ($m['subject'] ?? 'General enquiry')) ?></strong>
+                    <span style="display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;color:var(--adm-text-muted);font-size:12.5px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;">
                       <?= htmlspecialchars((string) $m['message']) ?>
                     </span>
                   </td>

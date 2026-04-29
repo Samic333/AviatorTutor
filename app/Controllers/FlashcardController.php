@@ -89,7 +89,7 @@ class FlashcardController extends Controller
             'studyStreak'     => $studyStreak,
         ];
 
-        $html = $this->view('flashcards/index', $data);
+        $html = $this->view('flashcards/index', $data, 'pilot');
         $response->html($html);
     }
 
@@ -135,7 +135,7 @@ class FlashcardController extends Controller
             'csrf_token' => CSRF::generate(),
         ];
 
-        $html = $this->view('flashcards/study', $data);
+        $html = $this->view('flashcards/study', $data, 'pilot');
         $response->html($html);
     }
 

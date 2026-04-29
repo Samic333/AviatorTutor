@@ -33,23 +33,26 @@ $active = static function (string $href) use ($path): string {
     <meta name="robots" content="noindex">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="/assets/css/marketing.css">
     <link rel="stylesheet" href="/assets/css/app.css">
     <link rel="stylesheet" href="/assets/css/app-theme.css">
+    <?php include __DIR__ . '/../partials/head-favicons.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
 <body class="app-body">
     <input type="checkbox" id="navToggle" class="nav-toggle" hidden>
     <header class="site-header app-header">
         <div class="container site-header__inner">
-            <a href="/dashboard" class="brand">
+            <a href="/dashboard" class="brand" aria-label="AviatorTutor dashboard">
                 <span class="brand__logo">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+                    <svg width="22" height="22" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                        <path d="M11 51 L32 11 L53 51" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="22" y1="40" x2="42" y2="40" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                        <circle cx="32" cy="11" r="4" fill="#38BDF8"/>
                     </svg>
                 </span>
-                AviatorTutor
+                <span class="brand__wordmark">Aviator<span class="brand__wordmark-accent">Tutor</span></span>
             </a>
             <label for="navToggle" class="nav-toggle-btn" aria-label="Toggle menu">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>

@@ -45,8 +45,8 @@ class HomeController extends Controller
         ];
 
         $response->html($this->view('marketing/home', [
-            'title'       => 'AviatorTutor — Master aircraft systems, aviation interviews, and pilot knowledge',
-            'description' => 'Self-study aviation platform for pilots and aviation learners. Aircraft systems, interview prep, quizzes, and a structured aviation question bank — for $10 a month.',
+            'title'       => 'AviatorTutor — Premium aviation learning platform',
+            'description' => 'Premium aviation learning platform built by pilots, cabin crew, SMS trainers, and instructors. Aircraft systems, weather, SOPs, QRH, CRM, SMS, cabin safety, and airline interview prep — interactive, scenario-based, mobile-friendly.',
             'jsonLd'      => $jsonLd,
             'aircraftList' => \App\Services\AircraftService::all(),
         ], 'marketing'));

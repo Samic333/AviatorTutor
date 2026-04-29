@@ -77,12 +77,24 @@ $router->get('/redeem',  'SubscriptionController@showRedeem');
 $router->post('/redeem', 'SubscriptionController@redeem');
 $router->get('/account', 'SubscriptionController@account');
 
-// Checkout (Stripe)
-$router->get('/checkout/success',  'CheckoutController@success');
-$router->get('/checkout/cancel',   'CheckoutController@cancel');
-$router->get('/checkout/{slug}',   'CheckoutController@show');
-$router->post('/checkout/{slug}',  'CheckoutController@create');
+// Checkout (Stripe) — paused while we transition to the new tier model.
+// Stripe per-pack checkout is disabled at the route layer; activation
+// codes (/redeem) remain the paid path until tiered subscriptions launch.
+// Re-enable by uncommenting the four /checkout routes below.
+//
+// $router->get('/checkout/success',  'CheckoutController@success');
+// $router->get('/checkout/cancel',   'CheckoutController@cancel');
+// $router->get('/checkout/{slug}',   'CheckoutController@show');
+// $router->post('/checkout/{slug}',  'CheckoutController@create');
+//
+// Stripe webhook stays live so any in-flight subscriptions still reconcile.
 $router->post('/stripe/webhook',   'CheckoutController@webhook');
+
+// Send all /checkout/* visits to the new pricing page with a friendly notice.
+$router->get('/checkout/{slug}',   'MarketingController@checkoutPaused');
+$router->post('/checkout/{slug}',  'MarketingController@checkoutPaused');
+$router->get('/checkout/success',  'MarketingController@checkoutPaused');
+$router->get('/checkout/cancel',   'MarketingController@checkoutPaused');
 
 // Profile routes
 $router->get('/profile',           'ProfileController@show');
@@ -136,21 +148,38 @@ $router->get('/admin/codes', 'AdminController@codes');
 $router->post('/admin/codes/generate', 'AdminController@codesGenerate');
 $router->post('/admin/codes/revoke',   'AdminController@codesRevoke');
 $router->get('/admin/users', 'AdminController@users');
-$router->post('/admin/users/update', 'AdminController@usersUpdate');
+$router->post('/admin/users/update',        'AdminController@usersUpdate');
+$router->post('/admin/users/verify',        'AdminController@userVerify');
+$router->post('/admin/users/resend-verify', 'AdminController@userResendVerify');
 $router->get('/admin/leads', 'AdminController@leads');
-$router->get('/admin/contacts',          'AdminController@contacts');
-$router->get('/admin/contacts/{id}',     'AdminController@contactShow');
-$router->post('/admin/contacts/{id}',    'AdminController@contactUpdate');
+$router->get('/admin/contacts',                'AdminController@contacts');
+$router->get('/admin/contacts/{id}',           'AdminController@contactShow');
+$router->post('/admin/contacts/{id}',          'AdminController@contactUpdate');
+$router->post('/admin/contacts/{id}/reply',    'AdminController@contactReply');
 $router->get('/admin/aircrafts', 'AdminController@aircrafts');
 $router->post('/admin/aircrafts/update', 'AdminController@aircraftsUpdate');
 $router->get('/admin/content', 'AdminController@content');
 $router->post('/admin/content/create', 'AdminController@createContent');
 $router->get('/admin/import', 'AdminController@import');
 $router->post('/admin/import/process', 'AdminController@processImport');
-$router->get('/admin/flashcards', 'AdminController@flashcards');
-$router->post('/admin/flashcards/create', 'AdminController@createFlashcard');
-$router->get('/admin/quizzes', 'AdminController@quizzes');
-$router->post('/admin/quizzes/create', 'AdminController@createQuiz');
+$router->get('/admin/flashcards',                  'AdminController@flashcards');
+$router->get('/admin/flashcards/new',               'AdminController@flashcardNew');
+$router->post('/admin/flashcards/create',           'AdminController@createFlashcard');
+$router->get('/admin/flashcards/{id}/edit',         'AdminController@flashcardEdit');
+$router->post('/admin/flashcards/{id}/update',      'AdminController@updateFlashcard');
+$router->post('/admin/flashcards/{id}/delete',      'AdminController@deleteFlashcard');
+
+$router->get('/admin/quizzes',                      'AdminController@quizzes');
+$router->get('/admin/quizzes/new',                  'AdminController@quizNew');
+$router->post('/admin/quizzes/create',              'AdminController@createQuiz');
+$router->get('/admin/quizzes/{id}/edit',            'AdminController@quizEdit');
+$router->post('/admin/quizzes/{id}/update',         'AdminController@updateQuiz');
+$router->post('/admin/quizzes/{id}/delete',         'AdminController@deleteQuiz');
+$router->get('/admin/slides', 'AdminController@slidesIndex');
+$router->get('/admin/slides/lesson/{lessonId}', 'AdminController@slidesEdit');
+$router->post('/admin/slides/lesson/{lessonId}/save', 'AdminController@slidesSave');
+$router->post('/admin/slides/{slideId}/delete', 'AdminController@slideDelete');
+$router->post('/admin/slides/{slideId}/move', 'AdminController@slideMove');
 $router->get('/admin/subscriptions', 'AdminController@subscriptions');
 $router->post('/admin/subscriptions/cancel', 'AdminController@subscriptionCancel');
 $router->get('/admin/pricing', 'AdminController@pricing');

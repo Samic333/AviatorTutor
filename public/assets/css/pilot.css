@@ -604,14 +604,14 @@ a:hover { color: #7DD3FC; }
 
 .plt-btn--ghost {
   background: var(--plt-glass);
-  color: var(--plt-text-muted);
-  border-color: var(--plt-glass-border);
+  color: #CBD5E1;
+  border-color: rgba(255,255,255,0.18);
 }
 
 .plt-btn--ghost:hover {
   background: var(--plt-glass-hi);
   color: var(--plt-text);
-  border-color: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.28);
 }
 
 .plt-btn--sm {

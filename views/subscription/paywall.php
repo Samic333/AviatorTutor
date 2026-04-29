@@ -7,22 +7,22 @@
         <?php if ($latestSubscription): ?>
             <p>Your last subscription expired on <strong class="num"><?= htmlspecialchars(substr((string)$latestSubscription['expires_at'], 0, 10), ENT_QUOTES, 'UTF-8') ?></strong>. Redeem a new code to continue from where you left off.</p>
         <?php else: ?>
-            <p>You're signed in, but your study library is locked behind the subscription. AviatorTutor is <strong>$10 a month</strong> for full access.</p>
+            <p>You're signed in, but the full study library is unlocked via activation code or by joining a paid tier when it launches. Free Preview content is available now.</p>
         <?php endif; ?>
 
         <div class="card card--accent" style="margin-top:24px;">
-            <h2 style="margin-bottom:12px;">Two ways to start</h2>
+            <h2 style="margin-bottom:12px;">Two ways to unlock</h2>
 
             <div style="display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
                 <div>
                     <h3 style="font-size:1rem;margin-bottom:6px;">1. I have an activation code</h3>
-                    <p style="color:var(--text-muted);font-size:.9rem;margin-bottom:14px;">Redeem it for 30 days of access.</p>
+                    <p style="color:var(--text-muted);font-size:.9rem;margin-bottom:14px;">Codes from training partners and organisations unlock full access immediately.</p>
                     <a href="/redeem" class="btn btn-primary btn-block">Redeem code →</a>
                 </div>
                 <div>
-                    <h3 style="font-size:1rem;margin-bottom:6px;">2. I don't have a code yet</h3>
-                    <p style="color:var(--text-muted);font-size:.9rem;margin-bottom:14px;">Pricing is one flat $10 / month. Stripe billing is in production.</p>
-                    <a href="/pricing" class="btn btn-block">View pricing →</a>
+                    <h3 style="font-size:1rem;margin-bottom:6px;">2. Join the tier waitlist</h3>
+                    <p style="color:var(--text-muted);font-size:.9rem;margin-bottom:14px;">Student, Professional, and Instructor tiers launch soon &mdash; we'll email you the day they go live.</p>
+                    <a href="/pricing" class="btn btn-block">View plans →</a>
                 </div>
             </div>
         </div>

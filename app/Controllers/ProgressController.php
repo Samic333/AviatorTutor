@@ -115,7 +115,7 @@ class ProgressController extends Controller
             'studyHistory' => $studyHistory,
         ];
 
-        $html = $this->view('progress/index', $data);
+        $html = $this->view('progress/index', $data, 'pilot');
         $response->html($html);
     }
 }

@@ -166,3 +166,62 @@ Original `main` HEAD before cutover: `25dab48` (`fix: restore hero image and cle
 - `.env`, `.env.backup`
 
 If any of the above show up in `git status`, do **not** stage them.
+
+---
+
+## SMTP setup (Phase 5 admin reply, registration verify)
+
+The codebase uses PHP's built-in `mail()` for outbound email — verification
+links, password resets, admin replies to contact-form inquiries.
+`mail()` works on most cPanel hosts (Namecheap included) when the From
+address belongs to the same domain. If delivery is unreliable, switch to
+SMTP-via-PHPMailer.
+
+### Quick SMTP enablement (PHPMailer)
+
+1. SSH or open cPanel Terminal in the project root, then:
+
+   ```bash
+   composer require phpmailer/phpmailer
+   ```
+
+   (Composer is **not** otherwise required by AviatorTutor, but it's
+   acceptable as an optional production dependency for SMTP.)
+
+2. Update `app/Services/EmailService::send()` to detect PHPMailer when
+   present, falling back to `mail()` when it isn't:
+
+   ```php
+   if (class_exists(\PHPMailer\PHPMailer\PHPMailer::class)) {
+       // ... configure PHPMailer with $cfg['smtp_*'] keys ...
+   } else {
+       $sent = @mail(...);
+   }
+   ```
+
+3. Add the SMTP credentials to `config/app.local.php` (gitignored):
+
+   ```php
+   'smtp_host'     => 'mail.aviatortutor.com',  // or smtp.gmail.com etc.
+   'smtp_port'     => 587,
+   'smtp_username' => 'no-reply@aviatortutor.com',
+   'smtp_password' => '<from cPanel email accounts>',
+   'smtp_auth'     => true,
+   'smtp_secure'   => 'tls',
+   ```
+
+4. Verify by submitting a public `/contact` form, then sending a reply
+   from `/admin/contacts/{id}` and confirming arrival in the user's inbox.
+   `storage/logs/mail.log` records every attempt with `sent=OK|FAIL`.
+
+### Without PHPMailer
+
+If you stay on bare `mail()`, ensure cPanel → Email Accounts has
+`no-reply@aviatortutor.com` (or the configured `mail_from`) created so
+SPF/DKIM aligns. Check SPF in cPanel → Email Deliverability: it should
+show `Status: Valid` for the domain.
+
+The AviatorTutor mail flow is already fault-tolerant — every send is
+logged to `storage/logs/mail.log`, and on failure the full HTML body is
+also dumped to `storage/logs/mail-failures.log` so you can manually
+recover the verification link or admin reply if SMTP is down.

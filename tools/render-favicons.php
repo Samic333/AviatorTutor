@@ -1,17 +1,15 @@
 <?php
 /**
- * Render PNG favicon variants from a procedural design (no external deps).
+ * Render PNG favicon variants from the AviatorTutor mark.
  *
  *   php tools/render-favicons.php
  *
  * Outputs:
- *   public/favicon-32.png         (32x32, navy bg + sky airplane wing-stripe)
+ *   public/favicon-32.png         (32x32, navy bg + sky A glyph + gold pip)
  *   public/apple-touch-icon.png   (180x180, same design)
  *
- * GD is used so this runs everywhere PHP is installed. The artwork is a
- * navy rounded square with a stylised aviator wing-stripe in sky-blue —
- * legible at 16/32px because we draw geometric primitives, not the complex
- * multi-segment path that's used in favicon.svg for browsers that support it.
+ * Geometry matches public/favicon.svg so the SVG and PNG fallbacks render
+ * the same brand mark across browsers.
  */
 
 declare(strict_types=1);
@@ -27,7 +25,6 @@ function renderFavicon(int $size, string $outPath): void
     imagesavealpha($im, true);
     imagealphablending($im, false);
 
-    // Transparent fill first
     $transparent = imagecolorallocatealpha($im, 0, 0, 0, 127);
     imagefilledrectangle($im, 0, 0, $size, $size, $transparent);
     imagealphablending($im, true);
@@ -35,46 +32,44 @@ function renderFavicon(int $size, string $outPath): void
     $navy   = imagecolorallocate($im, 0x0F, 0x17, 0x2A);
     $skyBg  = imagecolorallocate($im, 0x1E, 0x29, 0x3B);
     $sky    = imagecolorallocate($im, 0x38, 0xBD, 0xF8);
-    $skyHi  = imagecolorallocate($im, 0x7D, 0xD3, 0xFC);
+    $gold   = imagecolorallocate($im, 0xF2, 0xC9, 0x4C);
 
-    // Rounded-rect background — approximate with filled rect + corner cuts.
+    // Rounded-rect navy background
     $r = (int) round($size * 0.22);
     imagefilledrectangle($im, $r, 0, $size - $r, $size, $navy);
     imagefilledrectangle($im, 0, $r, $size, $size - $r, $navy);
-    imagefilledellipse($im, $r,           $r,           $r * 2, $r * 2, $navy);
-    imagefilledellipse($im, $size - $r,   $r,           $r * 2, $r * 2, $navy);
-    imagefilledellipse($im, $r,           $size - $r,   $r * 2, $r * 2, $navy);
-    imagefilledellipse($im, $size - $r,   $size - $r,   $r * 2, $r * 2, $navy);
+    imagefilledellipse($im, $r,         $r,         $r * 2, $r * 2, $navy);
+    imagefilledellipse($im, $size - $r, $r,         $r * 2, $r * 2, $navy);
+    imagefilledellipse($im, $r,         $size - $r, $r * 2, $r * 2, $navy);
+    imagefilledellipse($im, $size - $r, $size - $r, $r * 2, $r * 2, $navy);
 
-    // Subtle inner ring
-    $cx = $cy = $size / 2;
+    $cx = (int) ($size / 2);
+    $cy = (int) ($size / 2);
     $ringR = (int) ($size * 0.42);
-    imageellipse($im, (int) $cx, (int) $cy, $ringR * 2, $ringR * 2, $skyBg);
+    imageellipse($im, $cx, $cy, $ringR * 2, $ringR * 2, $skyBg);
 
-    // Aviator wing-stripe: a chevron pointing upper-right, drawn with
-    // anti-aliased filled polygons.
-    imagesetthickness($im, max(1, (int) round($size * 0.06)));
+    $stroke = max(2, (int) round($size * 0.075));
+    imagesetthickness($im, $stroke);
 
-    // Centre dot
-    $dotR = (int) max(2, $size * 0.08);
-    imagefilledellipse($im, (int) $cx, (int) $cy, $dotR * 2, $dotR * 2, $sky);
+    // A-glyph: two diagonals from base to apex (in viewBox 0..64, apex at (32,12), base at (14,50)..(50,50))
+    $apexX = $cx;
+    $apexY = (int) ($size * 12 / 64);
+    $leftBaseX  = (int) ($size * 14 / 64);
+    $rightBaseX = (int) ($size * 50 / 64);
+    $baseY      = (int) ($size * 50 / 64);
 
-    // Wings: two upward-tilted strokes
-    $wingHalf = (int) ($size * 0.30);
-    $wingTop  = (int) ($size * 0.34);
-    $wingBot  = (int) ($size * 0.50);
-    // Left wing
-    imageline($im, (int) $cx - $wingHalf, $wingTop + (int) ($size * 0.08), (int) $cx - 2, $wingBot, $sky);
-    imageline($im, (int) $cx - $wingHalf, $wingTop + (int) ($size * 0.10), (int) $cx - 2, $wingBot - 2, $skyHi);
-    // Right wing
-    imageline($im, (int) $cx + $wingHalf, $wingTop + (int) ($size * 0.08), (int) $cx + 2, $wingBot, $sky);
-    imageline($im, (int) $cx + $wingHalf, $wingTop + (int) ($size * 0.10), (int) $cx + 2, $wingBot - 2, $skyHi);
+    imageline($im, $leftBaseX,  $baseY, $apexX, $apexY, $sky);
+    imageline($im, $rightBaseX, $baseY, $apexX, $apexY, $sky);
 
-    // Vertical fuselage line (short)
-    imageline($im, (int) $cx, (int) ($size * 0.32), (int) $cx, (int) ($size * 0.72), $sky);
-    // Tail
-    imageline($im, (int) $cx - (int) ($size * 0.10), (int) ($size * 0.72),
-                   (int) $cx + (int) ($size * 0.10), (int) ($size * 0.72), $sky);
+    // Horizon bar
+    $hY  = (int) ($size * 40 / 64);
+    $hX1 = (int) ($size * 22 / 64);
+    $hX2 = (int) ($size * 42 / 64);
+    imageline($im, $hX1, $hY, $hX2, $hY, $sky);
+
+    // Gold altitude pip at apex
+    $pipR = max(2, (int) round($size * 0.05));
+    imagefilledellipse($im, $apexX, $apexY + (int)($size * 0.015), $pipR * 2, $pipR * 2, $gold);
 
     imagepng($im, $outPath);
     imagedestroy($im);

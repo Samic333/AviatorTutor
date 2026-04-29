@@ -49,7 +49,7 @@ class QuizController extends Controller
             'quizzes' => $quizzes,
         ];
 
-        $html = $this->view('quiz/index', $data);
+        $html = $this->view('quiz/index', $data, 'pilot');
         $response->html($html);
     }
 
@@ -100,7 +100,7 @@ class QuizController extends Controller
             'csrf_token' => CSRF::generate(),
         ];
 
-        $html = $this->view('quiz/take', $data);
+        $html = $this->view('quiz/take', $data, 'pilot');
         $response->html($html);
     }
 
@@ -249,7 +249,7 @@ class QuizController extends Controller
             'passed' => $passed,
         ];
 
-        $html = $this->view('quiz/result', $data);
+        $html = $this->view('quiz/result', $data, 'pilot');
         $response->html($html);
     }
 }

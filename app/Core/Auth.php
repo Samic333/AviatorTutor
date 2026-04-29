@@ -17,7 +17,7 @@ class Auth
     /**
      * User roles
      */
-    public const ROLE_USER = 'user';
+    public const ROLE_LEARNER = 'learner';
     public const ROLE_ADMIN = 'admin';
 
     /**
@@ -46,10 +46,13 @@ class Auth
      */
     public static function logout(): bool
     {
-        if (isset($_SESSION[self::USER_SESSION_KEY])) {
-            unset($_SESSION[self::USER_SESSION_KEY]);
-        }
+        session_unset();
         session_destroy();
+        if (ini_get('session.use_cookies')) {
+            $p = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $p['path'], $p['domain'], $p['secure'], $p['httponly']);
+        }
         return true;
     }
 

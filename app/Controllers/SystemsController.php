@@ -55,7 +55,7 @@ class SystemsController extends Controller
             'systems' => $systems,
         ];
 
-        $html = $this->view('systems/index', $data);
+        $html = $this->view('systems/index', $data, 'pilot');
         $response->html($html);
     }
 
@@ -171,7 +171,7 @@ class SystemsController extends Controller
             'relatedSystems' => [],
         ];
 
-        $html = $this->view('systems/show', $data);
+        $html = $this->view('systems/show', $data, 'pilot');
         $response->html($html);
     }
 }

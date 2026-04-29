@@ -17,6 +17,12 @@ $avatarSrc  = !empty($user['avatar']) ? '/assets/uploads/avatars/' . htmlspecial
 $isPremium = !empty($user['is_premium']) || $isAdmin;
 
 // 4th element = true means "coming soon" (disabled, badge shown)
+$features = [];
+try {
+    $appCfg = require __DIR__ . '/../../config/app.php';
+    $features = is_array($appCfg['features'] ?? null) ? $appCfg['features'] : [];
+} catch (\Throwable $e) { /* config unavailable — fall back to defaults */ }
+
 $navMain = [
     ['/dashboard',  'Dashboard',   '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',  false],
     ['/aircraft',   'My Aircraft', '<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>',  false],
@@ -24,10 +30,21 @@ $navMain = [
     ['/flashcards', 'Flashcards',  '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 4v16"/>',  false],
     ['/quiz',       'Quizzes',     '<polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',  false],
     ['/progress',   'Progress',    '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',  false],
-    ['/planner',    'Planner',     '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',  true],
-    ['/notes',      'Notes',       '<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/>',  true],
-    ['/search',     'Search',      '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',  true],
 ];
+
+// Feature-flagged items. Each entry has [href, label, svgPath, featureKey].
+// Hidden entirely when the flag is false; rendered as live nav (no "Soon"
+// badge) when the flag is true. Toggle in config/app.php → 'features'.
+$navOptional = [
+    ['/planner', 'Planner', '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>', 'planner'],
+    ['/notes',   'Notes',   '<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/>', 'notes'],
+    ['/search',  'Search',  '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>', 'search'],
+];
+foreach ($navOptional as [$href, $label, $svgPath, $featureKey]) {
+    if (!empty($features[$featureKey])) {
+        $navMain[] = [$href, $label, $svgPath, false];
+    }
+}
 
 $navAccount = [
     ['/profile',  'Profile',  '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'],
@@ -50,6 +67,7 @@ $isActive = function(string $href) use ($path): bool {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="/assets/css/pilot.css">
+  <?php include __DIR__ . '/../partials/head-favicons.php'; ?>
   <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
 <body class="plt-body">
@@ -61,11 +79,13 @@ $isActive = function(string $href) use ($path): bool {
     <!-- Brand -->
     <div class="plt-sidebar__brand">
       <div class="plt-sidebar__brand-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+        <svg width="20" height="20" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <path d="M11 51 L32 11 L53 51" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="22" y1="40" x2="42" y2="40" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="32" cy="11" r="4" fill="#38BDF8"/>
         </svg>
       </div>
-      <span class="plt-sidebar__brand-name">AviatorTutor</span>
+      <span class="plt-sidebar__brand-name">Aviator<span style="color:var(--plt-sky,#38BDF8);">Tutor</span></span>
     </div>
 
     <!-- Pilot Identity -->

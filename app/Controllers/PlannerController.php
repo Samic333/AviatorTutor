@@ -55,7 +55,7 @@ class PlannerController extends Controller
             'csrf_token' => CSRF::generate(),
         ];
 
-        $html = $this->view('planner/index', $data);
+        $html = $this->view('planner/index', $data, 'pilot');
         $response->html($html);
     }
 

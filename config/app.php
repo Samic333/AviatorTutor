@@ -48,6 +48,15 @@ $defaults = [
     'require_email_verification' => true, // set false to let unverified users log in
     'verification_token_ttl_hours' => 48,
     'password_reset_ttl_hours' => 2,
+
+    // Feature flags — toggle UI elements that aren't ready to ship yet so
+    // the navigation never shows "Coming Soon" placeholders that learners
+    // can't actually use. Flip to true once the underlying feature lands.
+    'features' => [
+        'planner' => false, // /planner placeholder
+        'notes'   => false, // /notes placeholder
+        'search'  => true,  // SearchController is wired and useful today
+    ],
 ];
 
 $localPath = __DIR__ . '/app.local.php';

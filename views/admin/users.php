@@ -19,6 +19,7 @@ declare(strict_types=1);
           <th>Name</th>
           <th>Email</th>
           <th>Role</th>
+          <th>Verified</th>
           <th>Aircraft</th>
           <th>Sub</th>
           <th>Joined</th>
@@ -27,6 +28,7 @@ declare(strict_types=1);
       </thead>
       <tbody>
         <?php foreach ($users as $u): ?>
+          <?php $isVerified = !empty($u['email_verified_at']); ?>
           <tr>
             <td class="adm-muted adm-mono"><?= (int)$u['id'] ?></td>
             <td><?= htmlspecialchars((string)$u['name']) ?></td>
@@ -37,6 +39,28 @@ declare(strict_types=1);
               <span class="adm-badge adm-badge--<?= $u['role'] === 'admin' ? 'gold' : 'muted' ?>">
                 <?= htmlspecialchars(strtoupper((string)$u['role'])) ?>
               </span>
+            </td>
+            <td>
+              <?php if ($isVerified): ?>
+                <span class="adm-badge adm-badge--success" title="<?= htmlspecialchars((string)$u['email_verified_at']) ?>">YES</span>
+              <?php else: ?>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <form method="post" action="/admin/users/verify" style="display:inline;" onsubmit="return confirm('Mark this user as email-verified? They will be able to log in immediately.');">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
+                    <input type="hidden" name="user_id" value="<?= (int)$u['id'] ?>">
+                    <button type="submit" class="adm-btn adm-btn--primary adm-btn--sm" title="Manually verify this user &mdash; bypasses the email-verification gate. Use when the user can't receive the verification email.">
+                      Mark verified
+                    </button>
+                  </form>
+                  <form method="post" action="/admin/users/resend-verify" style="display:inline;">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
+                    <input type="hidden" name="user_id" value="<?= (int)$u['id'] ?>">
+                    <button type="submit" class="adm-btn adm-btn--ghost adm-btn--sm" title="Send a fresh verification email to this user.">
+                      Resend
+                    </button>
+                  </form>
+                </div>
+              <?php endif; ?>
             </td>
             <td class="adm-muted"><?= htmlspecialchars((string)($u['preferred_aircraft'] ?? '—')) ?></td>
             <td>

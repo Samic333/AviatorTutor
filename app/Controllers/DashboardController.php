@@ -248,7 +248,7 @@ class DashboardController extends Controller
             'csrf_token'        => \App\Core\CSRF::generate(),
         ];
 
-        $html = $this->view('dashboard/index', $data);
+        $html = $this->view('dashboard/index', $data, 'pilot');
         $response->html($html);
     }
 

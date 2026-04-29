@@ -103,22 +103,38 @@ code, .mono, .num {
 }
 .site-header nav a:hover { color: var(--text); }
 .site-header nav a.active { color: var(--accent); }
+/* Button-styled nav items must inherit their .btn color/weight, not the
+   muted slate of plain nav links. The .site-header nav a rule above wins
+   on specificity (two selectors) over .btn-primary (one), so we re-assert
+   the button styles with matching specificity. */
+.site-header nav a.btn { font-weight: 600; color: var(--text); }
+.site-header nav a.btn-primary { color: #02101f; font-weight: 700; }
+.site-header nav a.btn-primary:hover { color: #02101f; }
+.site-header nav a.btn-ghost { color: var(--text); border-color: var(--line-strong); }
+.site-header nav a.btn-ghost:hover { color: var(--accent-hi); }
 
 .brand {
     display: inline-flex; align-items: center; gap: 10px;
     color: var(--text) !important;
     font-family: 'DM Sans', Inter, system-ui, sans-serif;
     font-weight: 700; letter-spacing: -0.015em;
-    font-size: 1.08rem;
+    font-size: 1.12rem;
+    text-decoration: none;
 }
 .brand__logo {
-    width: 32px; height: 32px;
-    border-radius: 9px;
-    background: linear-gradient(135deg, var(--accent) 0%, #2563eb 100%);
-    box-shadow: 0 0 0 1px rgba(56,189,248,0.4), 0 6px 16px -6px var(--accent);
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(56,189,248,0.18) 0%, rgba(37,99,235,0.12) 100%);
+    box-shadow: 0 0 0 1px rgba(56,189,248,0.32), 0 6px 18px -8px rgba(56,189,248,0.55);
     display: grid; place-items: center;
-    color: #02101f;
+    color: #F1F5F9;
     flex-shrink: 0;
+}
+.brand__wordmark {
+    line-height: 1;
+}
+.brand__wordmark-accent {
+    color: var(--accent, #38BDF8);
 }
 
 /* ---------- Buttons ---------- */

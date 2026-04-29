@@ -52,13 +52,12 @@ $completedPct     = $systemsTotal > 0 ? min(100, (int)round($systemsCompleted / 
   <!-- Welcome zero-state -->
   <div class="plt-glass-card" style="padding:36px;margin-bottom:24px;background:linear-gradient(135deg, rgba(56,189,248,0.08), rgba(14,165,233,0.04));border-color:rgba(56,189,248,0.2);">
     <span style="display:inline-block;padding:4px 12px;background:rgba(56,189,248,0.15);color:var(--plt-sky);border-radius:999px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Welcome aboard</span>
-    <h2 style="margin:14px 0 10px;font-size:1.5rem;font-family:var(--plt-font-head);">Pick an aircraft to start studying</h2>
+    <h2 style="margin:14px 0 10px;font-size:1.5rem;font-family:var(--plt-font-head);">Pick where to start</h2>
     <p style="margin:0 0 20px;color:var(--plt-text-muted);max-width:60ch;line-height:1.6;">
-      The Q400 module is fully live with 22 ATA-organised systems, flashcards, quizzes, and progress tracking.
-      Other aircraft and aviation subjects are launching — <a href="/aircraft" style="color:var(--plt-sky);">browse the catalog</a>.
+      Your first complete library &mdash; Q400 &mdash; is live with 22 ATA-organised systems, flashcards, quizzes, QRH drills, and progress tracking. New aircraft modules and aviation subject packs (weather, SOPs, CRM, SMS, cabin safety, emergency procedures) launch regularly &mdash; <a href="/aircraft" style="color:var(--plt-sky);">browse the catalog</a>.
     </p>
     <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <a href="/aircraft/q400" class="plt-btn plt-btn--primary">Start with Q400 →</a>
+      <a href="/aircraft/q400" class="plt-btn plt-btn--primary">Start with Q400 &rarr;</a>
       <a href="/aircraft" class="plt-btn plt-btn--ghost">See full catalog</a>
     </div>
   </div>

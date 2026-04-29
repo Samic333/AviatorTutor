@@ -93,7 +93,7 @@ class SearchController extends Controller
             'results' => $results,
         ];
 
-        $html = $this->view('search/index', $data);
+        $html = $this->view('search/index', $data, 'pilot');
         $response->html($html);
     }
 }

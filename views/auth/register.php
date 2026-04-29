@@ -2,17 +2,19 @@
 <section class="auth-shell">
     <div class="container container-tight">
         <div class="auth-card">
-            <a href="/" class="brand auth-card__brand">
+            <a href="/" class="brand auth-card__brand" aria-label="AviatorTutor home">
                 <span class="brand__logo">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+                    <svg width="22" height="22" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                        <path d="M11 51 L32 11 L53 51" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="22" y1="40" x2="42" y2="40" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                        <circle cx="32" cy="11" r="4" fill="#38BDF8"/>
                     </svg>
                 </span>
-                AviatorTutor
+                <span class="brand__wordmark">Aviator<span class="brand__wordmark-accent">Tutor</span></span>
             </a>
 
-            <h1 class="auth-card__title">Start studying</h1>
-            <p class="auth-card__sub">One account, every aviation module — $10 / month after redeeming a code.</p>
+            <h1 class="auth-card__title">Create your free account</h1>
+            <p class="auth-card__sub">Aircraft systems, weather, SOPs, QRH, CRM, SMS &mdash; built by aviation professionals for the entire aviation community.</p>
 
             <?php if (!empty($error)): ?>
                 <div class="flash flash--error" role="alert">
