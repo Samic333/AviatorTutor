@@ -54,6 +54,33 @@ $systemMnemonics = $mnemonics[$system['ata_code'] ?? ''] ?? [];
     </div>
   </div>
 
+  <?php
+    // Phase 3: Slide-based lesson player. Surface a top-level CTA on every
+    // system page (this branch runs before the per-template chooser below).
+    $firstLesson = null;
+    foreach ($lessons as $candidate) {
+      if (!empty($candidate['id'])) { $firstLesson = $candidate; break; }
+    }
+  ?>
+  <?php if ($firstLesson): ?>
+    <div style="display:flex; align-items:center; gap:16px; background:linear-gradient(135deg, rgba(59,130,246,0.12), rgba(168,85,247,0.10)); border:1px solid rgba(59,130,246,0.25); border-radius:12px; padding:18px 22px; margin:18px 0 24px; flex-wrap:wrap;">
+      <div style="flex:1; min-width:240px;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; color:#60a5fa; margin-bottom:4px;">New · Interactive Lesson</div>
+        <div style="font-size:16px; font-weight:600; color:var(--color-white-text); margin-bottom:2px;">
+          Try the slide-based lesson player
+        </div>
+        <div style="font-size:13px; color:var(--color-gray-text); line-height:1.45;">
+          Walk through this system slide by slide with question gates and memory hooks instead of reading one long page.
+        </div>
+      </div>
+      <a href="/study/<?php echo (int)$system['id']; ?>/lesson/<?php echo (int)$firstLesson['id']; ?>"
+         style="display:inline-flex; align-items:center; gap:8px; background:#3B82F6; color:#fff; padding:10px 20px; border-radius:8px; font-size:14px; font-weight:600; text-decoration:none; transition:background 0.2s;">
+        <i data-lucide="play-circle" style="width:16px; height:16px;"></i>
+        Start Slide Lesson
+      </a>
+    </div>
+  <?php endif; ?>
+
   <!-- ── TABS ── -->
   <div class="rich-tabs">
     <button class="rtab active" data-tab="lessons"><i data-lucide="book-open"></i> Lessons</button>
@@ -65,6 +92,40 @@ $systemMnemonics = $mnemonics[$system['ata_code'] ?? ''] ?? [];
 
   <!-- ── LESSONS TAB ── -->
   <div class="tab-pane active" id="tab-lessons">
+
+    <!-- Reading + Difficulty controls -->
+    <div class="study-controls-bar">
+      <span class="study-ctrl-label">Text</span>
+      <div class="study-ctrl-group">
+        <button class="study-ctrl-btn" id="font-sm-btn" onclick="setFontSize('sm',this)" title="Smaller text">A–</button>
+        <button class="study-ctrl-btn active" id="font-md-btn" onclick="setFontSize('md',this)" title="Normal text">A</button>
+        <button class="study-ctrl-btn" id="font-lg-btn" onclick="setFontSize('lg',this)" title="Larger text">A+</button>
+      </div>
+      <div class="study-ctrl-sep"></div>
+      <button class="study-ctrl-btn" id="focus-mode-btn" onclick="toggleFocusMode(this)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        Focus Mode
+      </button>
+      <div class="study-ctrl-sep"></div>
+      <span class="study-ctrl-label">Level</span>
+      <div class="diff-selector">
+        <button class="diff-btn" data-diff="beginner"     onclick="setDetailDiff('beginner',this)">Beginner</button>
+        <button class="diff-btn active" data-diff="intermediate" onclick="setDetailDiff('intermediate',this)">Intermediate</button>
+        <button class="diff-btn" data-diff="advanced"     onclick="setDetailDiff('advanced',this)">Advanced</button>
+      </div>
+    </div>
+
+    <!-- Two-column layout: content + side progress tracker -->
+    <div class="study-layout">
+      <div id="study-lessons-content">
+
+    <?php
+    $totalLessons     = count($lessons);
+    $completedLessons = array_filter($lessons, fn($l) => ($l['status'] ?? '') === 'completed');
+    $completedCount   = count($completedLessons);
+    $completionPct    = $totalLessons > 0 ? min(100, (int)round($completedCount / $totalLessons * 100)) : 0;
+    ?>
+
     <?php if (($system['ata_code'] ?? '') === 'ATA24'): ?>
       <?php include __DIR__ . '/ata24_chapters.php'; ?>
     <?php elseif (in_array($system['ata_code'] ?? '', ['ATA29','ATA28','ATA71','ATA61','ATA27','ATA32','ATA21','ATA36','ATA30','ATA26','ATA22','ATA34','ATA23','ATA31','ATA35','ATA33','ATA22B','CW','QRH'])): ?>
@@ -77,7 +138,10 @@ $systemMnemonics = $mnemonics[$system['ata_code'] ?? ''] ?? [];
           $traps   = json_decode($lesson['exam_traps'] ?? '[]', true) ?: [];
           $isDone  = $lesson['status'] === 'completed';
         ?>
-        <div class="rich-lesson <?php echo $isDone ? 'lesson-done' : ''; ?>" style="--accent:<?php echo htmlspecialchars($system['color'] ?? '#3b82f6'); ?>">
+        <div class="rich-lesson <?php echo $isDone ? 'lesson-done' : ''; ?>"
+             id="lesson-<?php echo (int)$lesson['id']; ?>"
+             data-content-type="<?php echo htmlspecialchars($lesson['content_type'] ?? 'overview'); ?>"
+             style="--accent:<?php echo htmlspecialchars($system['color'] ?? '#38bdf8'); ?>">
 
           <!-- Lesson header -->
           <div class="rl-head">
@@ -131,9 +195,9 @@ $systemMnemonics = $mnemonics[$system['ata_code'] ?? ''] ?? [];
             </div>
           <?php endif; ?>
 
-          <!-- Must Know -->
+          <!-- Must Know (hidden for Beginner, shown for Intermediate+) -->
           <?php if (!empty($mustKnow)): ?>
-            <div class="info-block info-amber">
+            <div class="info-block info-amber detail-must-know">
               <div class="info-head"><i data-lucide="star"></i><strong>Must Know for Exam</strong></div>
               <ul class="check-list">
                 <?php foreach ($mustKnow as $point): ?>
@@ -141,11 +205,31 @@ $systemMnemonics = $mnemonics[$system['ata_code'] ?? ''] ?? [];
                 <?php endforeach; ?>
               </ul>
             </div>
+            <!-- Key Takeaway -->
+            <div class="key-takeaway-box">
+              <div class="kt-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="kt-content">
+                <span class="kt-label">Key Takeaway</span>
+                <p class="kt-text"><?php echo htmlspecialchars($mustKnow[0]); ?></p>
+              </div>
+            </div>
+          <?php elseif (!empty($facts)): ?>
+            <div class="key-takeaway-box">
+              <div class="kt-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <div class="kt-content">
+                <span class="kt-label">Key Takeaway</span>
+                <p class="kt-text"><?php echo htmlspecialchars($facts[0]); ?></p>
+              </div>
+            </div>
           <?php endif; ?>
 
-          <!-- Exam Traps -->
+          <!-- Exam Traps (Advanced only) -->
           <?php if (!empty($traps)): ?>
-            <div class="info-block info-red">
+            <div class="info-block info-red detail-exam-traps">
               <div class="info-head"><i data-lucide="alert-triangle"></i><strong>Exam Traps — Don't Get Caught!</strong></div>
               <ul class="check-list">
                 <?php foreach ($traps as $trap): ?>
@@ -160,6 +244,11 @@ $systemMnemonics = $mnemonics[$system['ata_code'] ?? ''] ?? [];
             <?php if ($lesson['time_spent_secs']): ?>
               <span class="time-pill"><i data-lucide="clock"></i> <?php echo floor($lesson['time_spent_secs']/60); ?> min studied</span>
             <?php endif; ?>
+            <a class="slide-btn slide-btn-primary"
+               href="/study/<?php echo (int)$system['id']; ?>/lesson/<?php echo (int)$lesson['id']; ?>"
+               style="margin-right:8px;">
+              <i data-lucide="play-circle"></i> Start Slide Lesson
+            </a>
             <?php if (!$isDone): ?>
               <button class="btn-complete" onclick="markLessonComplete(<?php echo (int)$lesson['id']; ?>, this)">
                 <i data-lucide="check"></i> Mark as Complete
@@ -168,6 +257,27 @@ $systemMnemonics = $mnemonics[$system['ata_code'] ?? ''] ?? [];
               <span class="done-badge"><i data-lucide="check-circle"></i> Completed</span>
             <?php endif; ?>
           </div>
+
+          <!-- Lesson prev/next navigation -->
+          <?php if ($li > 0 || $li < ($totalLessons - 1)): ?>
+            <div class="lesson-nav-strip">
+              <?php if ($li > 0): ?>
+                <a href="#lesson-<?php echo (int)$lessons[$li-1]['id']; ?>">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                  <?php echo htmlspecialchars(mb_strimwidth($lessons[$li-1]['title'], 0, 30, '…')); ?>
+                </a>
+              <?php else: ?>
+                <span></span>
+              <?php endif; ?>
+              <div class="nav-spacer"></div>
+              <?php if ($li < ($totalLessons - 1)): ?>
+                <a href="#lesson-<?php echo (int)$lessons[$li+1]['id']; ?>">
+                  <?php echo htmlspecialchars(mb_strimwidth($lessons[$li+1]['title'], 0, 30, '…')); ?>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+              <?php endif; ?>
+            </div>
+          <?php endif; ?>
         </div>
       <?php endforeach; ?>
 
@@ -177,6 +287,30 @@ $systemMnemonics = $mnemonics[$system['ata_code'] ?? ''] ?? [];
         <p>No lessons available for this system yet.</p>
       </div>
     <?php endif; ?>
+
+      </div><!-- end #study-lessons-content -->
+
+      <!-- Side progress tracker -->
+      <?php if ($totalLessons > 0): ?>
+        <aside class="study-progress-tracker" id="study-tracker">
+          <h3>Progress</h3>
+          <?php foreach ($lessons as $tli => $tl): ?>
+            <?php $tDone = ($tl['status'] ?? '') === 'completed'; ?>
+            <a href="#lesson-<?= (int)$tl['id'] ?>" class="tracker-item <?= $tDone ? 'done' : '' ?>">
+              <span class="tracker-num"><?= $tDone ? '✓' : ($tli + 1) ?></span>
+              <span class="tracker-item-label"><?= htmlspecialchars(mb_strimwidth($tl['title'], 0, 28, '…')) ?></span>
+            </a>
+          <?php endforeach; ?>
+          <div class="tracker-overall">
+            <p class="tracker-pct-label"><?= $completedCount ?> / <?= $totalLessons ?> lessons complete</p>
+            <div class="tracker-overall-bar">
+              <div class="tracker-overall-fill" style="width:<?= $completionPct ?>%"></div>
+            </div>
+          </div>
+        </aside>
+      <?php endif; ?>
+
+    </div><!-- end .study-layout -->
   </div>
 
   <!-- ── SYSTEM DIAGRAM TAB ── -->
@@ -506,128 +640,135 @@ $systemMnemonics = $mnemonics[$system['ata_code'] ?? ''] ?? [];
 .study-rich-container { padding: 24px; max-width: 1100px; }
 
 /* ── Hero ── */
-.study-hero { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px; background:#111c2d; border-radius:14px; margin-bottom:28px; flex-wrap:wrap; }
+.study-hero { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px; background:var(--plt-panel); border-radius:14px; margin-bottom:28px; flex-wrap:wrap; border:1px solid var(--plt-glass-border); }
 .hero-left { display:flex; align-items:center; gap:18px; }
 .hero-icon-wrap { width:64px; height:64px; border-radius:14px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.hero-ata { font-size:11px; color:#64748b; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
-.hero-title { margin:0 0 6px; font-size:1.8rem; font-weight:700; color:#f1f5f9; }
-.hero-desc { margin:0; color:#94a3b8; font-size:.9rem; max-width:500px; }
+.hero-ata { font-size:11px; color:var(--plt-text-muted); font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
+.hero-title { margin:0 0 6px; font-size:1.8rem; font-weight:700; color:var(--plt-text); font-family:var(--plt-font-head); }
+.hero-desc { margin:0; color:var(--plt-text-muted); font-size:.9rem; max-width:500px; }
 .hero-stats { display:flex; gap:24px; }
 .hstat { text-align:center; }
-.hstat-val { display:block; font-size:2rem; font-weight:700; color:#f1f5f9; }
-.hstat-lbl { font-size:.75rem; color:#64748b; text-transform:uppercase; letter-spacing:.5px; }
+.hstat-val { display:block; font-size:2rem; font-weight:700; color:var(--plt-text); font-family:var(--plt-font-head); }
+.hstat-lbl { font-size:.75rem; color:var(--plt-text-muted); text-transform:uppercase; letter-spacing:.5px; }
 
 /* ── Tabs ── */
-.rich-tabs { display:flex; gap:4px; margin-bottom:24px; background:#111c2d; padding:6px; border-radius:12px; flex-wrap:wrap; }
-.rtab { background:none; border:none; padding:10px 18px; color:#64748b; cursor:pointer; border-radius:8px; display:flex; align-items:center; gap:8px; font-size:.9rem; transition:all .2s; }
-.rtab:hover { color:#f1f5f9; background:rgba(255,255,255,0.06); }
-.rtab.active { color:#f1f5f9; background:#1e3a5f; box-shadow:0 2px 8px rgba(0,0,0,.3); }
+.rich-tabs { display:flex; gap:4px; margin-bottom:24px; background:var(--plt-panel); padding:6px; border-radius:12px; flex-wrap:wrap; border:1px solid var(--plt-glass-border); }
+.rtab { background:none; border:none; padding:10px 18px; color:var(--plt-text-muted); cursor:pointer; border-radius:8px; display:flex; align-items:center; gap:8px; font-size:.9rem; transition:all .2s; font-family:var(--plt-font-body); }
+.rtab:hover { color:var(--plt-text); background:var(--plt-glass-hi); }
+.rtab.active { color:var(--plt-sky); background:var(--plt-sky-soft); box-shadow:0 2px 8px rgba(0,0,0,.3); }
 .tab-pane { display:none; }
 .tab-pane.active { display:block; animation: fadeInUp .3s ease; }
 @keyframes fadeInUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
 /* ── Lesson Cards ── */
-.rich-lesson { background:#111c2d; border:1px solid rgba(255,255,255,.07); border-radius:14px; padding:28px; margin-bottom:24px; border-left:4px solid var(--accent,#3b82f6); transition:box-shadow .2s; animation: fadeInUp .4s ease; }
-.rich-lesson:hover { box-shadow:0 8px 32px rgba(0,0,0,.3); }
+.rich-lesson { background:var(--plt-panel); border:1px solid var(--plt-glass-border); border-radius:14px; padding:28px; margin-bottom:24px; border-left:4px solid var(--accent,var(--plt-sky)); transition:box-shadow .2s, border-color .2s; animation: fadeInUp .4s ease; }
+.rich-lesson:hover { box-shadow:0 8px 32px rgba(0,0,0,.3); border-color:rgba(255,255,255,.14); }
 .lesson-done { opacity:.85; }
 .rl-head { display:flex; align-items:center; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
-.rl-num { width:38px; height:38px; border-radius:50%; background:#1e3a5f; border:2px solid var(--accent,#3b82f6); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1rem; color:#93c5fd; flex-shrink:0; }
-.num-done { background:#14532d; border-color:#22c55e; color:#4ade80; }
+.rl-num { width:38px; height:38px; border-radius:50%; background:var(--plt-glass); border:2px solid var(--accent,var(--plt-sky)); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1rem; color:var(--plt-sky); flex-shrink:0; }
+.num-done { background:var(--plt-success-soft); border-color:var(--plt-success); color:var(--plt-success); }
 .rl-title-block { flex:1; }
-.rl-title { margin:0 0 4px; font-size:1.25rem; font-weight:700; color:#f1f5f9; }
-.rl-sub { font-size:.8rem; color:#64748b; }
-.rl-type-badge { padding:4px 12px; border-radius:20px; background:rgba(59,130,246,.15); color:#93c5fd; font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
-.rl-body-text { color:#94a3b8; line-height:1.8; font-size:.95rem; margin-bottom:20px; padding:16px; background:rgba(255,255,255,.03); border-radius:8px; }
+.rl-title { margin:0 0 4px; font-size:1.25rem; font-weight:700; color:var(--plt-text); font-family:var(--plt-font-head); }
+.rl-sub { font-size:.8rem; color:var(--plt-text-muted); }
+.rl-type-badge { padding:4px 12px; border-radius:20px; background:var(--plt-sky-soft); color:var(--plt-sky); font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
+.rl-body-text { color:var(--plt-text-muted); line-height:1.85; font-size:.98rem; margin-bottom:20px; padding:18px; background:rgba(255,255,255,.03); border-radius:10px; border:1px solid var(--plt-glass-border); }
 
 /* ── Component Strip ── */
 .component-strip { display:flex; gap:12px; flex-wrap:wrap; margin:16px 0 20px; }
 .cstrip-item { display:flex; flex-direction:column; align-items:center; gap:6px; animation: fadeInUp .4s ease both; }
 .cstrip-icon { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; }
-.cstrip-label { font-size:.7rem; color:#64748b; text-align:center; max-width:60px; }
+.cstrip-label { font-size:.7rem; color:var(--plt-text-muted); text-align:center; max-width:60px; }
 
 /* ── Info Blocks ── */
 .info-block { padding:18px; border-radius:10px; margin:16px 0; }
-.info-blue { background:rgba(59,130,246,.08); border:1px solid rgba(59,130,246,.2); }
-.info-amber { background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.2); }
-.info-red { background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); }
-.info-head { display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:.9rem; }
-.info-blue .info-head { color:#60a5fa; }
-.info-amber .info-head { color:#fbbf24; }
-.info-red .info-head { color:#f87171; }
+.info-blue  { background:rgba(56,189,248,.07);  border:1px solid rgba(56,189,248,.2); }
+.info-amber { background:rgba(251,191,36,.07);  border:1px solid rgba(251,191,36,.2); }
+.info-red   { background:rgba(251,113,133,.07); border:1px solid rgba(251,113,133,.2); }
+.info-head  { display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:.9rem; }
+.info-blue  .info-head { color:var(--plt-sky); }
+.info-amber .info-head { color:var(--plt-warn); }
+.info-red   .info-head { color:var(--plt-danger); }
 
 .facts-grid { display:flex; flex-wrap:wrap; gap:10px; }
-.fact-chip { display:flex; align-items:center; gap:8px; padding:8px 14px; background:rgba(59,130,246,.12); border:1px solid rgba(59,130,246,.2); border-radius:8px; font-size:.85rem; color:#93c5fd; animation:fadeInUp .4s ease both; }
-.fact-num { width:22px; height:22px; background:#3b82f6; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:700; color:#fff; flex-shrink:0; }
+.fact-chip { display:flex; align-items:center; gap:8px; padding:8px 14px; background:var(--plt-sky-soft); border:1px solid rgba(56,189,248,.2); border-radius:8px; font-size:.88rem; color:var(--plt-sky); animation:fadeInUp .4s ease both; }
+.fact-num { width:22px; height:22px; background:var(--plt-sky); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:700; color:#0F172A; flex-shrink:0; }
 
 .check-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
-.check-list li { display:flex; align-items:flex-start; gap:10px; font-size:.88rem; line-height:1.5; color:#cbd5e1; }
+.check-list li { display:flex; align-items:flex-start; gap:10px; font-size:.9rem; line-height:1.55; color:var(--plt-text); }
 .info-amber .check-list li { color:#fde68a; }
-.info-red .check-list li { color:#fca5a5; }
+.info-red   .check-list li { color:var(--plt-danger); }
 .check-list li i { width:16px; height:16px; flex-shrink:0; margin-top:2px; }
 
-.rl-footer { display:flex; align-items:center; justify-content:space-between; padding-top:18px; margin-top:18px; border-top:1px solid rgba(255,255,255,.07); flex-wrap:wrap; gap:12px; }
-.time-pill { display:flex; align-items:center; gap:6px; font-size:.8rem; color:#64748b; background:rgba(255,255,255,.05); padding:6px 12px; border-radius:20px; }
-.btn-complete { display:flex; align-items:center; gap:8px; padding:10px 24px; background:#3b82f6; color:#fff; border:none; border-radius:8px; font-size:.9rem; font-weight:600; cursor:pointer; transition:background .2s; }
-.btn-complete:hover { background:#2563eb; }
-.done-badge { display:flex; align-items:center; gap:6px; color:#22c55e; font-size:.9rem; font-weight:600; }
+.rl-footer { display:flex; align-items:center; justify-content:space-between; padding-top:18px; margin-top:18px; border-top:1px solid var(--plt-glass-border); flex-wrap:wrap; gap:12px; }
+.time-pill { display:flex; align-items:center; gap:6px; font-size:.8rem; color:var(--plt-text-muted); background:rgba(255,255,255,.05); padding:6px 12px; border-radius:20px; }
+.btn-complete { display:flex; align-items:center; gap:8px; padding:10px 24px; background:var(--plt-sky); color:#0F172A; border:none; border-radius:8px; font-size:.9rem; font-weight:700; cursor:pointer; transition:background .2s; font-family:var(--plt-font-body); }
+.btn-complete:hover { background:var(--plt-sky-deep); }
+.done-badge { display:flex; align-items:center; gap:6px; color:var(--plt-success); font-size:.9rem; font-weight:600; }
 
 /* ── Diagram ── */
-.diagram-container { background:#111c2d; border-radius:14px; padding:28px; }
-.diagram-title { font-size:1.3rem; font-weight:700; color:#f1f5f9; margin:0 0 6px; }
-.diagram-subtitle { color:#64748b; font-size:.9rem; margin:0 0 24px; }
-.svg-wrap { background:#0a1628; border-radius:10px; padding:20px; overflow-x:auto; }
+.diagram-container { background:var(--plt-panel); border-radius:14px; padding:28px; border:1px solid var(--plt-glass-border); }
+.diagram-title { font-size:1.3rem; font-weight:700; color:var(--plt-text); margin:0 0 6px; font-family:var(--plt-font-head); }
+.diagram-subtitle { color:var(--plt-text-muted); font-size:.9rem; margin:0 0 24px; }
+.svg-wrap { background:#080f1e; border-radius:10px; padding:20px; overflow-x:auto; }
 .system-svg { width:100%; max-width:900px; }
 .diagram-notes { margin-top:16px; }
-.dnote { display:flex; align-items:flex-start; gap:10px; font-size:.85rem; color:#64748b; padding:12px; background:rgba(255,255,255,.03); border-radius:8px; }
+.dnote { display:flex; align-items:flex-start; gap:10px; font-size:.85rem; color:var(--plt-text-muted); padding:12px; background:rgba(255,255,255,.03); border-radius:8px; }
 
 /* ── Mnemonics ── */
 .mnemonics-header { margin-bottom:24px; }
-.mnemonics-header h2 { font-size:1.4rem; color:#f1f5f9; margin:0 0 6px; }
-.mnemonics-header p { color:#64748b; font-size:.9rem; }
+.mnemonics-header h2 { font-size:1.4rem; color:var(--plt-text); margin:0 0 6px; font-family:var(--plt-font-head); }
+.mnemonics-header p { color:var(--plt-text-muted); font-size:.9rem; }
 .mnemonic-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; margin-bottom:40px; }
-.mnemonic-card { background:#111c2d; border:1px solid rgba(255,255,255,.07); border-radius:14px; padding:22px; animation:fadeInUp .5s ease both; transition:box-shadow .2s; }
-.mnemonic-card:hover { box-shadow:0 8px 32px rgba(0,0,0,.4); }
+.mnemonic-card { background:var(--plt-panel); border:1px solid var(--plt-glass-border); border-radius:14px; padding:22px; animation:fadeInUp .5s ease both; transition:box-shadow .2s, border-color .2s; }
+.mnemonic-card:hover { box-shadow:0 8px 32px rgba(0,0,0,.4); border-color:rgba(255,255,255,.14); }
 .mcard-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-.mcard-tag { font-size:.7rem; color:#64748b; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
-.mcard-topic { font-size:.8rem; color:#3b82f6; font-weight:600; }
-.mcard-acronym { font-size:1.8rem; font-weight:800; color:#f59e0b; letter-spacing:2px; margin-bottom:10px; }
-.mcard-phrase { font-size:.9rem; color:#94a3b8; font-style:italic; line-height:1.5; margin-bottom:14px; }
-.mcard-divider { height:1px; background:rgba(255,255,255,.07); margin-bottom:14px; }
-.mcard-meaning { display:flex; align-items:flex-start; gap:8px; font-size:.85rem; color:#cbd5e1; line-height:1.5; margin-bottom:16px; }
-.mcard-flip-btn { width:100%; padding:9px; background:rgba(59,130,246,.12); border:1px solid rgba(59,130,246,.2); border-radius:8px; color:#93c5fd; font-size:.85rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:background .2s; }
-.mcard-flip-btn:hover { background:rgba(59,130,246,.22); }
-.mcard-test { margin-top:14px; padding:14px; background:rgba(255,255,255,.04); border-radius:8px; font-size:.85rem; color:#94a3b8; }
-.reveal-btn { margin-top:10px; padding:8px 16px; background:#1e3a5f; border:1px solid #3b82f6; border-radius:6px; color:#93c5fd; cursor:pointer; font-size:.83rem; }
-.reveal-answer { margin-top:10px; padding:10px; background:rgba(34,197,94,.1); border-radius:6px; color:#4ade80; font-size:.85rem; }
+.mcard-tag { font-size:.7rem; color:var(--plt-text-muted); font-weight:600; letter-spacing:1px; text-transform:uppercase; }
+.mcard-topic { font-size:.8rem; color:var(--plt-sky); font-weight:600; }
+.mcard-acronym { font-size:1.8rem; font-weight:800; color:var(--plt-warn); letter-spacing:2px; margin-bottom:10px; font-family:var(--plt-font-head); }
+.mcard-phrase { font-size:.9rem; color:var(--plt-text-muted); font-style:italic; line-height:1.5; margin-bottom:14px; }
+.mcard-divider { height:1px; background:var(--plt-glass-border); margin-bottom:14px; }
+.mcard-meaning { display:flex; align-items:flex-start; gap:8px; font-size:.85rem; color:var(--plt-text); line-height:1.5; margin-bottom:16px; }
+.mcard-flip-btn { width:100%; padding:9px; background:var(--plt-sky-soft); border:1px solid rgba(56,189,248,.2); border-radius:8px; color:var(--plt-sky); font-size:.85rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:background .2s; font-family:var(--plt-font-body); }
+.mcard-flip-btn:hover { background:rgba(56,189,248,.2); }
+.mcard-test { margin-top:14px; padding:14px; background:rgba(255,255,255,.04); border-radius:8px; font-size:.85rem; color:var(--plt-text-muted); }
+.reveal-btn { margin-top:10px; padding:8px 16px; background:var(--plt-glass); border:1px solid var(--plt-sky); border-radius:6px; color:var(--plt-sky); cursor:pointer; font-size:.83rem; font-family:var(--plt-font-body); }
+.reveal-answer { margin-top:10px; padding:10px; background:var(--plt-success-soft); border-radius:6px; color:var(--plt-success); font-size:.85rem; }
 
 /* ── Memory Tips ── */
-.memory-tips { background:#111c2d; border-radius:14px; padding:24px; }
-.memory-tips h3 { display:flex; align-items:center; gap:10px; font-size:1.1rem; color:#f1f5f9; margin:0 0 20px; }
+.memory-tips { background:var(--plt-panel); border-radius:14px; padding:24px; border:1px solid var(--plt-glass-border); }
+.memory-tips h3 { display:flex; align-items:center; gap:10px; font-size:1.1rem; color:var(--plt-text); margin:0 0 20px; font-family:var(--plt-font-head); }
 .tips-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
-.tip-card { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); border-radius:10px; padding:18px; }
+.tip-card { background:var(--plt-glass); border:1px solid var(--plt-glass-border); border-radius:10px; padding:18px; }
 .tip-icon { font-size:1.8rem; margin-bottom:10px; }
-.tip-card h4 { margin:0 0 8px; font-size:.95rem; color:#f1f5f9; }
-.tip-card p { margin:0; font-size:.82rem; color:#64748b; line-height:1.6; }
+.tip-card h4 { margin:0 0 8px; font-size:.95rem; color:var(--plt-text); font-family:var(--plt-font-head); }
+.tip-card p { margin:0; font-size:.82rem; color:var(--plt-text-muted); line-height:1.6; }
 
 /* ── Guide ── */
 .guide-wrap { max-width:800px; }
-.guide-wrap h2 { font-size:1.4rem; color:#f1f5f9; margin:0 0 24px; }
-.guide-block { background:#111c2d; border-radius:12px; padding:20px; margin-bottom:16px; border-left:3px solid #3b82f6; }
-.guide-block h3 { margin:0 0 10px; font-size:1rem; color:#93c5fd; }
-.guide-block p { margin:0 0 12px; color:#94a3b8; font-size:.9rem; line-height:1.7; }
+.guide-wrap h2 { font-size:1.4rem; color:var(--plt-text); margin:0 0 24px; font-family:var(--plt-font-head); }
+.guide-block { background:var(--plt-panel); border-radius:12px; padding:20px; margin-bottom:16px; border-left:3px solid var(--plt-sky); border:1px solid var(--plt-glass-border); border-left-width:3px; }
+.guide-block h3 { margin:0 0 10px; font-size:1rem; color:var(--plt-sky); font-family:var(--plt-font-head); }
+.guide-block p { margin:0 0 12px; color:var(--plt-text-muted); font-size:.9rem; line-height:1.7; }
 .guide-facts { display:flex; flex-wrap:wrap; gap:8px; }
-.gfact { display:flex; align-items:center; gap:6px; font-size:.8rem; color:#4ade80; background:rgba(34,197,94,.08); border:1px solid rgba(34,197,94,.15); border-radius:6px; padding:4px 10px; }
+.gfact { display:flex; align-items:center; gap:6px; font-size:.8rem; color:var(--plt-success); background:var(--plt-success-soft); border:1px solid rgba(52,211,153,.15); border-radius:6px; padding:4px 10px; }
 
 /* ── Notes ── */
 .notes-wrap { max-width:800px; }
-.notes-wrap h2 { font-size:1.4rem; color:#f1f5f9; margin:0 0 6px; }
-.notes-hint { color:#64748b; font-size:.88rem; margin:0 0 20px; }
-.notes-textarea { width:100%; background:#111c2d; border:1px solid rgba(255,255,255,.1); border-radius:10px; color:#f1f5f9; font-size:.9rem; line-height:1.7; padding:16px; resize:vertical; font-family:inherit; box-sizing:border-box; }
-.notes-textarea:focus { outline:none; border-color:#3b82f6; }
-.btn-save-notes { display:flex; align-items:center; gap:8px; margin-top:14px; padding:11px 24px; background:#3b82f6; color:#fff; border:none; border-radius:8px; font-size:.9rem; font-weight:600; cursor:pointer; transition:background .2s; }
-.btn-save-notes:hover { background:#2563eb; }
+.notes-wrap h2 { font-size:1.4rem; color:var(--plt-text); margin:0 0 6px; font-family:var(--plt-font-head); }
+.notes-hint { color:var(--plt-text-muted); font-size:.88rem; margin:0 0 20px; }
+.notes-textarea { width:100%; background:var(--plt-panel); border:1px solid var(--plt-glass-border); border-radius:10px; color:var(--plt-text); font-size:.9rem; line-height:1.7; padding:16px; resize:vertical; font-family:inherit; box-sizing:border-box; }
+.notes-textarea:focus { outline:none; border-color:var(--plt-sky); }
+.btn-save-notes { display:flex; align-items:center; gap:8px; margin-top:14px; padding:11px 24px; background:var(--plt-sky); color:#0F172A; border:none; border-radius:8px; font-size:.9rem; font-weight:700; cursor:pointer; transition:background .2s; font-family:var(--plt-font-body); }
+.btn-save-notes:hover { background:var(--plt-sky-deep); }
 
-.empty-lessons { text-align:center; padding:60px; color:#64748b; }
+.empty-lessons { text-align:center; padding:60px; color:var(--plt-text-muted); }
+
+/* ── Difficulty filtering ── */
+.detail-exam-traps { display: none; }
+body[data-detail-diff="advanced"] .detail-exam-traps { display: block; }
+body[data-detail-diff="beginner"]  .detail-must-know  { display: none; }
+body[data-detail-diff="beginner"]  .detail-exam-traps { display: none; }
+body[data-detail-diff="beginner"]  .key-takeaway-box  { display: none; }
 </style>
 
 <script>
@@ -646,7 +787,74 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     lucide.createIcons();
+
+    // Restore saved preferences
+    var savedFont = localStorage.getItem('av_font_size') || 'md';
+    var savedDiff = localStorage.getItem('av_detail_diff') || 'intermediate';
+    applyFontSizeInit(savedFont);
+    applyDetailDiffInit(savedDiff);
+
+    // Smooth scroll for tracker/nav anchors
+    document.querySelectorAll('a[href^="#lesson-"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            var target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Esc exits focus mode
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && document.body.classList.contains('study-focus')) {
+            document.body.classList.remove('study-focus');
+            var btn = document.getElementById('focus-mode-btn');
+            if (btn) btn.classList.remove('focus-active');
+        }
+    });
 });
+
+/* ── Font size controls ── */
+function applyFontSizeInit(size) {
+    var content = document.getElementById('study-lessons-content');
+    if (content) {
+        content.classList.remove('study-font-sm','study-font-md','study-font-lg');
+        content.classList.add('study-font-' + size);
+    }
+    ['sm','md','lg'].forEach(function(s) {
+        var btn = document.getElementById('font-' + s + '-btn');
+        if (btn) btn.classList.toggle('active', s === size);
+    });
+}
+
+function setFontSize(size, btn) {
+    localStorage.setItem('av_font_size', size);
+    applyFontSizeInit(size);
+}
+
+/* ── Focus mode ── */
+function toggleFocusMode(btn) {
+    var active = document.body.classList.toggle('study-focus');
+    btn.classList.toggle('focus-active', active);
+    btn.textContent = active ? '⊠ Exit Focus' : '';
+    if (!active) {
+        btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg> Focus Mode';
+    }
+}
+
+/* ── Difficulty (study detail) ── */
+function applyDetailDiffInit(diff) {
+    document.body.setAttribute('data-detail-diff', diff);
+    document.querySelectorAll('.diff-btn').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.diff === diff);
+    });
+}
+
+function setDetailDiff(diff, btn) {
+    localStorage.setItem('av_detail_diff', diff);
+    applyDetailDiffInit(diff);
+}
 
 function markLessonComplete(lessonId, btn) {
     btn.disabled = true;
