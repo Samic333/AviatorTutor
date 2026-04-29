@@ -2,6 +2,10 @@
 declare(strict_types=1);
 /** @var string $content_for_layout */
 $title       = $title       ?? 'AviatorTutor — Premium aviation learning platform';
+// Auto-suffix " — AviatorTutor" so short titles like "Login" become "Login — AviatorTutor"
+if (stripos($title, 'AviatorTutor') === false) {
+    $title = $title . ' — AviatorTutor';
+}
 $description = $description ?? 'Premium aviation learning platform built by pilots, cabin crew, SMS trainers, and instructors. Aircraft systems, weather, SOPs, QRH, CRM, SMS, cabin safety, and airline interview prep.';
 $canonical   = $canonical   ?? 'https://aviatortutor.com' . ($_SERVER['REQUEST_URI'] ?? '/');
 $ogImage     = $ogImage     ?? 'https://aviatortutor.com/assets/og/aviatortutor-1200x630.png';
