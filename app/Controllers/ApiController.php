@@ -280,6 +280,64 @@ class ApiController extends Controller
     }
 
     /**
+     * Record a learner's answer to a slide question gate
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return void
+     */
+    public function slideAnswer(Request $request, Response $response): void
+    {
+        $this->requireAuth();
+
+        $userId    = $this->user()['id'];
+        $lessonId  = (int) $this->param('id');
+        $slideId   = (int) $this->input('slide_id');
+        $isCorrect = $this->input('is_correct') ? 1 : 0;
+        $db = \App\Core\DB::instance();
+
+        if (!$slideId) {
+            $response->status(422);
+            $response->json(['error' => 'slide_id required']);
+            return;
+        }
+
+        // Verify the slide belongs to this lesson and has a question
+        $slide = $db->queryOne(
+            'SELECT id, lesson_id, question
+             FROM lesson_slides
+             WHERE id = ? AND lesson_id = ?',
+            [$slideId, $lessonId]
+        );
+
+        if (!$slide) {
+            $response->status(404);
+            $response->json(['error' => 'Slide not found']);
+            return;
+        }
+
+        if (empty($slide['question'])) {
+            $response->status(422);
+            $response->json(['error' => 'Slide has no question gate']);
+            return;
+        }
+
+        // Upsert progress: increment attempts, OR-in answered_correct
+        $db->execute(
+            'INSERT INTO user_slide_progress
+                 (user_id, lesson_id, slide_id, answered_correct, attempts, viewed_at)
+             VALUES (?, ?, ?, ?, 1, NOW())
+             ON DUPLICATE KEY UPDATE
+                 answered_correct = GREATEST(answered_correct, VALUES(answered_correct)),
+                 attempts = attempts + 1,
+                 viewed_at = NOW()',
+            [$userId, $lessonId, $slideId, $isCorrect]
+        );
+
+        $response->json(['success' => true]);
+    }
+
+    /**
      * Save user notes for a system
      *
      * @param Request $request

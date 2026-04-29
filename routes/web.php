@@ -98,6 +98,7 @@ $router->get('/systems/{id}', 'SystemsController@show');
 // Study Routes
 $router->get('/study/{id}', 'StudyController@detail');
 $router->get('/study/{id}/revision', 'StudyController@revision');
+$router->get('/study/{id}/lesson/{lessonId}', 'StudyController@lesson');
 
 // Flashcard Routes
 $router->get('/flashcards', 'FlashcardController@index');
@@ -165,6 +166,7 @@ $router->post('/api/progress/update', 'ApiController@updateProgress');
 $router->post('/api/flashcard/review', 'ApiController@flashcardReview');
 $router->get('/api/search', 'ApiController@search');
 $router->post('/api/lessons/{id}/complete', 'ApiController@lessonComplete');
+$router->post('/api/lessons/{id}/slide-answer', 'ApiController@slideAnswer');
 $router->post('/api/notes/save', 'ApiController@saveNotes');
 $router->post('/api/notes/delete', 'ApiController@deleteNote');
 $router->post('/api/systems/{id}/complete', 'ApiController@systemComplete');
