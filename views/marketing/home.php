@@ -3,18 +3,18 @@
 <!-- 1. HERO -->
 <section class="hero">
     <div class="container">
-        <span class="hero__chip">Q400 module — live · more aircraft coming soon</span>
+        <span class="hero__chip">Built by aviation professionals · for the aviation community</span>
         <h1>Master aircraft systems, aviation interviews, and pilot knowledge — anytime.</h1>
         <p class="lead">
-            AviatorTutor gives pilots and aviation learners structured self-study access to aircraft systems, interview questions, quizzes, and aviation knowledge — for one simple monthly subscription.
+            AviatorTutor is a premium self-study platform built by pilots, cabin crew, SMS trainers, instructors, and operational aviation experts — for the entire aviation community. Aircraft systems, airline interview prep, and aviation subject packs in one place.
         </p>
         <div class="hero__cta">
-            <a class="btn btn-primary btn-lg" href="/register">Start studying</a>
+            <a class="btn btn-primary btn-lg" href="/register">Start learning</a>
             <a class="btn btn-ghost btn-lg" href="/pricing">View pricing</a>
         </div>
         <div class="hero__metabar">
-            <span><strong class="num">$10</strong> per month, all-in</span>
-            <span><strong class="num">22</strong> Q400 systems mapped</span>
+            <span><strong class="num">38+</strong> study packs</span>
+            <span><strong class="num">22</strong> Q400 systems live</span>
             <span><strong class="num">SM-2</strong> spaced-repetition flashcards</span>
             <span><strong class="num">Mobile</strong> &amp; tablet ready</span>
         </div>
@@ -27,7 +27,7 @@
         <div class="section__head">
             <span class="section__chip">Why AviatorTutor</span>
             <h2>Built for serious aviation learners</h2>
-            <p>Every feature is here because pilots actually use it during line-check prep, type-rating revision, or job interviews.</p>
+            <p>Every feature is here because aviation professionals actually use it during line-check prep, type-rating revision, recurrent training, or job interviews.</p>
         </div>
         <div class="grid grid--3">
             <div class="card">
@@ -37,13 +37,13 @@
             </div>
             <div class="card">
                 <div class="card__icon">I</div>
-                <h3>Pilot interview prep</h3>
-                <p>Examiner-style questions with short answers, long answers, follow-ups, and the common mistakes pilots make.</p>
+                <h3>Airline interview prep</h3>
+                <p>Tech, HR, and sim-profile prep for the world's biggest carriers — examiner-style questions with model answers.</p>
             </div>
             <div class="card">
-                <div class="card__icon">Q</div>
-                <h3>Aviation question banks</h3>
-                <p>MCQ, true/false, fill-in, scenario. Immediate feedback with explanations and weak-area tagging.</p>
+                <div class="card__icon">S</div>
+                <h3>Aviation subject packs</h3>
+                <p>Weather, performance &amp; W&amp;B, CRM, SMS, DGR, navigation, comms, ops control — ICAO-aligned content for the whole industry.</p>
             </div>
             <div class="card">
                 <div class="card__icon">F</div>
@@ -53,7 +53,7 @@
             <div class="card">
                 <div class="card__icon">P</div>
                 <h3>Self-paced learning</h3>
-                <p>No instructor, no schedule, no live classes. You move at your own speed — your progress is saved.</p>
+                <p>No fixed schedule, no live classes. You move at your own speed — your progress is saved.</p>
             </div>
             <div class="card">
                 <div class="card__icon">M</div>
@@ -69,8 +69,8 @@
     <div class="container">
         <div class="section__head">
             <span class="section__chip">Aircraft library</span>
-            <h2>Every aircraft we cover.</h2>
-            <p>Q400 is live now. <?= count(array_filter($aircraftList ?? [], fn($a) => $a['status'] === 'coming_soon')) ?> more aircraft modules are in production — pick yours and we'll email you the day it lands.</p>
+            <h2>Aircraft systems libraries</h2>
+            <p>Type-specific systems study with flashcards, quizzes, and progress tracking. Q400 is fully live; B737, A320, B787, ATR-72, A350 and more are in production — pick yours and we'll email you the day it lands.</p>
         </div>
         <div class="grid grid--auto">
             <?php foreach (($aircraftList ?? []) as $a): ?>
@@ -87,37 +87,40 @@
 <section class="section">
     <div class="container">
         <div class="section__head">
-            <span class="section__chip">Skill modules</span>
-            <h2>Beyond the aircraft.</h2>
-            <p>Cross-cutting topics every pilot revisits — from interview prep to CRM and general aviation fundamentals.</p>
+            <span class="section__chip">Beyond the aircraft</span>
+            <h2>Aviation subject packs &amp; airline interview prep</h2>
+            <p>Cross-cutting subjects every aviation professional needs — and dedicated prep for the world's biggest airline interviews.</p>
         </div>
         <div class="grid grid--auto">
-            <a href="/coming-soon/pilot-interview" class="card" style="text-decoration:none;color:inherit;">
-                <span class="tile-badge tile-badge--soon">COMING SOON</span>
-                <h3 style="margin-top:8px;">Pilot Interview Questions</h3>
-                <p>Technical, HR, and scenario questions with model answers.</p>
+            <a href="/pricing#airline-interview" class="card" style="text-decoration:none;color:inherit;">
+                <span class="tile-badge tile-badge--soon">20 AIRLINES</span>
+                <h3 style="margin-top:8px;">Airline Interview Prep</h3>
+                <p>Tech, HR, and sim-profile prep for Emirates, Qatar, Ethiopian, BA, Lufthansa, Cathay, Delta, Singapore Airlines and more.</p>
             </a>
-            <a href="/coming-soon/cabin-crew" class="card" style="text-decoration:none;color:inherit;">
-                <span class="tile-badge tile-badge--soon">COMING SOON</span>
-                <h3 style="margin-top:8px;">Cabin Crew Safety</h3>
-                <p>Recurrent training fundamentals for flight attendants and pursers.</p>
+            <a href="/pricing#aviation-subject" class="card" style="text-decoration:none;color:inherit;">
+                <span class="tile-badge tile-badge--soon">10 SUBJECTS</span>
+                <h3 style="margin-top:8px;">Weather &amp; Performance</h3>
+                <p>METAR/TAF, fronts, hazards, V-speeds, runway analysis, weight &amp; balance — ICAO-aligned.</p>
             </a>
-            <a href="/coming-soon/emergency" class="card" style="text-decoration:none;color:inherit;">
-                <span class="tile-badge tile-badge--soon">COMING SOON</span>
-                <h3 style="margin-top:8px;">Emergency Procedures</h3>
-                <p>Memory items, abnormal/emergency checklists, decision-making drills.</p>
+            <a href="/pricing#aviation-subject" class="card" style="text-decoration:none;color:inherit;">
+                <span class="tile-badge tile-badge--soon">FOR ALL CREW</span>
+                <h3 style="margin-top:8px;">CRM &amp; Human Factors</h3>
+                <p>Crew Resource Management essentials, threat-and-error management, fatigue, decision-making — for pilots and cabin crew.</p>
             </a>
-            <a href="/coming-soon/crm" class="card" style="text-decoration:none;color:inherit;">
-                <span class="tile-badge tile-badge--soon">COMING SOON</span>
-                <h3 style="margin-top:8px;">CRM / Human Factors</h3>
-                <p>Crew Resource Management essentials, threat-and-error management, communication.</p>
+            <a href="/pricing#aviation-subject" class="card" style="text-decoration:none;color:inherit;">
+                <span class="tile-badge tile-badge--soon">SAFETY</span>
+                <h3 style="margin-top:8px;">SMS &amp; Dangerous Goods</h3>
+                <p>ICAO Annex 19 SMS pillars and IATA DGR awareness — built for safety teams, trainers, and crew.</p>
             </a>
-            <a href="/coming-soon/general-aviation" class="card" style="text-decoration:none;color:inherit;">
-                <span class="tile-badge tile-badge--soon">COMING SOON</span>
-                <h3 style="margin-top:8px;">General Aviation Knowledge</h3>
-                <p>Air law, meteorology, navigation, principles of flight, performance.</p>
+            <a href="/pricing#aviation-subject" class="card" style="text-decoration:none;color:inherit;">
+                <span class="tile-badge tile-badge--soon">REGULATION</span>
+                <h3 style="margin-top:8px;">Navigation, Comms &amp; Air Law</h3>
+                <p>RNAV/RNP/PBN, ICAO phraseology, ICAO Annexes &amp; FAR/JAR rules — the regulation layer pilots and dispatchers actually need.</p>
             </a>
         </div>
+        <p class="text-center" style="margin-top:32px;">
+            <a href="/pricing" class="btn">See full subject &amp; airline catalog →</a>
+        </p>
     </div>
 </section>
 
@@ -131,19 +134,19 @@
         <div class="grid grid--4 steps">
             <div class="step">
                 <h3>Create your account</h3>
-                <p>Email and password — no credit card needed to register.</p>
+                <p>Email and password. Confirm your email and you're in.</p>
             </div>
             <div class="step">
-                <h3>Subscribe for $10/month</h3>
-                <p>Redeem an activation code to unlock the study library for 30 days.</p>
+                <h3>Pick a study pack</h3>
+                <p>Aircraft pack, airline interview pack, or aviation subject pack — one-time payment, lifetime access.</p>
             </div>
             <div class="step">
-                <h3>Choose your study area</h3>
-                <p>Pick an aircraft, system, or question bank. Save what you've covered.</p>
-            </div>
-            <div class="step">
-                <h3>Learn, quiz, and track</h3>
+                <h3>Start studying</h3>
                 <p>Lessons, flashcards, quizzes, scenarios. Your progress is saved automatically.</p>
+            </div>
+            <div class="step">
+                <h3>Practice &amp; track</h3>
+                <p>Spaced repetition surfaces what you're about to forget. Quiz scores show your weak areas.</p>
             </div>
         </div>
     </div>
@@ -154,27 +157,44 @@
     <div class="container">
         <div class="section__head">
             <span class="section__chip">Pricing</span>
-            <h2>One simple subscription</h2>
-            <p>No tiers, no upsells, no hidden costs.</p>
+            <h2>Pay for what you study</h2>
+            <p>Per-pack one-time payment. Lifetime access. No subscription, no recurring fees.</p>
         </div>
-        <div class="pricing-card">
-            <div style="font-size:.78rem;color:var(--text-soft);text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Monthly</div>
-            <div class="pricing-card__price">$10<small>/month</small></div>
-            <p class="muted" style="font-size:.92rem;margin:0;">Full access to every module currently live.</p>
-            <ul class="pricing-card__list">
-                <li>All Q400 aircraft systems</li>
-                <li>Aviation question bank &amp; quizzes</li>
-                <li>Spaced-repetition flashcards (SM-2)</li>
-                <li>Progress tracking &amp; weak-area surfacing</li>
-                <li>Interactive system diagrams</li>
-                <li>Mobile, tablet &amp; desktop ready</li>
-                <li>Cancel anytime — billing ends with the period</li>
-            </ul>
-            <a href="/register" class="btn btn-primary btn-lg btn-block">Start studying now</a>
-            <p style="margin-top:14px;font-size:.82rem;color:var(--text-soft);">
-                Already have an account? <a href="/login">Sign in</a>.
-            </p>
+        <div class="grid grid--3" style="max-width:1100px;margin:0 auto;align-items:stretch;">
+            <div class="card" style="display:flex;flex-direction:column;gap:14px;">
+                <span class="section__chip" style="align-self:flex-start;">Aircraft Packs</span>
+                <h3 style="margin:0;font-size:1.2rem;">Aircraft systems study</h3>
+                <p style="margin:0;color:var(--text-muted);">Type-specific systems study with flashcards, quizzes, and progress tracking. 8 aircraft published — Q400 live now.</p>
+                <div style="display:flex;align-items:baseline;gap:6px;">
+                    <span style="font-family:'DM Sans',Inter,sans-serif;font-size:2rem;font-weight:700;color:var(--text);">$29</span>
+                    <span style="color:var(--text-soft);font-size:.9rem;">/ pack · lifetime</span>
+                </div>
+                <a href="/pricing" class="btn btn-primary" style="margin-top:auto;">Browse aircraft packs</a>
+            </div>
+            <div class="card" style="display:flex;flex-direction:column;gap:14px;">
+                <span class="section__chip" style="align-self:flex-start;">Airline Interview</span>
+                <h3 style="margin:0;font-size:1.2rem;">Airline interview prep</h3>
+                <p style="margin:0;color:var(--text-muted);">Tech, HR, and sim-profile prep for Emirates, Qatar, Ethiopian, BA, Lufthansa, and 15 more carriers.</p>
+                <div style="display:flex;align-items:baseline;gap:6px;">
+                    <span style="font-family:'DM Sans',Inter,sans-serif;font-size:2rem;font-weight:700;color:var(--text);">$19</span>
+                    <span style="color:var(--text-soft);font-size:.9rem;">/ pack · lifetime</span>
+                </div>
+                <a href="/pricing" class="btn btn-primary" style="margin-top:auto;">Browse interview packs</a>
+            </div>
+            <div class="card" style="display:flex;flex-direction:column;gap:14px;">
+                <span class="section__chip" style="align-self:flex-start;">Aviation Subjects</span>
+                <h3 style="margin:0;font-size:1.2rem;">Aviation subject packs</h3>
+                <p style="margin:0;color:var(--text-muted);">Weather, performance, CRM, SMS, DGR, navigation, comms, ops control, human factors, air law.</p>
+                <div style="display:flex;align-items:baseline;gap:6px;">
+                    <span style="font-family:'DM Sans',Inter,sans-serif;font-size:2rem;font-weight:700;color:var(--text);">$14</span>
+                    <span style="color:var(--text-soft);font-size:.9rem;">/ pack · lifetime</span>
+                </div>
+                <a href="/pricing" class="btn btn-primary" style="margin-top:auto;">Browse subject packs</a>
+            </div>
         </div>
+        <p class="text-center" style="margin-top:32px;color:var(--text-soft);font-size:.9rem;">
+            Have an activation code from a partner? <a href="/redeem">Redeem here</a> — works for any pack.
+        </p>
     </div>
 </section>
 
@@ -189,11 +209,11 @@
         <div class="grid grid--auto" style="gap:18px;">
             <div class="card">
                 <h3>Dashboard</h3>
-                <p>Your in-progress systems, due flashcards, recent quiz scores, and weak areas — at a glance.</p>
+                <p>Your in-progress packs, due flashcards, recent quiz scores, and weak areas — at a glance.</p>
             </div>
             <div class="card">
                 <h3>Lessons</h3>
-                <p>System-by-system content with key facts, must-know items, and exam traps highlighted.</p>
+                <p>Subject-by-subject content with key facts, must-know items, and exam traps highlighted.</p>
             </div>
             <div class="card">
                 <h3>Flashcards</h3>
@@ -211,9 +231,9 @@
 <section class="section section--alt">
     <div class="container container-tight">
         <h2 style="text-align:center;">A focused online aviation study platform</h2>
-        <p>AviatorTutor is built for pilots transitioning to a new aircraft type, student pilots preparing for theory exams, cabin crew working through recurrent training, and aviation interview candidates putting the final polish on their preparation. The platform replaces the fragmented worksheet-and-PDF workflow with a single, structured study environment.</p>
-        <p>Our Q400 systems coverage is chapter-aligned to the aircraft's training manuals — electrical, hydraulic, fuel, powerplant, propeller, flight controls, landing gear, air conditioning &amp; pressurization, pneumatics, ice and rain protection, fire protection, autoflight, navigation, communications, indicating and recording (EFIS/EICAS), oxygen, lighting, and the airframe general chapter — backed by interactive diagrams, flashcards with spaced repetition, and timed quizzes.</p>
-        <p>For interview preparation we are building a question bank covering technical, HR, and scenario items with model answers and follow-up prompts. For self-paced pilot learning the system saves your progress, suggests next steps, and surfaces the topics where your retention is weakest. Aviation training online should be focused, practical, and respect your time — that is what AviatorTutor is built for.</p>
+        <p>AviatorTutor is built for aviation professionals: line pilots and type-rating candidates, cabin crew working through recurrent training, dispatchers, ground and safety teams, instructors, and aviation interview candidates putting the final polish on their preparation. The platform replaces the fragmented worksheet-and-PDF workflow with a single, structured study environment.</p>
+        <p>We cover aircraft systems for multiple types (Q400 live; B737, B787, A320, ATR-72, A350 and more in production), ICAO-aligned aviation subjects (weather and meteorology, performance and weight &amp; balance, CRM and human factors, SMS, dangerous goods, air law, navigation and PBN, communications and phraseology, operations control), and airline interview prep for 20+ major carriers. Every pack ships with structured lessons, interactive content, spaced-repetition flashcards, and timed quizzes.</p>
+        <p>For the team behind it: AviatorTutor is built by a network of working aviation professionals — pilots, cabin crew, safety/SMS trainers, instructors, and operational aviation experts — who got tired of fragmented study material. Aviation training online should be focused, practical, and respect your time. That is what AviatorTutor is built for.</p>
     </div>
 </section>
 
@@ -241,8 +261,11 @@
     <div class="container container-tight">
         <div class="card card--accent" style="text-align:center;padding:48px 32px;">
             <h2>Ready to study seriously?</h2>
-            <p style="max-width:48ch;margin:0 auto 24px;">$10/month. Cancel anytime. Mobile, tablet, desktop. Built by someone who actually flies the line.</p>
-            <a href="/register" class="btn btn-primary btn-lg">Create your account</a>
+            <p style="max-width:48ch;margin:0 auto 24px;">Pick a pack and start tonight. One-time payment, lifetime access. Mobile, tablet, desktop — built by working aviation professionals.</p>
+            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+                <a href="/register" class="btn btn-primary btn-lg">Create your account</a>
+                <a href="/pricing" class="btn btn-ghost btn-lg">Browse packs</a>
+            </div>
         </div>
     </div>
 </section>

@@ -55,10 +55,41 @@ $router->get('/register', 'AuthController@registerForm');
 $router->post('/register', 'AuthController@register');
 $router->get('/logout', 'AuthController@logout');
 
+// Email verification
+$router->get('/verify-email',           'AuthController@verifyEmailPage');
+$router->post('/verify-email/resend',   'AuthController@resendVerification');
+$router->get('/verify-email/{token}',   'AuthController@verifyEmail');
+
+// Password reset
+$router->get('/forgot-password',         'AuthController@forgotForm');
+$router->post('/forgot-password',        'AuthController@forgotSend');
+$router->get('/reset-password/{token}',  'AuthController@resetForm');
+$router->post('/reset-password/{token}', 'AuthController@resetPassword');
+
+// Onboarding wizard
+$router->get('/onboarding/aircraft',  'OnboardingController@aircraft');
+$router->post('/onboarding/aircraft', 'OnboardingController@setAircraft');
+$router->get('/onboarding/subjects',  'OnboardingController@subjects');
+$router->post('/onboarding/subjects', 'OnboardingController@setSubjects');
+
 // Subscription routes
 $router->get('/redeem',  'SubscriptionController@showRedeem');
 $router->post('/redeem', 'SubscriptionController@redeem');
 $router->get('/account', 'SubscriptionController@account');
+
+// Checkout (Stripe)
+$router->get('/checkout/success',  'CheckoutController@success');
+$router->get('/checkout/cancel',   'CheckoutController@cancel');
+$router->get('/checkout/{slug}',   'CheckoutController@show');
+$router->post('/checkout/{slug}',  'CheckoutController@create');
+$router->post('/stripe/webhook',   'CheckoutController@webhook');
+
+// Profile routes
+$router->get('/profile',           'ProfileController@show');
+$router->post('/profile/update',   'ProfileController@update');
+$router->post('/profile/avatar',   'ProfileController@avatar');
+$router->get('/profile/password',  'ProfileController@passwordForm');
+$router->post('/profile/password', 'ProfileController@passwordChange');
 
 // Systems Routes
 $router->get('/systems', 'SystemsController@index');
@@ -106,6 +137,9 @@ $router->post('/admin/codes/revoke',   'AdminController@codesRevoke');
 $router->get('/admin/users', 'AdminController@users');
 $router->post('/admin/users/update', 'AdminController@usersUpdate');
 $router->get('/admin/leads', 'AdminController@leads');
+$router->get('/admin/contacts',          'AdminController@contacts');
+$router->get('/admin/contacts/{id}',     'AdminController@contactShow');
+$router->post('/admin/contacts/{id}',    'AdminController@contactUpdate');
 $router->get('/admin/aircrafts', 'AdminController@aircrafts');
 $router->post('/admin/aircrafts/update', 'AdminController@aircraftsUpdate');
 $router->get('/admin/content', 'AdminController@content');
@@ -116,6 +150,12 @@ $router->get('/admin/flashcards', 'AdminController@flashcards');
 $router->post('/admin/flashcards/create', 'AdminController@createFlashcard');
 $router->get('/admin/quizzes', 'AdminController@quizzes');
 $router->post('/admin/quizzes/create', 'AdminController@createQuiz');
+$router->get('/admin/subscriptions', 'AdminController@subscriptions');
+$router->post('/admin/subscriptions/cancel', 'AdminController@subscriptionCancel');
+$router->get('/admin/pricing', 'AdminController@pricing');
+$router->post('/admin/pricing/update', 'AdminController@pricingUpdate');
+$router->get('/admin/settings', 'AdminController@settings');
+$router->post('/admin/settings/update', 'AdminController@settingsUpdate');
 
 // ============================================================================
 // API ROUTES
@@ -126,4 +166,9 @@ $router->post('/api/flashcard/review', 'ApiController@flashcardReview');
 $router->get('/api/search', 'ApiController@search');
 $router->post('/api/lessons/{id}/complete', 'ApiController@lessonComplete');
 $router->post('/api/notes/save', 'ApiController@saveNotes');
+$router->post('/api/notes/delete', 'ApiController@deleteNote');
 $router->post('/api/systems/{id}/complete', 'ApiController@systemComplete');
+$router->post('/api/ai/ask', 'ApiController@aiAsk');
+
+// Notes page
+$router->get('/notes', 'NotesController@index');

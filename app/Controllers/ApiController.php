@@ -354,4 +354,55 @@ class ApiController extends Controller
 
         $response->json(['success' => true, 'system_id' => $systemId, 'lessons_completed' => count($lessons)]);
     }
+
+    /**
+     * Delete a note belonging to the current user.
+     * Works for both JSON (XHR) and form-POST (with redirect back to /notes).
+     */
+    public function deleteNote(Request $request, Response $response): void
+    {
+        $this->requireAuth();
+
+        if (!\App\Core\CSRF::check($request)) {
+            $response->status(419);
+            $response->json(['error' => 'CSRF token mismatch']);
+            return;
+        }
+
+        $userId = (int) ($this->user()['id'] ?? 0);
+        $noteId = (int) $this->input('note_id', 0);
+        if ($noteId <= 0) {
+            $response->status(422);
+            $response->json(['error' => 'note_id required']);
+            return;
+        }
+
+        $rows = \App\Core\DB::instance()->execute(
+            'DELETE FROM notes WHERE id = ? AND user_id = ?',
+            [$noteId, $userId]
+        );
+
+        // If posted from a form, redirect back; otherwise return JSON.
+        $accept = (string) ($_SERVER['HTTP_ACCEPT'] ?? '');
+        if (strpos($accept, 'application/json') === false) {
+            $_SESSION['flash_ok'] = $rows > 0 ? 'Note deleted.' : 'Note not found.';
+            $this->redirect('/notes');
+            return;
+        }
+        $response->json(['success' => $rows > 0]);
+    }
+
+    /**
+     * AI Q&A placeholder — returns 501 until an LLM provider is wired in.
+     * The frontend study panel can call this and gracefully degrade.
+     */
+    public function aiAsk(Request $request, Response $response): void
+    {
+        $this->requireAuth();
+        $response->status(501);
+        $response->json([
+            'error'   => 'not_implemented',
+            'message' => 'AI Q&A is launching soon. Stay tuned!',
+        ]);
+    }
 }

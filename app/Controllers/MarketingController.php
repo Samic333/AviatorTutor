@@ -20,24 +20,60 @@ class MarketingController extends Controller
 {
     public function pricing(Request $request, Response $response): void
     {
+        // Pull catalog from subjects table (Phase 4). Fall back to legacy flat-rate if not migrated.
+        $aircraftPacks    = [];
+        $airlinePacks     = [];
+        $subjectPacks     = [];
+        $catalogAvailable = false;
+        try {
+            $aircraftPacks = \App\Services\PurchaseService::catalog('aircraft_pack');
+            $airlinePacks  = \App\Services\PurchaseService::catalog('airline_interview');
+            $subjectPacks  = \App\Services\PurchaseService::catalog('aviation_subject');
+            $catalogAvailable = !empty($aircraftPacks) || !empty($airlinePacks) || !empty($subjectPacks);
+        } catch (\Throwable $e) {
+            $catalogAvailable = false;
+        }
+
+        $userId       = (int) ($this->user()['id'] ?? 0);
+        $userPurchases = [];
+        if ($userId > 0 && $catalogAvailable) {
+            $rows = \App\Services\PurchaseService::userPurchases($userId);
+            foreach ($rows as $r) {
+                $userPurchases[(string) $r['slug']] = true;
+            }
+        }
+
+        $selectedSlugs = array_merge(
+            (array) ($_SESSION['onboarding_subject_slugs'] ?? []),
+            $_SESSION['onboarding_aircraft_slug'] ?? '' ? [$_SESSION['onboarding_aircraft_slug']] : []
+        );
+
         $jsonLd = [
-            '@context' => 'https://schema.org',
-            '@type' => 'Product',
-            'name'  => 'AviatorTutor monthly subscription',
-            'description' => 'Full access to AviatorTutor self-study platform including aircraft systems, flashcards, quizzes and progress tracking.',
-            'offers' => [
-                '@type'         => 'Offer',
-                'price'         => '10.00',
+            '@context'    => 'https://schema.org',
+            '@type'       => 'Product',
+            'name'        => 'AviatorTutor study packs',
+            'description' => 'Per-subject study packs for aircraft systems, airline interview prep, and aviation subjects.',
+            'offers'      => [
+                '@type'         => 'AggregateOffer',
                 'priceCurrency' => 'USD',
+                'lowPrice'      => '14.00',
+                'highPrice'     => '29.00',
                 'url'           => 'https://aviatortutor.com/pricing',
                 'availability'  => 'https://schema.org/InStock',
             ],
         ];
 
         $response->html($this->view('marketing/pricing', [
-            'title'       => 'Pricing — AviatorTutor',
-            'description' => 'One simple subscription: $10/month for full access to aircraft systems, interview prep, flashcards, quizzes and progress tracking.',
-            'jsonLd'      => $jsonLd,
+            'title'            => 'Pricing — AviatorTutor',
+            'description'      => 'Per-subject access: aircraft packs $29, airline interview prep $19, aviation subject packs $14.',
+            'jsonLd'           => $jsonLd,
+            'aircraftPacks'    => $aircraftPacks,
+            'airlinePacks'     => $airlinePacks,
+            'subjectPacks'     => $subjectPacks,
+            'userPurchases'    => $userPurchases,
+            'selectedSlugs'    => array_flip(array_filter($selectedSlugs)),
+            'catalogAvailable' => $catalogAvailable,
+            'isAuthenticated'  => $this->isAuthenticated(),
         ], 'marketing'));
     }
 
@@ -75,6 +111,25 @@ class MarketingController extends Controller
             $_SESSION['flash_error'] = 'Please provide a name, valid email, and a message of at least 10 characters.';
             $this->redirect('/contact');
             return;
+        }
+
+        // Persist to admin inbox (source of truth). Mail step below remains as a courtesy notifier.
+        $authedUserId = $this->isAuthenticated() ? (int) ($this->user()['id'] ?? 0) : null;
+        try {
+            DB::instance()->insert(
+                'INSERT INTO contact_messages (name, email, message, status, ip, user_agent, user_id)
+                 VALUES (?, ?, ?, "new", ?, ?, ?)',
+                [
+                    $name,
+                    $email,
+                    $message,
+                    $_SERVER['REMOTE_ADDR']     ?? null,
+                    substr((string) ($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 1000),
+                    $authedUserId ?: null,
+                ]
+            );
+        } catch (\Throwable $e) {
+            // Table not migrated yet — fall through to mail+log only. No user-visible error.
         }
 
         $appConfig = require BASE_PATH . '/config/app.php';
@@ -126,9 +181,8 @@ class MarketingController extends Controller
         );
         @file_put_contents($logFile, $line, FILE_APPEND);
 
-        $_SESSION['flash_ok'] = $sent
-            ? 'Thanks — your message is in. We reply within one business day.'
-            : 'Thanks — your message was received and queued; if you don\'t hear back in 48h, email samickenya@gmail.com directly.';
+        // Message is in the admin inbox regardless of whether mail() succeeded.
+        $_SESSION['flash_ok'] = 'Thanks — your message is in. We reply within one business day.';
         $this->redirect('/contact');
     }
 
@@ -214,21 +268,27 @@ class MarketingController extends Controller
     {
         return [
             ['q' => 'What is AviatorTutor?',
-             'a' => 'AviatorTutor is a self-study platform for aviation learners. Subscribers study aircraft systems, interview questions, flashcards and quizzes at their own pace.'],
-            ['q' => 'How much does it cost?',
-             'a' => '$10 per month for full access to every module currently live. No tiers, no upsells.'],
-            ['q' => 'What can I study right now?',
-             'a' => 'Q400 aircraft systems is the first module live, with chapter-by-chapter content, interactive diagrams, flashcards, and quizzes. More aircraft and topic packs are being added.'],
-            ['q' => 'Is this only for pilots?',
-             'a' => 'No — the platform also serves student pilots, cabin crew, and aviation interview candidates. The Q400 module is most useful to pilots transitioning to or revising the type, but the question banks and CRM/Human Factors content (coming) work for any aviation learner.'],
+             'a' => 'A premium aviation learning platform built by aviation professionals — pilots, cabin crew, SMS trainers, and instructors — for the entire aviation community. Aircraft systems, airline interview prep, and aviation subject packs in one place.'],
+            ['q' => 'Who is it for?',
+             'a' => 'Pilots (type-rating candidates and line crews), cabin crew, dispatchers, ground and safety teams, instructors, SMS trainers, and aviation students. If you study aviation, you have a place here.'],
+            ['q' => 'What subjects can I study?',
+             'a' => 'Three pillars: aircraft systems libraries (multi-type), aviation subject packs (weather, performance, CRM, SMS, DGR, navigation, communications, ops control, human factors, air law), and airline interview prep for 20+ major carriers.'],
+            ['q' => 'Is this only aircraft systems?',
+             'a' => 'No. Aircraft systems is one pillar. Aviation subject packs and airline interview prep are equal pillars — most people start with whichever matches their immediate study goal.'],
+            ['q' => 'How does pricing work?',
+             'a' => 'Per-pack one-time purchase with lifetime access — no subscription, no recurring fees. Aircraft packs $29, airline interview prep $19, aviation subject packs $14. Activation codes from partners also work.'],
+            ['q' => 'Who creates the content?',
+             'a' => 'Working aviation professionals — line pilots, cabin crew, safety/SMS trainers, instructors, and operational aviation experts. Every pack is reviewed by subject-matter experts before publication.'],
+            ['q' => "What's live today vs. coming soon?",
+             'a' => 'The Q400 systems pack is fully live. B737, B787, A320, ATR-72, A350 packs and most airline interview / aviation subject packs are in production — you can join waitlists from each tile and we\'ll email you the day it goes live.'],
+            ['q' => 'Do I need to register?',
+             'a' => 'Yes — a free account is required to study or purchase any pack. Registration includes email confirmation. You can browse the catalog before signing up.'],
             ['q' => 'Can I study on mobile?',
-             'a' => 'Yes — the entire platform is responsive. Study on a phone, tablet, or laptop. There are no native apps yet.'],
-            ['q' => 'Do I need an instructor?',
-             'a' => 'No — AviatorTutor is purely self-study. You move at your own pace and the system tracks what you have covered.'],
-            ['q' => 'Are more aircraft modules coming?',
-             'a' => 'Yes. Cessna Caravan / C208 and a Pilot Interview Questions bank are next on the roadmap. Click any "Coming soon" tile to be notified when each one lands.'],
-            ['q' => 'How do I cancel or manage my subscription?',
-             'a' => 'V1 subscriptions are activated via a code that grants 30 days. You don\'t need to "cancel" — the access simply ends after 30 days unless you redeem another code. Stripe-based recurring billing is coming next.'],
+             'a' => 'Yes — the entire platform is responsive on phone, tablet, and laptop with a mobile sidebar drawer. There are no native apps yet, but the web app is fully functional offline-friendly for most workflows.'],
+            ['q' => 'Do you offer organisation or instructor licences?',
+             'a' => 'Yes — schools, training organisations, and airlines can purchase volume bundles via shared activation codes. Use the contact form for a quote.'],
+            ['q' => 'How do I get help?',
+             'a' => 'Use the contact form on the Contact page — your message goes straight into our admin inbox and we reply within one business day.'],
         ];
     }
 

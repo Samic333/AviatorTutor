@@ -9,4 +9,14 @@ return [
     'debug'          => false,
     'base_url'       => 'https://aviatortutor.com',
     'encryption_key' => 'REPLACE_WITH_32+_RANDOM_CHARS_BEFORE_DEPLOY',
+
+    // Email verification (Phase 5)
+    // Set to false during cutover so existing users without email_verified_at can still log in.
+    'require_email_verification' => true,
+
+    // Stripe (Phase 6) — leave blank to keep online checkout disabled.
+    // Get keys from https://dashboard.stripe.com/apikeys
+    'stripe_secret_key'      => '', // sk_live_… or sk_test_…
+    'stripe_publishable_key' => '', // pk_live_… or pk_test_…
+    'stripe_webhook_secret'  => '', // whsec_… from the webhook endpoint setup
 ];

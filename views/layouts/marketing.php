@@ -41,10 +41,16 @@ $is = static fn(string $p): string => $path === $p ? ' active' : '';
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="/assets/css/marketing.css">
     <link rel="stylesheet" href="/assets/css/app-theme.css">
     <meta name="theme-color" content="#0b1322">
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" href="/favicon.svg" color="#38BDF8">
 
     <?php if (!empty($jsonLd)): ?>
         <script type="application/ld+json"><?= json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?></script>
@@ -81,8 +87,8 @@ $is = static fn(string $p): string => $path === $p ? ' active' : '';
                         <a href="/redeem" class="btn btn-primary btn-sm">Redeem code</a>
                     <?php endif; ?>
                 <?php else: ?>
-                    <a href="/login">Sign in</a>
-                    <a href="/register" class="btn btn-primary btn-sm">Start studying</a>
+                    <a href="/login" class="btn btn-ghost btn-sm">Sign in</a>
+                    <a href="/register" class="btn btn-primary btn-sm">Register</a>
                 <?php endif; ?>
             </nav>
         </div>

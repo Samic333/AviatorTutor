@@ -40,8 +40,14 @@ $defaults = [
     'encryption_key' => 'aviatortutor-local-key-change-in-prod-please',
 
     // Contact form / outbound mail
-    'mail_from'   => 'no-reply@aviatortutor.com',
-    'contact_to'  => 'samickenya@gmail.com',
+    'mail_from'      => 'no-reply@aviatortutor.com',
+    'mail_from_name' => 'AviatorTutor',
+    'contact_to'     => 'samickenya@gmail.com',
+
+    // Auth
+    'require_email_verification' => true, // set false to let unverified users log in
+    'verification_token_ttl_hours' => 48,
+    'password_reset_ttl_hours' => 2,
 ];
 
 $localPath = __DIR__ . '/app.local.php';

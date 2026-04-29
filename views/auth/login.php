@@ -49,11 +49,12 @@
                         placeholder="Your password">
                 </div>
 
-                <div class="form-group form-row">
+                <div class="form-group form-row" style="display:flex;justify-content:space-between;align-items:center;">
                     <label class="form-check">
                         <input type="checkbox" name="remember_me" value="1">
                         <span>Remember me</span>
                     </label>
+                    <a href="/forgot-password" style="font-size:13px;color:#38BDF8;text-decoration:none;">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>

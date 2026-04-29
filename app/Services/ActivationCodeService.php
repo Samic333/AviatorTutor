@@ -71,8 +71,11 @@ class ActivationCodeService
         $db->beginTransaction();
         try {
             $row = $db->queryOne(
-                'SELECT id, status, plan, days, expires_at FROM activation_codes
-                 WHERE code = ? FOR UPDATE',
+                'SELECT id, status, plan, days, expires_at,
+                        COALESCE(access_type, "subscription") AS access_type,
+                        subject_id
+                   FROM activation_codes
+                  WHERE code = ? FOR UPDATE',
                 [$code]
             );
 
@@ -104,7 +107,28 @@ class ActivationCodeService
                 [$userId, $now, $row['id']]
             );
 
-            // Insert new subscription
+            // Branch: subject grant or flat-rate subscription
+            if (($row['access_type'] ?? 'subscription') === 'subject' && !empty($row['subject_id'])) {
+                $purchaseId = PurchaseService::grant(
+                    $userId,
+                    (int) $row['subject_id'],
+                    'activation_code',
+                    [
+                        'activation_code_id' => (int) $row['id'],
+                        'amount_paid_usd'    => 0.00,
+                    ]
+                );
+
+                $db->commit();
+                return [
+                    'ok'           => true,
+                    'access_type'  => 'subject',
+                    'subject_id'   => (int) $row['subject_id'],
+                    'purchase_id'  => $purchaseId,
+                ];
+            }
+
+            // Default: legacy flat-rate subscription path.
             $subId = (int) $db->insert(
                 'INSERT INTO subscriptions
                     (user_id, plan, status, payment_provider, starts_at, expires_at, activation_code_id)
@@ -125,7 +149,7 @@ class ActivationCodeService
             );
 
             $db->commit();
-            return ['ok' => true, 'subscription_id' => $subId, 'expires_at' => $expires];
+            return ['ok' => true, 'access_type' => 'subscription', 'subscription_id' => $subId, 'expires_at' => $expires];
         } catch (\Throwable $e) {
             $db->rollback();
             return ['ok' => false, 'error' => 'Something went wrong. Please try again.'];

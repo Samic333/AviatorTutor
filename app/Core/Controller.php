@@ -37,10 +37,18 @@ abstract class Controller
      */
     public function __construct(Request $request = null, Response $response = null)
     {
-        $this->request = $request ?? new Request();
+        $this->request  = $request  ?? new Request();
         $this->response = $response ?? new Response();
-        $this->view = new View();
-        $this->auth = new Auth();
+        $this->view     = new View();
+        $this->auth     = new Auth();
+
+        // Keep session role in sync with DB — prevents stale admin access after role change
+        if (Auth::check()) {
+            $fresh = DB::instance()->queryOne('SELECT role FROM users WHERE id = ?', [Auth::id()]);
+            if ($fresh !== null) {
+                Auth::update(['role' => $fresh['role']]);
+            }
+        }
     }
 
     /**
@@ -325,6 +333,32 @@ abstract class Controller
         if (!\App\Services\SubscriptionService::hasActive($userId)) {
             $_SESSION['flash_notice'] = 'A monthly subscription is required to access study content.';
             $this->redirect('/redeem');
+            exit;
+        }
+    }
+
+    /**
+     * Require purchase / access to a specific subject. Admins always pass.
+     * Falls through PurchaseService::hasAccess(), which honours the legacy
+     * flat-rate subscription for the q400-pack subject.
+     *
+     * @param string $subjectSlug e.g. "q400-pack"
+     */
+    protected function requireSubjectAccess(string $subjectSlug): void
+    {
+        $this->requireAuth();
+        $user   = $this->user();
+        $userId = (int) ($user['id'] ?? 0);
+        if ($userId === 0) {
+            $this->redirect('/login');
+            exit;
+        }
+        if (($user['role'] ?? '') === 'admin') {
+            return;
+        }
+        if (!\App\Services\PurchaseService::hasAccess($userId, $subjectSlug)) {
+            $_SESSION['flash_notice'] = 'Purchase required to access this content.';
+            $this->redirect('/pricing');
             exit;
         }
     }

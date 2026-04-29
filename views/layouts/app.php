@@ -7,7 +7,7 @@ declare(strict_types=1);
 /** @var ?array  $breadcrumbs */
 $path     = $currentPath ?? parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 $pageTitle= ($title ?? 'Dashboard') . ' — AviatorTutor';
-$isAdmin  = !empty($currentUser['role']) && $currentUser['role'] === 'admin';
+$isAdmin  = isset($currentUser['role']) && $currentUser['role'] === 'admin';
 $nav = [
     ['/dashboard',  'Dashboard',  'home'],
     ['/systems',    'Systems',    'layers'],
