@@ -159,8 +159,7 @@ class QuizController extends Controller
             $isCorrect = false;
             if ($question && $answer !== null) {
                 $correctAnswer = json_decode($question['correct_answer'], true);
-                // Normalize comparison: both as strings
-                $isCorrect = (string)$correctAnswer === (string)$answer;
+                $isCorrect = json_encode($correctAnswer) === json_encode($answer);
             }
 
             $db->insert(

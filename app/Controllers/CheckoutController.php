@@ -120,7 +120,7 @@ class CheckoutController extends Controller
         $this->redirect($session['url']);
     }
 
-    public function success(Request $request, Response $response): void
+    public function successPage(Request $request, Response $response): void
     {
         $this->requireAuth();
         $sessionId = (string) $request->input('session_id');

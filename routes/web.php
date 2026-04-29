@@ -82,7 +82,7 @@ $router->get('/account', 'SubscriptionController@account');
 // codes (/redeem) remain the paid path until tiered subscriptions launch.
 // Re-enable by uncommenting the four /checkout routes below.
 //
-// $router->get('/checkout/success',  'CheckoutController@success');
+// $router->get('/checkout/success',  'CheckoutController@successPage');
 // $router->get('/checkout/cancel',   'CheckoutController@cancel');
 // $router->get('/checkout/{slug}',   'CheckoutController@show');
 // $router->post('/checkout/{slug}',  'CheckoutController@create');

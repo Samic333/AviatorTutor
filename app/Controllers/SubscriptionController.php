@@ -30,9 +30,9 @@ class SubscriptionController extends Controller
             'title' => 'Activate your subscription',
             'csrf_token' => CSRF::generate(),
             'currentSubscription' => $current,
-            'flashNotice' => self::popFlash('flash_notice'),
-            'flashError'  => self::popFlash('flash_error'),
-            'flashOk'     => self::popFlash('flash_ok'),
+            'flashNotice' => $this->popFlash('flash_notice'),
+            'flashError'  => $this->popFlash('flash_error'),
+            'flashOk'     => $this->popFlash('flash_ok'),
         ];
         $response->html($this->view('subscription/redeem', $data, 'marketing'));
     }
@@ -93,17 +93,10 @@ class SubscriptionController extends Controller
             'currentSubscription' => SubscriptionService::current($userId),
             'latestSubscription'  => SubscriptionService::latest($userId),
             'csrf_token' => CSRF::generate(),
-            'flashOk'    => self::popFlash('flash_ok'),
-            'flashError' => self::popFlash('flash_error'),
+            'flashOk'    => $this->popFlash('flash_ok'),
+            'flashError' => $this->popFlash('flash_error'),
         ];
         $response->html($this->view('subscription/account', $data, 'app'));
-    }
-
-    private static function popFlash(string $key): ?string
-    {
-        $val = $_SESSION[$key] ?? null;
-        unset($_SESSION[$key]);
-        return $val;
     }
 
     private static function isRateLimited(?string $ip): bool
