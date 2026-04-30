@@ -579,13 +579,24 @@ class AdminController extends Controller
         $this->requireAdmin();
         // quiz_questions is wired against the legacy `modules` table; for the
         // quiz container itself we just show the basic metadata + timing.
+        // Schema drift: schema.sql named the column `time_limit_mins`,
+        // some installs renamed it to `time_limit_minutes`. Pick whichever
+        // exists so prod and dev both work.
+        $cols = array_column(
+            DB::instance()->query('SHOW COLUMNS FROM quizzes'),
+            'Field'
+        );
+        $timeCol = in_array('time_limit_minutes', $cols, true)
+            ? 'q.time_limit_minutes'
+            : (in_array('time_limit_mins', $cols, true) ? 'q.time_limit_mins' : 'NULL');
+
         $quizzes = DB::instance()->query(
-            'SELECT q.id, q.title, q.quiz_type, q.time_limit_minutes, q.pass_score,
-                    q.is_published, q.system_id,
+            "SELECT q.id, q.title, q.quiz_type, $timeCol AS time_limit_minutes,
+                    q.pass_score, q.is_published, q.system_id,
                     s.name AS system_name
              FROM quizzes q
              LEFT JOIN systems s ON s.id = q.system_id
-             ORDER BY q.id DESC LIMIT 100'
+             ORDER BY q.id DESC LIMIT 100"
         );
         $response->html($this->view('admin/quizzes', [
             'title'      => 'Quizzes',
@@ -782,8 +793,7 @@ class AdminController extends Controller
             [$lessonId]
         );
         if (!$lesson) {
-            $response->status(404);
-            $response->html('<h1>Lesson not found</h1>');
+            $this->renderNotFound('Lesson Not Found', 'That lesson doesn’t exist or has been removed. Pick a lesson from the slide lessons index.', '/admin/slides', 'Back to slide lessons');
             return;
         }
 
@@ -1102,34 +1112,44 @@ class AdminController extends Controller
         $messages = [];
         $unreadCount = 0;
         $statusCounts = ['new' => 0, 'read' => 0, 'replied' => 0, 'archived' => 0];
+        $tableExists = false;
         try {
-            // Try with `subject` column (Phase-1 migration applied); fall back if not.
-            try {
-                $messages = DB::instance()->query(
-                    "SELECT id, name, email, subject, message, status, ip, user_id, created_at, updated_at
-                       FROM contact_messages
-                       $where
-                      ORDER BY created_at DESC
-                      LIMIT 200",
-                    $params
-                );
-            } catch (\Throwable $eSubj) {
-                $messages = DB::instance()->query(
-                    "SELECT id, name, email, message, status, ip, user_id, created_at, updated_at
-                       FROM contact_messages
-                       $where
-                      ORDER BY created_at DESC
-                      LIMIT 200",
-                    $params
-                );
+            // Check the table actually exists before querying. An empty
+            // contact_messages table is still "exists" — the previous heuristic
+            // (any messages or any non-zero status count) wrongly reported
+            // missing-table when the inbox just had zero messages.
+            $exists = DB::instance()->query("SHOW TABLES LIKE 'contact_messages'");
+            $tableExists = !empty($exists);
+            if ($tableExists) {
+                // Try with `subject` column (Phase-1 migration applied); fall back if not.
+                try {
+                    $messages = DB::instance()->query(
+                        "SELECT id, name, email, subject, message, status, ip, user_id, created_at, updated_at
+                           FROM contact_messages
+                           $where
+                          ORDER BY created_at DESC
+                          LIMIT 200",
+                        $params
+                    );
+                } catch (\Throwable $eSubj) {
+                    $messages = DB::instance()->query(
+                        "SELECT id, name, email, message, status, ip, user_id, created_at, updated_at
+                           FROM contact_messages
+                           $where
+                          ORDER BY created_at DESC
+                          LIMIT 200",
+                        $params
+                    );
+                }
+                $rows = DB::instance()->query('SELECT status, COUNT(*) AS c FROM contact_messages GROUP BY status');
+                foreach ($rows as $r) {
+                    $statusCounts[(string) $r['status']] = (int) $r['c'];
+                }
+                $unreadCount = $statusCounts['new'] ?? 0;
             }
-            $rows = DB::instance()->query('SELECT status, COUNT(*) AS c FROM contact_messages GROUP BY status');
-            foreach ($rows as $r) {
-                $statusCounts[(string) $r['status']] = (int) $r['c'];
-            }
-            $unreadCount = $statusCounts['new'] ?? 0;
         } catch (\Throwable $e) {
             // contact_messages table not migrated yet — view shows the migration notice.
+            $tableExists = false;
         }
 
         $response->html($this->view('admin/contacts', [
@@ -1138,7 +1158,7 @@ class AdminController extends Controller
             'statusFilter' => $statusFilter,
             'statusCounts' => $statusCounts,
             'unreadCount'  => $unreadCount,
-            'tableExists'  => !empty($messages) || array_sum($statusCounts) > 0,
+            'tableExists'  => $tableExists,
             'csrf_token'   => CSRF::generate(),
             'flashOk'      => $this->popFlash('flash_ok'),
             'flashError'   => $this->popFlash('flash_error'),
