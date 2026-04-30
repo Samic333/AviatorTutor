@@ -12,9 +12,11 @@
 $systemId = (int)$system['id'];
 $lessonId = (int)$lesson['id'];
 
-// Decode the per-slide question JSON ahead of time so the template stays clean.
-// IMPORTANT: never echo the correct_index — the JS only knows the user's choice;
-// scoring of correctness happens here in PHP via a hidden data attribute.
+// Decode the per-slide question JSON for display.
+// SECURITY: never echo `correct_index` or the explanation into the initial
+// page render. Both are returned by /api/lessons/{id}/slide-answer only after
+// the learner submits — and the explanation only after the gate is settled
+// (correct OR retry budget exhausted).
 $slideTypeLabels = [
     'intro'       => 'Introduction',
     'concept'     => 'Concept',
@@ -141,8 +143,7 @@ $systemColor = $system['color'] ?? '#34d399';
         class="slide-card<?= $idx === 0 ? ' is-active' : '' ?><?= $hasGate ? ' has-gate' : '' ?><?= $alreadyCorrect ? ' gate-already-passed' : '' ?>"
         data-slide-id="<?= $sid ?>"
         data-slide-index="<?= $idx ?>"
-        data-has-gate="<?= $hasGate ? '1' : '0' ?>"
-        <?php if ($hasGate): ?>data-correct-index="<?= (int)$question['correct_index'] ?>"<?php endif ?>>
+        data-has-gate="<?= $hasGate ? '1' : '0' ?>">
 
         <div class="slide-pill slide-pill-<?= htmlspecialchars($stype) ?>">
           <i data-lucide="<?= htmlspecialchars($sIcon) ?>"></i>
@@ -273,9 +274,10 @@ $systemColor = $system['color'] ?? '#34d399';
             </div>
             <div class="slide-gate-feedback" hidden>
               <div class="slide-gate-feedback-inner"></div>
-              <div class="slide-gate-explanation">
-                <?= !empty($question['explanation']) ? nl2br(htmlspecialchars($question['explanation'])) : '' ?>
-              </div>
+              <!-- Explanation is filled in by the slide-answer API response,
+                   only after the learner has either answered correctly or
+                   used up their retries. We never render it server-side. -->
+              <div class="slide-gate-explanation" hidden></div>
             </div>
           </fieldset>
         <?php endif; ?>

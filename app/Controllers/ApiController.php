@@ -252,6 +252,8 @@ class ApiController extends Controller
     {
         $this->requireAuth();
 
+        $MAX_ATTEMPTS = 3; // mirror slideAnswer
+
         $userId = $this->user()['id'];
         $lessonId = $this->param('id');
         $db = \App\Core\DB::instance();
@@ -268,6 +270,32 @@ class ApiController extends Controller
             return;
         }
 
+        // SECURITY GATE: every gated slide in this lesson must be settled —
+        // either answered correctly OR exhausted to MAX_ATTEMPTS. Without
+        // this check a learner could POST /complete directly and skip every
+        // question gate.
+        $unsettled = $db->queryOne(
+            'SELECT COUNT(*) AS n
+             FROM lesson_slides s
+             LEFT JOIN user_slide_progress p
+                 ON p.slide_id = s.id AND p.user_id = ?
+             WHERE s.lesson_id = ?
+               AND s.question IS NOT NULL
+               AND JSON_EXTRACT(s.question, "$.correct_index") IS NOT NULL
+               AND COALESCE(p.answered_correct, 0) = 0
+               AND COALESCE(p.attempts, 0) < ?',
+            [$userId, $lessonId, $MAX_ATTEMPTS]
+        );
+
+        if ((int) ($unsettled['n'] ?? 0) > 0) {
+            $response->status(403);
+            $response->json([
+                'error' => 'Some question gates are still unanswered. Answer them (or use up your retries) before marking the lesson complete.',
+                'unsettled_gate_count' => (int) $unsettled['n'],
+            ]);
+            return;
+        }
+
         // Upsert progress record
         $db->execute(
             'INSERT INTO user_progress (user_id, system_id, lesson_id, status, last_studied, confidence)
@@ -280,7 +308,13 @@ class ApiController extends Controller
     }
 
     /**
-     * Record a learner's answer to a slide question gate
+     * Record a learner's answer to a slide question gate.
+     *
+     * SECURITY: Correctness is computed SERVER-SIDE from the slide's stored
+     * question JSON — we never trust a client-supplied `is_correct` flag.
+     * After MAX_ATTEMPTS wrong tries the gate auto-unlocks (with the
+     * explanation revealed) so the learner can keep moving; the failure is
+     * still recorded for revision tracking.
      *
      * @param Request $request
      * @param Response $response
@@ -290,19 +324,22 @@ class ApiController extends Controller
     {
         $this->requireAuth();
 
-        $userId    = $this->user()['id'];
-        $lessonId  = (int) $this->param('id');
-        $slideId   = (int) $this->input('slide_id');
-        $isCorrect = $this->input('is_correct') ? 1 : 0;
-        $db = \App\Core\DB::instance();
+        $MAX_ATTEMPTS  = 3; // after this many wrong tries the gate releases
 
-        if (!$slideId) {
+        $userId        = $this->user()['id'];
+        $lessonId      = (int) $this->param('id');
+        $slideId       = (int) $this->input('slide_id');
+        $selectedRaw   = $this->input('selected_index', null);
+        $selectedIndex = ($selectedRaw === null || $selectedRaw === '') ? null : (int) $selectedRaw;
+        $db            = \App\Core\DB::instance();
+
+        if (!$slideId || $selectedIndex === null || $selectedIndex < 0) {
             $response->status(422);
-            $response->json(['error' => 'slide_id required']);
+            $response->json(['error' => 'slide_id and selected_index required']);
             return;
         }
 
-        // Verify the slide belongs to this lesson and has a question
+        // Pull the slide's question JSON from the DB (single source of truth)
         $slide = $db->queryOne(
             'SELECT id, lesson_id, question
              FROM lesson_slides
@@ -322,7 +359,22 @@ class ApiController extends Controller
             return;
         }
 
-        // Upsert progress: increment attempts, OR-in answered_correct
+        $question = is_string($slide['question'])
+            ? json_decode($slide['question'], true)
+            : $slide['question'];
+
+        if (!is_array($question) || !isset($question['correct_index'])) {
+            $response->status(500);
+            $response->json(['error' => 'Slide question is malformed']);
+            return;
+        }
+
+        $correctIndex = (int) $question['correct_index'];
+        $isCorrect    = ($selectedIndex === $correctIndex) ? 1 : 0;
+        $explanation  = isset($question['explanation']) ? (string) $question['explanation'] : '';
+
+        // Upsert progress: increment attempts, OR-in answered_correct (so the
+        // first correct answer sticks even if the user later picks wrong).
         $db->execute(
             'INSERT INTO user_slide_progress
                  (user_id, lesson_id, slide_id, answered_correct, attempts, viewed_at)
@@ -334,7 +386,30 @@ class ApiController extends Controller
             [$userId, $lessonId, $slideId, $isCorrect]
         );
 
-        $response->json(['success' => true]);
+        // Read back the post-update attempt count so the client knows where
+        // it is in the retry budget.
+        $row = $db->queryOne(
+            'SELECT answered_correct, attempts
+             FROM user_slide_progress
+             WHERE user_id = ? AND slide_id = ?',
+            [$userId, $slideId]
+        );
+        $attempts        = (int) ($row['attempts'] ?? 1);
+        $alreadyCorrect  = (int) ($row['answered_correct'] ?? 0) === 1;
+        $canProceed      = $alreadyCorrect || $attempts >= $MAX_ATTEMPTS;
+
+        $response->json([
+            'success'         => true,
+            'is_correct'      => (bool) $isCorrect,
+            'attempts'        => $attempts,
+            'attempts_left'   => max(0, $MAX_ATTEMPTS - $attempts),
+            'max_attempts'    => $MAX_ATTEMPTS,
+            'can_proceed'     => (bool) $canProceed,
+            // Reveal the explanation only when the gate is actually settled —
+            // either correct, or burned through the retry budget.
+            'explanation'     => $canProceed ? $explanation : '',
+            'unlocked_after_failure' => !$alreadyCorrect && $canProceed,
+        ]);
     }
 
     /**

@@ -153,15 +153,16 @@
 
   function handleGateSubmit(card) {
     var slideId = parseInt(card.getAttribute('data-slide-id'), 10);
-    var correctIndex = parseInt(card.getAttribute('data-correct-index'), 10);
     var radios = $$('input[type="radio"]', card);
     var picked = null;
     radios.forEach(function (r) { if (r.checked) picked = parseInt(r.value, 10); });
 
+    var fb = $('.slide-gate-feedback', card);
+    var inner = fb && $('.slide-gate-feedback-inner', fb);
+    var explEl = fb && $('.slide-gate-explanation', fb);
+
     if (picked === null || isNaN(picked)) {
       flashGate(card);
-      var fb = $('.slide-gate-feedback', card);
-      var inner = fb && $('.slide-gate-feedback-inner', fb);
       if (fb && inner) {
         inner.textContent = 'Pick an option first.';
         fb.hidden = false;
@@ -171,56 +172,95 @@
       return;
     }
 
-    var isCorrect = picked === correctIndex;
-    var gate = $('.slide-gate', card);
-    var fb = $('.slide-gate-feedback', card);
-    var inner = fb && $('.slide-gate-feedback-inner', fb);
+    // Briefly disable the submit button while the API call is in flight
+    // so a double-click doesn't burn an extra retry.
+    var submit = $('.slide-gate-submit', card);
+    if (submit) submit.disabled = true;
 
-    if (gate) {
-      gate.classList.remove('correct', 'incorrect');
-      gate.classList.add(isCorrect ? 'correct' : 'incorrect');
-      gate.setAttribute('data-gate-state', isCorrect ? 'correct' : 'unanswered');
-    }
-
-    if (fb && inner) {
-      inner.textContent = isCorrect ? 'Correct!' : 'Not quite — review the explanation and try again.';
-      fb.hidden = false;
-      fb.classList.toggle('correct', isCorrect);
-      fb.classList.toggle('incorrect', !isCorrect);
-    }
-
-    if (isCorrect) {
-      // Lock the inputs and submit button
-      radios.forEach(function (r) { r.disabled = true; });
-      var submit = $('.slide-gate-submit', card);
-      if (submit) {
-        submit.disabled = true;
-        submit.textContent = 'Locked in';
+    postSlideAnswer(slideId, picked).then(function (res) {
+      if (!res || res.ok !== true || !res.data) {
+        // Network or server failure — let the user retry, no state change
+        if (submit) submit.disabled = false;
+        if (fb && inner) {
+          inner.textContent = 'Couldn’t reach the server. Check your connection and try again.';
+          fb.hidden = false;
+          fb.classList.remove('correct');
+          fb.classList.add('incorrect');
+        }
+        return;
       }
-      updateNav();
-      // Auto-focus the Next button so keyboard users can advance with Enter
-      var nextBtn = $('#slide-next-btn');
-      if (nextBtn) try { nextBtn.focus(); } catch (e) { /* noop */ }
-    } else {
-      // Allow retry
-      var submit2 = $('.slide-gate-submit', card);
-      if (submit2) submit2.textContent = 'Try Again';
-    }
 
-    // Persist attempt (best-effort)
-    postSlideAnswer(slideId, isCorrect);
+      var data = res.data;
+      var gate = $('.slide-gate', card);
+      var isCorrect = data.is_correct === true;
+      var canProceed = data.can_proceed === true;
+      var unlockedAfterFailure = data.unlocked_after_failure === true;
+
+      if (gate) {
+        gate.classList.remove('correct', 'incorrect');
+        gate.classList.add(isCorrect ? 'correct' : 'incorrect');
+        gate.setAttribute('data-gate-state', canProceed ? 'correct' : 'unanswered');
+      }
+
+      if (fb && inner) {
+        if (isCorrect) {
+          inner.textContent = 'Correct!';
+        } else if (unlockedAfterFailure) {
+          inner.textContent = 'Out of attempts — review the explanation below, then continue.';
+        } else {
+          var left = (typeof data.attempts_left === 'number') ? data.attempts_left : 0;
+          inner.textContent = 'Not quite. ' + left + ' attempt' + (left === 1 ? '' : 's') + ' left.';
+        }
+        fb.hidden = false;
+        fb.classList.toggle('correct', isCorrect);
+        fb.classList.toggle('incorrect', !isCorrect);
+      }
+
+      // Reveal the explanation only when the server says the gate is settled.
+      if (explEl) {
+        if (canProceed && data.explanation) {
+          explEl.textContent = data.explanation;
+          explEl.hidden = false;
+        } else {
+          explEl.textContent = '';
+          explEl.hidden = true;
+        }
+      }
+
+      if (canProceed) {
+        radios.forEach(function (r) { r.disabled = true; });
+        if (submit) {
+          submit.disabled = true;
+          submit.textContent = isCorrect ? 'Locked in' : 'Continue';
+        }
+        updateNav();
+        var nextBtn = $('#slide-next-btn');
+        if (nextBtn) try { nextBtn.focus(); } catch (e) { /* noop */ }
+      } else {
+        // Wrong but still has retries
+        if (submit) {
+          submit.disabled = false;
+          submit.textContent = 'Try Again';
+        }
+      }
+    });
   }
 
-  function postSlideAnswer(slideId, isCorrect) {
-    if (!cfg.slideAnswerUrl) return;
-    try {
-      fetch(cfg.slideAnswerUrl, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
-        body: 'slide_id=' + encodeURIComponent(slideId) + '&is_correct=' + (isCorrect ? '1' : '0')
-      });
-    } catch (e) { /* network errors should not block UX */ }
+  function postSlideAnswer(slideId, selectedIndex) {
+    if (!cfg.slideAnswerUrl) return Promise.resolve({ ok: false });
+    return fetch(cfg.slideAnswerUrl, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
+      body: 'slide_id=' + encodeURIComponent(slideId) +
+            '&selected_index=' + encodeURIComponent(selectedIndex)
+    })
+      .then(function (r) {
+        return r.json().then(function (j) { return { ok: r.ok, data: j }; }).catch(function () {
+          return { ok: r.ok, data: null };
+        });
+      })
+      .catch(function () { return { ok: false, data: null }; });
   }
 
   function updateProgress() {
@@ -259,16 +299,31 @@
       credentials: 'same-origin',
       headers: { 'Accept': 'application/json' }
     })
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-      .then(function () {
-        marked = true;
-        // Clear resume so next visit starts fresh
-        try { localStorage.removeItem(lsKey); } catch (e) { /* noop */ }
-        if (btn) btn.textContent = 'Completed ✓';
-        // Redirect back after a brief celebration moment
-        setTimeout(function () {
-          if (cfg.systemUrl) window.location.href = cfg.systemUrl;
-        }, 700);
+      .then(function (r) {
+        // Try to parse the body either way so we can surface 403 gate-blocks
+        return r.json()
+          .then(function (j) { return { ok: r.ok, status: r.status, data: j }; })
+          .catch(function () { return { ok: r.ok, status: r.status, data: null }; });
+      })
+      .then(function (res) {
+        if (res.ok) {
+          marked = true;
+          try { localStorage.removeItem(lsKey); } catch (e) { /* noop */ }
+          if (btn) btn.textContent = 'Completed ✓';
+          setTimeout(function () {
+            if (cfg.systemUrl) window.location.href = cfg.systemUrl;
+          }, 700);
+          return;
+        }
+        // 403 = unsettled gates; tell the user what to do.
+        var msg = (res.data && res.data.error)
+          ? res.data.error
+          : 'Couldn’t mark this lesson complete. Try again.';
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = 'Try again';
+        }
+        try { window.alert(msg); } catch (e) { /* noop */ }
       })
       .catch(function () {
         if (btn) {
