@@ -38,14 +38,20 @@ if ($sql === '') {
 // Split on bare semicolons that end a statement. The migration files we
 // write don't embed semicolons inside string literals, so a simple split
 // is safe enough.
-$statements = array_filter(array_map('trim', preg_split('/;\s*\R/u', $sql) ?: []),
-    fn(string $s) => $s !== '' && !str_starts_with($s, '--'));
+$rawStatements = preg_split('/;\s*\R/u', $sql) ?: [];
 
 $count = 0;
-foreach ($statements as $i => $stmt) {
-    if (preg_match('/^\s*--/m', $stmt) && trim(preg_replace('/^\s*--.*$/m', '', $stmt) ?? '') === '') {
-        continue;
+foreach ($rawStatements as $i => $stmt) {
+    // Strip whole-line `--` comments AND blank lines so we can tell whether
+    // there's any executable SQL left in this chunk.
+    $stripped = (string) preg_replace('/^\s*--.*$/m', '', $stmt);
+    $stripped = trim($stripped);
+    if ($stripped === '') {
+        continue; // pure comment / whitespace
     }
+
+    // Hand the original chunk (comments included) to the driver — MySQL
+    // is happy to ignore them, and keeping them preserves error context.
     try {
         $pdo->exec($stmt);
         $count++;
