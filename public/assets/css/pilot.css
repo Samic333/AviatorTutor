@@ -398,39 +398,63 @@ a:hover { color: #7DD3FC; }
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 8px;
-  text-align: center;
   transition: border-color var(--plt-transition);
 }
 
 .plt-stat-card:hover { border-color: rgba(255,255,255,0.15); }
 
+/* Head row: label on the left, ring/icon on the right. */
+.plt-stat-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.plt-stat-card__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--plt-text-muted);
+}
+
 /* SVG progress ring */
 .plt-ring {
   position: relative;
-  width: 72px;
-  height: 72px;
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
 }
 
 .plt-ring svg {
-  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
+/* Background track. Note: HTML uses .plt-ring__bg; .plt-ring__track kept
+   as alias for any older markup that may still reference it. */
+.plt-ring__bg,
 .plt-ring__track {
   fill: none;
-  stroke: var(--plt-sky-soft);
-  stroke-width: 5;
+  stroke: rgba(148, 163, 184, 0.18);
+  stroke-width: 6;
 }
 
 .plt-ring__fill {
   fill: none;
-  stroke: url(#plt-sky-gradient);
-  stroke-width: 5;
+  stroke: var(--plt-sky, #38BDF8);
+  stroke-width: 6;
   stroke-linecap: round;
+  /* Circle r=30, circumference ≈ 188.5. data-ring is the percentage. */
+  stroke-dasharray: calc(var(--ring-pct) * 1.885) 188.5;
   transition: stroke-dasharray 0.6s cubic-bezier(0.4,0,0.2,1);
 }
 
+/* Centered label inside the ring. HTML uses .plt-ring__pct; keep
+   .plt-ring__label as alias for legacy markup. */
+.plt-ring__pct,
 .plt-ring__label {
   position: absolute;
   inset: 0;
@@ -438,28 +462,32 @@ a:hover { color: #7DD3FC; }
   align-items: center;
   justify-content: center;
   font-family: var(--plt-font-mono);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--plt-text);
+  letter-spacing: -0.02em;
 }
 
-.plt-stat-card__name {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--plt-text-muted);
-}
+/* Both legacy and current names. */
+.plt-stat-card__name,
+.plt-stat-card__label { /* see above */ }
 
 .plt-stat-card__value {
   font-family: var(--plt-font-mono);
-  font-size: 18px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--plt-text);
+  line-height: 1;
+  letter-spacing: -0.02em;
 }
 
+.plt-stat-card__sub,
 .plt-stat-card__hint {
-  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
   color: var(--plt-text-muted);
 }
 

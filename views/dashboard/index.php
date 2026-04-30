@@ -69,10 +69,10 @@ $completedPct     = $systemsTotal > 0 ? min(100, (int)round($systemsCompleted / 
   <div class="plt-stat-card">
     <div class="plt-stat-card__head">
       <span class="plt-stat-card__label">Systems Studied</span>
-      <div class="plt-ring" data-ring="<?= $systemsPct ?>" aria-hidden="true">
+      <div class="plt-ring" data-ring="<?= $systemsPct ?>" style="--ring-pct: <?= (int)$systemsPct ?>;" aria-hidden="true">
         <svg viewBox="0 0 70 70" width="70" height="70">
-          <circle class="plt-ring__bg" cx="35" cy="35" r="30" fill="none" stroke-width="6"/>
-          <circle class="plt-ring__fill" cx="35" cy="35" r="30" fill="none" stroke-width="6" stroke-linecap="round" transform="rotate(-90 35 35)"/>
+          <circle class="plt-ring__bg" cx="35" cy="35" r="30"/>
+          <circle class="plt-ring__fill" cx="35" cy="35" r="30" transform="rotate(-90 35 35)"/>
         </svg>
         <span class="plt-ring__pct"><?= $systemsPct ?>%</span>
       </div>
@@ -117,10 +117,10 @@ $completedPct     = $systemsTotal > 0 ? min(100, (int)round($systemsCompleted / 
   <div class="plt-stat-card">
     <div class="plt-stat-card__head">
       <span class="plt-stat-card__label">Avg Quiz Score</span>
-      <div class="plt-ring" data-ring="<?= $avgQuizScore ?>" aria-hidden="true">
+      <div class="plt-ring" data-ring="<?= $avgQuizScore ?>" style="--ring-pct: <?= (int)$avgQuizScore ?>;" aria-hidden="true">
         <svg viewBox="0 0 70 70" width="70" height="70">
-          <circle class="plt-ring__bg" cx="35" cy="35" r="30" fill="none" stroke-width="6"/>
-          <circle class="plt-ring__fill" cx="35" cy="35" r="30" fill="none" stroke-width="6" stroke-linecap="round" transform="rotate(-90 35 35)"
+          <circle class="plt-ring__bg" cx="35" cy="35" r="30"/>
+          <circle class="plt-ring__fill" cx="35" cy="35" r="30" transform="rotate(-90 35 35)"
                   style="stroke:<?= $avgQuizScore >= 70 ? 'var(--plt-success)' : ($avgQuizScore >= 50 ? 'var(--plt-warning)' : 'var(--plt-danger)') ?>;"/>
         </svg>
         <span class="plt-ring__pct"><?= $avgQuizScore ?>%</span>
