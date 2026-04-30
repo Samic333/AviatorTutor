@@ -17,6 +17,7 @@ use App\Services\ActivationCodeService;
 use App\Services\AdminMetricsService;
 use App\Services\AircraftService;
 use App\Services\AIContentService;
+use App\Services\AIJobService;
 use App\Services\AIPromptBuilder;
 use App\Services\PdfTextService;
 use App\Services\SubscriptionService;
@@ -390,18 +391,182 @@ class AdminController extends Controller
     public function import(Request $request, Response $response): void
     {
         $this->requireAdmin();
+
+        $systems = DB::instance()->query(
+            'SELECT id, name, ata_code FROM systems ORDER BY sort_order, id'
+        );
+        $recentJobs = DB::instance()->query(
+            'SELECT id, source_label, original_filename, mode, analysis_depth,
+                    status, progress_pct, progress_message, created_at
+             FROM ai_generation_jobs
+             ORDER BY id DESC LIMIT 10'
+        );
+
+        $cfg = AIContentService::config();
+
         $response->html($this->view('admin/import', [
-            'title'      => 'Import',
-            'csrf_token' => CSRF::generate(),
+            'title'           => 'Import',
+            'csrf_token'      => CSRF::generate(),
+            'systems'         => $systems,
+            'api_configured'  => $cfg['configured'],
+            'extract_status'  => PdfTextService::backendStatus(),
+            'recent_jobs'     => $recentJobs,
         ], 'admin'));
     }
 
+    /**
+     * Enqueue an AI generation job. Replaces the previous stub.
+     */
     public function processImport(Request $request, Response $response): void
     {
         $this->requireAdmin();
-        if (!CSRF::check($request)) { $response->status(419); $response->json(['error' => 'CSRF']); return; }
-        if (!$this->hasFile('import_file')) { $response->json(['error' => 'No file'], 422); return; }
-        $response->json(['success' => true, 'message' => 'Stub']);
+        if (!CSRF::check($request)) {
+            $response->status(419);
+            $response->json(['error' => 'CSRF']);
+            return;
+        }
+
+        $mode  = (string) $this->input('mode', 'full');
+        $depth = (string) $this->input('analysis_depth', 'standard');
+        if (!in_array($mode,  ['manual','assisted','full'],  true)) $mode  = 'full';
+        if (!in_array($depth, ['standard','detail'],         true)) $depth = 'standard';
+
+        $sourceLabel = trim((string) $this->input('source_label', ''));
+        $pasted      = (string) $this->input('pasted_text', '');
+        $targetSysId = (int) $this->input('target_system_id', 0);
+        if ($targetSysId <= 0) {
+            $response->status(422);
+            $response->json(['error' => 'target_system_id is required']);
+            return;
+        }
+
+        // Save uploaded PDF (if any) to a stable location.
+        $pdfPath          = null;
+        $originalFilename = null;
+        if ($this->hasFile('pdf_file')) {
+            $f = $_FILES['pdf_file'] ?? null;
+            if (is_array($f) && ($f['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK) {
+                $tmp = (string) ($f['tmp_name'] ?? '');
+                if (is_uploaded_file($tmp)) {
+                    $uploadDir = BASE_PATH . '/storage/uploads/ai';
+                    if (!is_dir($uploadDir)) {
+                        @mkdir($uploadDir, 0775, true);
+                    }
+                    $safe = preg_replace('/[^A-Za-z0-9._-]+/', '_', (string) $f['name']);
+                    $pdfPath = $uploadDir . '/' . date('Ymd-His') . '-' . $safe;
+                    if (!@move_uploaded_file($tmp, $pdfPath)) {
+                        $pdfPath = null;
+                    } else {
+                        $originalFilename = (string) $f['name'];
+                    }
+                }
+            }
+        }
+
+        if ($pdfPath === null && trim($pasted) === '') {
+            $response->status(422);
+            $response->json(['error' => 'Either upload a PDF or paste text.']);
+            return;
+        }
+
+        $jobId = AIJobService::enqueue([
+            'admin_user_id'     => (int) ($this->user()['id'] ?? 0),
+            'target_system_id'  => $targetSysId,
+            'pdf_path'          => $pdfPath,
+            'original_filename' => $originalFilename,
+            'source_label'      => $sourceLabel,
+            'pasted_text'       => $pasted !== '' ? $pasted : null,
+            'mode'              => $mode,
+            'analysis_depth'    => $depth,
+        ]);
+
+        // Manual mode skips Claude entirely — mark the job as 'review'
+        // immediately so the admin sees an empty drafts shell to fill in.
+        if ($mode === 'manual') {
+            DB::instance()->execute(
+                'UPDATE ai_generation_jobs
+                 SET status = "review",
+                     progress_pct = 100,
+                     progress_message = "Manual mode — no AI call",
+                     finished_at = NOW()
+                 WHERE id = ?',
+                [$jobId]
+            );
+        }
+
+        // Redirect to the job status page where the admin can watch
+        // progress (auto-refreshes while running).
+        $response->redirect('/admin/ai-jobs/' . $jobId);
+    }
+
+    public function aiJobsList(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        $jobs = DB::instance()->query(
+            'SELECT * FROM ai_generation_jobs ORDER BY id DESC LIMIT 100'
+        );
+        $response->html($this->view('admin/ai_jobs', [
+            'title' => 'AI Jobs',
+            'jobs'  => $jobs,
+        ], 'admin'));
+    }
+
+    public function aiJobShow(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        $id = (int) $this->param('id');
+        $job = DB::instance()->queryOne(
+            'SELECT * FROM ai_generation_jobs WHERE id = ?',
+            [$id]
+        );
+        if (!$job) {
+            $response->status(404);
+            $response->html('Job not found.');
+            return;
+        }
+
+        $lesson = null;
+        $slides = [];
+        $flashcards = [];
+        $quizQs = [];
+        if (!empty($job['lesson_id'])) {
+            $lesson = DB::instance()->queryOne(
+                'SELECT * FROM lessons WHERE id = ?',
+                [(int) $job['lesson_id']]
+            );
+            $slides = DB::instance()->query(
+                'SELECT id, slide_type, title, sort_order
+                 FROM lesson_slides WHERE ai_job_id = ?
+                 ORDER BY sort_order, id',
+                [$id]
+            );
+            $flashcards = DB::instance()->query(
+                'SELECT id, front, difficulty FROM flashcards WHERE ai_job_id = ? ORDER BY id',
+                [$id]
+            );
+            $quizQs = DB::instance()->query(
+                'SELECT id, question_text, difficulty FROM quiz_questions WHERE ai_job_id = ? ORDER BY id',
+                [$id]
+            );
+        }
+
+        $targetSystem = null;
+        if (!empty($job['target_system_id'])) {
+            $targetSystem = DB::instance()->queryOne(
+                'SELECT id, name, ata_code FROM systems WHERE id = ?',
+                [(int) $job['target_system_id']]
+            );
+        }
+
+        $response->html($this->view('admin/ai_job_show', [
+            'title'          => 'Job #' . $id,
+            'job'            => $job,
+            'lesson'         => $lesson,
+            'slides'         => $slides,
+            'flashcards'     => $flashcards,
+            'quiz_questions' => $quizQs,
+            'target_system'  => $targetSystem,
+        ], 'admin'));
     }
 
     /* ---------------- AI Smoke Test (Phase 2) ----------------

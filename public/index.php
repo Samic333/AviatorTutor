@@ -41,6 +41,14 @@ if (php_sapi_name() !== 'cli') {
 // Set timezone
 date_default_timezone_set('UTC');
 
+// Composer autoload (optional — present after `composer install`).
+// We only require it here if the file exists so the project still boots
+// on a server that hasn't run composer yet.
+$composerAutoload = BASE_PATH . '/vendor/autoload.php';
+if (is_file($composerAutoload)) {
+    require_once $composerAutoload;
+}
+
 // Autoload classes using PSR-4
 spl_autoload_register(function ($class) {
     // PSR-4 namespace prefix

@@ -24,6 +24,11 @@ storage/uploads/*
 # Local Node toolchain (only used for optional CSS build)
 node_modules/
 
+# Composer-installed dependencies — pulled by `composer install` on the
+# server during deploy, not committed to the repo.
+vendor/
+composer.lock
+
 # One-shot deploy seed scripts. These contain a hard-coded secret key in
 # the file itself and grant admin role on hit, so they must never enter
 # git history. Drop on the server, run once, the script self-deletes.

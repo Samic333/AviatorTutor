@@ -164,6 +164,8 @@ $router->get('/admin/import', 'AdminController@import');
 $router->post('/admin/import/process', 'AdminController@processImport');
 $router->get('/admin/ai-test', 'AdminController@aiTest');
 $router->post('/admin/ai-test/run', 'AdminController@aiTestRun');
+$router->get('/admin/ai-jobs', 'AdminController@aiJobsList');
+$router->get('/admin/ai-jobs/{id}', 'AdminController@aiJobShow');
 $router->get('/admin/flashcards',                  'AdminController@flashcards');
 $router->get('/admin/flashcards/new',               'AdminController@flashcardNew');
 $router->post('/admin/flashcards/create',           'AdminController@createFlashcard');
