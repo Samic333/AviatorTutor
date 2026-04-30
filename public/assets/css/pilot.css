@@ -405,18 +405,24 @@ a:hover { color: #7DD3FC; }
 
 .plt-stat-card:hover { border-color: rgba(255,255,255,0.15); }
 
-/* Head row: label on the left, ring/icon on the right. */
+/* Head row: label spans the top, ring/icon centered below. Stacking
+   avoids cramped multi-line wrapping for longer labels like
+   "Avg Quiz Score" / "Flashcards Due" at narrow card widths. */
 .plt-stat-card__head {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
+  margin-bottom: 4px;
 }
 
 .plt-stat-card__label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: var(--plt-text-muted);
+  white-space: nowrap;
 }
 
 /* SVG progress ring */
@@ -479,16 +485,18 @@ a:hover { color: #7DD3FC; }
   color: var(--plt-text);
   line-height: 1;
   letter-spacing: -0.02em;
+  text-align: center;
 }
 
 .plt-stat-card__sub,
 .plt-stat-card__hint {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 8px;
   font-size: 12px;
   color: var(--plt-text-muted);
+  text-align: center;
 }
 
 /* ---------- Subject Tiles Grid ---------- */
