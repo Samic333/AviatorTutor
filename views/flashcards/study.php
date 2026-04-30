@@ -37,10 +37,36 @@
                 </div>
             </div>
         </div>
-        <div class="flip-hint">
+        <div class="flip-hint" id="flipHint">
             <i data-lucide="rotate-ccw"></i>
             Click to flip
         </div>
+    </div>
+
+    <!-- Typed-answer input (only visible for cards with expected_answer set) -->
+    <div class="typed-answer-section" id="typedAnswerSection" style="display:none;">
+      <p class="typed-prompt" style="text-align:center; color:var(--color-gray-text); margin-bottom:12px;">
+        Type your answer below. The system will grade it.
+      </p>
+      <textarea id="typedAnswerInput" rows="3"
+                placeholder="Type your answer here…"
+                style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--color-blue-accent); background:var(--color-slate-bg); color:var(--color-white-text); font-size:15px; resize:vertical;"></textarea>
+      <div style="display:flex; justify-content:center; gap:12px; margin-top:14px;">
+        <button id="typedSubmitBtn" class="btn btn-primary btn-lg">
+          <i data-lucide="send"></i> Submit answer
+        </button>
+        <button id="typedSkipBtn" class="btn btn-secondary btn-lg">
+          Skip & flip
+        </button>
+      </div>
+    </div>
+
+    <!-- Server-side grading verdict -->
+    <div class="grade-verdict" id="gradeVerdict"
+         style="display:none; max-width:760px; margin:20px auto; padding:14px 18px; border-radius:10px;">
+      <div id="gradeBadge" style="display:inline-block; padding:3px 10px; border-radius:999px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px;"></div>
+      <div id="gradeFeedback" style="margin-top:10px; font-size:14px; line-height:1.5;"></div>
+      <div id="gradeCanonical" style="margin-top:10px; font-size:13px; color:var(--color-gray-text);"></div>
     </div>
 
     <!-- Confidence Buttons (shown after flip) -->
@@ -387,6 +413,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const flashcardWrapper = document.getElementById('flashcardWrapper');
     const flipHint = flashcardWrapper.querySelector('.flip-hint');
 
+    const typedSection   = document.getElementById('typedAnswerSection');
+    const typedInput     = document.getElementById('typedAnswerInput');
+    const typedSubmitBtn = document.getElementById('typedSubmitBtn');
+    const typedSkipBtn   = document.getElementById('typedSkipBtn');
+    const verdictEl      = document.getElementById('gradeVerdict');
+    const verdictBadge   = document.getElementById('gradeBadge');
+    const verdictFb      = document.getElementById('gradeFeedback');
+    const verdictCanonical = document.getElementById('gradeCanonical');
+    const flipHintEl     = document.getElementById('flipHint');
+
     function loadCard(index) {
         if (index >= flashcards.length) {
             endSession();
@@ -400,9 +436,105 @@ document.addEventListener('DOMContentLoaded', function() {
         isFlipped = false;
         flashcardEl.classList.remove('flipped');
         confidenceSection.style.display = 'none';
+        verdictEl.style.display = 'none';
+        verdictEl.className = 'grade-verdict';
+
+        // Phase 5: switch UI by card type. Typeable cards (cards with an
+        // AI-grading expected_answer) show the typed-input section first
+        // and only flip the card after grading. Legacy cards behave as
+        // before — click to flip, then SRS rate.
+        if (card.typeable) {
+            typedSection.style.display = 'block';
+            typedInput.value = '';
+            typedInput.disabled = false;
+            typedSubmitBtn.disabled = false;
+            flipHintEl.style.display = 'none';
+            setTimeout(function () { try { typedInput.focus(); } catch(e) {} }, 50);
+        } else {
+            typedSection.style.display = 'none';
+            flipHintEl.style.display = '';
+        }
 
         currentCardSpan.textContent = index + 1;
         updateProgress();
+    }
+
+    function gradeTyped() {
+        const card = flashcards[currentIndex];
+        const typed = (typedInput.value || '').trim();
+        if (!typed) {
+            try { typedInput.focus(); } catch(e) {}
+            return;
+        }
+        typedSubmitBtn.disabled = true;
+        typedInput.disabled = true;
+
+        const formData = new FormData();
+        formData.append('typed_answer', typed);
+        formData.append('csrf_token', csrfToken);
+
+        fetch('/api/flashcards/' + card.id + '/grade', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'Accept': 'application/json' },
+            body: formData
+        })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, data: j }; }); })
+        .then(function (res) {
+            if (!res.ok || !res.data) {
+                verdictEl.style.display = 'block';
+                verdictEl.style.background = 'rgba(239,68,68,0.1)';
+                verdictEl.style.border = '1px solid #ef4444';
+                verdictBadge.textContent = 'Network error';
+                verdictBadge.style.background = '#ef4444';
+                verdictBadge.style.color = '#fff';
+                verdictFb.textContent = 'Couldn’t reach the grader. Try again.';
+                typedSubmitBtn.disabled = false;
+                typedInput.disabled = false;
+                return;
+            }
+            const d = res.data;
+            // Render verdict
+            verdictEl.style.display = 'block';
+            if (d.is_correct) {
+                verdictEl.style.background = 'rgba(16,185,129,0.10)';
+                verdictEl.style.border = '1px solid #10b981';
+                verdictBadge.textContent = 'CORRECT · ' + (d.score|0) + '/100';
+                verdictBadge.style.background = '#10b981';
+                verdictBadge.style.color = '#062f23';
+            } else {
+                verdictEl.style.background = 'rgba(245,158,11,0.10)';
+                verdictEl.style.border = '1px solid #f59e0b';
+                verdictBadge.textContent = 'NEEDS WORK · ' + (d.score|0) + '/100';
+                verdictBadge.style.background = '#f59e0b';
+                verdictBadge.style.color = '#3d2a06';
+            }
+            verdictFb.textContent = d.feedback || '';
+            verdictCanonical.textContent = d.canonical
+                ? 'Canonical answer: ' + d.canonical
+                : '';
+
+            // Flip the card so the learner can compare
+            flashcardEl.classList.add('flipped');
+            isFlipped = true;
+            confidenceSection.style.display = 'block';
+            typedSubmitBtn.disabled = false;
+            typedInput.disabled = false;
+        })
+        .catch(function () {
+            verdictEl.style.display = 'block';
+            verdictBadge.textContent = 'Network error';
+            verdictFb.textContent = 'Couldn’t reach the grader. Try again.';
+            typedSubmitBtn.disabled = false;
+            typedInput.disabled = false;
+        });
+    }
+
+    function skipTyped() {
+        // Reveal the answer without grading; counts as a "missed" card.
+        flashcardEl.classList.add('flipped');
+        isFlipped = true;
+        confidenceSection.style.display = 'block';
     }
 
     function updateProgress() {
@@ -470,7 +602,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listeners
     flashcardWrapper.addEventListener('click', function(e) {
         if (!sessionActive || e.target.closest('button')) return;
+        // Don't allow free-flip on typeable cards before grading — the
+        // learner needs to commit to a typed answer first.
+        const card = flashcards[currentIndex];
+        if (card && card.typeable && !isFlipped && verdictEl.style.display !== 'block') {
+            // gentle nudge: focus the input
+            try { typedInput.focus(); } catch (e) {}
+            return;
+        }
         toggleFlip();
+    });
+
+    if (typedSubmitBtn) typedSubmitBtn.addEventListener('click', gradeTyped);
+    if (typedSkipBtn)   typedSkipBtn.addEventListener('click', skipTyped);
+    if (typedInput) typedInput.addEventListener('keydown', function (e) {
+        // Cmd/Ctrl+Enter to submit
+        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+            e.preventDefault();
+            gradeTyped();
+        }
     });
 
     document.querySelectorAll('[data-rating]').forEach(btn => {

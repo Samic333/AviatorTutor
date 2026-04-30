@@ -205,6 +205,8 @@ $router->post('/api/lessons/{id}/slide-answer', 'ApiController@slideAnswer');
 $router->post('/api/notes/save', 'ApiController@saveNotes');
 $router->post('/api/notes/delete', 'ApiController@deleteNote');
 $router->post('/api/systems/{id}/complete', 'ApiController@systemComplete');
+$router->post('/api/systems/{id}/unlock-next', 'ApiController@systemUnlockNext');
+$router->post('/api/flashcards/{id}/grade', 'ApiController@flashcardGrade');
 $router->post('/api/ai/ask', 'ApiController@aiAsk');
 
 // Notes page

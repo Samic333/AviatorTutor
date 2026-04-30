@@ -121,7 +121,8 @@ class FlashcardController extends Controller
         }
 
         $flashcards = $db->query(
-            'SELECT f.id, f.front, f.back, f.difficulty, fr.next_review_at, fr.ease_factor
+            'SELECT f.id, f.front, f.back, f.expected_answer, f.hint, f.difficulty,
+                    fr.next_review_at, fr.ease_factor
              FROM flashcards f
              LEFT JOIN flashcard_reviews fr ON f.id = fr.flashcard_id AND fr.user_id = ?
              WHERE f.system_id = ?
@@ -129,6 +130,14 @@ class FlashcardController extends Controller
              ORDER BY COALESCE(fr.next_review_at, NOW()) ASC',
             [$userId, $id]
         );
+
+        // Phase 5: cards with an expected_answer are typeable and will
+        // be AI-graded. Older manually-authored cards keep the legacy
+        // flip-only flow. The view branches on this flag.
+        foreach ($flashcards as &$c) {
+            $c['typeable'] = !empty($c['expected_answer']);
+        }
+        unset($c);
 
         $data = [
             'title' => 'Flashcards - ' . htmlspecialchars($system['name']),

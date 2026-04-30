@@ -182,6 +182,151 @@ class AIContentService
     }
 
     /**
+     * Grade a learner's typed flashcard answer against the canonical
+     * expected_answer and (optional) rubric using Claude.
+     *
+     * The model returns a strict JSON judgement we parse and persist to
+     * `flashcard_attempts`. If the API isn't configured we degrade
+     * gracefully to a string-similarity fallback so the gate doesn't
+     * become a hard blocker.
+     *
+     * @return array{ok:bool, is_correct:bool, score:int, feedback:string,
+     *               source:string, request_ms?:int, error?:string}
+     */
+    public static function gradeAnswer(string $typed, string $expected, string $rubric = ''): array
+    {
+        $typed    = trim($typed);
+        $expected = trim($expected);
+
+        if ($typed === '') {
+            return [
+                'ok'         => true,
+                'is_correct' => false,
+                'score'      => 0,
+                'feedback'   => 'You didn’t type anything. Take a stab — partial credit counts.',
+                'source'     => 'empty_input',
+            ];
+        }
+
+        // Quick cheap-grade fallback when the API key isn't set: case- and
+        // punctuation-insensitive substring match.
+        $cfg = self::config();
+        if (!$cfg['configured']) {
+            return self::offlineGrade($typed, $expected);
+        }
+
+        $rubricLine = $rubric !== ''
+            ? "RUBRIC: " . $rubric . "\n"
+            : '';
+
+        $sys = <<<'PROMPT'
+You are an aviation-systems instructor grading a flashcard typed answer.
+You will be given the question's CANONICAL ANSWER and the LEARNER'S
+TYPED ANSWER. Decide whether the learner conveyed the same meaning,
+allowing for paraphrasing, synonyms, and minor omissions.
+
+Return STRICT JSON ONLY — no prose, no fences:
+
+{
+  "score": integer 0-100,
+  "is_correct": boolean,           // true when score >= 70
+  "feedback": string                // 1-2 sentences. If wrong: gently
+                                    // identify what's missing or off,
+                                    // referencing the canonical answer.
+                                    // If correct: brief reinforcement.
+}
+
+Rules:
+- Be generous on phrasing, strict on meaning. A learner who hits all the
+  key concepts in different words is correct. A learner who omits a
+  safety-critical clause (e.g. "with hydraulic pressure" on a brake
+  question) is not.
+- If a rubric is provided, weight your score against it.
+- Do NOT add markdown fences. Output JSON only.
+PROMPT;
+
+        $usr = "QUESTION ANSWER (canonical): " . $expected . "\n" .
+               $rubricLine .
+               "LEARNER TYPED: " . $typed . "\n\n" .
+               "Now produce the JSON judgement.";
+
+        $resp = self::generate($sys, $usr, [
+            'temperature' => 0.0,
+            'max_tokens'  => 400,
+        ]);
+        if (($resp['ok'] ?? false) !== true) {
+            // Fall back to offline grade if Claude is unreachable.
+            $fb = self::offlineGrade($typed, $expected);
+            $fb['error'] = (string) ($resp['error_detail'] ?? $resp['error'] ?? 'api_error');
+            $fb['source'] = 'offline_fallback';
+            return $fb;
+        }
+
+        $j = self::extractJson((string) $resp['text']);
+        if (!is_array($j) || !isset($j['score'])) {
+            return self::offlineGrade($typed, $expected);
+        }
+
+        $score      = max(0, min(100, (int) $j['score']));
+        $isCorrect  = isset($j['is_correct']) ? (bool) $j['is_correct'] : ($score >= 70);
+        $feedback   = (string) ($j['feedback'] ?? '');
+
+        return [
+            'ok'         => true,
+            'is_correct' => $isCorrect,
+            'score'      => $score,
+            'feedback'   => $feedback,
+            'source'     => 'claude',
+            'request_ms' => (int) ($resp['request_ms'] ?? 0),
+        ];
+    }
+
+    /**
+     * Cheap offline grader used when Anthropic is unconfigured or
+     * unreachable. Produces a usable 0/40/70/95 verdict based on
+     * normalized substring overlap.
+     *
+     * @return array{ok:bool, is_correct:bool, score:int, feedback:string, source:string}
+     */
+    private static function offlineGrade(string $typed, string $expected): array
+    {
+        $norm = function (string $s): string {
+            $s = strtolower($s);
+            $s = (string) preg_replace('/[^a-z0-9 ]+/', ' ', $s);
+            $s = (string) preg_replace('/\s+/', ' ', $s);
+            return trim($s);
+        };
+        $a = $norm($typed);
+        $b = $norm($expected);
+        if ($a === '' || $b === '') {
+            return [
+                'ok'=>true,'is_correct'=>false,'score'=>0,
+                'feedback'=>'Need a longer answer to grade.',
+                'source'=>'offline_empty'
+            ];
+        }
+        $aTokens = array_unique(explode(' ', $a));
+        $bTokens = array_unique(explode(' ', $b));
+        $shared  = count(array_intersect($aTokens, $bTokens));
+        $needed  = max(1, count($bTokens));
+        $ratio   = $shared / $needed;
+
+        if ($a === $b)            { $score = 100; $msg = 'Exact match.'; }
+        elseif (str_contains($a, $b) || str_contains($b, $a)) { $score = 95; $msg = 'Looks right.'; }
+        elseif ($ratio >= 0.6)    { $score = 80; $msg = 'You got the gist — make sure you can recite the canonical phrasing.'; }
+        elseif ($ratio >= 0.3)    { $score = 50; $msg = 'You\'re on the right track but missing key terms.'; }
+        else                      { $score = 20; $msg = 'That doesn\'t match — review the answer and try again later.'; }
+
+        return [
+            'ok'         => true,
+            'is_correct' => $score >= 70,
+            'score'      => $score,
+            'feedback'   => $msg,
+            'source'     => 'offline',
+        ];
+    }
+
+    /**
      * Helper: try to extract a JSON object from a model response that may
      * have been wrapped in ```json fences or chatty preamble. Returns the
      * decoded array, or null on failure.

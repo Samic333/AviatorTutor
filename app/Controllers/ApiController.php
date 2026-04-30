@@ -542,4 +542,160 @@ class ApiController extends Controller
             'message' => 'AI Q&A is launching soon. Stay tuned!',
         ]);
     }
+
+    /**
+     * Phase 5 — grade a learner's typed flashcard answer with Claude
+     * (falls back to offline string-similarity if API unconfigured).
+     * Persists the attempt to flashcard_attempts.
+     */
+    public function flashcardGrade(Request $request, Response $response): void
+    {
+        $this->requireAuth();
+
+        $userId = (int) $this->user()['id'];
+        $cardId = (int) $this->param('id');
+        $typed  = trim((string) $this->input('typed_answer', ''));
+
+        if (!$cardId) {
+            $response->status(422);
+            $response->json(['error' => 'flashcard id required']);
+            return;
+        }
+
+        $db = \App\Core\DB::instance();
+        $card = $db->queryOne(
+            'SELECT id, front, back, expected_answer, grading_rubric, status
+             FROM flashcards WHERE id = ?',
+            [$cardId]
+        );
+        if (!$card || (($card['status'] ?? 'published') === 'draft')) {
+            $response->status(404);
+            $response->json(['error' => 'Flashcard not found']);
+            return;
+        }
+
+        $expected = (string) ($card['expected_answer'] !== '' ? $card['expected_answer'] : $card['back']);
+        $rubric   = (string) ($card['grading_rubric'] ?? '');
+
+        $verdict = \App\Services\AIContentService::gradeAnswer($typed, $expected, $rubric);
+
+        $db->execute(
+            'INSERT INTO flashcard_attempts
+                 (user_id, flashcard_id, typed_answer, ai_score, ai_feedback, is_correct)
+             VALUES (?, ?, ?, ?, ?, ?)',
+            [
+                $userId,
+                $cardId,
+                $typed,
+                (int) $verdict['score'],
+                substr((string) $verdict['feedback'], 0, 4000),
+                $verdict['is_correct'] ? 1 : 0,
+            ]
+        );
+
+        $response->json([
+            'success'      => true,
+            'is_correct'   => $verdict['is_correct'],
+            'score'        => $verdict['score'],
+            'feedback'     => $verdict['feedback'],
+            'canonical'    => $expected,
+            'graded_by'    => $verdict['source'] ?? 'unknown',
+        ]);
+    }
+
+    /**
+     * Phase 5 — check whether the learner has earned the next system
+     * unlock. Insert a row in user_system_unlocks if so. Idempotent.
+     *
+     * Criteria:
+     *   - Every published flashcard for system N must have at least one
+     *     is_correct=1 row in flashcard_attempts for this user.
+     *   - At least one quiz on system N must have a completed attempt
+     *     for this user with score >= the quiz's pass_score.
+     *
+     * On success, unlocks any system whose unlock_after_system_id = N.
+     */
+    public function systemUnlockNext(Request $request, Response $response): void
+    {
+        $this->requireAuth();
+        $userId   = (int) $this->user()['id'];
+        $systemId = (int) $this->param('id');
+        if (!$systemId) {
+            $response->status(422);
+            $response->json(['error' => 'system id required']);
+            return;
+        }
+
+        $db = \App\Core\DB::instance();
+
+        // Flashcards: count missing-correct cards for this user.
+        $missingFlash = $db->queryOne(
+            'SELECT COUNT(*) AS n
+             FROM flashcards f
+             LEFT JOIN flashcard_attempts a
+               ON a.flashcard_id = f.id
+              AND a.user_id = ?
+              AND a.is_correct = 1
+             WHERE f.system_id = ?
+               AND (f.status IS NULL OR f.status = "published")
+               AND a.id IS NULL',
+            [$userId, $systemId]
+        );
+        $flashOk = (int) ($missingFlash['n'] ?? 0) === 0;
+
+        // Quizzes: count quizzes on this system with a passing attempt.
+        $quizPass = $db->queryOne(
+            'SELECT COUNT(DISTINCT q.id) AS n
+             FROM quizzes q
+             JOIN quiz_attempts qa
+               ON qa.quiz_id = q.id
+              AND qa.user_id = ?
+              AND qa.status = "completed"
+              AND qa.score >= q.pass_score
+             WHERE q.system_id = ?
+               AND q.is_published = 1',
+            [$userId, $systemId]
+        );
+        // If the system has any published quiz at all, require a pass.
+        $totalQuizzes = $db->queryOne(
+            'SELECT COUNT(*) AS n FROM quizzes WHERE system_id = ? AND is_published = 1',
+            [$systemId]
+        );
+        $quizOk = ((int) ($totalQuizzes['n'] ?? 0) === 0) || ((int) ($quizPass['n'] ?? 0) > 0);
+
+        if (!$flashOk || !$quizOk) {
+            $response->status(403);
+            $response->json([
+                'unlocked'        => false,
+                'flashcards_done' => $flashOk,
+                'quiz_done'       => $quizOk,
+                'message'         => $flashOk
+                    ? 'You still need to pass at least one quiz on this system.'
+                    : 'You still have flashcards to answer correctly.',
+            ]);
+            return;
+        }
+
+        // Find the next system(s) gated on this one.
+        $next = $db->query(
+            'SELECT id, name FROM systems WHERE unlock_after_system_id = ?',
+            [$systemId]
+        );
+
+        $unlockedIds = [];
+        foreach ($next as $sys) {
+            $db->execute(
+                'INSERT IGNORE INTO user_system_unlocks (user_id, system_id, unlocked_at)
+                 VALUES (?, ?, NOW())',
+                [$userId, (int) $sys['id']]
+            );
+            $unlockedIds[] = (int) $sys['id'];
+        }
+
+        $response->json([
+            'unlocked'      => true,
+            'unlocked_ids'  => $unlockedIds,
+            'unlocked_count'=> count($unlockedIds),
+        ]);
+    }
 }

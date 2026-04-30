@@ -34,10 +34,20 @@
     <!-- Systems Grid -->
     <?php if (!empty($systems)): ?>
         <div class="systems-grid">
-            <?php foreach ($systems as $system): ?>
-                <div class="system-card">
+            <?php foreach ($systems as $system):
+                $isLocked = !empty($system['locked']);
+            ?>
+                <div class="system-card<?php echo $isLocked ? ' system-card--locked' : ''; ?>"
+                     <?php if ($isLocked): ?>style="opacity:0.55;"<?php endif; ?>>
                     <!-- Color Border -->
                     <div class="system-card-color" style="background-color: <?php echo htmlspecialchars($system['color'] ?? '#34d399'); ?>"></div>
+                    <?php if ($isLocked): ?>
+                      <div style="position:absolute; top:10px; right:10px; padding:3px 10px; border-radius:999px;
+                                  background:rgba(0,0,0,0.6); color:#fbbf24; font-size:11px; font-weight:700;
+                                  letter-spacing:0.5px; text-transform:uppercase; z-index:2;">
+                        🔒 Locked
+                      </div>
+                    <?php endif; ?>
 
                     <!-- Card Content -->
                     <div class="system-card-body">
@@ -81,14 +91,21 @@
 
                         <!-- Action Buttons -->
                         <div class="system-actions">
-                            <a href="/study/<?php echo htmlspecialchars($system['id']); ?>" class="btn btn-primary btn-sm">
-                                <i data-lucide="book-open"></i>
-                                Study
-                            </a>
-                            <a href="/study/<?php echo htmlspecialchars($system['id']); ?>/revision" class="btn btn-secondary btn-sm">
-                                <i data-lucide="zap"></i>
-                                Quick Revision
-                            </a>
+                            <?php if ($isLocked): ?>
+                                <span class="btn btn-secondary btn-sm" style="cursor:not-allowed; pointer-events:none;">
+                                    <i data-lucide="lock"></i>
+                                    Complete <?php echo htmlspecialchars($system['unlock_blocker_name'] ?? 'previous system'); ?> first
+                                </span>
+                            <?php else: ?>
+                                <a href="/study/<?php echo htmlspecialchars($system['id']); ?>" class="btn btn-primary btn-sm">
+                                    <i data-lucide="book-open"></i>
+                                    Study
+                                </a>
+                                <a href="/study/<?php echo htmlspecialchars($system['id']); ?>/revision" class="btn btn-secondary btn-sm">
+                                    <i data-lucide="zap"></i>
+                                    Quick Revision
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
