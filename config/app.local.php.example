@@ -19,4 +19,12 @@ return [
     'stripe_secret_key'      => '', // sk_live_… or sk_test_…
     'stripe_publishable_key' => '', // pk_live_… or pk_test_…
     'stripe_webhook_secret'  => '', // whsec_… from the webhook endpoint setup
+
+    // Anthropic Claude (AI lesson generation — Phase 2+).
+    // Get key from https://console.anthropic.com/settings/keys
+    // Without this, /admin/ai-test will refuse to submit.
+    'anthropic_api_key'      => '', // sk-ant-…
+    // Optional: override model defaults if you want to bump generations.
+    // 'anthropic_model_chunk'   => 'claude-sonnet-4-5',
+    // 'anthropic_model_outline' => 'claude-opus-4-5',
 ];

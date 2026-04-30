@@ -16,6 +16,9 @@ use App\Core\Response;
 use App\Services\ActivationCodeService;
 use App\Services\AdminMetricsService;
 use App\Services\AircraftService;
+use App\Services\AIContentService;
+use App\Services\AIPromptBuilder;
+use App\Services\PdfTextService;
 use App\Services\SubscriptionService;
 
 class AdminController extends Controller
@@ -399,6 +402,126 @@ class AdminController extends Controller
         if (!CSRF::check($request)) { $response->status(419); $response->json(['error' => 'CSRF']); return; }
         if (!$this->hasFile('import_file')) { $response->json(['error' => 'No file'], 422); return; }
         $response->json(['success' => true, 'message' => 'Stub']);
+    }
+
+    /* ---------------- AI Smoke Test (Phase 2) ----------------
+     *
+     * /admin/ai-test: a one-shot harness that proves we can call Claude
+     * end-to-end. The admin pastes (or uploads as PDF) a chunk of a Q400
+     * system, and we ask Claude to return one sample slide as structured
+     * JSON. No DB writes — the result is rendered straight back to the
+     * page so we can eyeball the contract.
+     */
+
+    public function aiTest(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+
+        $cfg          = AIContentService::config();
+        $pdfTextBin   = PdfTextService::pdftotextPath();
+
+        $response->html($this->view('admin/ai_test', [
+            'title'           => 'AI Smoke Test',
+            'csrf_token'      => CSRF::generate(),
+            'configured'      => $cfg['configured'],
+            'model_chunk'     => $cfg['model_chunk'],
+            'model_outline'   => $cfg['model_outline'],
+            'pdftotext_path'  => $pdfTextBin,
+            'result'          => null,
+            'submitted'       => false,
+            'source_label'    => '',
+            'pasted_text'     => '',
+        ], 'admin'));
+    }
+
+    public function aiTestRun(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        if (!CSRF::check($request)) {
+            $response->status(419);
+            $response->html('CSRF token mismatch — refresh the page and try again.');
+            return;
+        }
+
+        $cfg = AIContentService::config();
+
+        $sourceLabel = trim((string) $this->input('source_label', ''));
+        $pasted      = (string) $this->input('pasted_text', '');
+        $extracted   = '';
+        $extractInfo = null;
+
+        // 1. If a PDF was uploaded, try pdftotext first.
+        if ($this->hasFile('pdf_file')) {
+            $file = $_FILES['pdf_file'] ?? null;
+            if (is_array($file) && ($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK) {
+                $tmp = (string) ($file['tmp_name'] ?? '');
+                if (is_uploaded_file($tmp)) {
+                    // Cap at ~120 KB of extracted text for a smoke test
+                    $extractInfo = PdfTextService::extract($tmp, 120000);
+                    if (($extractInfo['ok'] ?? false) === true) {
+                        $extracted = (string) ($extractInfo['text'] ?? '');
+                        if ($sourceLabel === '') {
+                            $sourceLabel = (string) ($file['name'] ?? 'uploaded PDF');
+                        }
+                    }
+                }
+            }
+        }
+
+        $userText = $extracted !== '' ? $extracted : trim($pasted);
+        if ($userText === '') {
+            $response->html($this->view('admin/ai_test', [
+                'title'           => 'AI Smoke Test',
+                'csrf_token'      => CSRF::generate(),
+                'configured'      => $cfg['configured'],
+                'model_chunk'     => $cfg['model_chunk'],
+                'model_outline'   => $cfg['model_outline'],
+                'pdftotext_path'  => PdfTextService::pdftotextPath(),
+                'result'          => [
+                    'ok'    => false,
+                    'error' => 'no_input',
+                    'error_detail' => 'Either upload a PDF (and pdftotext must be available) or paste a text excerpt.',
+                    'extract_info' => $extractInfo,
+                ],
+                'submitted'       => true,
+                'source_label'    => $sourceLabel,
+                'pasted_text'     => $pasted,
+            ], 'admin'));
+            return;
+        }
+
+        $systemPrompt = AIPromptBuilder::smokeTestSystem();
+        $userPrompt   = AIPromptBuilder::smokeTestUser(
+            $sourceLabel !== '' ? $sourceLabel : 'pasted excerpt',
+            $userText
+        );
+
+        $apiResponse = AIContentService::generate($systemPrompt, $userPrompt);
+
+        $parsedJson = null;
+        if (($apiResponse['ok'] ?? false) === true && !empty($apiResponse['text'])) {
+            $parsedJson = AIContentService::extractJson((string) $apiResponse['text']);
+        }
+
+        $response->html($this->view('admin/ai_test', [
+            'title'           => 'AI Smoke Test',
+            'csrf_token'      => CSRF::generate(),
+            'configured'      => $cfg['configured'],
+            'model_chunk'     => $cfg['model_chunk'],
+            'model_outline'   => $cfg['model_outline'],
+            'pdftotext_path'  => PdfTextService::pdftotextPath(),
+            'result'          => [
+                'ok'              => (bool) ($apiResponse['ok'] ?? false),
+                'api'             => $apiResponse,
+                'extract_info'    => $extractInfo,
+                'input_chars'     => strlen($userText),
+                'parsed_json'     => $parsedJson,
+                'parsed_json_ok'  => is_array($parsedJson),
+            ],
+            'submitted'       => true,
+            'source_label'    => $sourceLabel,
+            'pasted_text'     => $extracted !== '' ? '' : $pasted,
+        ], 'admin'));
     }
 
     /* ---------------- Flashcards ---------------- */

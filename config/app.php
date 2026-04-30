@@ -56,7 +56,27 @@ $defaults = [
         'planner' => false, // /planner placeholder
         'notes'   => false, // /notes placeholder
         'search'  => true,  // SearchController is wired and useful today
+        'ai_admin_test' => true, // /admin/ai-test smoke-test page (Phase 2)
     ],
+
+    // Anthropic Claude API configuration. The API key MUST be set in
+    // config/app.local.php (gitignored) — never commit it. The other keys
+    // here are sensible defaults; override per environment if needed.
+    'anthropic_api_key'      => '', // REQUIRED in app.local.php
+    'anthropic_api_url'      => 'https://api.anthropic.com/v1/messages',
+    'anthropic_api_version'  => '2023-06-01',
+    // Model identifiers — bump these to the current generation when needed.
+    // Outline pass uses the more capable model; per-chunk slide generation
+    // uses the cheaper one. For Phase 2 (smoke test) only the chunk model
+    // is exercised.
+    'anthropic_model_outline' => 'claude-opus-4-5',
+    'anthropic_model_chunk'   => 'claude-sonnet-4-5',
+    'anthropic_max_tokens'    => 16000,
+    // Per-chunk text size for the eventual chunked-PDF pipeline.
+    'anthropic_chunk_chars'   => 80000,
+    // HTTP timeout (seconds) for the API call. Generation can take a while
+    // for big prompts — bump if you hit time-outs.
+    'anthropic_timeout'       => 120,
 ];
 
 $localPath = __DIR__ . '/app.local.php';
