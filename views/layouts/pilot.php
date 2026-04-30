@@ -67,6 +67,15 @@ $isActive = function(string $href) use ($path): bool {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="/assets/css/pilot.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/pilot.css') ?: '0' ?>">
+  <!-- Lucide icons used by views with <i data-lucide="..."> placeholders. -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+    });
+  </script>
   <?php include __DIR__ . '/../partials/head-favicons.php'; ?>
   <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>

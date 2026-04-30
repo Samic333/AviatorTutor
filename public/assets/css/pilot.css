@@ -1908,3 +1908,97 @@ body.study-focus .plt-topbar:hover { opacity: 1; }
   color: var(--plt-text);
 }
 .empty-state p { margin: 0; font-size: 14px; }
+
+/* ---------- Flashcards "Study by System" card variant ----------
+   Uses .card (section wrapper), .card-header, .card-title, .card-body,
+   then per-system .system-card with header (title+icon), body
+   (.card-stat-row label/value rows), and .system-card-footer (button).
+   The view sets border-left inline for the system colour.
+   ---------------------------------------------------------------- */
+.card {
+  background: var(--plt-glass);
+  border: 1px solid var(--plt-glass-border);
+  border-radius: var(--plt-radius-lg);
+  padding: 0;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--plt-glass-border);
+}
+.card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--plt-text);
+  letter-spacing: -0.01em;
+}
+.card-body { padding: 20px; }
+
+/* Flashcards: each system card is column-flex (overrides general
+   .system-card flex-row above for cards that don't use the
+   .system-card-color leading flex item). */
+.flashcards-container .systems-grid .system-card,
+.card-body .systems-grid .system-card {
+  flex-direction: column;
+  display: flex;
+}
+
+.system-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.system-card-title h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--plt-text);
+}
+.system-card-header,
+.system-card-body,
+.system-card-footer {
+  padding: 14px 16px;
+}
+.system-card-header { border-bottom: 1px solid var(--plt-glass-border); }
+.system-card-footer {
+  border-top: 1px solid var(--plt-glass-border);
+  display: flex; justify-content: stretch;
+}
+.system-card-footer .btn { flex: 1; }
+.card-stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.card-stat-row:last-child { margin-bottom: 0; }
+.card-stat-row .label { color: var(--plt-text-muted); }
+.card-stat-row .value { color: var(--plt-text); font-weight: 600; }
+
+.text-muted { color: var(--plt-text-muted); font-size: 13px; }
+
+/* Stat icon variants for accent colours used on flashcards page. */
+.stat-icon.warning { background: var(--plt-warn-soft); color: var(--plt-warn); }
+.stat-icon.success { background: var(--plt-success-soft); color: var(--plt-success); }
+.stat-icon.danger  { background: var(--plt-danger-soft);  color: var(--plt-danger); }
+
+/* Progress page: per-system row with colour dot, title+progress, and
+   "Last studied" line. Markup uses .progress-system-row /
+   .system-color-dot etc. or just plain block layout. */
+.progress-system-row {
+  background: var(--plt-glass);
+  border: 1px solid var(--plt-glass-border);
+  border-radius: var(--plt-radius-lg);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  border-left-width: 4px;
+  border-left-style: solid;
+}
