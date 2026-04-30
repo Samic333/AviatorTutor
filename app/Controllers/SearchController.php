@@ -71,6 +71,7 @@ class SearchController extends Controller
                  FROM flashcards f
                  JOIN systems s ON f.system_id = s.id
                  WHERE (f.front LIKE ? OR f.back LIKE ?)
+                   AND (f.status IS NULL OR f.status = 'published')
                  LIMIT 5",
                 [$searchTerm, $searchTerm]
             );

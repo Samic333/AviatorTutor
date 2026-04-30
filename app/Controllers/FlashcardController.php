@@ -45,7 +45,9 @@ class FlashcardController extends Controller
         // Summary stats
         $totalFlashcards = $db->queryOne(
             'SELECT COUNT(*) as count FROM flashcards f
-             JOIN systems s ON f.system_id = s.id WHERE s.is_published = 1'
+             JOIN systems s ON f.system_id = s.id
+             WHERE s.is_published = 1
+               AND (f.status IS NULL OR f.status = "published")'
         )['count'] ?? 0;
 
         $dueCount = $db->queryOne(
@@ -123,6 +125,7 @@ class FlashcardController extends Controller
              FROM flashcards f
              LEFT JOIN flashcard_reviews fr ON f.id = fr.flashcard_id AND fr.user_id = ?
              WHERE f.system_id = ?
+               AND (f.status IS NULL OR f.status = "published")
              ORDER BY COALESCE(fr.next_review_at, NOW()) ASC',
             [$userId, $id]
         );

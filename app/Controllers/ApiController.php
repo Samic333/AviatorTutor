@@ -202,6 +202,7 @@ class ApiController extends Controller
                  FROM flashcards f
                  JOIN systems s ON f.system_id = s.id
                  WHERE (f.front LIKE ? OR f.back LIKE ?)
+                   AND (f.status IS NULL OR f.status = "published")
                  LIMIT 5',
                 [$searchTerm, $searchTerm]
             );
@@ -280,6 +281,7 @@ class ApiController extends Controller
              LEFT JOIN user_slide_progress p
                  ON p.slide_id = s.id AND p.user_id = ?
              WHERE s.lesson_id = ?
+               AND (s.status IS NULL OR s.status = "published")
                AND s.question IS NOT NULL
                AND JSON_EXTRACT(s.question, "$.correct_index") IS NOT NULL
                AND COALESCE(p.answered_correct, 0) = 0
@@ -339,11 +341,13 @@ class ApiController extends Controller
             return;
         }
 
-        // Pull the slide's question JSON from the DB (single source of truth)
+        // Pull the slide's question JSON from the DB (single source of truth).
+        // Reject draft slides — only published slides are answerable.
         $slide = $db->queryOne(
             'SELECT id, lesson_id, question
              FROM lesson_slides
-             WHERE id = ? AND lesson_id = ?',
+             WHERE id = ? AND lesson_id = ?
+               AND (status IS NULL OR status = "published")',
             [$slideId, $lessonId]
         );
 

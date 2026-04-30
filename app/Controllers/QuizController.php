@@ -34,7 +34,10 @@ class QuizController extends Controller
                     s.name as system_name, s.id as system_id,
                     COUNT(DISTINCT qa.id) as attempt_count,
                     AVG(qa.score) as avg_score,
-                    (SELECT COUNT(*) FROM quiz_questions qq WHERE qq.quiz_id = q.id) as question_count
+                    (SELECT COUNT(*) FROM quiz_questions qq
+                       WHERE qq.quiz_id = q.id
+                         AND (qq.status IS NULL OR qq.status = "published")
+                    ) as question_count
              FROM quizzes q
              LEFT JOIN systems s ON q.system_id = s.id
              LEFT JOIN quiz_attempts qa ON q.id = qa.quiz_id AND qa.user_id = ?
@@ -81,7 +84,10 @@ class QuizController extends Controller
 
         $questions = $db->query(
             'SELECT id, question_text, question_type, options, difficulty, sort_order
-             FROM quiz_questions WHERE quiz_id = ? ORDER BY sort_order',
+             FROM quiz_questions
+             WHERE quiz_id = ?
+               AND (status IS NULL OR status = "published")
+             ORDER BY sort_order',
             [$id]
         );
 

@@ -511,6 +511,164 @@ class AdminController extends Controller
         ], 'admin'));
     }
 
+    /**
+     * Publish all drafts produced by one AI generation job — single
+     * transaction that flips lessons / slides / flashcards / quizzes /
+     * quiz_questions tied to this ai_job_id from draft to published, and
+     * marks the job itself published.
+     */
+    public function aiJobPublish(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        if (!CSRF::check($request)) {
+            $response->status(419);
+            $response->json(['error' => 'CSRF']);
+            return;
+        }
+
+        $id = (int) $this->param('id');
+        $db = DB::instance();
+        $job = $db->queryOne('SELECT * FROM ai_generation_jobs WHERE id = ?', [$id]);
+        if (!$job) {
+            $response->status(404);
+            $response->html('Job not found.');
+            return;
+        }
+        if (!in_array((string) $job['status'], ['review', 'failed'], true)) {
+            // Anything else (queued/running/published/cancelled) is invalid.
+            $response->redirect('/admin/ai-jobs/' . $id);
+            return;
+        }
+
+        $db->execute('START TRANSACTION');
+        try {
+            // Flip the lesson row, if there is one
+            if (!empty($job['lesson_id'])) {
+                $db->execute(
+                    'UPDATE lessons
+                     SET draft_status = "published", is_published = 1
+                     WHERE id = ?',
+                    [(int) $job['lesson_id']]
+                );
+            }
+
+            // Flip slides
+            $db->execute(
+                'UPDATE lesson_slides SET status = "published" WHERE ai_job_id = ?',
+                [$id]
+            );
+
+            // Flip flashcards
+            $db->execute(
+                'UPDATE flashcards SET status = "published" WHERE ai_job_id = ?',
+                [$id]
+            );
+
+            // Flip quiz questions and the parent quiz row
+            $db->execute(
+                'UPDATE quiz_questions SET status = "published" WHERE ai_job_id = ?',
+                [$id]
+            );
+            $db->execute(
+                'UPDATE quizzes
+                 SET is_published = 1
+                 WHERE id IN (
+                    SELECT * FROM (
+                        SELECT DISTINCT quiz_id FROM quiz_questions WHERE ai_job_id = ?
+                    ) AS sub
+                 )',
+                [$id]
+            );
+
+            // Mark the job itself
+            $db->execute(
+                'UPDATE ai_generation_jobs
+                 SET status = "published",
+                     progress_message = "Published"
+                 WHERE id = ?',
+                [$id]
+            );
+
+            $db->execute('COMMIT');
+        } catch (\Throwable $e) {
+            $db->execute('ROLLBACK');
+            $response->status(500);
+            $response->html('Publish failed: ' . htmlspecialchars($e->getMessage()));
+            return;
+        }
+
+        $response->redirect('/admin/ai-jobs/' . $id);
+    }
+
+    /**
+     * Discard a job — deletes the lesson and any draft rows linked to it.
+     * Only available when the job is in 'review' or 'failed' state.
+     */
+    public function aiJobDiscard(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        if (!CSRF::check($request)) {
+            $response->status(419);
+            $response->json(['error' => 'CSRF']);
+            return;
+        }
+
+        $id = (int) $this->param('id');
+        $db = DB::instance();
+        $job = $db->queryOne('SELECT * FROM ai_generation_jobs WHERE id = ?', [$id]);
+        if (!$job) {
+            $response->status(404);
+            $response->html('Job not found.');
+            return;
+        }
+        if (!in_array((string) $job['status'], ['review', 'failed'], true)) {
+            $response->redirect('/admin/ai-jobs/' . $id);
+            return;
+        }
+
+        $db->execute('START TRANSACTION');
+        try {
+            // Lesson cascade-deletes its slides via FK; we still need to
+            // clean up flashcards + quiz_questions + quizzes that share
+            // the ai_job_id but were created at the system level.
+            if (!empty($job['lesson_id'])) {
+                $db->execute('DELETE FROM lessons WHERE id = ?', [(int) $job['lesson_id']]);
+            }
+            $db->execute('DELETE FROM flashcards WHERE ai_job_id = ?', [$id]);
+            // Find quizzes whose only questions are from this job and delete them
+            $orphanQuizIds = $db->query(
+                'SELECT q.id
+                 FROM quizzes q
+                 JOIN quiz_questions qq ON qq.quiz_id = q.id
+                 WHERE qq.ai_job_id = ?
+                 GROUP BY q.id
+                 HAVING COUNT(*) = SUM(qq.ai_job_id = ?)',
+                [$id, $id]
+            );
+            $db->execute('DELETE FROM quiz_questions WHERE ai_job_id = ?', [$id]);
+            foreach ($orphanQuizIds as $row) {
+                $db->execute('DELETE FROM quizzes WHERE id = ?', [(int) $row['id']]);
+            }
+
+            $db->execute(
+                'UPDATE ai_generation_jobs
+                 SET status = "cancelled",
+                     progress_message = "Discarded"
+                 WHERE id = ?',
+                [$id]
+            );
+
+            $db->execute('COMMIT');
+        } catch (\Throwable $e) {
+            $db->execute('ROLLBACK');
+            $response->status(500);
+            $response->html('Discard failed: ' . htmlspecialchars($e->getMessage()));
+            return;
+        }
+
+        $response->redirect('/admin/ai-jobs');
+    }
+
     public function aiJobShow(Request $request, Response $response): void
     {
         $this->requireAdmin();
@@ -535,17 +693,22 @@ class AdminController extends Controller
                 [(int) $job['lesson_id']]
             );
             $slides = DB::instance()->query(
-                'SELECT id, slide_type, title, sort_order
+                'SELECT id, slide_type, title, body, key_point, ops_relevance,
+                        question, source_quote, sort_order, status
                  FROM lesson_slides WHERE ai_job_id = ?
                  ORDER BY sort_order, id',
                 [$id]
             );
             $flashcards = DB::instance()->query(
-                'SELECT id, front, difficulty FROM flashcards WHERE ai_job_id = ? ORDER BY id',
+                'SELECT id, front, back, expected_answer, grading_rubric,
+                        hint, difficulty, status
+                 FROM flashcards WHERE ai_job_id = ? ORDER BY id',
                 [$id]
             );
             $quizQs = DB::instance()->query(
-                'SELECT id, question_text, difficulty FROM quiz_questions WHERE ai_job_id = ? ORDER BY id',
+                'SELECT id, question_text, options, correct_answer, explanation,
+                        difficulty, status
+                 FROM quiz_questions WHERE ai_job_id = ? ORDER BY id',
                 [$id]
             );
         }
@@ -566,6 +729,7 @@ class AdminController extends Controller
             'flashcards'     => $flashcards,
             'quiz_questions' => $quizQs,
             'target_system'  => $targetSystem,
+            'csrf_token'     => CSRF::generate(),
         ], 'admin'));
     }
 

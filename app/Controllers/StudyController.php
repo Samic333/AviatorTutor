@@ -140,6 +140,7 @@ class StudyController extends Controller
             'SELECT id, front, back, difficulty
              FROM flashcards
              WHERE system_id = ? AND difficulty IN ("easy", "medium")
+               AND (status IS NULL OR status = "published")
              LIMIT 10',
             [$id]
         );
@@ -223,31 +224,41 @@ class StudyController extends Controller
 
         // Filter slides by the selected difficulty. Falls back to the
         // unfiltered query if the gating columns haven't been migrated yet.
+        // status = 'published' filter prevents draft slides (Phase 3+
+        // AI-generated drafts) from leaking before the admin reviews and
+        // publishes them. The legacy fallback query below applies the
+        // same filter — old environments without the status column will
+        // throw and fall through to the catch.
         try {
             $slides = $db->query(
                 "SELECT id, sort_order, slide_type, title, body,
                         media_type, media_url, media_alt,
                         key_point, ops_relevance, question
                  FROM lesson_slides
-                 WHERE lesson_id = ? AND $diffColumn = 1
+                 WHERE lesson_id = ?
+                   AND status = 'published'
+                   AND $diffColumn = 1
                  ORDER BY sort_order, id",
                 [$lessonId]
             );
             // If the deck author hasn't tagged any slide for this level, fall
-            // back to the full deck so the learner is never stuck on an empty
-            // module.
+            // back to the full published deck so the learner is never stuck
+            // on an empty module.
             if (empty($slides)) {
                 $slides = $db->query(
-                    'SELECT id, sort_order, slide_type, title, body,
+                    "SELECT id, sort_order, slide_type, title, body,
                             media_type, media_url, media_alt,
                             key_point, ops_relevance, question
                      FROM lesson_slides
                      WHERE lesson_id = ?
-                     ORDER BY sort_order, id',
+                       AND status = 'published'
+                     ORDER BY sort_order, id",
                     [$lessonId]
                 );
             }
         } catch (\Throwable $e) {
+            // Legacy DB without status column — safe because every row in
+            // such a DB is by definition pre-Phase-3 and considered published.
             $slides = $db->query(
                 'SELECT id, sort_order, slide_type, title, body,
                         media_type, media_url, media_alt,

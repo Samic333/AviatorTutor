@@ -100,7 +100,9 @@ class SystemsController extends Controller
 
         // Get flashcard count
         $flashcardCount = $db->queryOne(
-            'SELECT COUNT(*) as count FROM flashcards WHERE system_id = ?',
+            'SELECT COUNT(*) as count FROM flashcards
+             WHERE system_id = ?
+               AND (status IS NULL OR status = "published")',
             [$id]
         )['count'] ?? 0;
 
