@@ -81,8 +81,7 @@ class SystemsController extends Controller
         );
 
         if (!$system) {
-            $response->status(404);
-            $response->html('<h1>System Not Found</h1>');
+            $this->renderNotFound('System Not Found', 'That aircraft system isn’t in the library yet, or the URL is off.', '/systems', 'Browse all systems');
             return;
         }
 

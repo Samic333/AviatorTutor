@@ -373,4 +373,22 @@ abstract class Controller
         unset($_SESSION[$key]);
         return is_string($value) ? $value : null;
     }
+
+    /**
+     * Render a styled 404 page using the pilot layout (or marketing if not
+     * authenticated) with a heading, body, and a back-to-safety link.
+     * Replaces the previous bare `<h1>X Not Found</h1>` HTML responses.
+     */
+    protected function renderNotFound(string $heading, string $body = '', string $backUrl = '/dashboard', string $backLabel = 'Back to dashboard'): void
+    {
+        $this->response->status(404);
+        $layout = Auth::check() ? 'pilot' : 'marketing';
+        $this->response->html($this->view('errors/not-found', [
+            'title'     => $heading,
+            'heading'   => $heading,
+            'body'      => $body !== '' ? $body : 'The page or resource you were looking for is not available.',
+            'backUrl'   => $backUrl,
+            'backLabel' => $backLabel,
+        ], $layout));
+    }
 }

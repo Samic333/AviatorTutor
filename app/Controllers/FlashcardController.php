@@ -114,8 +114,7 @@ class FlashcardController extends Controller
         );
 
         if (!$system) {
-            $response->status(404);
-            $response->html('<h1>System Not Found</h1>');
+            $this->renderNotFound('System Not Found', 'That system has no flashcard deck yet, or the URL is off.', '/flashcards', 'Back to flashcards');
             return;
         }
 

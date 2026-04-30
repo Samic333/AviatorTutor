@@ -75,8 +75,7 @@ class QuizController extends Controller
         );
 
         if (!$quiz) {
-            $response->status(404);
-            $response->html('<h1>Quiz Not Found</h1>');
+            $this->renderNotFound('Quiz Not Found', 'That quiz isn’t available — it may have been removed or unpublished.', '/quiz', 'Back to quizzes');
             return;
         }
 
@@ -211,8 +210,7 @@ class QuizController extends Controller
         );
 
         if (!$quiz) {
-            $response->status(404);
-            $response->html('<h1>Not Found</h1>');
+            $this->renderNotFound('Quiz Result Not Found', 'We couldn’t find that quiz attempt — it may have been removed.', '/quiz', 'Back to quizzes');
             return;
         }
 

@@ -34,8 +34,7 @@ class DiagramController extends Controller
         );
 
         if (!$diagram) {
-            $response->status(404);
-            $response->html('<h1>Diagram Not Found</h1>');
+            $this->renderNotFound('Diagram Not Found', 'That system diagram isn’t available yet.', '/systems', 'Back to systems');
             return;
         }
 

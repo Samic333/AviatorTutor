@@ -36,8 +36,7 @@ class StudyController extends Controller
         );
 
         if (!$system) {
-            $response->status(404);
-            $response->html('<h1>System Not Found</h1>');
+            $this->renderNotFound('System Not Found', 'That aircraft system isn’t in the library yet, or the URL is off.', '/systems', 'Browse all systems');
             return;
         }
 
@@ -119,8 +118,7 @@ class StudyController extends Controller
         );
 
         if (!$system) {
-            $response->status(404);
-            $response->html('<h1>System Not Found</h1>');
+            $this->renderNotFound('System Not Found', 'That aircraft system isn’t in the library yet, or the URL is off.', '/systems', 'Browse all systems');
             return;
         }
 
@@ -193,8 +191,7 @@ class StudyController extends Controller
         );
 
         if (!$system) {
-            $response->status(404);
-            $response->html('<h1>System Not Found</h1>');
+            $this->renderNotFound('System Not Found', 'That aircraft system isn’t in the library yet, or the URL is off.', '/systems', 'Browse all systems');
             return;
         }
 
@@ -206,8 +203,7 @@ class StudyController extends Controller
         );
 
         if (!$lesson) {
-            $response->status(404);
-            $response->html('<h1>Lesson Not Found</h1>');
+            $this->renderNotFound('Lesson Not Found', 'That lesson isn’t available — it may have been moved or unpublished.', '/study/' . $systemId, 'Back to system');
             return;
         }
 
