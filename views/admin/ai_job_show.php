@@ -101,6 +101,12 @@ $isLive     = $status === 'published' && $lesson;
           <em>(none)</em>
         <?php endif; ?>
       </li>
+      <li><strong>Provider:</strong>
+        <?= htmlspecialchars((string) ($job['provider'] ?? 'anthropic')) ?>
+        <?php if (!empty($job['model'])): ?>
+          (<code><?= htmlspecialchars((string) $job['model']) ?></code>)
+        <?php endif; ?>
+      </li>
       <li><strong>Tokens:</strong>
         in <?= (int)$job['prompt_tokens'] ?>,
         out <?= (int)$job['completion_tokens'] ?>

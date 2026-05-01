@@ -19,6 +19,7 @@ use App\Services\AircraftService;
 use App\Services\AIContentService;
 use App\Services\AIJobService;
 use App\Services\AIPromptBuilder;
+use App\Services\AppSetting;
 use App\Services\PdfTextService;
 use App\Services\SubscriptionService;
 
@@ -397,7 +398,7 @@ class AdminController extends Controller
         );
         $recentJobs = DB::instance()->query(
             'SELECT id, source_label, original_filename, mode, analysis_depth,
-                    status, progress_pct, progress_message, created_at
+                    provider, model, status, progress_pct, progress_message, created_at
              FROM ai_generation_jobs
              ORDER BY id DESC LIMIT 10'
         );
@@ -408,7 +409,7 @@ class AdminController extends Controller
             'title'           => 'Import',
             'csrf_token'      => CSRF::generate(),
             'systems'         => $systems,
-            'api_configured'  => $cfg['configured'],
+            'ai_config'       => $cfg,
             'extract_status'  => PdfTextService::backendStatus(),
             'recent_jobs'     => $recentJobs,
         ], 'admin'));
@@ -428,8 +429,10 @@ class AdminController extends Controller
 
         $mode  = (string) $this->input('mode', 'full');
         $depth = (string) $this->input('analysis_depth', 'standard');
-        if (!in_array($mode,  ['manual','assisted','full'],  true)) $mode  = 'full';
-        if (!in_array($depth, ['standard','detail'],         true)) $depth = 'standard';
+        $provider = (string) $this->input('provider', AIContentService::config()['default_provider']);
+        if (!in_array($mode,     ['manual','assisted','full'],         true)) $mode     = 'full';
+        if (!in_array($depth,    ['standard','detail'],                true)) $depth    = 'standard';
+        if (!in_array($provider, AIContentService::PROVIDERS,          true)) $provider = 'anthropic';
 
         $sourceLabel = trim((string) $this->input('source_label', ''));
         $pasted      = (string) $this->input('pasted_text', '');
@@ -478,6 +481,7 @@ class AdminController extends Controller
             'pasted_text'       => $pasted !== '' ? $pasted : null,
             'mode'              => $mode,
             'analysis_depth'    => $depth,
+            'provider'          => $provider,
         ]);
 
         // Manual mode skips Claude entirely — mark the job as 'review'
@@ -746,20 +750,17 @@ class AdminController extends Controller
     {
         $this->requireAdmin();
 
-        $cfg          = AIContentService::config();
-        $pdfTextBin   = PdfTextService::pdftotextPath();
-
+        $cfg = AIContentService::config();
         $response->html($this->view('admin/ai_test', [
-            'title'           => 'AI Smoke Test',
-            'csrf_token'      => CSRF::generate(),
-            'configured'      => $cfg['configured'],
-            'model_chunk'     => $cfg['model_chunk'],
-            'model_outline'   => $cfg['model_outline'],
-            'pdftotext_path'  => $pdfTextBin,
-            'result'          => null,
-            'submitted'       => false,
-            'source_label'    => '',
-            'pasted_text'     => '',
+            'title'            => 'AI Smoke Test',
+            'csrf_token'       => CSRF::generate(),
+            'ai_config'        => $cfg,
+            'pdftotext_path'   => PdfTextService::pdftotextPath(),
+            'result'           => null,
+            'submitted'        => false,
+            'source_label'     => '',
+            'pasted_text'      => '',
+            'selected_provider'=> $cfg['default_provider'],
         ], 'admin'));
     }
 
@@ -773,6 +774,10 @@ class AdminController extends Controller
         }
 
         $cfg = AIContentService::config();
+        $selectedProvider = (string) $this->input('provider', $cfg['default_provider']);
+        if (!in_array($selectedProvider, AIContentService::PROVIDERS, true)) {
+            $selectedProvider = $cfg['default_provider'];
+        }
 
         $sourceLabel = trim((string) $this->input('source_label', ''));
         $pasted      = (string) $this->input('pasted_text', '');
@@ -802,9 +807,7 @@ class AdminController extends Controller
             $response->html($this->view('admin/ai_test', [
                 'title'           => 'AI Smoke Test',
                 'csrf_token'      => CSRF::generate(),
-                'configured'      => $cfg['configured'],
-                'model_chunk'     => $cfg['model_chunk'],
-                'model_outline'   => $cfg['model_outline'],
+                'ai_config'       => $cfg,
                 'pdftotext_path'  => PdfTextService::pdftotextPath(),
                 'result'          => [
                     'ok'    => false,
@@ -812,9 +815,10 @@ class AdminController extends Controller
                     'error_detail' => 'Either upload a PDF (and pdftotext must be available) or paste a text excerpt.',
                     'extract_info' => $extractInfo,
                 ],
-                'submitted'       => true,
-                'source_label'    => $sourceLabel,
-                'pasted_text'     => $pasted,
+                'submitted'         => true,
+                'source_label'      => $sourceLabel,
+                'pasted_text'       => $pasted,
+                'selected_provider' => $selectedProvider,
             ], 'admin'));
             return;
         }
@@ -825,7 +829,9 @@ class AdminController extends Controller
             $userText
         );
 
-        $apiResponse = AIContentService::generate($systemPrompt, $userPrompt);
+        $apiResponse = AIContentService::generate($systemPrompt, $userPrompt, [
+            'provider' => $selectedProvider,
+        ]);
 
         $parsedJson = null;
         if (($apiResponse['ok'] ?? false) === true && !empty($apiResponse['text'])) {
@@ -835,9 +841,7 @@ class AdminController extends Controller
         $response->html($this->view('admin/ai_test', [
             'title'           => 'AI Smoke Test',
             'csrf_token'      => CSRF::generate(),
-            'configured'      => $cfg['configured'],
-            'model_chunk'     => $cfg['model_chunk'],
-            'model_outline'   => $cfg['model_outline'],
+            'ai_config'       => $cfg,
             'pdftotext_path'  => PdfTextService::pdftotextPath(),
             'result'          => [
                 'ok'              => (bool) ($apiResponse['ok'] ?? false),
@@ -847,9 +851,10 @@ class AdminController extends Controller
                 'parsed_json'     => $parsedJson,
                 'parsed_json_ok'  => is_array($parsedJson),
             ],
-            'submitted'       => true,
-            'source_label'    => $sourceLabel,
-            'pasted_text'     => $extracted !== '' ? '' : $pasted,
+            'submitted'         => true,
+            'source_label'      => $sourceLabel,
+            'pasted_text'       => $extracted !== '' ? '' : $pasted,
+            'selected_provider' => $selectedProvider,
         ], 'admin'));
     }
 
@@ -1463,10 +1468,31 @@ class AdminController extends Controller
     public function settings(Request $request, Response $response): void
     {
         $this->requireAdmin();
+
+        // Pull current config (after the AppSetting → config/app.local.php
+        // resolution chain) so we can show the admin which provider is
+        // currently active and whether each key is set.
+        $aiConfig = AIContentService::config();
+
+        // Per-key DB-stored metadata (was-it-set-here, when, masked tail).
+        // We only show the masked tail for keys that came from the DB so
+        // the admin can tell at a glance which slot is filled by what.
+        $allSettings = AppSetting::getAll();
+        $maskedKeys = [];
+        foreach (['anthropic_api_key', 'openai_api_key', 'gemini_api_key'] as $sk) {
+            $row = $allSettings[$sk] ?? null;
+            $maskedKeys[$sk] = $row ? $row['masked'] : '';
+        }
+
         $response->html($this->view('admin/settings', [
-            'title'      => 'Settings',
-            'csrf_token' => CSRF::generate(),
+            'title'           => 'Settings',
+            'csrf_token'      => CSRF::generate(),
+            'ai_config'       => $aiConfig,
+            'masked_keys'     => $maskedKeys,
+            'flash_ok'        => $_SESSION['flash_ok']    ?? '',
+            'flash_error'     => $_SESSION['flash_error'] ?? '',
         ], 'admin'));
+        unset($_SESSION['flash_ok'], $_SESSION['flash_error']);
     }
 
     public function settingsUpdate(Request $request, Response $response): void
@@ -1477,7 +1503,51 @@ class AdminController extends Controller
             $this->redirect('/admin/settings');
             return;
         }
-        $_SESSION['flash_ok'] = 'Settings saved.';
+
+        $userId = (int) ($this->user()['id'] ?? 0);
+
+        // Default provider — write directly (always set to a valid value).
+        $default = (string) $this->input('ai_default_provider', 'anthropic');
+        if (!in_array($default, AIContentService::PROVIDERS, true)) $default = 'anthropic';
+        AppSetting::set('ai_default_provider', $default, false, $userId);
+
+        // API keys — only update if the admin pasted a non-empty value.
+        // Empty input means "keep what's already saved" so the admin
+        // doesn't accidentally wipe a key by clicking Save twice.
+        $changed = [];
+        foreach (['anthropic_api_key', 'openai_api_key', 'gemini_api_key'] as $keyName) {
+            $newVal = trim((string) $this->input($keyName, ''));
+            if (AppSetting::setIfChanged($keyName, $newVal, true, $userId)) {
+                $changed[] = $keyName;
+            }
+        }
+
+        // Optional model overrides — write straight through; an empty
+        // string clears the override and falls back to the default in
+        // config/app.php on next read.
+        foreach ([
+            'anthropic_model_chunk', 'anthropic_model_outline',
+            'openai_model_chunk',    'openai_model_outline',
+            'gemini_model_chunk',    'gemini_model_outline',
+        ] as $modelKey) {
+            $val = trim((string) $this->input($modelKey, ''));
+            AppSetting::set($modelKey, $val === '' ? null : $val, false, $userId);
+        }
+
+        $_SESSION['flash_ok'] = empty($changed)
+            ? 'Settings saved (no API keys changed).'
+            : 'Settings saved. Updated keys: ' . implode(', ', $changed) . '.';
+
+        // Optional: a "Clear key" checkbox per provider would let the admin
+        // explicitly blank a key. We intentionally don't auto-clear on
+        // empty input.
+        $clear = (array) $this->input('clear_keys', []);
+        foreach ($clear as $kk) {
+            if (in_array($kk, ['anthropic_api_key','openai_api_key','gemini_api_key'], true)) {
+                AppSetting::set($kk, '', true, $userId);
+            }
+        }
+
         $this->redirect('/admin/settings');
     }
 

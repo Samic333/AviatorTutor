@@ -20,11 +20,24 @@ return [
     'stripe_publishable_key' => '', // pk_live_… or pk_test_…
     'stripe_webhook_secret'  => '', // whsec_… from the webhook endpoint setup
 
-    // Anthropic Claude (AI lesson generation — Phase 2+).
-    // Get key from https://console.anthropic.com/settings/keys
-    // Without this, /admin/ai-test will refuse to submit.
+    // ----------------------------------------------------------------
+    // AI providers (any one is enough; admin can pick per call).
+    // Default provider used when admin doesn't pick. Allowed:
+    // 'anthropic' | 'openai' | 'gemini'.
+    'ai_default_provider'    => 'anthropic',
+
+    // Anthropic Claude — https://console.anthropic.com/settings/keys
     'anthropic_api_key'      => '', // sk-ant-…
-    // Optional: override model defaults if you want to bump generations.
     // 'anthropic_model_chunk'   => 'claude-sonnet-4-5',
     // 'anthropic_model_outline' => 'claude-opus-4-5',
+
+    // OpenAI GPT — https://platform.openai.com/api-keys
+    'openai_api_key'         => '', // sk-…
+    // 'openai_model_chunk'   => 'gpt-4.1-mini',
+    // 'openai_model_outline' => 'gpt-4.1',
+
+    // Google Gemini — https://aistudio.google.com/app/apikey
+    'gemini_api_key'         => '', // AIza…
+    // 'gemini_model_chunk'   => 'gemini-2.5-flash',
+    // 'gemini_model_outline' => 'gemini-2.5-pro',
 ];

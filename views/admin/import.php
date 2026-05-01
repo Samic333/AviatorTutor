@@ -5,38 +5,42 @@ declare(strict_types=1);
  *
  * @var string      $csrf_token
  * @var array       $systems         List of system rows for the target dropdown
- * @var bool        $api_configured  Whether anthropic_api_key is set
+ * @var array       $ai_config       ['default_provider'=>..., 'providers'=>[name=>{configured,label,model_chunk,...}, ...]]
  * @var array       $extract_status  ['smalot'=>bool,'pdftotext'=>?string,'any'=>bool]
  * @var array       $recent_jobs     Last 10 ai_generation_jobs rows
  */
+
+$providers = $ai_config['providers'] ?? [];
+$defaultProvider = (string) ($ai_config['default_provider'] ?? 'anthropic');
+$anyConfigured = false;
+foreach ($providers as $p) { if ($p['configured']) { $anyConfigured = true; break; } }
 ?>
 <div class="adm-page-header">
   <div>
     <h1 class="adm-page-header__title">Import &amp; AI Generation</h1>
-    <p class="adm-page-header__sub">Upload a Q400 PDF (or paste text) — pick how much help you want from Claude.</p>
+    <p class="adm-page-header__sub">Upload a Q400 PDF (or paste text) — pick how much help you want and which AI to use.</p>
   </div>
 </div>
 
 <!-- Configuration banner -->
-<div class="adm-panel" style="max-width:880px;">
+<div class="adm-panel" style="max-width:920px;">
   <div class="adm-panel__body" style="display:flex; gap:24px; flex-wrap:wrap; align-items:center;">
-    <div>
-      <strong>Anthropic API:</strong>
-      <?php if ($api_configured): ?>
-        <span style="color:#10b981;">configured</span>
-      <?php else: ?>
-        <span style="color:#ef4444;">missing</span> —
-        set <code>'anthropic_api_key'</code> in <code>config/app.local.php</code> on the server.
-      <?php endif; ?>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <strong>AI providers:</strong>
+      <?php foreach ($providers as $name => $p): ?>
+        <span style="font-size:12px; padding:3px 10px; border-radius:999px; background:<?= $p['configured'] ? '#10b98122' : '#9ca3af22' ?>; color:<?= $p['configured'] ? '#10b981' : '#9ca3af' ?>;">
+          <?= htmlspecialchars($p['label']) ?><?= $p['configured'] ? '' : ' (off)' ?>
+        </span>
+      <?php endforeach; ?>
     </div>
     <div>
       <strong>PDF extract:</strong>
       <?php if ($extract_status['smalot']): ?>
         <span style="color:#10b981;">Smalot ready</span>
       <?php elseif ($extract_status['pdftotext']): ?>
-        <span style="color:#10b981;">pdftotext at <code><?= htmlspecialchars($extract_status['pdftotext']) ?></code></span>
+        <span style="color:#10b981;">pdftotext</span>
       <?php else: ?>
-        <span style="color:#ef4444;">no backend</span> — run <code>composer install</code> on the server, or paste text.
+        <span style="color:#ef4444;">no backend</span>
       <?php endif; ?>
     </div>
   </div>
@@ -69,6 +73,24 @@ declare(strict_types=1);
         <label class="adm-label">Source label (optional)</label>
         <input type="text" name="source_label" class="adm-input"
                placeholder="e.g. Q400-Hydraulic_Power.pdf">
+      </div>
+
+      <div class="adm-form-group">
+        <label class="adm-label">AI provider</label>
+        <select name="provider" class="adm-select">
+          <?php foreach ($providers as $name => $p): ?>
+            <option value="<?= htmlspecialchars($name) ?>"
+                    <?= $name === $defaultProvider ? 'selected' : '' ?>
+                    <?= !$p['configured'] ? 'disabled' : '' ?>>
+              <?= htmlspecialchars($p['label']) ?>
+              — <?= htmlspecialchars($p['model_chunk']) ?>
+              <?= !$p['configured'] ? ' (key missing)' : '' ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+        <small style="display:block; margin-top:6px; color:#9ca3af;">
+          Manual mode ignores this — no AI is called.
+        </small>
       </div>
 
       <div class="adm-form-group">
@@ -152,9 +174,9 @@ declare(strict_types=1);
             <th style="text-align:left; padding:10px 16px;">Source</th>
             <th style="text-align:left; padding:10px 16px;">Mode</th>
             <th style="text-align:left; padding:10px 16px;">Depth</th>
+            <th style="text-align:left; padding:10px 16px;">Provider</th>
             <th style="text-align:left; padding:10px 16px;">Status</th>
             <th style="text-align:left; padding:10px 16px;">Progress</th>
-            <th style="text-align:left; padding:10px 16px;">Created</th>
           </tr>
         </thead>
         <tbody>
@@ -168,6 +190,12 @@ declare(strict_types=1);
             </td>
             <td style="padding:10px 16px;"><?= htmlspecialchars($j['mode']) ?></td>
             <td style="padding:10px 16px;"><?= htmlspecialchars($j['analysis_depth']) ?></td>
+            <td style="padding:10px 16px; font-size:12px;">
+              <?= htmlspecialchars((string) ($j['provider'] ?? 'anthropic')) ?>
+              <?php if (!empty($j['model'])): ?>
+                <br><span style="color:#9ca3af;"><?= htmlspecialchars((string) $j['model']) ?></span>
+              <?php endif; ?>
+            </td>
             <td style="padding:10px 16px;">
               <?php
                 $color = ['queued'=>'#9ca3af','running'=>'#3b82f6','review'=>'#f59e0b','published'=>'#10b981','failed'=>'#ef4444','cancelled'=>'#6b7280'];
@@ -178,7 +206,6 @@ declare(strict_types=1);
             <td style="padding:10px 16px;">
               <?= (int)$j['progress_pct'] ?>% — <?= htmlspecialchars((string)$j['progress_message']) ?>
             </td>
-            <td style="padding:10px 16px;"><?= htmlspecialchars($j['created_at']) ?></td>
           </tr>
         <?php endforeach; ?>
         </tbody>

@@ -39,12 +39,16 @@ class AIJobService
     public static function enqueue(array $input): int
     {
         $db = DB::instance();
+        $provider = (string) ($input['provider'] ?? 'anthropic');
+        if (!in_array($provider, AIContentService::PROVIDERS, true)) {
+            $provider = 'anthropic';
+        }
         $db->execute(
             'INSERT INTO ai_generation_jobs
                  (admin_user_id, target_system_id, pdf_path, original_filename,
-                  source_label, pasted_text, mode, analysis_depth, status,
-                  progress_pct, progress_message)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, "queued", 0, "Queued")',
+                  source_label, pasted_text, mode, analysis_depth, provider,
+                  status, progress_pct, progress_message)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, "queued", 0, "Queued")',
             [
                 $input['admin_user_id'],
                 $input['target_system_id']  ?? null,
@@ -54,6 +58,7 @@ class AIJobService
                 $input['pasted_text']       ?? null,
                 $input['mode']              ?? 'full',
                 $input['analysis_depth']    ?? 'standard',
+                $provider,
             ]
         );
         return (int) $db->lastInsertId();
@@ -188,11 +193,20 @@ class AIJobService
             $systemPrompt = AIPromptBuilder::lessonSystem($depth);
             $userPrompt   = AIPromptBuilder::lessonUser($sourceLabel, $ataHint, $text);
 
+            $provider = (string) ($job['provider'] ?? 'anthropic');
             $apiResp = AIContentService::generate($systemPrompt, $userPrompt, [
-                // Use the chunk model for now; Phase 5 may bump detail mode
-                // to the outline model for higher quality on the Caution Draft.
+                'provider'    => $provider,
                 'temperature' => 0.2,
             ]);
+            // Record which model actually answered (provider may have
+            // fallen back to a different one if the requested provider
+            // was unconfigured).
+            if (!empty($apiResp['model'])) {
+                DB::instance()->execute(
+                    'UPDATE ai_generation_jobs SET model = ?, provider = ? WHERE id = ?',
+                    [(string) $apiResp['model'], (string) ($apiResp['provider'] ?? $provider), $id]
+                );
+            }
 
             if (($apiResp['ok'] ?? false) !== true) {
                 self::fail($id, 'Claude API: ' . ($apiResp['error_detail'] ?? $apiResp['error'] ?? 'unknown'));

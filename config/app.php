@@ -59,24 +59,39 @@ $defaults = [
         'ai_admin_test' => true, // /admin/ai-test smoke-test page (Phase 2)
     ],
 
-    // Anthropic Claude API configuration. The API key MUST be set in
-    // config/app.local.php (gitignored) — never commit it. The other keys
-    // here are sensible defaults; override per environment if needed.
-    'anthropic_api_key'      => '', // REQUIRED in app.local.php
+    // ---------------------------------------------------------------
+    // AI providers (Phase 6: multi-provider).
+    // ---------------------------------------------------------------
+    // Default provider used when admin doesn't pick one explicitly.
+    // Allowed: 'anthropic' | 'openai' | 'gemini'.
+    'ai_default_provider' => 'anthropic',
+
+    // ---- Anthropic Claude ----
+    'anthropic_api_key'      => '', // REQUIRED in app.local.php to use this provider
     'anthropic_api_url'      => 'https://api.anthropic.com/v1/messages',
     'anthropic_api_version'  => '2023-06-01',
-    // Model identifiers — bump these to the current generation when needed.
-    // Outline pass uses the more capable model; per-chunk slide generation
-    // uses the cheaper one. For Phase 2 (smoke test) only the chunk model
-    // is exercised.
     'anthropic_model_outline' => 'claude-opus-4-5',
     'anthropic_model_chunk'   => 'claude-sonnet-4-5',
     'anthropic_max_tokens'    => 16000,
-    // Per-chunk text size for the eventual chunked-PDF pipeline.
     'anthropic_chunk_chars'   => 80000,
-    // HTTP timeout (seconds) for the API call. Generation can take a while
-    // for big prompts — bump if you hit time-outs.
     'anthropic_timeout'       => 120,
+
+    // ---- OpenAI GPT ----
+    'openai_api_key'      => '', // sk-…  set in app.local.php to enable
+    'openai_api_url'      => 'https://api.openai.com/v1/chat/completions',
+    'openai_model_outline' => 'gpt-4.1',
+    'openai_model_chunk'   => 'gpt-4.1-mini',
+    'openai_max_tokens'    => 8192,
+    'openai_timeout'       => 120,
+
+    // ---- Google Gemini ----
+    // Note the trailing slash on api_url — the model id is appended.
+    'gemini_api_key'      => '', // AIza…  set in app.local.php to enable
+    'gemini_api_url'      => 'https://generativelanguage.googleapis.com/v1beta/models/',
+    'gemini_model_outline' => 'gemini-2.5-pro',
+    'gemini_model_chunk'   => 'gemini-2.5-flash',
+    'gemini_max_tokens'    => 8192,
+    'gemini_timeout'       => 120,
 ];
 
 $localPath = __DIR__ . '/app.local.php';
