@@ -158,6 +158,14 @@ $router->post('/admin/contacts/{id}',          'AdminController@contactUpdate');
 $router->post('/admin/contacts/{id}/reply',    'AdminController@contactReply');
 $router->get('/admin/aircrafts', 'AdminController@aircrafts');
 $router->post('/admin/aircrafts/update', 'AdminController@aircraftsUpdate');
+
+// Systems CRUD
+$router->get('/admin/systems',                 'AdminController@systemsList');
+$router->get('/admin/systems/new',             'AdminController@systemNew');
+$router->post('/admin/systems/create',         'AdminController@systemCreate');
+$router->get('/admin/systems/{id}/edit',       'AdminController@systemEditForm');
+$router->post('/admin/systems/{id}/update',    'AdminController@systemUpdate');
+$router->post('/admin/systems/{id}/delete',    'AdminController@systemDelete');
 $router->get('/admin/content', 'AdminController@content');
 $router->post('/admin/content/create', 'AdminController@createContent');
 $router->get('/admin/import', 'AdminController@import');

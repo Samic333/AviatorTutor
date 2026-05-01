@@ -1463,6 +1463,193 @@ class AdminController extends Controller
         $this->redirect('/admin/slides/lesson/' . (int)$slide['lesson_id']);
     }
 
+    /* ---------------- Systems CRUD ---------------- */
+
+    /**
+     * List all systems for admin management. Includes a system's lesson +
+     * flashcard counts so the admin can see content density at a glance.
+     */
+    public function systemsList(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        $rows = DB::instance()->query(
+            'SELECT s.*,
+                    (SELECT COUNT(*) FROM lessons l WHERE l.system_id = s.id AND l.is_published = 1) AS lesson_count,
+                    (SELECT COUNT(*) FROM flashcards f WHERE f.system_id = s.id AND (f.status IS NULL OR f.status = "published")) AS flashcard_count,
+                    (SELECT name FROM systems s2 WHERE s2.id = s.unlock_after_system_id) AS unlock_after_name
+             FROM systems s
+             ORDER BY s.sort_order, s.id'
+        );
+        $response->html($this->view('admin/systems_list', [
+            'title'       => 'Systems',
+            'csrf_token'  => CSRF::generate(),
+            'systems'     => $rows,
+            'flash_ok'    => $_SESSION['flash_ok']    ?? '',
+            'flash_error' => $_SESSION['flash_error'] ?? '',
+        ], 'admin'));
+        unset($_SESSION['flash_ok'], $_SESSION['flash_error']);
+    }
+
+    /** New-system form. */
+    public function systemNew(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        $allSystems = DB::instance()->query(
+            'SELECT id, name, ata_code FROM systems ORDER BY sort_order, id'
+        );
+        $response->html($this->view('admin/system_edit', [
+            'title'        => 'New system',
+            'csrf_token'   => CSRF::generate(),
+            'system'       => null,
+            'all_systems'  => $allSystems,
+        ], 'admin'));
+    }
+
+    /** Edit-system form. */
+    public function systemEditForm(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        $id = (int) $this->param('id');
+        $sys = DB::instance()->queryOne('SELECT * FROM systems WHERE id = ?', [$id]);
+        if (!$sys) {
+            $response->status(404);
+            $response->html('System not found.');
+            return;
+        }
+        // Exclude self from the unlock-after dropdown to avoid loops.
+        $allSystems = DB::instance()->query(
+            'SELECT id, name, ata_code FROM systems WHERE id != ? ORDER BY sort_order, id',
+            [$id]
+        );
+        $response->html($this->view('admin/system_edit', [
+            'title'        => 'Edit system: ' . $sys['name'],
+            'csrf_token'   => CSRF::generate(),
+            'system'       => $sys,
+            'all_systems'  => $allSystems,
+        ], 'admin'));
+    }
+
+    /** Create + Update share validation logic. */
+    private function systemValidate(): array
+    {
+        $name        = trim((string) $this->input('name', ''));
+        $ataCode     = strtoupper(trim((string) $this->input('ata_code', '')));
+        $description = trim((string) $this->input('description', ''));
+        $colorHex    = trim((string) $this->input('color_hex', '#34d399'));
+        $icon        = trim((string) $this->input('icon', 'zap'));
+        $sortOrder   = (int) $this->input('sort_order', 0);
+        $isPublished = $this->input('is_published') ? 1 : 0;
+        $unlockAfter = (int) $this->input('unlock_after_system_id', 0);
+
+        $errors = [];
+        if ($name === '')        $errors[] = 'Name is required.';
+        if ($ataCode === '')     $errors[] = 'ATA code is required (e.g. ATA29).';
+        if (!preg_match('/^#[0-9a-fA-F]{6}$/', $colorHex)) $errors[] = 'Color must be a 6-digit hex like #34d399.';
+
+        return [
+            'name'                   => substr($name, 0, 250),
+            'ata_code'               => substr($ataCode, 0, 10),
+            'description'            => $description,
+            'color_hex'              => $colorHex,
+            'icon'                   => substr($icon, 0, 50),
+            'sort_order'             => $sortOrder,
+            'is_published'           => $isPublished,
+            'unlock_after_system_id' => $unlockAfter > 0 ? $unlockAfter : null,
+            '_errors'                => $errors,
+        ];
+    }
+
+    private function slugify(string $s): string
+    {
+        $s = strtolower(trim($s));
+        $s = (string) preg_replace('/[^a-z0-9]+/', '-', $s);
+        return trim($s, '-');
+    }
+
+    public function systemCreate(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        if (!CSRF::check($request)) { $response->status(419); $response->html('CSRF'); return; }
+
+        $data = $this->systemValidate();
+        if (!empty($data['_errors'])) {
+            $_SESSION['flash_error'] = implode(' ', $data['_errors']);
+            $this->redirect('/admin/systems/new');
+            return;
+        }
+
+        $db = DB::instance();
+        $slug = $this->slugify($data['name']);
+        // Ensure unique slug
+        $base = $slug; $i = 1;
+        while ($db->queryOne('SELECT id FROM systems WHERE slug = ?', [$slug])) {
+            $i++; $slug = $base . '-' . $i;
+        }
+
+        $db->execute(
+            'INSERT INTO systems
+                 (name, slug, ata_code, description, color_hex, icon,
+                  sort_order, is_published, unlock_after_system_id)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [
+                $data['name'], $slug, $data['ata_code'], $data['description'],
+                $data['color_hex'], $data['icon'],
+                $data['sort_order'], $data['is_published'],
+                $data['unlock_after_system_id'],
+            ]
+        );
+        $_SESSION['flash_ok'] = 'System "' . $data['name'] . '" created.';
+        $this->redirect('/admin/systems');
+    }
+
+    public function systemUpdate(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        if (!CSRF::check($request)) { $response->status(419); $response->html('CSRF'); return; }
+
+        $id = (int) $this->param('id');
+        $existing = DB::instance()->queryOne('SELECT * FROM systems WHERE id = ?', [$id]);
+        if (!$existing) { $response->status(404); $response->html('Not found'); return; }
+
+        $data = $this->systemValidate();
+        if (!empty($data['_errors'])) {
+            $_SESSION['flash_error'] = implode(' ', $data['_errors']);
+            $this->redirect('/admin/systems/' . $id . '/edit');
+            return;
+        }
+
+        DB::instance()->execute(
+            'UPDATE systems
+             SET name = ?, ata_code = ?, description = ?, color_hex = ?, icon = ?,
+                 sort_order = ?, is_published = ?, unlock_after_system_id = ?
+             WHERE id = ?',
+            [
+                $data['name'], $data['ata_code'], $data['description'],
+                $data['color_hex'], $data['icon'],
+                $data['sort_order'], $data['is_published'],
+                $data['unlock_after_system_id'],
+                $id,
+            ]
+        );
+        $_SESSION['flash_ok'] = 'System "' . $data['name'] . '" updated.';
+        $this->redirect('/admin/systems');
+    }
+
+    public function systemDelete(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        if (!CSRF::check($request)) { $response->status(419); $response->html('CSRF'); return; }
+
+        $id = (int) $this->param('id');
+        $sys = DB::instance()->queryOne('SELECT name FROM systems WHERE id = ?', [$id]);
+        if (!$sys) { $response->status(404); $response->html('Not found'); return; }
+
+        // Lessons + flashcards + quizzes cascade-delete via FK on systems.
+        DB::instance()->execute('DELETE FROM systems WHERE id = ?', [$id]);
+        $_SESSION['flash_ok'] = 'System "' . $sys['name'] . '" deleted.';
+        $this->redirect('/admin/systems');
+    }
+
     /* ---------------- Settings ---------------- */
 
     public function settings(Request $request, Response $response): void
