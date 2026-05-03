@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="Q400 oxygen architecture: crew fixed system with three masks and one cylinder, regulator NORM 100 EMER, inflatable harness, portable passenger O2, PBE, first aid">
+  <title>Q400 Oxygen Architecture</title>
+  <desc>Schematic of the Q400 oxygen system. Crew fixed system has three full face masks pilot copilot observer on a single common cylinder in the right lower nose compartment. Green burst disc on right exterior. Lighted gauge on copilot side console. Capacity: descent to 14000 feet in 4 minutes plus 116 minutes level. Donning under 5 seconds via inflatable harness. Regulator NORM, 100 percent, EMER. Plus portable passenger oxygen, Protective Breathing Equipment, first aid oxygen.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1b2c"/><stop offset="1" stop-color="#0a1322"/></linearGradient>
+    <linearGradient id="boxFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a40"/><stop offset="1" stop-color="#0e1b2c"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#7dd3fc"/></marker>
+  </defs>
+
+  <rect width="1200" height="600" fill="url(#bg)"/>
+
+  <text x="600" y="34" text-anchor="middle" fill="#dde6f1" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700">Q400 Oxygen Architecture</text>
+  <text x="600" y="56" text-anchor="middle" fill="#7a8aa6" font-family="Inter, system-ui, sans-serif" font-size="12">3 crew masks · 1 common cylinder · &lt;5-sec don · 14000 in 4 + 116 level · NORM/100/EMER · plus portable + PBE + first aid</text>
+
+  <!-- Cylinder + indicators row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="140" y="103" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">CREW CYLINDER</text>
+    <text x="140" y="121" text-anchor="middle" fill="#c4b5fd" font-size="10">right LOWER nose</text>
+    <text x="140" y="135" text-anchor="middle" fill="#c4b5fd" font-size="10">single common · ON-OFF knob</text>
+
+    <rect x="270" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="370" y="103" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">GREEN BURST DISC</text>
+    <text x="370" y="121" text-anchor="middle" fill="#22c55e" font-size="10">right EXTERIOR of nose</text>
+    <text x="370" y="135" text-anchor="middle" fill="#22c55e" font-size="10">ejects on over-pressure</text>
+
+    <rect x="500" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="600" y="103" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">CYLINDER GAUGE</text>
+    <text x="600" y="121" text-anchor="middle" fill="#fbbf24" font-size="10">on cylinder · bottle pressure</text>
+    <text x="600" y="135" text-anchor="middle" fill="#fbbf24" font-size="10">continuous reading</text>
+
+    <rect x="730" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="830" y="103" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">FLT-DECK GAUGE</text>
+    <text x="830" y="121" text-anchor="middle" fill="#fbbf24" font-size="10">COPILOT side console</text>
+    <text x="830" y="135" text-anchor="middle" fill="#fbbf24" font-size="10">lighted · shows bottle even if OFF</text>
+
+    <rect x="960" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="1060" y="103" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">IN-LINE INDICATOR</text>
+    <text x="1060" y="121" text-anchor="middle" fill="#22c55e" font-size="10">on supply hose</text>
+    <text x="1060" y="135" text-anchor="middle" fill="#22c55e" font-size="10">GREEN good · RED low</text>
+  </g>
+
+  <!-- Mask row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="140" y="223" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">PILOT MASK</text>
+    <text x="140" y="241" text-anchor="middle" fill="#a3b3c6" font-size="10">full face · mic + audio</text>
+    <text x="140" y="255" text-anchor="middle" fill="#a3b3c6" font-size="10">stowage cup behind seat</text>
+
+    <rect x="270" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="370" y="223" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">COPILOT MASK</text>
+    <text x="370" y="241" text-anchor="middle" fill="#a3b3c6" font-size="10">DUAL outlet on supply line</text>
+    <text x="370" y="255" text-anchor="middle" fill="#a3b3c6" font-size="10">feeds observer too</text>
+
+    <rect x="500" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="600" y="223" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">OBSERVER MASK</text>
+    <text x="600" y="241" text-anchor="middle" fill="#a3b3c6" font-size="10">adjacent to copilot</text>
+    <text x="600" y="255" text-anchor="middle" fill="#a3b3c6" font-size="10">cross-usable by either crew</text>
+
+    <rect x="730" y="180" width="200" height="80" rx="10" fill="#142339" stroke="#fbbf24" stroke-width="2.2"/>
+    <text x="830" y="205" text-anchor="middle" fill="#fcd34d" font-size="15" font-weight="700">REGULATOR</text>
+    <text x="830" y="225" text-anchor="middle" fill="#fbbf24" font-size="11">NORM · 100% · EMER</text>
+    <text x="830" y="243" text-anchor="middle" fill="#a3b3c6" font-size="10">EMER = 100% positive + smoke goggle purge</text>
+    <text x="830" y="255" text-anchor="middle" fill="#fcd34d" font-size="10">EMER depletes cylinder</text>
+
+    <rect x="960" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#dc2626" stroke-width="1.8"/>
+    <text x="1060" y="223" text-anchor="middle" fill="#fca5a5" font-size="13" font-weight="700">RED HARNESS BUTTON</text>
+    <text x="1060" y="241" text-anchor="middle" fill="#fbbf24" font-size="10">push to inflate · release secures</text>
+    <text x="1060" y="255" text-anchor="middle" fill="#fbbf24" font-size="10">don &lt;5 sec target</text>
+  </g>
+
+  <!-- Supplemental row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="290" width="240" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="160" y="313" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">PORTABLE PAX O2</text>
+    <text x="160" y="331" text-anchor="middle" fill="#c4b5fd" font-size="10">cylinders kept in the cabin</text>
+    <text x="160" y="345" text-anchor="middle" fill="#c4b5fd" font-size="10">used by F/A for passenger supply</text>
+
+    <rect x="310" y="290" width="280" height="60" rx="8" fill="url(#boxFill)" stroke="#dc2626" stroke-width="1.8"/>
+    <text x="450" y="313" text-anchor="middle" fill="#fca5a5" font-size="13" font-weight="700">PBE — both crews</text>
+    <text x="450" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">Protective Breathing Equipment</text>
+    <text x="450" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">smoke hood for low-O2 environments</text>
+
+    <rect x="620" y="290" width="240" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="740" y="313" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">FIRST AID O2</text>
+    <text x="740" y="331" text-anchor="middle" fill="#22c55e" font-size="10">passenger compartment</text>
+    <text x="740" y="345" text-anchor="middle" fill="#22c55e" font-size="10">medical use during flight</text>
+
+    <rect x="890" y="290" width="270" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="1025" y="313" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">CAPACITY</text>
+    <text x="1025" y="331" text-anchor="middle" fill="#22c55e" font-size="10">descent to 14000 ft in 4 min</text>
+    <text x="1025" y="345" text-anchor="middle" fill="#22c55e" font-size="10">+ 116 min level at 14000</text>
+  </g>
+
+  <!-- Bottom callouts -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="400" width="540" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="60" y="420" fill="#dde6f1" font-size="11" font-weight="700">REGULATOR MODES</text>
+    <text x="60" y="438" fill="#a3b3c6" font-size="11">NORM: auto air/O2 mix by cabin altitude · default position</text>
+    <text x="60" y="456" fill="#a3b3c6" font-size="11">100%: pure O2 regardless of altitude · EMER: 100% positive + smoke goggle purge</text>
+    <text x="60" y="473" fill="#fcd34d" font-size="11">Mnemonics: NORM-100-EMER · EMER-DEPLETES · NO-SMOKE-O2</text>
+
+    <rect x="600" y="400" width="560" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="620" y="420" fill="#dde6f1" font-size="11" font-weight="700">CRITICAL NUMBERS</text>
+    <text x="620" y="438" fill="#a3b3c6" font-size="11">3 masks · 1 cylinder · 4 min descent · 116 min level · &lt;5 sec don</text>
+    <text x="620" y="456" fill="#a3b3c6" font-size="11">Cylinder OFF: mask atmospheric · gauge still bottle · GREEN/RED in-line</text>
+    <text x="620" y="473" fill="#fcd34d" font-size="11">Mnemonics: 3-MASKS-1-CYLINDER · 14000-IN-4-LEVEL-116 · 5-SEC-DON</text>
+  </g>
+
+  <!-- Procedure callout -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="500" width="1120" height="80" rx="8" fill="#0a1322" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="60" y="520" fill="#fca5a5" font-size="11" font-weight="700">EMERGENCY PROCEDURES</text>
+    <text x="60" y="540" fill="#a3b3c6" font-size="11">DEPRESSURISATION: masks ON &lt;5 sec · NORM/100% · descent · cabin announce · divert</text>
+    <text x="60" y="558" fill="#a3b3c6" font-size="11">COCKPIT SMOKE: masks ON · regulator EMER · smoke goggles · isolate · Halon · QRH SMOKE/FUMES · manage EMER time</text>
+    <text x="60" y="575" fill="#fcd34d" font-size="11">Smoking NOT permitted with O2 in use · Single mask fail: use observer · Outlets cross-compatible</text>
+  </g>
+
+  <!-- HOTSPOTS -->
+  <g font-family="Inter, system-ui, sans-serif" font-weight="700">
+    <g class="hotspot" data-id="h1"><circle cx="170" cy="100" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="104" font-size="11" fill="#fff" text-anchor="middle">1</text></g>
+    <g class="hotspot" data-id="h2"><circle cx="430" cy="100" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">2</text></g>
+    <g class="hotspot" data-id="h3"><circle cx="600" cy="100" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">3</text></g>
+    <g class="hotspot" data-id="h4"><circle cx="770" cy="100" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="770" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">4</text></g>
+    <g class="hotspot" data-id="h5"><circle cx="960" cy="100" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">5</text></g>
+    <g class="hotspot" data-id="h6"><circle cx="170" cy="240" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">6</text></g>
+    <g class="hotspot" data-id="h7"><circle cx="430" cy="240" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">7</text></g>
+    <g class="hotspot" data-id="h8"><circle cx="600" cy="240" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">8</text></g>
+    <g class="hotspot" data-id="h9"><circle cx="770" cy="220" r="12" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="770" y="224" font-size="11" fill="#0e1b2c" text-anchor="middle">9</text></g>
+    <g class="hotspot" data-id="h10"><circle cx="960" cy="240" r="11" fill="#dc2626" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="244" font-size="11" fill="#fff" text-anchor="middle">10</text></g>
+    <g class="hotspot" data-id="h11"><circle cx="170" cy="360" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="364" font-size="11" fill="#fff" text-anchor="middle">11</text></g>
+    <g class="hotspot" data-id="h12"><circle cx="450" cy="360" r="11" fill="#dc2626" stroke="#0e1b2c" stroke-width="1.5"/><text x="450" y="364" font-size="11" fill="#fff" text-anchor="middle">12</text></g>
+    <g class="hotspot" data-id="h13"><circle cx="770" cy="360" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="770" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">13</text></g>
+    <g class="hotspot" data-id="h14"><circle cx="1025" cy="360" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="1025" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">14</text></g>
+  </g>
+</svg>
