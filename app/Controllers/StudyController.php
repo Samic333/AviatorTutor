@@ -270,18 +270,28 @@ class StudyController extends Controller
             );
         }
 
-        $progressRows = $db->query(
-            'SELECT slide_id, answered_correct, attempts
-             FROM user_slide_progress
-             WHERE user_id = ? AND lesson_id = ?',
-            [$userId, $lessonId]
-        );
+        // user_slide_progress is added by the 2026_04_29_lesson_slides
+        // migration. Wrap defensively so an environment that hasn't run the
+        // migration yet still serves the lesson — empty progress just means
+        // every slide renders as "unseen", which is the correct fallback
+        // for a fresh learner anyway. (Was the cause of HTTP 500 on first
+        // study slide, May 2026.)
         $progress = [];
-        foreach ($progressRows as $row) {
-            $progress[(int)$row['slide_id']] = [
-                'answered_correct' => (int)$row['answered_correct'],
-                'attempts'         => (int)$row['attempts'],
-            ];
+        try {
+            $progressRows = $db->query(
+                'SELECT slide_id, answered_correct, attempts
+                 FROM user_slide_progress
+                 WHERE user_id = ? AND lesson_id = ?',
+                [$userId, $lessonId]
+            );
+            foreach ($progressRows as $row) {
+                $progress[(int)$row['slide_id']] = [
+                    'answered_correct' => (int)$row['answered_correct'],
+                    'attempts'         => (int)$row['attempts'],
+                ];
+            }
+        } catch (\Throwable $e) {
+            // Table missing or schema drift — proceed with empty progress.
         }
 
         $data = [

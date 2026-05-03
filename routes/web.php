@@ -38,7 +38,14 @@ $router->get('/faq',      'MarketingController@faq');
 $router->get('/coming-soon/{slug}',         'MarketingController@comingSoon');
 $router->post('/coming-soon/{slug}/notify', 'MarketingController@comingSoonNotify');
 
-// Aircraft catalog
+// My Subjects (authenticated learner home for enrolled subjects).
+// Replaces the old "My Aircraft" sidebar link, which redirected out to the
+// public marketing catalog. The sidebar swap is gated by the
+// nav_my_subjects feature flag in config/app.php.
+$router->get('/my-subjects',          'SubjectsController@index');
+$router->post('/my-subjects/request', 'SubjectsController@requestSubject');
+
+// Aircraft catalog (public marketing).
 $router->get('/aircraft',                'AircraftController@index');
 $router->get('/aircraft/{slug}',         'AircraftController@show');
 $router->post('/aircraft/{slug}/notify', 'AircraftController@notify');

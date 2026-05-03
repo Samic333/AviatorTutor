@@ -97,9 +97,9 @@ $systemMnemonics = $mnemonics[$system['ata_code'] ?? ''] ?? [];
     <div class="study-controls-bar">
       <span class="study-ctrl-label">Text</span>
       <div class="study-ctrl-group">
-        <button class="study-ctrl-btn" id="font-sm-btn" onclick="setFontSize('sm',this)" title="Smaller text">A–</button>
-        <button class="study-ctrl-btn active" id="font-md-btn" onclick="setFontSize('md',this)" title="Normal text">A</button>
-        <button class="study-ctrl-btn" id="font-lg-btn" onclick="setFontSize('lg',this)" title="Larger text">A+</button>
+        <button class="study-ctrl-btn" id="font-down-btn" onclick="cycleFontSize(-1)" title="Smaller text (–)">A−</button>
+        <button class="study-ctrl-btn active" id="font-reset-btn" onclick="setFontSize('m')" title="Reset text size">A</button>
+        <button class="study-ctrl-btn" id="font-up-btn" onclick="cycleFontSize(1)" title="Larger text (+)">A+</button>
       </div>
       <div class="study-ctrl-sep"></div>
       <button class="study-ctrl-btn" id="focus-mode-btn" onclick="toggleFocusMode(this)">
@@ -815,23 +815,51 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-/* ── Font size controls ── */
+/* ── Font size controls (5-step rem cycle: xs / s / m / l / xl) ──
+   Replaces the old 3-step sm/md/lg control that didn't visibly scale
+   characters. The −/+ buttons cycle one step at a time; the middle "A"
+   resets to default. Persists per-account via localStorage. */
+var FONT_STEPS = ['xs','s','m','l','xl'];
+function normalizeFontSize(raw) {
+    var v = String(raw || '').toLowerCase();
+    if (v === 'sm') return 's';
+    if (v === 'md') return 'm';
+    if (v === 'lg') return 'l';
+    return FONT_STEPS.indexOf(v) >= 0 ? v : 'm';
+}
 function applyFontSizeInit(size) {
+    size = normalizeFontSize(size);
     var content = document.getElementById('study-lessons-content');
     if (content) {
-        content.classList.remove('study-font-sm','study-font-md','study-font-lg');
+        FONT_STEPS.forEach(function(s){ content.classList.remove('study-font-' + s); });
         content.classList.add('study-font-' + size);
     }
-    ['sm','md','lg'].forEach(function(s) {
-        var btn = document.getElementById('font-' + s + '-btn');
-        if (btn) btn.classList.toggle('active', s === size);
-    });
+    var down = document.getElementById('font-down-btn');
+    var up   = document.getElementById('font-up-btn');
+    var rst  = document.getElementById('font-reset-btn');
+    if (rst)  rst.classList.toggle('active', size === 'm');
+    if (down) down.disabled = (size === FONT_STEPS[0]);
+    if (up)   up.disabled   = (size === FONT_STEPS[FONT_STEPS.length - 1]);
 }
-
-function setFontSize(size, btn) {
-    localStorage.setItem('av_font_size', size);
-    applyFontSizeInit(size);
+function setFontSize(size) {
+    var v = normalizeFontSize(size);
+    try { localStorage.setItem('av_font_size', v); } catch (e) {}
+    applyFontSizeInit(v);
 }
+function cycleFontSize(delta) {
+    var current = normalizeFontSize(localStorage.getItem('av_font_size') || 'm');
+    var idx = FONT_STEPS.indexOf(current);
+    if (idx < 0) idx = 2;
+    var next = Math.max(0, Math.min(FONT_STEPS.length - 1, idx + delta));
+    setFontSize(FONT_STEPS[next]);
+}
+// Keyboard shortcuts: + / = grows, - shrinks. Ignored when typing in inputs.
+document.addEventListener('keydown', function(e) {
+    if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === '+' || e.key === '=') { e.preventDefault(); cycleFontSize(1); }
+    else if (e.key === '-' || e.key === '_') { e.preventDefault(); cycleFontSize(-1); }
+});
 
 /* ── Focus mode ── */
 function toggleFocusMode(btn) {

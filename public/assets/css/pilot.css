@@ -1061,19 +1061,32 @@ a:hover { color: #7DD3FC; }
   flex-shrink: 0;
 }
 
-/* ---------- Reading comfort font sizes ---------- */
-.study-font-sm  { font-size: 0.88rem; }
-.study-font-md  { font-size: 1rem; }
-.study-font-lg  { font-size: 1.15rem; line-height: 1.8; }
+/* ---------- Reading comfort font sizes (5-step rem scale) ----------
+   Was a stub: only .study-font-lg actually changed line-height, and the
+   selectors only hit .rl-body-text + chips, so the page didn't visibly
+   scale. Now driven by a single CSS custom property the container exports
+   via em — every descendant text element inherits proportionally. */
+.study-font-xs { font-size: 0.85em; line-height: 1.55; }
+.study-font-sm,
+.study-font-s  { font-size: 0.93em; line-height: 1.6; }
+.study-font-md,
+.study-font-m  { font-size: 1em;    line-height: 1.65; }
+.study-font-lg,
+.study-font-l  { font-size: 1.15em; line-height: 1.75; }
+.study-font-xl { font-size: 1.32em; line-height: 1.8; }
 
-.study-font-sm .rl-body-text  { font-size: 0.88rem; }
-.study-font-md .rl-body-text  { font-size: 0.95rem; }
-.study-font-lg .rl-body-text  { font-size: 1.1rem; line-height: 1.85; }
-
-.study-font-sm .fact-chip,
-.study-font-sm .check-list li { font-size: 0.8rem; }
-.study-font-lg .fact-chip,
-.study-font-lg .check-list li { font-size: 1rem; }
+/* Headings inside the scaled container should grow with the body so the
+   visual hierarchy stays balanced rather than the body catching up to a
+   fixed h2/h3. em (not rem) is intentional. */
+[class*="study-font-"] h1,
+[class*="study-font-"] h2,
+[class*="study-font-"] h3,
+[class*="study-font-"] h4,
+[class*="study-font-"] p,
+[class*="study-font-"] li,
+[class*="study-font-"] .rl-body-text,
+[class*="study-font-"] .fact-chip,
+[class*="study-font-"] .check-list li { font-size: 1em; }
 
 /* ---------- Focus mode ---------- */
 body.study-focus .plt-sidebar { transform: translateX(-260px); transition: transform 0.3s ease; }

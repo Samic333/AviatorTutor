@@ -23,9 +23,17 @@ try {
     $features = is_array($appCfg['features'] ?? null) ? $appCfg['features'] : [];
 } catch (\Throwable $e) { /* config unavailable — fall back to defaults */ }
 
+// nav_my_subjects (Phase 1): swap the legacy "My Aircraft" link — which
+// pointed at the public marketing /aircraft catalog and dropped pilots out
+// of the app — for an internal "My Subjects" page at /my-subjects. Falls
+// back to the old link when the flag is off so we can ship the page first
+// and flip the nav independently.
+$mySubjectsHref  = !empty($features['nav_my_subjects']) ? '/my-subjects' : '/aircraft';
+$mySubjectsLabel = !empty($features['nav_my_subjects']) ? 'My Subjects'  : 'My Aircraft';
+
 $navMain = [
-    ['/dashboard',  'Dashboard',   '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',  false],
-    ['/aircraft',   'My Aircraft', '<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>',  false],
+    ['/dashboard',     'Dashboard',     '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',  false],
+    [$mySubjectsHref,  $mySubjectsLabel,'<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>',  false],
     ['/systems',    'Study',       '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',  false],
     ['/flashcards', 'Flashcards',  '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 4v16"/>',  false],
     ['/quiz',       'Quizzes',     '<polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',  false],
@@ -67,6 +75,8 @@ $isActive = function(string $href) use ($path): bool {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="/assets/css/pilot.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/pilot.css') ?: '0' ?>">
+  <!-- Toast notifications + global window.onerror surfacer. -->
+  <script src="/assets/js/toast.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/toast.js') ?: '0' ?>" defer></script>
   <!-- Lucide icons used by views with <i data-lucide="..."> placeholders. -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   <script>

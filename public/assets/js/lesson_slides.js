@@ -71,8 +71,13 @@
     // Keyboard nav
     document.addEventListener('keydown', function (e) {
       if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
       if (e.key === 'ArrowLeft')  { e.preventDefault(); goPrev(); }
       else if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
+      // Font-size shortcuts: + (or =) grows, - (or _) shrinks. Mirrors the
+      // detail-view shortcuts so the keyboard feels consistent across modes.
+      else if (e.key === '+' || e.key === '=') { e.preventDefault(); adjustTextSize(1); }
+      else if (e.key === '-' || e.key === '_') { e.preventDefault(); adjustTextSize(-1); }
       else if (e.key === 'Escape' && document.body.classList.contains('slide-focus-mode')) {
         e.preventDefault();
         toggleFocusMode();
@@ -335,26 +340,34 @@
 
   /* ---- Accessibility toggles ---- */
 
-  // Three-step font size: -1 = smaller, 0 = default, +1 = larger.
-  // Persisted as `av_slide_text_size`.
+  // 5-step font size ladder: -2=xs, -1=s, 0=m (default), 1=l, 2=xl.
+  // Persisted as integer in `av_slide_text_size`.
+  // Was 3 steps with fixed-pixel CSS — now drives a rem-based class that
+  // scales every descendant of .slide-player proportionally.
+  var SLIDE_SIZE_CLASSES = ['slide-text-xs','slide-text-s','slide-text-m','slide-text-l','slide-text-xl'];
+
   function adjustTextSize(delta) {
     var current = 0;
     try { current = parseInt(localStorage.getItem('av_slide_text_size') || '0', 10); } catch (e) {}
     if (isNaN(current)) current = 0;
-    var next = Math.max(-1, Math.min(2, current + delta));
+    var next = Math.max(-2, Math.min(2, current + delta));
     applyTextSize(next);
     try { localStorage.setItem('av_slide_text_size', String(next)); } catch (e) {}
   }
 
   function applyTextSize(size) {
-    document.body.classList.remove('slide-text-smaller', 'slide-text-larger', 'slide-text-largest');
-    if (size === -1) document.body.classList.add('slide-text-smaller');
-    if (size === 1)  document.body.classList.add('slide-text-larger');
-    if (size === 2)  document.body.classList.add('slide-text-largest');
+    // Remove every legacy and current size class so we never end up with
+    // two stacked size states from older sessions.
+    var legacy = ['slide-text-smaller','slide-text-larger','slide-text-largest','slide-large-text'];
+    SLIDE_SIZE_CLASSES.concat(legacy).forEach(function(c){ document.body.classList.remove(c); });
+    var idx = Math.max(-2, Math.min(2, size | 0)) + 2;
+    document.body.classList.add(SLIDE_SIZE_CLASSES[idx]);
     var lg = $('#slide-larger-text');
     var sm = $('#slide-smaller-text');
     if (lg) lg.setAttribute('aria-pressed', size > 0 ? 'true' : 'false');
     if (sm) sm.setAttribute('aria-pressed', size < 0 ? 'true' : 'false');
+    if (lg) lg.disabled = (size >= 2);
+    if (sm) sm.disabled = (size <= -2);
   }
 
   function toggleHighContrast() {

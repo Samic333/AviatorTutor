@@ -3005,22 +3005,30 @@ select.slide-ctrl-btn { padding-right: 28px; min-width: 200px; }
 .slide-media:not(.media-missing) > .slide-media-placeholder { display: flex; }
 .slide-media:not(.media-missing) img + .slide-media-placeholder { display: none; }
 
-/* Body */
+/* Body — base size lives on .slide-player so the 5-step ladder below can
+   scale every descendant proportionally instead of overriding fixed pixel
+   values per element. */
+.slide-player { font-size: 16px; }
 .slide-body {
-    font-size: 16px; line-height: 1.65; color: var(--color-white-text);
+    font-size: 1em; line-height: 1.65; color: var(--color-white-text);
     margin-bottom: var(--spacing-6);
 }
-/* Text-size ladder: smaller / default / larger / largest. */
-body.slide-text-smaller .slide-body { font-size: 15px; line-height: 1.6; }
-body.slide-text-smaller .slide-title { font-size: 22px; }
+/* 5-step rem-based ladder driven by a single body class. The font-size on
+   .slide-player rescales; line-height and margin grow with it via em.
+   Older class names (slide-text-larger, slide-large-text) are aliased so
+   in-flight sessions don't regress mid-deck. */
+body.slide-text-xs      .slide-player { font-size: 13.5px; }
+body.slide-text-s,
+body.slide-text-smaller .slide-player { font-size: 15px;   }
+body.slide-text-m       .slide-player { font-size: 16px;   }
+body.slide-text-l,
+body.slide-text-larger,
+body.slide-large-text   .slide-player { font-size: 18.5px; }
+body.slide-text-xl,
+body.slide-text-largest .slide-player { font-size: 21px;   }
 
-body.slide-large-text .slide-body,
-body.slide-text-larger .slide-body { font-size: 19px; line-height: 1.75; }
-body.slide-large-text .slide-title,
-body.slide-text-larger .slide-title { font-size: 30px; }
-
-body.slide-text-largest .slide-body { font-size: 22px; line-height: 1.8; }
-body.slide-text-largest .slide-title { font-size: 34px; }
+/* Title scales with the body for visual hierarchy. */
+.slide-title { font-size: 1.7em; line-height: 1.2; }
 
 /* QRH cross-reference panel rendered on qrh-type slides. Lifts QRH
    sections out of running prose into structured cards with memory-item

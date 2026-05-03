@@ -96,23 +96,56 @@ try {
 
     // Dispatch the request
     $router->dispatch();
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     $config = require BASE_PATH . '/config/app.php';
 
-    if ($config['debug']) {
-        // In debug mode, show full error
-        http_response_code(500);
+    // Generate a request id so a learner can quote it back to support and
+    // we can find the matching log entry. 8 hex chars is plenty.
+    $requestId = bin2hex(random_bytes(4));
+
+    // Always log the trace, even when debug is off — production was
+    // previously only logging $e->getMessage() with no trace, which made
+    // root-causing the HTTP 500 on first slide much harder than it should
+    // have been.
+    $logDir  = BASE_PATH . '/storage/logs';
+    if (!is_dir($logDir)) @mkdir($logDir, 0775, true);
+    $logLine = sprintf(
+        "[%s] req=%s %s %s\n  %s in %s:%d\n%s\n",
+        date('c'),
+        $requestId,
+        $_SERVER['REQUEST_METHOD'] ?? '-',
+        $_SERVER['REQUEST_URI']    ?? '-',
+        $e->getMessage(),
+        $e->getFile(),
+        $e->getLine(),
+        $e->getTraceAsString()
+    );
+    @file_put_contents($logDir . '/errors.log', $logLine, FILE_APPEND);
+    error_log($e->getMessage());
+
+    http_response_code(500);
+
+    // Friendly error page when the flag is on, OR always in production
+    // (no excuse for a bare "500 Internal Server Error" wall to a learner).
+    $useFriendly = !empty($config['features']['friendly_errors']) || empty($config['debug']);
+    $errorView   = BASE_PATH . '/views/errors/friendly-500.php';
+    if ($useFriendly && is_file($errorView)) {
+        $debugMessage = !empty($config['debug'])
+            ? $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine()
+            : null;
+        $debugTrace   = !empty($config['debug']) ? $e->getTraceAsString() : null;
+        require $errorView;
+    } elseif (!empty($config['debug'])) {
+        // Legacy <pre> trace for fastest local debugging.
         echo '<pre>';
         echo '<strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . "\n\n";
         echo '<strong>File:</strong> ' . htmlspecialchars($e->getFile()) . ':' . $e->getLine() . "\n\n";
+        echo '<strong>Request ID:</strong> ' . htmlspecialchars($requestId) . "\n\n";
         echo '<strong>Stack Trace:</strong>' . "\n";
         echo htmlspecialchars($e->getTraceAsString());
         echo '</pre>';
     } else {
-        // In production, log error and show generic message
-        error_log($e->getMessage());
-        http_response_code(500);
         echo '<h1>500 Internal Server Error</h1>';
-        echo '<p>An error occurred while processing your request.</p>';
+        echo '<p>Request ID: ' . htmlspecialchars($requestId) . '</p>';
     }
 }

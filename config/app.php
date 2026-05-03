@@ -57,6 +57,22 @@ $defaults = [
         'notes'   => false, // /notes placeholder
         'search'  => true,  // SearchController is wired and useful today
         'ai_admin_test' => true, // /admin/ai-test smoke-test page (Phase 2)
+
+        // Overhaul flags (May 2026). Each new UI piece checks its flag and
+        // falls back to the existing surface when off. Flip in app.local.php
+        // per environment to roll out incrementally.
+        'nav_my_subjects'   => false, // Phase 1 — My Subjects sidebar item + page
+        'study_chrome_v2'   => false, // Phase 2 — single top bar, no sidebars
+        'flashcards_v2'     => false, // Phase 3 — color-coded + SM2 swipe
+        'mnemonics_v2'      => false, // Phase 3 — DB-backed mnemonics with explanations
+        'mind_map'          => false, // Phase 3 — mind map study mode
+        'deep_notes'        => false, // Phase 3 — full-text deep notes mode
+        'theme_drawer'      => false, // Phase 3 — settings drawer + themes
+        'dashboard_v2'      => false, // Phase 4 — compact KPIs + promo panel
+        'system_picker_v2'  => false, // Phase 4 — searchable/grouped system picker
+        'add_subject_flow'  => false, // Phase 4 — Add Subject request modal
+        'analytics_v1'      => false, // Phase 5 — analytics dashboard
+        'friendly_errors'   => false, // F2 — friendly 500 page + retry
     ],
 
     // ---------------------------------------------------------------
