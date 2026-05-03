@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS lesson_slides (
 
 CREATE TABLE IF NOT EXISTS user_slide_progress (
     id               BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    user_id          INT UNSIGNED NOT NULL,
+    user_id          BIGINT UNSIGNED NOT NULL,
     lesson_id        BIGINT UNSIGNED NOT NULL,
     slide_id         BIGINT UNSIGNED NOT NULL,
     answered_correct TINYINT(1) DEFAULT 0,
