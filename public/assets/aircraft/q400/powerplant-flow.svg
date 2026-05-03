@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="Q400 powerplant architecture: PW150A two-spool turboprop, NL axial NH centrifugal, FADEC, PEC, PMA, HBOVs, bypass doors, ratings NTOP MTOP MCP MCL MCR">
+  <title>Q400 Powerplant Architecture</title>
+  <desc>Schematic of the Q400 PW150A powerplant. Two-spool architecture with NL axial first-stage compressor, NH centrifugal second-stage compressor, two-stage power turbine driving reduction gearbox to propeller. Accessory gearbox driven by NH includes oil pumps, HP fuel pump, PMA, DC starter generator. PMA active above NH 20 percent. Five core ratings displayed on Engine Display: NTOP MTOP MCP MCL MCR plus RDC TOP variant. UPTRIM raises max takeoff power from 4580 SHP NTOP to 5071 SHP MTOP automatically on engine failure during takeoff.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1b2c"/><stop offset="1" stop-color="#0a1322"/></linearGradient>
+    <linearGradient id="boxFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a40"/><stop offset="1" stop-color="#0e1b2c"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#7dd3fc"/></marker>
+  </defs>
+
+  <rect width="1200" height="600" fill="url(#bg)"/>
+
+  <text x="600" y="34" text-anchor="middle" fill="#dde6f1" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700">Q400 Powerplant Architecture</text>
+  <text x="600" y="56" text-anchor="middle" fill="#7a8aa6" font-family="Inter, system-ui, sans-serif" font-size="12">2 PW150A · NL axial / NH centrifugal · 2-stage power turbine · 4580 NTOP / 5071 MTOP UPTRIM · PMA above NH 20%</text>
+
+  <!-- Engine architecture row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="140" y="103" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">PW150A ENGINE</text>
+    <text x="140" y="121" text-anchor="middle" fill="#fbbf24" font-size="10">2 turboprops · Dowty R408</text>
+    <text x="140" y="135" text-anchor="middle" fill="#fbbf24" font-size="10">4580 NTOP / 5071 MTOP UPTRIM</text>
+
+    <rect x="270" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="370" y="103" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">NL AXIAL + TURBINE</text>
+    <text x="370" y="121" text-anchor="middle" fill="#22c55e" font-size="10">1st stage low pressure</text>
+    <text x="370" y="135" text-anchor="middle" fill="#22c55e" font-size="10">single-stage NL turbine</text>
+
+    <rect x="500" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="600" y="103" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">NH CENTRIFUGAL</text>
+    <text x="600" y="121" text-anchor="middle" fill="#22c55e" font-size="10">2nd stage high pressure</text>
+    <text x="600" y="135" text-anchor="middle" fill="#22c55e" font-size="10">drives accessory gearbox</text>
+
+    <rect x="730" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="830" y="103" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">PT + REDUCTION GBX</text>
+    <text x="830" y="121" text-anchor="middle" fill="#a3b3c6" font-size="10">2-stage power turbine</text>
+    <text x="830" y="135" text-anchor="middle" fill="#a3b3c6" font-size="10">3rd shaft → propeller</text>
+
+    <rect x="960" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="1060" y="103" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">ACCESSORY GBX</text>
+    <text x="1060" y="121" text-anchor="middle" fill="#c4b5fd" font-size="10">oil · HP fuel · PMA · starter-gen</text>
+    <text x="1060" y="135" text-anchor="middle" fill="#c4b5fd" font-size="10">driven by NH</text>
+  </g>
+
+  <!-- Controls row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22d3ee" stroke-width="1.8"/>
+    <text x="140" y="223" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700">POWER LEVER (PLA)</text>
+    <text x="140" y="241" text-anchor="middle" fill="#7dd3fc" font-size="10">forward → FADEC power</text>
+    <text x="140" y="255" text-anchor="middle" fill="#7dd3fc" font-size="10">beta/reverse → blade angle</text>
+
+    <rect x="270" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22d3ee" stroke-width="1.8"/>
+    <text x="370" y="223" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700">CONDITION LEVER (CL)</text>
+    <text x="370" y="241" text-anchor="middle" fill="#7dd3fc" font-size="10">PEC: RPM · ratings</text>
+    <text x="370" y="255" text-anchor="middle" fill="#7dd3fc" font-size="10">manual feather · fuel on/off</text>
+
+    <rect x="500" y="180" width="200" height="80" rx="10" fill="#142339" stroke="#22c55e" stroke-width="2.2"/>
+    <text x="600" y="205" text-anchor="middle" fill="#86efac" font-size="15" font-weight="700">FADEC</text>
+    <text x="600" y="225" text-anchor="middle" fill="#22c55e" font-size="11">Full Authority Digital Engine Control</text>
+    <text x="600" y="243" text-anchor="middle" fill="#a3b3c6" font-size="10">PMA primary · ESS bus alternate</text>
+    <text x="600" y="255" text-anchor="middle" fill="#fcd34d" font-size="10">UPTRIM on engine failure</text>
+
+    <rect x="730" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="830" y="223" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">ENGINE DISPLAY (ED)</text>
+    <text x="830" y="241" text-anchor="middle" fill="#fbbf24" font-size="10">TRQ · NH · ITT · NL · FF</text>
+    <text x="830" y="255" text-anchor="middle" fill="#fbbf24" font-size="10">rating: NTOP/MTOP/MCP/MCL/MCR</text>
+
+    <rect x="960" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22d3ee" stroke-width="1.8"/>
+    <text x="1060" y="223" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700">CONTROL PANEL</text>
+    <text x="1060" y="241" text-anchor="middle" fill="#7dd3fc" font-size="10">MTOP · EVENT · RDC NP LDG</text>
+    <text x="1060" y="255" text-anchor="middle" fill="#7dd3fc" font-size="10">MCL · MCR · RDC TOP TRQ</text>
+  </g>
+
+  <!-- Auxiliary row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="140" y="313" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">PMA</text>
+    <text x="140" y="331" text-anchor="middle" fill="#c4b5fd" font-size="10">Permanent Magnet Alternator</text>
+    <text x="140" y="345" text-anchor="middle" fill="#c4b5fd" font-size="10">active above NH 20%</text>
+
+    <rect x="270" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="370" y="313" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">HBOV (×2)</text>
+    <text x="370" y="331" text-anchor="middle" fill="#a3b3c6" font-size="10">one LP + one HP</text>
+    <text x="370" y="345" text-anchor="middle" fill="#a3b3c6" font-size="10">surge margin</text>
+
+    <rect x="500" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="600" y="313" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">BYPASS DOORS</text>
+    <text x="600" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">icing · precip · bird · contam</text>
+    <text x="600" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">manual via ICE panel</text>
+
+    <rect x="730" y="280" width="200" height="80" rx="10" fill="#142339" stroke="#dc2626" stroke-width="2.2"/>
+    <text x="830" y="305" text-anchor="middle" fill="#fca5a5" font-size="15" font-weight="700">UPTRIM</text>
+    <text x="830" y="325" text-anchor="middle" fill="#dc2626" font-size="11">engine failure on T/O</text>
+    <text x="830" y="343" text-anchor="middle" fill="#fbbf24" font-size="10">4580 NTOP → 5071 MTOP</text>
+    <text x="830" y="357" text-anchor="middle" fill="#fbbf24" font-size="10">automatic, brief period</text>
+
+    <rect x="960" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22d3ee" stroke-width="1.8"/>
+    <text x="1060" y="313" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700">FMU FUEL SHUTOFF</text>
+    <text x="1060" y="331" text-anchor="middle" fill="#7dd3fc" font-size="10">PULL FUEL/HYD T-handle</text>
+    <text x="1060" y="345" text-anchor="middle" fill="#7dd3fc" font-size="10">dedicated path · diff from CL</text>
+  </g>
+
+  <!-- Bottom callouts -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="400" width="540" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="60" y="420" fill="#dde6f1" font-size="11" font-weight="700">FIVE ENGINE RATINGS + CL/BLEED LOGIC</text>
+    <text x="60" y="438" fill="#a3b3c6" font-size="11">NTOP: CL 1020 + bleed MIN/OFF · MTOP: + MTOP pushbutton · MCP: bleed NORM/MAX</text>
+    <text x="60" y="456" fill="#a3b3c6" font-size="11">MCL: CL 850 + MCL push (900 RPM) · MCR: CL 900 + MCR push (850 RPM) · RDC TOP variant</text>
+    <text x="60" y="473" fill="#fcd34d" font-size="11">Mnemonic: 5-RATINGS-CORE · PLA-FADEC-FORWARD-PEC-BETA · CL-PEC-RPM-FUEL</text>
+
+    <rect x="600" y="400" width="560" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="620" y="420" fill="#dde6f1" font-size="11" font-weight="700">CRITICAL NUMBERS</text>
+    <text x="620" y="438" fill="#a3b3c6" font-size="11">PMA above NH 20% · 2 HBOVs LP+HP · RDC TOP TRQ DEC 2% to 10% limit</text>
+    <text x="620" y="456" fill="#a3b3c6" font-size="11">RDC NP LDG 15-sec window · cancel PLA ≥65° · EVENT MARKER 2 min before + 1 min after</text>
+    <text x="620" y="473" fill="#fcd34d" font-size="11">Mnemonics: PMA-NH-20 · 2-HBOV-LP-HP · RDC-TOP-2-10 · RDC-NP-LDG-15-65 · EVENT-2-1</text>
+  </g>
+
+  <!-- PLA curve callout -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="500" width="1120" height="80" rx="8" fill="#0a1322" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="60" y="520" fill="#86efac" font-size="11" font-weight="700">PLA POWER CURVE + SHUTDOWN PATHS</text>
+    <text x="60" y="540" fill="#a3b3c6" font-size="11">PLA forward range: IDLE 35° · MCR 77.5° · NTOP 80° · MCL 82.5° · MTOP 95° · O/T 100°</text>
+    <text x="60" y="558" fill="#a3b3c6" font-size="11">Normal shutdown: CL FUEL OFF tests NH overspeed · Fire handle: dedicated FMU fuel shutoff (different path)</text>
+    <text x="60" y="575" fill="#fcd34d" font-size="11">Mnemonics: NL-AXIAL-NH-CENTRIFUGAL · 4580-NTOP-5071-MTOP · FUEL-OFF-TESTS-OS · 10-DEG-GROUND-RANGE</text>
+  </g>
+
+  <!-- HOTSPOTS -->
+  <g font-family="Inter, system-ui, sans-serif" font-weight="700">
+    <g class="hotspot" data-id="h1"><circle cx="170" cy="100" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">1</text></g>
+    <g class="hotspot" data-id="h2"><circle cx="430" cy="100" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">2</text></g>
+    <g class="hotspot" data-id="h3"><circle cx="600" cy="100" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">3</text></g>
+    <g class="hotspot" data-id="h4"><circle cx="830" cy="100" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="830" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">4</text></g>
+    <g class="hotspot" data-id="h5"><circle cx="1060" cy="100" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="1060" y="104" font-size="11" fill="#fff" text-anchor="middle">5</text></g>
+    <g class="hotspot" data-id="h6"><circle cx="170" cy="240" r="11" fill="#22d3ee" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">6</text></g>
+    <g class="hotspot" data-id="h7"><circle cx="430" cy="240" r="11" fill="#22d3ee" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">7</text></g>
+    <g class="hotspot" data-id="h8"><circle cx="600" cy="220" r="12" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="224" font-size="11" fill="#0e1b2c" text-anchor="middle">8</text></g>
+    <g class="hotspot" data-id="h9"><circle cx="830" cy="240" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="830" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">9</text></g>
+    <g class="hotspot" data-id="h10"><circle cx="1060" cy="240" r="11" fill="#22d3ee" stroke="#0e1b2c" stroke-width="1.5"/><text x="1060" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">10</text></g>
+    <g class="hotspot" data-id="h11"><circle cx="170" cy="360" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="364" font-size="11" fill="#fff" text-anchor="middle">11</text></g>
+    <g class="hotspot" data-id="h12"><circle cx="370" cy="360" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="370" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">12</text></g>
+    <g class="hotspot" data-id="h13"><circle cx="600" cy="360" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">13</text></g>
+    <g class="hotspot" data-id="h14"><circle cx="830" cy="320" r="12" fill="#dc2626" stroke="#0e1b2c" stroke-width="1.5"/><text x="830" y="324" font-size="11" fill="#fff" text-anchor="middle">14</text></g>
+  </g>
+</svg>
