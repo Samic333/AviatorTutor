@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="Q400 ice and rain protection architecture: two ice detector probes, pneumatic boots on wings and tail and inlet lips fed from engine bleed at 18 PSI, propeller blade heaters, electric anti-ice on probes and windshields and intake flanges, REF SPEEDS to SPS for icing margin, wipers">
+  <title>Q400 Ice and Rain Protection Architecture</title>
+  <desc>Schematic of the Q400 ice and rain protection system. Two automatic Ice Detector Probes drive the ICE DETECTED message at 0.5 mm of ice or more. Pneumatic boots on wings, horizontal and vertical stabilisers, and nacelle inlet lips, fed from each engine bleed port independent of the BLEED switch and regulated to 18 PSI. The Timer and Monitor Unit controls the inflation sequence with SLOW or FAST cycle. Six blades per propeller heated electrically via the Timer Monitor Control Unit on TAT and NP conditions. Electric anti-icing on pitot static probes, AOA vanes, engine intake flanges, both windshields, and pilot side window. Wipers electrically operated. REF SPEEDS at INCR adjusts SPS stall margin for icing.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1b2c"/><stop offset="1" stop-color="#0a1322"/></linearGradient>
+    <linearGradient id="boxFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a40"/><stop offset="1" stop-color="#0e1b2c"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#7dd3fc"/></marker>
+    <marker id="arrowAir" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#10b981"/></marker>
+    <marker id="arrowElec" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#fbbf24"/></marker>
+  </defs>
+
+  <rect width="1200" height="600" fill="url(#bg)"/>
+
+  <text x="600" y="34" text-anchor="middle" fill="#dde6f1" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700">Q400 Ice and Rain Protection Architecture</text>
+  <text x="600" y="56" text-anchor="middle" fill="#7a8aa6" font-family="Inter, system-ui, sans-serif" font-size="12">Detect (2 IDPs) · de-ice (boots, 18 PSI) · anti-ice (electric) · prop heaters (TMCU) · REF SPEEDS to SPS · wipers</text>
+
+  <!-- Detection + boots row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="140" y="103" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">ICE DETECTOR PROBES</text>
+    <text x="140" y="121" text-anchor="middle" fill="#a3b3c6" font-size="10">2 IDPs · automatic · no switch</text>
+    <text x="140" y="135" text-anchor="middle" fill="#a3b3c6" font-size="10">trigger &gt;0.5 mm ice</text>
+
+    <rect x="270" y="80" width="220" height="60" rx="8" fill="url(#boxFill)" stroke="#10b981" stroke-width="1.8"/>
+    <text x="380" y="103" text-anchor="middle" fill="#34d399" font-size="13" font-weight="700">WING BOOTS · 5 sections each wing</text>
+    <text x="380" y="121" text-anchor="middle" fill="#86efac" font-size="10">extension · outboard · ctr · inboard</text>
+    <text x="380" y="135" text-anchor="middle" fill="#86efac" font-size="10">pneumatic · bleed-fed</text>
+
+    <rect x="520" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#10b981" stroke-width="1.8"/>
+    <text x="620" y="103" text-anchor="middle" fill="#34d399" font-size="13" font-weight="700">STABILIZER BOOTS</text>
+    <text x="620" y="121" text-anchor="middle" fill="#86efac" font-size="10">horiz inbd + outbd</text>
+    <text x="620" y="135" text-anchor="middle" fill="#86efac" font-size="10">vert upper + lower · cross-connected</text>
+
+    <rect x="750" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#10b981" stroke-width="1.8"/>
+    <text x="850" y="103" text-anchor="middle" fill="#34d399" font-size="13" font-weight="700">NACELLE INLET LIPS</text>
+    <text x="850" y="121" text-anchor="middle" fill="#86efac" font-size="10">pneumatic boots</text>
+    <text x="850" y="135" text-anchor="middle" fill="#86efac" font-size="10">part of TMU sequence</text>
+
+    <rect x="980" y="80" width="180" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="1070" y="103" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">PROP HEATERS</text>
+    <text x="1070" y="121" text-anchor="middle" fill="#fbbf24" font-size="10">6 blades · 70% coverage</text>
+    <text x="1070" y="135" text-anchor="middle" fill="#fbbf24" font-size="10">electric · 115 VAC VF</text>
+  </g>
+
+  <!-- Bleed + DDV + TMU + Panel + TMCU -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="140" y="223" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">BLEED SOURCE</text>
+    <text x="140" y="241" text-anchor="middle" fill="#fbbf24" font-size="10">each engine bleed port</text>
+    <text x="140" y="255" text-anchor="middle" fill="#fbbf24" font-size="10">INDEPENDENT of BLEED switch</text>
+
+    <rect x="270" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="370" y="223" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">DDV + HEATERS</text>
+    <text x="370" y="241" text-anchor="middle" fill="#c4b5fd" font-size="10">Dual Distributing Valves</text>
+    <text x="370" y="255" text-anchor="middle" fill="#c4b5fd" font-size="10">heaters auto SAT &lt;+5°C</text>
+
+    <rect x="500" y="180" width="200" height="80" rx="10" fill="#142339" stroke="#22c55e" stroke-width="2.2"/>
+    <text x="600" y="205" text-anchor="middle" fill="#86efac" font-size="15" font-weight="700">TMU</text>
+    <text x="600" y="225" text-anchor="middle" fill="#22c55e" font-size="11">Timer + Monitor Unit</text>
+    <text x="600" y="243" text-anchor="middle" fill="#a3b3c6" font-size="10">SLOW 3-min · FAST 1-min</text>
+    <text x="600" y="255" text-anchor="middle" fill="#a3b3c6" font-size="10">6 combos · 6 sec each</text>
+
+    <rect x="730" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22d3ee" stroke-width="1.8"/>
+    <text x="830" y="223" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700">ICE PROTECTION PANEL</text>
+    <text x="830" y="241" text-anchor="middle" fill="#7dd3fc" font-size="10">crew interface</text>
+    <text x="830" y="255" text-anchor="middle" fill="#7dd3fc" font-size="10">MODE · MANUAL · BOOT AIR · PROPS</text>
+
+    <rect x="960" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="1060" y="223" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">PROP BLADE HEATERS</text>
+    <text x="1060" y="241" text-anchor="middle" fill="#fbbf24" font-size="10">6 blades simultaneous</text>
+    <text x="1060" y="255" text-anchor="middle" fill="#fbbf24" font-size="10">props alternate · load balance</text>
+  </g>
+
+  <!-- Anti-ice electric + wipers + REF SPEEDS row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="140" y="313" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">TMCU (per propeller)</text>
+    <text x="140" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">cycles on TAT</text>
+    <text x="140" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">TAT &lt;= +5 · NP &gt; 400</text>
+
+    <rect x="270" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="370" y="313" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">PITOT-STATIC + AOA</text>
+    <text x="370" y="331" text-anchor="middle" fill="#c4b5fd" font-size="10">electric anti-ice</text>
+    <text x="370" y="345" text-anchor="middle" fill="#c4b5fd" font-size="10">PILOT 1 · COPILOT 2 · STBY</text>
+
+    <rect x="500" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="600" y="313" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">WINDSHIELD + INTAKE</text>
+    <text x="600" y="331" text-anchor="middle" fill="#c4b5fd" font-size="10">both windshields heated</text>
+    <text x="600" y="345" text-anchor="middle" fill="#c4b5fd" font-size="10">side window + intake flanges</text>
+
+    <rect x="730" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22d3ee" stroke-width="1.8"/>
+    <text x="830" y="313" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700">WIPERS</text>
+    <text x="830" y="331" text-anchor="middle" fill="#7dd3fc" font-size="10">PARK · OFF · LOW · HIGH</text>
+    <text x="830" y="345" text-anchor="middle" fill="#7dd3fc" font-size="10">alt pilot pushbutton (HIGH)</text>
+
+    <rect x="960" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#dc2626" stroke-width="1.8"/>
+    <text x="1060" y="313" text-anchor="middle" fill="#fca5a5" font-size="13" font-weight="700">REF SPEEDS / SPS</text>
+    <text x="1060" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">INCR adjusts stall margin</text>
+    <text x="1060" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">[INCR REF SPEED] msg on ED</text>
+  </g>
+
+  <!-- Boot connection arrows (bleed -> DDV -> TMU -> wing/tail/lips) -->
+  <g stroke="#10b981" stroke-width="1.5" fill="none" marker-end="url(#arrowAir)" stroke-dasharray="3 2">
+    <path d="M 240 220 L 270 220"/>
+    <path d="M 470 220 L 500 220"/>
+    <path d="M 600 180 L 380 140"/>
+    <path d="M 600 180 L 620 140"/>
+    <path d="M 600 180 L 850 140"/>
+  </g>
+  <!-- Prop heater arrow -->
+  <g stroke="#fbbf24" stroke-width="1.5" fill="none" marker-end="url(#arrowElec)" stroke-dasharray="3 2">
+    <path d="M 240 320 L 1060 260"/>
+    <path d="M 1060 260 L 1070 140"/>
+  </g>
+
+  <!-- Bottom callouts -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="400" width="540" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="60" y="420" fill="#dde6f1" font-size="11" font-weight="700">CRITICAL NUMBERS</text>
+    <text x="60" y="438" fill="#a3b3c6" font-size="11">Boots regulated 18 PSI ± 3 · BOOT INFLATION light at &gt;= 15 PSI</text>
+    <text x="60" y="456" fill="#a3b3c6" font-size="11">SLOW 3-min cycle / 144-sec dwell · FAST 1-min / 24-sec dwell</text>
+    <text x="60" y="473" fill="#fcd34d" font-size="11">Mnemonics: 18-PSI-BOOTS-15-LIGHT · SLOW-3-MIN-FAST-1-MIN</text>
+
+    <rect x="600" y="400" width="560" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="620" y="420" fill="#dde6f1" font-size="11" font-weight="700">PROP HEATER CONDITIONS</text>
+    <text x="620" y="438" fill="#a3b3c6" font-size="11">PROP ON + TAT &lt;= +5°C + NP &gt; 400 RPM (all three)</text>
+    <text x="620" y="456" fill="#a3b3c6" font-size="11">PROP TEST 5 sec each prop · 30-sec cooldown before retest</text>
+    <text x="620" y="473" fill="#fcd34d" font-size="11">Mnemonics: TAT-5-NP-400 · 30-SEC-PROP-TEST-COOL</text>
+  </g>
+
+  <!-- Icing chant -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="500" width="1120" height="80" rx="8" fill="#0a1322" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="60" y="520" fill="#86efac" font-size="11" font-weight="700">ICING-ENTRY CREW CHANT</text>
+    <text x="60" y="540" fill="#a3b3c6" font-size="11">REF SPEEDS to INCR · PROPS to ON · AIRFRAME MODE SELECT to FAST · ENGINE INTAKE heaters ON · monitor DEICE PRESS</text>
+    <text x="60" y="558" fill="#a3b3c6" font-size="11">In hold/descent: advance POWER levers to keep NL up and DEICE PRESS ≥ 15 PSI</text>
+    <text x="60" y="575" fill="#fcd34d" font-size="11">Mnemonic: INCR-FOR-ICING · NL-FOR-PRESSURE · BOOTS-LIPS-WINGS-TAIL · ELEC-PROBES-WINDOWS-INTAKE-AOA</text>
+  </g>
+
+  <!-- HOTSPOTS -->
+  <g font-family="Inter, system-ui, sans-serif" font-weight="700">
+    <g class="hotspot" data-id="h1"><circle cx="170" cy="100" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">1</text></g>
+    <g class="hotspot" data-id="h2"><circle cx="500" cy="100" r="11" fill="#10b981" stroke="#0e1b2c" stroke-width="1.5"/><text x="500" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">2</text></g>
+    <g class="hotspot" data-id="h3"><circle cx="730" cy="100" r="11" fill="#10b981" stroke="#0e1b2c" stroke-width="1.5"/><text x="730" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">3</text></g>
+    <g class="hotspot" data-id="h4"><circle cx="950" cy="100" r="11" fill="#10b981" stroke="#0e1b2c" stroke-width="1.5"/><text x="950" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">4</text></g>
+    <g class="hotspot" data-id="h5"><circle cx="170" cy="240" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">5</text></g>
+    <g class="hotspot" data-id="h6"><circle cx="430" cy="240" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="244" font-size="11" fill="#fff" text-anchor="middle">6</text></g>
+    <g class="hotspot" data-id="h7"><circle cx="600" cy="220" r="12" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="224" font-size="11" fill="#0e1b2c" text-anchor="middle">7</text></g>
+    <g class="hotspot" data-id="h8"><circle cx="770" cy="240" r="11" fill="#22d3ee" stroke="#0e1b2c" stroke-width="1.5"/><text x="770" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">8</text></g>
+    <g class="hotspot" data-id="h9"><circle cx="960" cy="240" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">9</text></g>
+    <g class="hotspot" data-id="h10"><circle cx="170" cy="360" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">10</text></g>
+    <g class="hotspot" data-id="h11"><circle cx="430" cy="360" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="364" font-size="11" fill="#fff" text-anchor="middle">11</text></g>
+    <g class="hotspot" data-id="h12"><circle cx="600" cy="360" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="364" font-size="11" fill="#fff" text-anchor="middle">12</text></g>
+    <g class="hotspot" data-id="h13"><circle cx="770" cy="360" r="11" fill="#22d3ee" stroke="#0e1b2c" stroke-width="1.5"/><text x="770" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">13</text></g>
+    <g class="hotspot" data-id="h14"><circle cx="960" cy="360" r="11" fill="#dc2626" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="364" font-size="11" fill="#fff" text-anchor="middle">14</text></g>
+  </g>
+</svg>
