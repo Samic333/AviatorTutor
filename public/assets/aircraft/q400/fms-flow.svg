@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="Q400 Flight Management System architecture: Universal Avionics UNS-1, NCU FPCDU DTU Configuration Module, layered position sensors GPS DME VOR AHRS, dual-cycle database, LNAV VNAV frequency management, Position Uncertain logic">
+  <title>Q400 FMS Architecture</title>
+  <desc>Schematic of the Q400 Universal Avionics UNS-1 series Flight Management System. Four components: Navigation Computer Unit, Flat-Panel Control Display Unit, Data Transfer Unit, Configuration Module. Position sensors layered with GPS primary, scanning DME backup, VOR DME single station, AHRS ADC dead reckoning. Sensor Watchdog selects best source. Dual-cycle navigation database with current and next AIRAC. LNAV VNAV frequency management. Position Uncertain on three conditions. AFIS UniLink datalink interfaces.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1b2c"/><stop offset="1" stop-color="#0a1322"/></linearGradient>
+    <linearGradient id="boxFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a40"/><stop offset="1" stop-color="#0e1b2c"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#7dd3fc"/></marker>
+  </defs>
+
+  <rect width="1200" height="600" fill="url(#bg)"/>
+
+  <text x="600" y="34" text-anchor="middle" fill="#dde6f1" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700">Q400 FMS Architecture</text>
+  <text x="600" y="56" text-anchor="middle" fill="#7a8aa6" font-family="Inter, system-ui, sans-serif" font-size="12">Universal Avionics UNS-1 · NCU + FPCDU + DTU + Config · GPS primary · 28-day dual-cycle AIRAC · Sensor Watchdog</text>
+
+  <!-- Components row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="140" y="103" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">NCU</text>
+    <text x="140" y="121" text-anchor="middle" fill="#22c55e" font-size="10">Navigation Computer Unit</text>
+    <text x="140" y="135" text-anchor="middle" fill="#22c55e" font-size="10">FMS brain · LNAV/VNAV/fuel/freq</text>
+
+    <rect x="270" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="370" y="103" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">FPCDU (4" or 5")</text>
+    <text x="370" y="121" text-anchor="middle" fill="#a3b3c6" font-size="10">crew interface</text>
+    <text x="370" y="135" text-anchor="middle" fill="#a3b3c6" font-size="10">flight plan · modes · review</text>
+
+    <rect x="500" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="600" y="103" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">DTU 100</text>
+    <text x="600" y="121" text-anchor="middle" fill="#fbbf24" font-size="10">Data Transfer Unit</text>
+    <text x="600" y="135" text-anchor="middle" fill="#fbbf24" font-size="10">database loader · cartridge</text>
+
+    <rect x="730" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="830" y="103" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">CONFIG MODULE</text>
+    <text x="830" y="121" text-anchor="middle" fill="#c4b5fd" font-size="10">aircraft-specific config</text>
+    <text x="830" y="135" text-anchor="middle" fill="#c4b5fd" font-size="10">read by NCU on power-up</text>
+
+    <rect x="960" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22d3ee" stroke-width="1.8"/>
+    <text x="1060" y="103" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700">UNILINK + AFIS</text>
+    <text x="1060" y="121" text-anchor="middle" fill="#7dd3fc" font-size="10">datalink + weather</text>
+    <text x="1060" y="135" text-anchor="middle" fill="#7dd3fc" font-size="10">NOTAM + dispatch</text>
+  </g>
+
+  <!-- Sensor row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="140" y="223" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">GPS (PRIMARY)</text>
+    <text x="140" y="241" text-anchor="middle" fill="#22c55e" font-size="10">WGS-84 + SBAS for LPV</text>
+    <text x="140" y="255" text-anchor="middle" fill="#22c55e" font-size="10">best accuracy</text>
+
+    <rect x="270" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="370" y="223" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">SCANNING DME</text>
+    <text x="370" y="241" text-anchor="middle" fill="#fbbf24" font-size="10">multi-station triangulation</text>
+    <text x="370" y="255" text-anchor="middle" fill="#fbbf24" font-size="10">requires 2+ stations</text>
+
+    <rect x="500" y="180" width="200" height="80" rx="10" fill="#142339" stroke="#22c55e" stroke-width="2.2"/>
+    <text x="600" y="205" text-anchor="middle" fill="#86efac" font-size="15" font-weight="700">SENSOR WATCHDOG</text>
+    <text x="600" y="225" text-anchor="middle" fill="#22c55e" font-size="11">selects best position source</text>
+    <text x="600" y="243" text-anchor="middle" fill="#a3b3c6" font-size="10">excludes faulted sensors</text>
+    <text x="600" y="255" text-anchor="middle" fill="#fcd34d" font-size="10">silent reversion on degradation</text>
+
+    <rect x="730" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="830" y="223" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">VOR/DME</text>
+    <text x="830" y="241" text-anchor="middle" fill="#c4b5fd" font-size="10">single-station fix</text>
+    <text x="830" y="255" text-anchor="middle" fill="#c4b5fd" font-size="10">radial + distance</text>
+
+    <rect x="960" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#dc2626" stroke-width="1.8"/>
+    <text x="1060" y="223" text-anchor="middle" fill="#fca5a5" font-size="13" font-weight="700">AHRS + ADC</text>
+    <text x="1060" y="241" text-anchor="middle" fill="#fbbf24" font-size="10">dead reckoning · last resort</text>
+    <text x="1060" y="255" text-anchor="middle" fill="#fbbf24" font-size="10">accuracy degrades with time</text>
+  </g>
+
+  <!-- Database + functions row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="290" width="240" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="160" y="313" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">DUAL-CYCLE DATABASE</text>
+    <text x="160" y="331" text-anchor="middle" fill="#22c55e" font-size="10">current + next AIRAC simultaneously</text>
+    <text x="160" y="345" text-anchor="middle" fill="#22c55e" font-size="10">28-day cycle · swap via FPCDU</text>
+
+    <rect x="310" y="290" width="240" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="430" y="313" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">PILOT DATA + COMPANY</text>
+    <text x="430" y="331" text-anchor="middle" fill="#a3b3c6" font-size="10">custom airports/routes/waypoints</text>
+    <text x="430" y="345" text-anchor="middle" fill="#a3b3c6" font-size="10">preserved across DB updates</text>
+
+    <rect x="580" y="290" width="280" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="720" y="313" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">LNAV + VNAV + FREQ MGMT</text>
+    <text x="720" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">lateral steering · vertical profile</text>
+    <text x="720" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">auto-tune via ARCDU</text>
+
+    <rect x="890" y="280" width="270" height="80" rx="10" fill="#142339" stroke="#dc2626" stroke-width="2.2"/>
+    <text x="1025" y="305" text-anchor="middle" fill="#fca5a5" font-size="15" font-weight="700">POSITION UNCERTAIN</text>
+    <text x="1025" y="325" text-anchor="middle" fill="#dc2626" font-size="11">3 conditions: GPS lost +</text>
+    <text x="1025" y="343" text-anchor="middle" fill="#fbbf24" font-size="10">DME insufficient + no other valid</text>
+    <text x="1025" y="357" text-anchor="middle" fill="#fbbf24" font-size="10">→ raw nav · QRH · divert</text>
+  </g>
+
+  <!-- Bottom callouts -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="400" width="540" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="60" y="420" fill="#dde6f1" font-size="11" font-weight="700">SENSOR HIERARCHY + WATCHDOG</text>
+    <text x="60" y="438" fill="#a3b3c6" font-size="11">GPS primary (with SBAS for LPV) → scanning DME (2+ stations) → VOR/DME → AHRS+ADC</text>
+    <text x="60" y="456" fill="#a3b3c6" font-size="11">Sensor Watchdog continuously monitors all sensors and selects the best source</text>
+    <text x="60" y="473" fill="#fcd34d" font-size="11">Mnemonics: GPS-DME-VOR-AHRS · SCAN-DME-2-STATIONS · SENSOR-WATCHDOG · SBAS-LPV</text>
+
+    <rect x="600" y="400" width="560" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="620" y="420" fill="#dde6f1" font-size="11" font-weight="700">DATABASE + GUIDANCE</text>
+    <text x="620" y="438" fill="#a3b3c6" font-size="11">Dual-cycle (current + next AIRAC) · 28-day cycle · pilot data preserved</text>
+    <text x="620" y="456" fill="#a3b3c6" font-size="11">LNAV steers AFCS · VNAV vertical profile · Frequency mgmt auto-tunes via ARCDU</text>
+    <text x="620" y="473" fill="#fcd34d" font-size="11">Mnemonics: DUAL-CYCLE-28-DAYS · FMS-NEXT-WPT · FREQ-AUTO-FMS-MANUAL-ARCDU</text>
+  </g>
+
+  <!-- High-latitude callout -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="500" width="1120" height="80" rx="8" fill="#0a1322" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="60" y="520" fill="#86efac" font-size="11" font-weight="700">HIGH-LATITUDE OPS + CROSS-CHECK</text>
+    <text x="60" y="540" fill="#a3b3c6" font-size="11">High-latitude FMS auto-switches heading reference from MAGNETIC to TRUE near poles</text>
+    <text x="60" y="558" fill="#a3b3c6" font-size="11">Cross-check FMS vs raw nav at least every 30 min (Phase 13) · Magnetic variation discrepancy &lt;1° normal</text>
+    <text x="60" y="575" fill="#fcd34d" font-size="11">Mnemonics: HIGH-LAT-TRUE · VAR-VS-DECLINATION-1 · POSITION-UNCERTAIN-3 · AFIS-UNILINK</text>
+  </g>
+
+  <!-- HOTSPOTS -->
+  <g font-family="Inter, system-ui, sans-serif" font-weight="700">
+    <g class="hotspot" data-id="h1"><circle cx="170" cy="100" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">1</text></g>
+    <g class="hotspot" data-id="h2"><circle cx="430" cy="100" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">2</text></g>
+    <g class="hotspot" data-id="h3"><circle cx="600" cy="100" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">3</text></g>
+    <g class="hotspot" data-id="h4"><circle cx="770" cy="100" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="770" y="104" font-size="11" fill="#fff" text-anchor="middle">4</text></g>
+    <g class="hotspot" data-id="h5"><circle cx="960" cy="100" r="11" fill="#22d3ee" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">5</text></g>
+    <g class="hotspot" data-id="h6"><circle cx="170" cy="240" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">6</text></g>
+    <g class="hotspot" data-id="h7"><circle cx="430" cy="240" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">7</text></g>
+    <g class="hotspot" data-id="h8"><circle cx="600" cy="220" r="12" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="224" font-size="11" fill="#0e1b2c" text-anchor="middle">8</text></g>
+    <g class="hotspot" data-id="h9"><circle cx="770" cy="240" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="770" y="244" font-size="11" fill="#fff" text-anchor="middle">9</text></g>
+    <g class="hotspot" data-id="h10"><circle cx="960" cy="240" r="11" fill="#dc2626" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="244" font-size="11" fill="#fff" text-anchor="middle">10</text></g>
+    <g class="hotspot" data-id="h11"><circle cx="170" cy="320" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="324" font-size="11" fill="#0e1b2c" text-anchor="middle">11</text></g>
+    <g class="hotspot" data-id="h12"><circle cx="430" cy="320" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="324" font-size="11" fill="#0e1b2c" text-anchor="middle">12</text></g>
+    <g class="hotspot" data-id="h13"><circle cx="720" cy="320" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="720" y="324" font-size="11" fill="#0e1b2c" text-anchor="middle">13</text></g>
+    <g class="hotspot" data-id="h14"><circle cx="1025" cy="320" r="12" fill="#dc2626" stroke="#0e1b2c" stroke-width="1.5"/><text x="1025" y="324" font-size="11" fill="#fff" text-anchor="middle">14</text></g>
+  </g>
+</svg>
