@@ -174,7 +174,7 @@ INSERT INTO lesson_slides (lesson_id, sort_order, slide_type, title, body, media
      'Push both RUD 1 and RUD 2 PUSH OFF switchlights'
    ),
    'correct_index', 1,
-   'explanation', 'Pitch trim runaway → push ELEVATOR TRIM SHUTOFF switchlight (either side). Trim deactivates and the aural stops. Then manually retrim and divert.',
+   'explanation', 'Pitch trim runaway → push ELEVATOR TRIM SHUTOFF switchlight (either side). Trim deactivates and the aural stops. Then manually retrim and divert.'
  )),
 
 (@lesson_id, 140, 'revision',
