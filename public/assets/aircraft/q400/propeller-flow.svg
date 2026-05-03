@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="Q400 propeller architecture: 6-blade composite, PEC PCU OSG, counterweighted blades, layered overspeed, autofeather, beta range">
+  <title>Q400 Propeller Architecture</title>
+  <desc>Schematic of the Q400 propeller system. Six-blade composite propeller per engine with counterweighted blades that naturally seek HIGH PITCH in flight. PEC dual-channel commands PCU two-stage servo valve metering HP engine oil to fine and coarse pitch chambers. Layered overspeed protection: hydraulic OSG at 1071 RPM and electronic FADEC at 1122 RPM. Hydraulic OSG locked out in reverse. Flight fine stop 16 degrees hard 16.5 degrees soft. Beta range PLA below Flight Idle, NP governed at 660 RPM. Reverse 660 to 950 RPM with 1500 SHP max. Autofeather arm both torque above 50 percent plus both PLA above 60 degrees, trigger one torque below 25 percent or Np below 816 for 3 seconds.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1b2c"/><stop offset="1" stop-color="#0a1322"/></linearGradient>
+    <linearGradient id="boxFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a40"/><stop offset="1" stop-color="#0e1b2c"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#7dd3fc"/></marker>
+  </defs>
+
+  <rect width="1200" height="600" fill="url(#bg)"/>
+
+  <text x="600" y="34" text-anchor="middle" fill="#dde6f1" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700">Q400 Propeller Architecture</text>
+  <text x="600" y="56" text-anchor="middle" fill="#7a8aa6" font-family="Inter, system-ui, sans-serif" font-size="12">6-blade composite · counterweighted · PEC + PCU · OSG 1071 hyd / 1122 elec · 16° fine stop · autofeather</text>
+
+  <!-- Top row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="140" y="103" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">PROPELLER (6 BLADE)</text>
+    <text x="140" y="121" text-anchor="middle" fill="#c4b5fd" font-size="10">composite · counterweighted</text>
+    <text x="140" y="135" text-anchor="middle" fill="#c4b5fd" font-size="10">natural HIGH pitch in flight</text>
+
+    <rect x="270" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="370" y="103" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">PEC (dual-channel)</text>
+    <text x="370" y="121" text-anchor="middle" fill="#22c55e" font-size="10">microprocessor in nacelle</text>
+    <text x="370" y="135" text-anchor="middle" fill="#22c55e" font-size="10">governing · autofeather · UPTRIM</text>
+
+    <rect x="500" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="600" y="103" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">PCU + SERVO VALVE</text>
+    <text x="600" y="121" text-anchor="middle" fill="#fbbf24" font-size="10">hydromechanical</text>
+    <text x="600" y="135" text-anchor="middle" fill="#fbbf24" font-size="10">two-stage · meters HP oil</text>
+
+    <rect x="730" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="830" y="103" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">HP PUMP + OSG</text>
+    <text x="830" y="121" text-anchor="middle" fill="#22c55e" font-size="10">flyweight design</text>
+    <text x="830" y="135" text-anchor="middle" fill="#22c55e" font-size="10">drops HP at 1071 RPM</text>
+
+    <rect x="960" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#dc2626" stroke-width="1.8"/>
+    <text x="1060" y="103" text-anchor="middle" fill="#fca5a5" font-size="13" font-weight="700">FEATHER PUMP</text>
+    <text x="1060" y="121" text-anchor="middle" fill="#fbbf24" font-size="10">28 VDC · external gear</text>
+    <text x="1060" y="135" text-anchor="middle" fill="#fbbf24" font-size="10">independent feather oil</text>
+  </g>
+
+  <!-- Middle row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="140" y="223" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">COUNTERWEIGHTS</text>
+    <text x="140" y="241" text-anchor="middle" fill="#c4b5fd" font-size="10">phased on blade root sleeve</text>
+    <text x="140" y="255" text-anchor="middle" fill="#c4b5fd" font-size="10">HP loss → autocoarsen</text>
+
+    <rect x="270" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="370" y="223" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">PITCH CHANGE CYL</text>
+    <text x="370" y="241" text-anchor="middle" fill="#a3b3c6" font-size="10">FINE chamber + COARSE</text>
+    <text x="370" y="255" text-anchor="middle" fill="#a3b3c6" font-size="10">HP oil from PCU</text>
+
+    <rect x="500" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="600" y="223" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">FADEC NP O/S 1122</text>
+    <text x="600" y="241" text-anchor="middle" fill="#fbbf24" font-size="10">electronic O/S protection</text>
+    <text x="600" y="255" text-anchor="middle" fill="#fbbf24" font-size="10">cuts fuel · primary in reverse</text>
+
+    <rect x="730" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#dc2626" stroke-width="1.8"/>
+    <text x="830" y="223" text-anchor="middle" fill="#fca5a5" font-size="13" font-weight="700">HYD OSG 1071</text>
+    <text x="830" y="241" text-anchor="middle" fill="#fbbf24" font-size="10">drops HP at 105%</text>
+    <text x="830" y="255" text-anchor="middle" fill="#fbbf24" font-size="10">LOCKED OUT in reverse</text>
+
+    <rect x="960" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="1060" y="223" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">GBE VALVE</text>
+    <text x="1060" y="241" text-anchor="middle" fill="#fbbf24" font-size="10">locks OSG on ground beta</text>
+    <text x="1060" y="255" text-anchor="middle" fill="#fbbf24" font-size="10">caught by OSG test</text>
+  </g>
+
+  <!-- Bottom row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="140" y="313" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">FLIGHT FINE STOP</text>
+    <text x="140" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">16° hard hyd</text>
+    <text x="140" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">16.5° soft PEC</text>
+
+    <rect x="270" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22d3ee" stroke-width="1.8"/>
+    <text x="370" y="313" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700">BETA + REVERSE</text>
+    <text x="370" y="331" text-anchor="middle" fill="#7dd3fc" font-size="10">beta NP 660 · rev 660-950</text>
+    <text x="370" y="345" text-anchor="middle" fill="#7dd3fc" font-size="10">1500 SHP max</text>
+
+    <rect x="500" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="600" y="313" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">SYNCHROPHASE + MPU</text>
+    <text x="600" y="331" text-anchor="middle" fill="#c4b5fd" font-size="10">cabin noise reduction</text>
+    <text x="600" y="345" text-anchor="middle" fill="#c4b5fd" font-size="10">NOT at takeoff</text>
+
+    <rect x="730" y="280" width="430" height="80" rx="10" fill="#142339" stroke="#dc2626" stroke-width="2.2"/>
+    <text x="945" y="305" text-anchor="middle" fill="#fca5a5" font-size="15" font-weight="700">AUTOFEATHER</text>
+    <text x="945" y="325" text-anchor="middle" fill="#dc2626" font-size="11">ARM: both torque &gt;50% + both PLA &gt;60°</text>
+    <text x="945" y="343" text-anchor="middle" fill="#fbbf24" font-size="10">TRIGGER: one torque &lt;25% OR Np &lt;816 for ≥3 sec</text>
+    <text x="945" y="357" text-anchor="middle" fill="#fbbf24" font-size="10">Action: feather + UPTRIM operating engine</text>
+  </g>
+
+  <!-- Bottom callouts -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="400" width="540" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="60" y="420" fill="#dde6f1" font-size="11" font-weight="700">CRITICAL NUMBERS</text>
+    <text x="60" y="438" fill="#a3b3c6" font-size="11">Constant speed entry: 850 / 900 / 1020 RPM per CL · Beta NP gov 660 RPM</text>
+    <text x="60" y="456" fill="#a3b3c6" font-size="11">OSG: 1071 hyd / 1122 elec · Reverse: 660-950 RPM · 1500 SHP max</text>
+    <text x="60" y="473" fill="#fcd34d" font-size="11">Mnemonics: 850-900-1020-CL · 1071-HYD-1122-ELEC · BETA-660-NP · REVERSE-660-950-1500</text>
+
+    <rect x="600" y="400" width="560" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="620" y="420" fill="#dde6f1" font-size="11" font-weight="700">FAIL-SAFE BEHAVIOUR + AUTOFEATHER</text>
+    <text x="620" y="438" fill="#a3b3c6" font-size="11">HP loss in flight: blades AUTOCOARSEN to safe windmill (counterweights)</text>
+    <text x="620" y="456" fill="#a3b3c6" font-size="11">HP loss in reverse: blades to MAX REVERSE · Beta horn if PLA below Flight Idle in flight</text>
+    <text x="620" y="473" fill="#fcd34d" font-size="11">Mnemonics: AUTOCOARSEN-HP-LOSS · AF-50-25-816-3SEC · AF-UPTRIMS-OPERATING</text>
+  </g>
+
+  <!-- Forbidden callout -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="500" width="1120" height="80" rx="8" fill="#0a1322" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="60" y="520" fill="#fca5a5" font-size="11" font-weight="700">NEVER MOVE PLA BELOW FLIGHT IDLE IN FLIGHT</text>
+    <text x="60" y="540" fill="#a3b3c6" font-size="11">BETA WARNING HORN sounds if PLA crosses gate in flight · Move PLA back above gate IMMEDIATELY</text>
+    <text x="60" y="558" fill="#a3b3c6" font-size="11">Layered defence: detent on quadrant + horn + 16° hard hyd flight fine stop + counterweight + OSG</text>
+    <text x="60" y="575" fill="#fcd34d" font-size="11">Mnemonics: BETA-HORN-IN-FLIGHT · 16-HARD-16.5-SOFT · GBE-LOCKS-OSG-GROUND-BETA · OSG-LOCKED-REVERSE</text>
+  </g>
+
+  <!-- HOTSPOTS -->
+  <g font-family="Inter, system-ui, sans-serif" font-weight="700">
+    <g class="hotspot" data-id="h1"><circle cx="170" cy="100" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="104" font-size="11" fill="#fff" text-anchor="middle">1</text></g>
+    <g class="hotspot" data-id="h2"><circle cx="430" cy="100" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">2</text></g>
+    <g class="hotspot" data-id="h3"><circle cx="600" cy="100" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">3</text></g>
+    <g class="hotspot" data-id="h4"><circle cx="770" cy="100" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="770" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">4</text></g>
+    <g class="hotspot" data-id="h5"><circle cx="960" cy="100" r="11" fill="#dc2626" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="104" font-size="11" fill="#fff" text-anchor="middle">5</text></g>
+    <g class="hotspot" data-id="h6"><circle cx="170" cy="240" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="244" font-size="11" fill="#fff" text-anchor="middle">6</text></g>
+    <g class="hotspot" data-id="h7"><circle cx="430" cy="240" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">7</text></g>
+    <g class="hotspot" data-id="h8"><circle cx="600" cy="240" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">8</text></g>
+    <g class="hotspot" data-id="h9"><circle cx="770" cy="240" r="11" fill="#dc2626" stroke="#0e1b2c" stroke-width="1.5"/><text x="770" y="244" font-size="11" fill="#fff" text-anchor="middle">9</text></g>
+    <g class="hotspot" data-id="h10"><circle cx="960" cy="240" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">10</text></g>
+    <g class="hotspot" data-id="h11"><circle cx="170" cy="360" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">11</text></g>
+    <g class="hotspot" data-id="h12"><circle cx="370" cy="360" r="11" fill="#22d3ee" stroke="#0e1b2c" stroke-width="1.5"/><text x="370" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">12</text></g>
+    <g class="hotspot" data-id="h13"><circle cx="600" cy="360" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="364" font-size="11" fill="#fff" text-anchor="middle">13</text></g>
+    <g class="hotspot" data-id="h14"><circle cx="945" cy="320" r="12" fill="#dc2626" stroke="#0e1b2c" stroke-width="1.5"/><text x="945" y="324" font-size="11" fill="#fff" text-anchor="middle">14</text></g>
+  </g>
+</svg>
