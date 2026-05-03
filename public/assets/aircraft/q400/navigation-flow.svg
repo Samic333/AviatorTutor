@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="Q400 navigation architecture: dual VHF NAV with VOR LOC GS DME marker, dual ADF, dual ATC, single WXR, single FMS, EGPWS, TCAS, AHRS dual redundant, ADC dual">
+  <title>Q400 Navigation Architecture</title>
+  <desc>Schematic of the Q400 navigation suite. Two VHF NAV receivers handle VOR, Localizer, Glideslope, DME, integral marker beacons. Two ADF receivers with ADF, ANT, BFO, and TEST modes. Two ATC transponders. Single weather radar. Enhanced GPWS with TAD and TCF and 5 GPWS modes. Single FMS provides automatic radio tuning. ARCDUs provide manual tuning. EFCPs drive bearing pointers, format, range, TCAS, WX TERR, and DATA. AHRS dual redundant with two AHCPs, two AHRUs, two flux valves, two memory modules. Dual ADCs.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1b2c"/><stop offset="1" stop-color="#0a1322"/></linearGradient>
+    <linearGradient id="boxFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a40"/><stop offset="1" stop-color="#0e1b2c"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#7dd3fc"/></marker>
+  </defs>
+
+  <rect width="1200" height="600" fill="url(#bg)"/>
+
+  <text x="600" y="34" text-anchor="middle" fill="#dde6f1" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700">Q400 Navigation Architecture</text>
+  <text x="600" y="56" text-anchor="middle" fill="#7a8aa6" font-family="Inter, system-ui, sans-serif" font-size="12">Dual VHF NAV + ADF + DME + ATC + AHRS + ADC · single FMS + WXR + EGPWS + TCAS · cross-side failover</text>
+
+  <!-- Source row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="140" y="103" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">VHF NAV (×2)</text>
+    <text x="140" y="121" text-anchor="middle" fill="#22c55e" font-size="10">VOR 108-117.95 EVEN</text>
+    <text x="140" y="135" text-anchor="middle" fill="#22c55e" font-size="10">LOC 108.10-111.95 ODD + GS</text>
+
+    <rect x="270" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="370" y="103" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">DME (×2 dual-ch)</text>
+    <text x="370" y="121" text-anchor="middle" fill="#22c55e" font-size="10">pilot DME1 / cop DME2</text>
+    <text x="370" y="135" text-anchor="middle" fill="#22c55e" font-size="10">loss → auto reroute</text>
+
+    <rect x="500" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="600" y="103" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">ADF (×2)</text>
+    <text x="600" y="121" text-anchor="middle" fill="#c4b5fd" font-size="10">ADF/ANT/BFO/TEST</text>
+    <text x="600" y="135" text-anchor="middle" fill="#c4b5fd" font-size="10">parks 90° on invalid</text>
+
+    <rect x="730" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="830" y="103" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">ATC (×2)</text>
+    <text x="830" y="121" text-anchor="middle" fill="#a3b3c6" font-size="10">Mode A/C/S</text>
+    <text x="830" y="135" text-anchor="middle" fill="#a3b3c6" font-size="10">IDENT</text>
+
+    <rect x="960" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="1060" y="103" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">WXR + EGPWS</text>
+    <text x="1060" y="121" text-anchor="middle" fill="#fbbf24" font-size="10">single WXR</text>
+    <text x="1060" y="135" text-anchor="middle" fill="#fbbf24" font-size="10">TAD + TCF + 5 modes</text>
+  </g>
+
+  <!-- Control panels row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="140" y="223" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">FMS</text>
+    <text x="140" y="241" text-anchor="middle" fill="#22c55e" font-size="10">automatic tuning</text>
+    <text x="140" y="255" text-anchor="middle" fill="#22c55e" font-size="10">waypoint navigation</text>
+
+    <rect x="270" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22d3ee" stroke-width="1.8"/>
+    <text x="370" y="223" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700">ARCDU (×2)</text>
+    <text x="370" y="241" text-anchor="middle" fill="#7dd3fc" font-size="10">manual tuning</text>
+    <text x="370" y="255" text-anchor="middle" fill="#7dd3fc" font-size="10">marker HI/LO sensitivity</text>
+
+    <rect x="500" y="180" width="200" height="80" rx="10" fill="#142339" stroke="#7dd3fc" stroke-width="2.2"/>
+    <text x="600" y="205" text-anchor="middle" fill="#7dd3fc" font-size="15" font-weight="700">EFCP (×2)</text>
+    <text x="600" y="225" text-anchor="middle" fill="#a3b3c6" font-size="11">BRG 1+2 (5-pos) · FORMAT</text>
+    <text x="600" y="243" text-anchor="middle" fill="#a3b3c6" font-size="10">RANGE 10-240 (default 40) · DATA</text>
+    <text x="600" y="255" text-anchor="middle" fill="#fcd34d" font-size="10">TCAS auto-AUTO on EFCP fault</text>
+
+    <rect x="730" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="830" y="223" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">TCAS</text>
+    <text x="830" y="241" text-anchor="middle" fill="#fbbf24" font-size="10">continuous ≤40 nm</text>
+    <text x="830" y="255" text-anchor="middle" fill="#fbbf24" font-size="10">auto on EFCP fail</text>
+
+    <rect x="960" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="1060" y="223" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">AHRS (×2)</text>
+    <text x="1060" y="241" text-anchor="middle" fill="#22c55e" font-size="10">2 AHCP / 2 AHRU</text>
+    <text x="1060" y="255" text-anchor="middle" fill="#22c55e" font-size="10">2 flux valve / 2 RMM</text>
+  </g>
+
+  <!-- Bottom row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="140" y="313" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">ADC (×2)</text>
+    <text x="140" y="331" text-anchor="middle" fill="#22c55e" font-size="10">cross-side SOURCE selector</text>
+    <text x="140" y="345" text-anchor="middle" fill="#22c55e" font-size="10">YELLOW PFD on cross</text>
+
+    <rect x="270" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="370" y="313" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">MARKER (Integral)</text>
+    <text x="370" y="331" text-anchor="middle" fill="#c4b5fd" font-size="10">OUT blue · MID amber</text>
+    <text x="370" y="345" text-anchor="middle" fill="#c4b5fd" font-size="10">INN white</text>
+
+    <rect x="500" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="600" y="313" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">BEARING POINTERS</text>
+    <text x="600" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">5-pos: OFF/VOR/ADF/FMS/AUX</text>
+    <text x="600" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">VOR removed · ADF parks 90°</text>
+
+    <rect x="730" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#dc2626" stroke-width="1.8"/>
+    <text x="830" y="313" text-anchor="middle" fill="#fca5a5" font-size="13" font-weight="700">EGPWS LAYER</text>
+    <text x="830" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">TAD + TCF</text>
+    <text x="830" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">TERRAIN INHIBIT (white)</text>
+
+    <rect x="960" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#dc2626" stroke-width="1.8"/>
+    <text x="1060" y="313" text-anchor="middle" fill="#fca5a5" font-size="13" font-weight="700">FLAP OVERRIDE</text>
+    <text x="1060" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">inhibits mode 4B only</text>
+    <text x="1060" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">0° flap landings</text>
+  </g>
+
+  <!-- Bottom callouts -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="400" width="540" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="60" y="420" fill="#dde6f1" font-size="11" font-weight="700">EFCP CONTROLS</text>
+    <text x="60" y="438" fill="#a3b3c6" font-size="11">FORMAT: ARC default ±45°; PUSH+HOLD 1 sec for FULL 360° north-up</text>
+    <text x="60" y="456" fill="#a3b3c6" font-size="11">RANGE 10/20/40/80/160/240 nm (default 40); WX/TERR cycle; DATA cycle 4</text>
+    <text x="60" y="473" fill="#fcd34d" font-size="11">Mnemonics: BRG-5-POS · FORMAT-1-SEC-FULL · TCAS-40-NM · RANGE-6-DEFAULT-40</text>
+
+    <rect x="600" y="400" width="560" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="620" y="420" fill="#dde6f1" font-size="11" font-weight="700">CRITICAL FREQS + COLOURS</text>
+    <text x="620" y="438" fill="#a3b3c6" font-size="11">VOR 108.00-117.95 EVEN spacing 50 kHz · LOC 108.10-111.95 ODD spacing 50 kHz</text>
+    <text x="620" y="456" fill="#a3b3c6" font-size="11">Marker: OUT (blue) · MID (amber) · INN (white). BFO 1000 Hz intermittent</text>
+    <text x="620" y="473" fill="#fcd34d" font-size="11">Mnemonics: VOR-EVEN-LOC-ODD · OUT-BLUE-MID-AMBER-INN-WHITE · BFO-1000-HZ</text>
+  </g>
+
+  <!-- Reversion callout -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="500" width="1120" height="80" rx="8" fill="#0a1322" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="60" y="520" fill="#86efac" font-size="11" font-weight="700">REVERSION + CROSS-SIDE</text>
+    <text x="60" y="540" fill="#a3b3c6" font-size="11">EFCP fault: TCAS auto-AUTO. AHRS fault: EFIS ATT/HDG SOURCE 1 or 2 (yellow PFD). ADC fault: ADC SOURCE 1 or 2</text>
+    <text x="60" y="558" fill="#a3b3c6" font-size="11">DME loss: silent auto-reroute to remaining DME (both EFIS sides). VOR pointer removed if invalid freq or ILS freq</text>
+    <text x="60" y="575" fill="#fcd34d" font-size="11">Mnemonics: ADF-PARKS-90 · DME-CROSS-USE · 4-MODE-ADF · WPT-FMS-PT</text>
+  </g>
+
+  <!-- HOTSPOTS -->
+  <g font-family="Inter, system-ui, sans-serif" font-weight="700">
+    <g class="hotspot" data-id="h1"><circle cx="170" cy="100" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">1</text></g>
+    <g class="hotspot" data-id="h2"><circle cx="430" cy="100" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">2</text></g>
+    <g class="hotspot" data-id="h3"><circle cx="600" cy="100" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="104" font-size="11" fill="#fff" text-anchor="middle">3</text></g>
+    <g class="hotspot" data-id="h4"><circle cx="770" cy="100" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="770" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">4</text></g>
+    <g class="hotspot" data-id="h5"><circle cx="960" cy="100" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">5</text></g>
+    <g class="hotspot" data-id="h6"><circle cx="170" cy="240" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">6</text></g>
+    <g class="hotspot" data-id="h7"><circle cx="430" cy="240" r="11" fill="#22d3ee" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">7</text></g>
+    <g class="hotspot" data-id="h8"><circle cx="600" cy="220" r="12" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="224" font-size="11" fill="#0e1b2c" text-anchor="middle">8</text></g>
+    <g class="hotspot" data-id="h9"><circle cx="770" cy="240" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="770" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">9</text></g>
+    <g class="hotspot" data-id="h10"><circle cx="960" cy="240" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">10</text></g>
+    <g class="hotspot" data-id="h11"><circle cx="170" cy="360" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">11</text></g>
+    <g class="hotspot" data-id="h12"><circle cx="430" cy="360" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="364" font-size="11" fill="#fff" text-anchor="middle">12</text></g>
+    <g class="hotspot" data-id="h13"><circle cx="600" cy="360" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">13</text></g>
+    <g class="hotspot" data-id="h14"><circle cx="960" cy="360" r="11" fill="#dc2626" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="364" font-size="11" fill="#fff" text-anchor="middle">14</text></g>
+  </g>
+</svg>
