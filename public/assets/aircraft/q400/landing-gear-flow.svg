@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="Q400 landing gear architecture: tricycle dual-wheel retractable, mains aft into nacelles, nose forward, No.2 hydraulic gear and steering, No.1 hydraulic anti-skid brakes, alternate extension via INHIBIT and RELEASE and EXTENSION doors plus hand pump, EMERG BRAKE accumulator">
+  <title>Q400 Landing Gear Architecture</title>
+  <desc>Schematic of the Q400 landing gear. Tricycle dual-wheel retractable. Mains retract aft into engine nacelles; nose retracts forward into the nose section. No.2 hydraulic system drives gear extension and retraction and nosewheel steering. No.1 hydraulic system drives normal anti-skid brakes. The PSEU monitors and controls. Steering hand control gives 70 degrees each side; rudder pedals 8 degrees each side; passive caster mode 120 degrees. Alternate gear extension uses an INHIBIT switch plus an overhead RELEASE door and floor EXTENSION door plus hand pump. EMERG BRAKE runs from No.2 hydraulic or accumulator with about 6 applications and 500 PSI minimum before start.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1b2c"/><stop offset="1" stop-color="#0a1322"/></linearGradient>
+    <linearGradient id="boxFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a40"/><stop offset="1" stop-color="#0e1b2c"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#7dd3fc"/></marker>
+    <marker id="arrowHyd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#a78bfa"/></marker>
+  </defs>
+
+  <rect width="1200" height="600" fill="url(#bg)"/>
+
+  <text x="600" y="34" text-anchor="middle" fill="#dde6f1" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700">Q400 Landing Gear Architecture</text>
+  <text x="600" y="56" text-anchor="middle" fill="#7a8aa6" font-family="Inter, system-ui, sans-serif" font-size="12">Tricycle dual-wheel retractable · No.2 hyd gear+steering · No.1 hyd brakes · alt extension · accumulator</text>
+
+  <!-- Gear row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="140" y="103" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">NOSE GEAR</text>
+    <text x="140" y="121" text-anchor="middle" fill="#a3b3c6" font-size="10">retracts FORWARD</text>
+    <text x="140" y="135" text-anchor="middle" fill="#a3b3c6" font-size="10">steerable · auto-center</text>
+
+    <rect x="320" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="420" y="103" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">L MAIN GEAR</text>
+    <text x="420" y="121" text-anchor="middle" fill="#a3b3c6" font-size="10">retracts AFT into nacelle</text>
+    <text x="420" y="135" text-anchor="middle" fill="#a3b3c6" font-size="10">multi-disc anti-skid brakes</text>
+
+    <rect x="600" y="80" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#7dd3fc" stroke-width="1.8"/>
+    <text x="700" y="103" text-anchor="middle" fill="#7dd3fc" font-size="13" font-weight="700">R MAIN GEAR</text>
+    <text x="700" y="121" text-anchor="middle" fill="#a3b3c6" font-size="10">retracts AFT into nacelle</text>
+    <text x="700" y="135" text-anchor="middle" fill="#a3b3c6" font-size="10">mirror of L main</text>
+
+    <rect x="880" y="80" width="220" height="60" rx="8" fill="#142339" stroke="#22c55e" stroke-width="2.2"/>
+    <text x="990" y="103" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">PSEU (brain)</text>
+    <text x="990" y="121" text-anchor="middle" fill="#22c55e" font-size="10">monitors WOW · gear position</text>
+    <text x="990" y="135" text-anchor="middle" fill="#22c55e" font-size="10">drives ASCU + FCECU</text>
+  </g>
+
+  <!-- Hydraulic + Steering row -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#a78bfa" stroke-width="1.8"/>
+    <text x="140" y="223" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">NO.2 HYD</text>
+    <text x="140" y="241" text-anchor="middle" fill="#c4b5fd" font-size="10">gear extension/retraction</text>
+    <text x="140" y="255" text-anchor="middle" fill="#c4b5fd" font-size="10">nosewheel steering · PTU backup</text>
+
+    <rect x="270" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22d3ee" stroke-width="1.8"/>
+    <text x="370" y="223" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700">STEERING INPUTS</text>
+    <text x="370" y="241" text-anchor="middle" fill="#7dd3fc" font-size="10">tiller ±70° · pedals ±8°</text>
+    <text x="370" y="255" text-anchor="middle" fill="#7dd3fc" font-size="10">caster ±120°</text>
+
+    <rect x="500" y="180" width="200" height="80" rx="10" fill="#142339" stroke="#22c55e" stroke-width="2.2"/>
+    <text x="600" y="205" text-anchor="middle" fill="#86efac" font-size="15" font-weight="700">SCU</text>
+    <text x="600" y="225" text-anchor="middle" fill="#22c55e" font-size="11">Steering Control Unit</text>
+    <text x="600" y="243" text-anchor="middle" fill="#a3b3c6" font-size="10">drives steering motor + actuator</text>
+    <text x="600" y="255" text-anchor="middle" fill="#fcd34d" font-size="10">NOSE STEERING caution logic</text>
+
+    <rect x="730" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#dc2626" stroke-width="1.8"/>
+    <text x="830" y="223" text-anchor="middle" fill="#fca5a5" font-size="13" font-weight="700">NO.1 HYD</text>
+    <text x="830" y="241" text-anchor="middle" fill="#fbbf24" font-size="10">anti-skid multi-disc brakes</text>
+    <text x="830" y="255" text-anchor="middle" fill="#fbbf24" font-size="10">one unit per main wheel</text>
+
+    <rect x="960" y="200" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="1060" y="223" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">ASCU</text>
+    <text x="1060" y="241" text-anchor="middle" fill="#fbbf24" font-size="10">arm &gt;10 · test &lt;17 · cancel 35</text>
+    <text x="1060" y="255" text-anchor="middle" fill="#fbbf24" font-size="10">5-sec brake delay logic</text>
+  </g>
+
+  <!-- Hyd connection arrows -->
+  <g stroke="#a78bfa" stroke-width="1.5" fill="none" marker-end="url(#arrowHyd)" stroke-dasharray="3 2">
+    <path d="M 140 200 L 140 140"/>
+    <path d="M 140 200 L 600 180"/>
+  </g>
+  <g stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="3 2">
+    <path d="M 830 200 L 420 140"/>
+    <path d="M 830 200 L 700 140"/>
+  </g>
+
+  <!-- EMERG BRAKE + Alt extension layer -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#dc2626" stroke-width="1.8"/>
+    <text x="140" y="313" text-anchor="middle" fill="#fca5a5" font-size="13" font-weight="700">EMERG BRAKE</text>
+    <text x="140" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">No.2 hyd or accumulator</text>
+    <text x="140" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">~6 apps · 500 PSI min · NO anti-skid</text>
+
+    <rect x="270" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="370" y="313" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">INHIBIT SWITCH</text>
+    <text x="370" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">step 1 alt extension</text>
+    <text x="370" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">isolates hyd from gear</text>
+
+    <rect x="500" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="600" y="313" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">MAIN RELEASE</text>
+    <text x="600" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">overhead door + handle</text>
+    <text x="600" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">mains free-fall · door OPEN after</text>
+
+    <rect x="730" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#fbbf24" stroke-width="1.8"/>
+    <text x="830" y="313" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">NOSE RELEASE + PUMP</text>
+    <text x="830" y="331" text-anchor="middle" fill="#fbbf24" font-size="10">floor door + handle + hand pump</text>
+    <text x="830" y="345" text-anchor="middle" fill="#fbbf24" font-size="10">nose free-fall · door OPEN after</text>
+
+    <rect x="960" y="290" width="200" height="60" rx="8" fill="url(#boxFill)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="1060" y="313" text-anchor="middle" fill="#86efac" font-size="13" font-weight="700">DOWNLOCK VERIFY</text>
+    <text x="1060" y="331" text-anchor="middle" fill="#22c55e" font-size="10">3 GREEN floor lights</text>
+    <text x="1060" y="345" text-anchor="middle" fill="#22c55e" font-size="10">switch AFT to activate</text>
+  </g>
+
+  <!-- Bottom callouts -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="400" width="540" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="60" y="420" fill="#dde6f1" font-size="11" font-weight="700">GEAR WARNING TONE — 3 LOGIC GROUPS</text>
+    <text x="60" y="438" fill="#a3b3c6" font-size="11">Group 1: gear up + flaps &gt;8.5° + torque &lt;50% + both PLA &lt;RATING</text>
+    <text x="60" y="456" fill="#a3b3c6" font-size="11">Group 2: both PLA &lt;FLT IDLE+12° + KIAS &lt;156 + RA &lt;1053 ft (CANNOT mute)</text>
+    <text x="60" y="473" fill="#fcd34d" font-size="11">Group 3: 1 engine fail at low speed — ONLY case that may be MUTED</text>
+
+    <rect x="600" y="400" width="560" height="80" rx="8" fill="#0a1322" stroke="#3a4a66" stroke-width="1"/>
+    <text x="620" y="420" fill="#dde6f1" font-size="11" font-weight="700">ANTI-SKID + EMERG BRAKE NUMBERS</text>
+    <text x="620" y="438" fill="#a3b3c6" font-size="11">Anti-skid: arms &gt;10 kts · self-test prevented &gt;17 kts · 5-sec delay cancels at 35 kts</text>
+    <text x="620" y="456" fill="#a3b3c6" font-size="11">EMERG/PARK BRAKE: ~6 applications fully charged · 500 PSI minimum before start</text>
+    <text x="620" y="473" fill="#fcd34d" font-size="11">Mnemonics: 10-17-35-BRAKE · 6-APP-500-PSI-PARK · 156-KIAS-1053-RA</text>
+  </g>
+
+  <!-- Alt extension chant -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="500" width="1120" height="80" rx="8" fill="#0a1322" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="60" y="520" fill="#86efac" font-size="11" font-weight="700">ALTERNATE GEAR EXTENSION — 8-STEP CHANT</text>
+    <text x="60" y="540" fill="#a3b3c6" font-size="11">INHIBIT (overhead) · MAIN RELEASE door (overhead) + handle · EXTENSION door (floor) + NOSE RELEASE handle</text>
+    <text x="60" y="558" fill="#a3b3c6" font-size="11">Hand pump (behind copilot) until handle is stiff · DOWNLOCK VERIFICATION switch AFT · 3 green floor lights confirm</text>
+    <text x="60" y="575" fill="#fcd34d" font-size="11">BOTH DOORS LEFT FULLY OPEN AFTER · Mnemonics: 3-DOOR-ALT-EXTEND · FREE-FALL-PUMP-LOCK · 3-GREEN-FLOOR-LIGHTS</text>
+  </g>
+
+  <!-- HOTSPOTS -->
+  <g font-family="Inter, system-ui, sans-serif" font-weight="700">
+    <g class="hotspot" data-id="h1"><circle cx="170" cy="100" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">1</text></g>
+    <g class="hotspot" data-id="h2"><circle cx="500" cy="100" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="500" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">2</text></g>
+    <g class="hotspot" data-id="h3"><circle cx="730" cy="100" r="11" fill="#7dd3fc" stroke="#0e1b2c" stroke-width="1.5"/><text x="730" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">3</text></g>
+    <g class="hotspot" data-id="h4"><circle cx="960" cy="100" r="12" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="104" font-size="11" fill="#0e1b2c" text-anchor="middle">4</text></g>
+    <g class="hotspot" data-id="h5"><circle cx="170" cy="240" r="11" fill="#a78bfa" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="244" font-size="11" fill="#fff" text-anchor="middle">5</text></g>
+    <g class="hotspot" data-id="h6"><circle cx="430" cy="240" r="11" fill="#22d3ee" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">6</text></g>
+    <g class="hotspot" data-id="h7"><circle cx="600" cy="220" r="12" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="224" font-size="11" fill="#0e1b2c" text-anchor="middle">7</text></g>
+    <g class="hotspot" data-id="h8"><circle cx="770" cy="240" r="11" fill="#dc2626" stroke="#0e1b2c" stroke-width="1.5"/><text x="770" y="244" font-size="11" fill="#fff" text-anchor="middle">8</text></g>
+    <g class="hotspot" data-id="h9"><circle cx="960" cy="240" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="960" y="244" font-size="11" fill="#0e1b2c" text-anchor="middle">9</text></g>
+    <g class="hotspot" data-id="h10"><circle cx="170" cy="360" r="11" fill="#dc2626" stroke="#0e1b2c" stroke-width="1.5"/><text x="170" y="364" font-size="11" fill="#fff" text-anchor="middle">10</text></g>
+    <g class="hotspot" data-id="h11"><circle cx="430" cy="360" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="430" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">11</text></g>
+    <g class="hotspot" data-id="h12"><circle cx="600" cy="360" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="600" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">12</text></g>
+    <g class="hotspot" data-id="h13"><circle cx="830" cy="360" r="11" fill="#fbbf24" stroke="#0e1b2c" stroke-width="1.5"/><text x="830" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">13</text></g>
+    <g class="hotspot" data-id="h14"><circle cx="1060" cy="360" r="11" fill="#22c55e" stroke="#0e1b2c" stroke-width="1.5"/><text x="1060" y="364" font-size="11" fill="#0e1b2c" text-anchor="middle">14</text></g>
+  </g>
+</svg>
