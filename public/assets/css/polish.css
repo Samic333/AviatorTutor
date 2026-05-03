@@ -1,0 +1,81 @@
+/* AviatorTutor — Phase 5 polish (mobile, WCAG, perf supports)
+ *
+ * Cross-cutting CSS that hardens the overhaul against the launch checklist:
+ *   • 44px minimum tap targets on every interactive surface.
+ *   • Visible :focus-visible outline on every theme.
+ *   • Prefers-reduced-motion respect for transitions.
+ *   • Mobile rules: topbar collapses to icon-only, drawers become bottom
+ *     sheets (already wired in study-chrome.css; this file widens the rule
+ *     set to flashcards / mind map / settings).
+ *   • Skip-to-content link for keyboard users.
+ *
+ * Loaded after every page-specific CSS so it wins on conflicts.
+ */
+
+/* ---- Focus-visible (WCAG 2.4.7) ---- */
+:focus { outline: none; }
+:focus-visible {
+    outline: 2px solid var(--thm-accent, #38BDF8);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+body[data-theme="high-contrast"] :focus-visible {
+    outline: 3px solid #FFE600;
+    outline-offset: 3px;
+}
+
+/* ---- Tap targets (WCAG 2.5.5) ---- */
+@media (hover: none) and (pointer: coarse) {
+    button, a, .sc-iconbtn, .sd-tile, .sp-tile,
+    .study-modes a, .study-modes button,
+    .study-drawer-link {
+        min-height: 44px;
+    }
+    .sc-iconbtn { min-width: 44px; }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    body { animation: none !important; }
+}
+
+/* ---- Mobile topbar: collapse breadcrumb segments to first+last only ---- */
+@media (max-width: 600px) {
+    .study-topbar-row { gap: 6px; padding: 0 8px; }
+    .study-breadcrumb { font-size: 12px; }
+    .study-breadcrumb a:not(:first-child):not(:last-child),
+    .study-breadcrumb span:not(.study-breadcrumb-current):not(.study-breadcrumb-sep):not(:first-child) {
+        display: none;
+    }
+    .study-breadcrumb .study-breadcrumb-sep:nth-of-type(n+2) { display: none; }
+}
+
+/* ---- Skip-to-content (injected by skip-link.js) ---- */
+.skip-link {
+    position: absolute; top: -40px; left: 8px; z-index: 1000;
+    padding: 8px 14px; border-radius: 8px;
+    background: var(--thm-accent, #38BDF8); color: #0F172A;
+    font-weight: 700; text-decoration: none;
+    transition: top 120ms ease;
+}
+.skip-link:focus, .skip-link:focus-visible { top: 8px; outline: 2px solid #FFFFFF; outline-offset: 2px; }
+
+/* ---- Aria live regions are visually hidden but readable ---- */
+.av-sr-only {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0);
+    white-space: nowrap; border: 0;
+}
+
+/* ---- Performance: kill webfont swap-flash on slow connections ---- */
+@media (prefers-reduced-data: reduce) {
+    @font-face { font-display: optional; }
+}

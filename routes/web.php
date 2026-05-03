@@ -118,6 +118,10 @@ $router->get('/systems/{id}', 'SystemsController@show');
 $router->get('/study/{id}', 'StudyController@detail');
 $router->get('/study/{id}/revision', 'StudyController@revision');
 $router->get('/study/{id}/lesson/{lessonId}', 'StudyController@lesson');
+// Phase 3 study modes — each gated behind its own feature flag.
+$router->get('/study/{id}/mnemonics',  'StudyController@mnemonics');
+$router->get('/study/{id}/mind-map',   'StudyController@mindMap');
+$router->get('/study/{id}/deep-notes', 'StudyController@deepNotes');
 
 // Flashcard Routes
 $router->get('/flashcards', 'FlashcardController@index');
@@ -205,6 +209,9 @@ $router->get('/admin/subscriptions', 'AdminController@subscriptions');
 $router->post('/admin/subscriptions/cancel', 'AdminController@subscriptionCancel');
 $router->get('/admin/pricing', 'AdminController@pricing');
 $router->post('/admin/pricing/update', 'AdminController@pricingUpdate');
+$router->get('/admin/analytics', 'AdminController@analytics');
+$router->get('/admin/subject-requests',         'AdminController@subjectRequests');
+$router->post('/admin/subject-requests/update', 'AdminController@subjectRequestUpdate');
 $router->get('/admin/settings', 'AdminController@settings');
 $router->post('/admin/settings/update', 'AdminController@settingsUpdate');
 
@@ -223,6 +230,11 @@ $router->post('/api/systems/{id}/complete', 'ApiController@systemComplete');
 $router->post('/api/systems/{id}/unlock-next', 'ApiController@systemUnlockNext');
 $router->post('/api/flashcards/{id}/grade', 'ApiController@flashcardGrade');
 $router->post('/api/ai/ask', 'ApiController@aiAsk');
+
+// Phase 3: settings drawer persistence + Phase 1 client-error sink.
+$router->post('/api/settings/update', 'ApiController@settingsUpdate');
+$router->post('/api/client-error',    'ApiController@clientError');
+$router->post('/api/track',           'ApiController@trackEvent');
 
 // Notes page
 $router->get('/notes', 'NotesController@index');

@@ -62,7 +62,10 @@ $systemMnemonics = $mnemonics[$system['ata_code'] ?? ''] ?? [];
       if (!empty($candidate['id'])) { $firstLesson = $candidate; break; }
     }
   ?>
-  <?php if ($firstLesson): ?>
+  <?php // COORD: Phase 2 — the V2 mode switcher in the topbar replaces this
+        // CTA. Suppress the bar when study_chrome_v2 is on so the page
+        // doesn't double up on "Start Slide Lesson" affordances. ?>
+  <?php if ($firstLesson && empty($studyChromeV2)): ?>
     <div style="display:flex; align-items:center; gap:16px; background:linear-gradient(135deg, rgba(59,130,246,0.12), rgba(168,85,247,0.10)); border:1px solid rgba(59,130,246,0.25); border-radius:12px; padding:18px 22px; margin:18px 0 24px; flex-wrap:wrap;">
       <div style="flex:1; min-width:240px;">
         <div style="font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; color:#60a5fa; margin-bottom:4px;">New · Interactive Lesson</div>

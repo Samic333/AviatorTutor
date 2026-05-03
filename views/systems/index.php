@@ -5,6 +5,12 @@
         <p class="subtitle">Complete technical knowledge of all aircraft systems</p>
     </div>
 
+    <?php if (!empty($systemPickerV2 ?? false)): ?>
+      <!-- Phase 4 v2 picker: search + jump dropdown + tiles grouped by
+           category. Falls through to the legacy filter-bar + grid when
+           system_picker_v2 is off. -->
+      <?php include __DIR__ . '/../partials/system-picker.php'; ?>
+    <?php else: ?>
     <!-- Filter Bar -->
     <div class="filter-bar">
         <div class="filter-group">
@@ -121,6 +127,7 @@
             <p>Try adjusting your filters or search criteria</p>
         </div>
     <?php endif; ?>
+    <?php endif; // systemPickerV2 fallthrough ?>
 </div>
 
 <script>

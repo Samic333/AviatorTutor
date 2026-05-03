@@ -384,11 +384,68 @@ a:hover { color: #7DD3FC; }
 }
 
 /* ---------- Stats / Progress Rings ---------- */
+/* Phase 4 v2: when body has .dashboard-v2, KPIs sit in a fixed compact row
+   on desktop (4 narrow cards left, promo panel right). Falls back to the
+   original auto-fill grid when the flag is off so legacy dashboards keep
+   working unchanged. */
 .plt-stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
   margin-bottom: 28px;
+}
+
+body.dashboard-v2 .plt-dashboard-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  gap: 18px;
+  margin-bottom: 24px;
+  align-items: stretch;
+}
+body.dashboard-v2 .plt-stats-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 0;
+}
+body.dashboard-v2 .plt-stat-card {
+  padding: 12px 14px;
+  gap: 4px;
+  flex-direction: row;
+  align-items: center;
+}
+body.dashboard-v2 .plt-stat-card__head {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+body.dashboard-v2 .plt-stat-card__label { font-size: 11px; }
+body.dashboard-v2 .plt-stat-card__value { font-size: 20px; line-height: 1.1; }
+body.dashboard-v2 .plt-stat-card__sub   { display: none; }
+body.dashboard-v2 .plt-stat-card .plt-ring { display: none; }
+
+body.dashboard-v2 .plt-promo {
+  padding: 16px 18px; border-radius: 14px;
+  background: linear-gradient(135deg, rgba(56,189,248,0.14), rgba(168,85,247,0.10));
+  border: 1px solid rgba(56,189,248,0.28);
+  color: var(--plt-text);
+  display: flex; flex-direction: column; gap: 6px;
+}
+body.dashboard-v2 .plt-promo__eyebrow {
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #60a5fa; font-weight: 700;
+}
+body.dashboard-v2 .plt-promo__title { font-size: 15px; font-weight: 700; }
+body.dashboard-v2 .plt-promo__body  { font-size: 13px; color: var(--plt-text-muted); }
+body.dashboard-v2 .plt-promo__cta {
+  align-self: flex-start; margin-top: 6px;
+  padding: 8px 14px; border-radius: 8px;
+  background: linear-gradient(135deg,#38BDF8,#0EA5E9); color: #0F172A;
+  font-weight: 700; text-decoration: none; font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  body.dashboard-v2 .plt-dashboard-top { grid-template-columns: 1fr; }
+  body.dashboard-v2 .plt-stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 .plt-stat-card {

@@ -75,6 +75,13 @@ $isActive = function(string $href) use ($path): bool {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="/assets/css/pilot.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/pilot.css') ?: '0' ?>">
+  <link rel="stylesheet" href="/assets/css/themes.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/themes.css') ?: '0' ?>">
+  <link rel="stylesheet" href="/assets/css/settings-drawer.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/settings-drawer.css') ?: '0' ?>">
+  <link rel="stylesheet" href="/assets/css/polish.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/polish.css') ?: '0' ?>">
+  <!-- Apply saved theme/font before the page paints. Loaded synchronously
+       in <head> on purpose: defers cause a flash of the dark default before
+       a light/sepia user's saved theme kicks in. -->
+  <script src="/assets/js/settings-drawer.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/settings-drawer.js') ?: '0' ?>"></script>
   <!-- Toast notifications + global window.onerror surfacer. -->
   <script src="/assets/js/toast.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/toast.js') ?: '0' ?>" defer></script>
   <!-- Lucide icons used by views with <i data-lucide="..."> placeholders. -->
@@ -191,6 +198,11 @@ $isActive = function(string $href) use ($path): bool {
         </svg>
       </button>
       <span class="plt-topbar__title"><?= htmlspecialchars($title ?? 'Dashboard') ?></span>
+      <!-- Phase 3: settings cog opens the reading-preferences drawer. -->
+      <button type="button" class="plt-topbar__settings" data-settings-toggle title="Reading settings" aria-label="Open reading settings"
+              style="margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:transparent;border:0;color:inherit;cursor:pointer;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
     </header>
 
     <!-- Flash messages -->
@@ -251,5 +263,18 @@ $isActive = function(string $href) use ($path): bool {
   });
 })();
 </script>
+<?php
+  // Phase 3: settings drawer is mounted on every authenticated page so the
+  // topbar cog (or any data-settings-toggle button) can open it. Vars are
+  // resolved here so the partial doesn't fail when an action forgot to set
+  // them.
+  if (!isset($userSettings)) {
+      $userSettings = \App\Services\UserSettings::get((int)($user['id'] ?? 0));
+  }
+  if (!isset($csrf_token)) {
+      $csrf_token = \App\Core\CSRF::generate();
+  }
+  include __DIR__ . '/../partials/settings-drawer.php';
+?>
 </body>
 </html>

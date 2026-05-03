@@ -306,6 +306,164 @@ class AdminController extends Controller
         ], 'admin'));
     }
 
+    /* ---------------- Subject requests (Phase 4) ---------------- */
+
+    /**
+     * List pending + recent subject requests so the admin can quote, grant,
+     * or decline them. Read-only view; mutations go through subjectRequestUpdate.
+     */
+    public function subjectRequests(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+
+        $rows = [];
+        try {
+            $rows = DB::instance()->query(
+                'SELECT sr.id, sr.user_id, sr.requested_subject, sr.subject_slug,
+                        sr.notes, sr.status, sr.admin_notes, sr.quoted_amount_usd,
+                        sr.created_at, sr.updated_at,
+                        u.email AS user_email, u.name AS user_name
+                   FROM subject_requests sr
+                   LEFT JOIN users u ON u.id = sr.user_id
+                  ORDER BY FIELD(sr.status, "pending","quoted","paid","declined","cancelled"),
+                           sr.created_at DESC
+                  LIMIT 500'
+            );
+        } catch (\Throwable $e) {
+            // Table not migrated — empty list.
+        }
+
+        $byStatus = ['pending' => 0, 'quoted' => 0, 'paid' => 0, 'declined' => 0, 'cancelled' => 0];
+        foreach ($rows as $r) {
+            $s = (string) ($r['status'] ?? 'pending');
+            if (isset($byStatus[$s])) $byStatus[$s]++;
+        }
+
+        $response->html($this->view('admin/subject_requests', [
+            'title'      => 'Subject requests',
+            'requests'   => $rows,
+            'byStatus'   => $byStatus,
+            'csrf_token' => CSRF::generate(),
+            'flashOk'    => $this->popFlash('flash_ok'),
+            'flashError' => $this->popFlash('flash_error'),
+        ], 'admin'));
+    }
+
+    /**
+     * Update a subject request — change status, set a quoted amount, or
+     * grant access (which inserts a purchases row using payment_provider
+     * = 'admin_grant' so the learner immediately sees the subject in My
+     * Subjects). Idempotent: re-granting the same subject is a no-op.
+     */
+    public function subjectRequestUpdate(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        if (!CSRF::check($request)) {
+            $_SESSION['flash_error'] = 'Session expired.';
+            $this->redirect('/admin/subject-requests');
+            return;
+        }
+
+        $id      = (int) $this->input('id', 0);
+        $action  = (string) $this->input('action', '');
+        $notes   = trim((string) $this->input('admin_notes', ''));
+        $amount  = (string) $this->input('quoted_amount_usd', '');
+
+        if ($id <= 0) {
+            $_SESSION['flash_error'] = 'Missing request id.';
+            $this->redirect('/admin/subject-requests');
+            return;
+        }
+
+        $db  = DB::instance();
+        $row = null;
+        try {
+            $row = $db->queryOne('SELECT * FROM subject_requests WHERE id = ?', [$id]);
+        } catch (\Throwable $e) {
+            $_SESSION['flash_error'] = 'subject_requests table not migrated.';
+            $this->redirect('/admin/subject-requests');
+            return;
+        }
+        if (!$row) {
+            $_SESSION['flash_error'] = 'Request not found.';
+            $this->redirect('/admin/subject-requests');
+            return;
+        }
+
+        switch ($action) {
+            case 'quote':
+                $amt = $amount !== '' ? max(0, (float) $amount) : null;
+                $db->execute(
+                    'UPDATE subject_requests
+                        SET status = "quoted",
+                            quoted_amount_usd = ?,
+                            admin_notes = ?
+                      WHERE id = ?',
+                    [$amt, $notes !== '' ? $notes : null, $id]
+                );
+                $_SESSION['flash_ok'] = 'Quote saved.';
+                break;
+
+            case 'decline':
+                $db->execute(
+                    'UPDATE subject_requests
+                        SET status = "declined", admin_notes = ?
+                      WHERE id = ?',
+                    [$notes !== '' ? $notes : null, $id]
+                );
+                $_SESSION['flash_ok'] = 'Request declined.';
+                break;
+
+            case 'grant':
+                $slug = (string) ($row['subject_slug'] ?? '');
+                if ($slug === '') {
+                    $_SESSION['flash_error'] = 'Custom requests can\'t be auto-granted; create the subject first.';
+                    $this->redirect('/admin/subject-requests');
+                    return;
+                }
+                $subject = $db->queryOne('SELECT id FROM subjects WHERE slug = ?', [$slug]);
+                if (!$subject) {
+                    $_SESSION['flash_error'] = 'Subject ' . htmlspecialchars($slug) . ' not in catalog.';
+                    $this->redirect('/admin/subject-requests');
+                    return;
+                }
+                // Idempotent: rely on uniq_user_subject in purchases.
+                try {
+                    $db->execute(
+                        'INSERT INTO purchases (user_id, subject_id, payment_provider, status, granted_at)
+                         VALUES (?, ?, "admin_grant", "active", NOW())
+                         ON DUPLICATE KEY UPDATE status = "active", granted_at = VALUES(granted_at)',
+                        [(int) $row['user_id'], (int) $subject['id']]
+                    );
+                } catch (\Throwable $e) {
+                    $_SESSION['flash_error'] = 'Grant failed: ' . $e->getMessage();
+                    $this->redirect('/admin/subject-requests');
+                    return;
+                }
+                $db->execute(
+                    'UPDATE subject_requests
+                        SET status = "paid", admin_notes = ?
+                      WHERE id = ?',
+                    [$notes !== '' ? $notes : null, $id]
+                );
+                $_SESSION['flash_ok'] = 'Access granted; learner sees the subject in My Subjects.';
+                break;
+
+            case 'reopen':
+                $db->execute(
+                    'UPDATE subject_requests SET status = "pending", admin_notes = ? WHERE id = ?',
+                    [$notes !== '' ? $notes : null, $id]
+                );
+                $_SESSION['flash_ok'] = 'Reopened.';
+                break;
+
+            default:
+                $_SESSION['flash_error'] = 'Unknown action.';
+        }
+
+        $this->redirect('/admin/subject-requests');
+    }
+
     /* ---------------- Aircrafts ---------------- */
 
     public function aircrafts(Request $request, Response $response): void
@@ -1651,6 +1809,102 @@ class AdminController extends Controller
     }
 
     /* ---------------- Settings ---------------- */
+
+    /**
+     * Phase 5 — read-only analytics dashboard. Aggregates rows from
+     * analytics_events into the views the brief asked for: mode usage,
+     * drop-off slides, slide completion rates, theme adoption.
+     */
+    public function analytics(Request $request, Response $response): void
+    {
+        $this->requireAdmin();
+        $cfg = require BASE_PATH . '/config/app.php';
+        if (empty($cfg['features']['analytics_v1'])) {
+            $_SESSION['flash_notice'] = 'Analytics v1 is gated by a feature flag.';
+            $this->redirect('/admin');
+            return;
+        }
+
+        $db = \App\Core\DB::instance();
+
+        $modeUsage    = [];
+        $themeAdopt   = [];
+        $fontAdopt    = [];
+        $dropOff      = [];
+        $eventTotals  = [];
+        try {
+            $modeUsage = $db->query(
+                "SELECT JSON_UNQUOTE(JSON_EXTRACT(props_json,'$.mode')) AS mode, COUNT(*) AS n
+                   FROM analytics_events
+                  WHERE event = 'mode_open' AND created_at > NOW() - INTERVAL 30 DAY
+                  GROUP BY mode ORDER BY n DESC"
+            );
+            $themeAdopt = $db->query(
+                "SELECT JSON_UNQUOTE(JSON_EXTRACT(props_json,'$.theme')) AS theme, COUNT(*) AS n
+                   FROM analytics_events
+                  WHERE event = 'settings_change' AND JSON_EXTRACT(props_json,'$.theme') IS NOT NULL
+                    AND created_at > NOW() - INTERVAL 30 DAY
+                  GROUP BY theme ORDER BY n DESC"
+            );
+            $fontAdopt = $db->query(
+                "SELECT JSON_UNQUOTE(JSON_EXTRACT(props_json,'$.font_size')) AS font_size, COUNT(*) AS n
+                   FROM analytics_events
+                  WHERE event = 'settings_change' AND JSON_EXTRACT(props_json,'$.font_size') IS NOT NULL
+                    AND created_at > NOW() - INTERVAL 30 DAY
+                  GROUP BY font_size ORDER BY n DESC"
+            );
+            $dropOff = $db->query(
+                "SELECT JSON_UNQUOTE(JSON_EXTRACT(props_json,'$.lesson_id')) AS lesson_id,
+                        JSON_UNQUOTE(JSON_EXTRACT(props_json,'$.slide_index')) AS slide_index,
+                        COUNT(*) AS n
+                   FROM analytics_events
+                  WHERE event = 'slide_dropoff' AND created_at > NOW() - INTERVAL 30 DAY
+                  GROUP BY lesson_id, slide_index
+                  ORDER BY n DESC LIMIT 20"
+            );
+            $eventTotals = $db->query(
+                "SELECT event, COUNT(*) AS n
+                   FROM analytics_events
+                  WHERE created_at > NOW() - INTERVAL 30 DAY
+                  GROUP BY event ORDER BY n DESC"
+            );
+        } catch (\Throwable $e) {
+            // analytics_events table not migrated — render empty state.
+        }
+
+        // Per-system slide completion rate, computed from user_slide_progress
+        // (already populated by the slide gate POST endpoint). Independent
+        // of analytics_events, so works even on a brand-new prod with no
+        // tracked clicks yet. completed = answered_correct=1.
+        $completionBySystem = [];
+        try {
+            $completionBySystem = $db->query(
+                'SELECT s.id, s.name, s.color_hex,
+                        COUNT(DISTINCT ls.id) AS total_slides,
+                        COUNT(DISTINCT CASE WHEN usp.answered_correct = 1 THEN ls.id END) AS done_slides,
+                        COUNT(DISTINCT usp.user_id) AS unique_learners
+                   FROM systems s
+                   JOIN lessons l ON l.system_id = s.id AND l.is_published = 1
+                   JOIN lesson_slides ls ON ls.lesson_id = l.id
+                   LEFT JOIN user_slide_progress usp ON usp.slide_id = ls.id
+                  WHERE s.is_published = 1
+                  GROUP BY s.id, s.name, s.color_hex
+                  ORDER BY s.sort_order'
+            );
+        } catch (\Throwable $e) {
+            // user_slide_progress missing — leave empty.
+        }
+
+        $response->html($this->view('admin/analytics', [
+            'title'              => 'Analytics',
+            'modeUsage'          => $modeUsage,
+            'themeAdopt'         => $themeAdopt,
+            'fontAdopt'          => $fontAdopt,
+            'dropOff'            => $dropOff,
+            'eventTotals'        => $eventTotals,
+            'completionBySystem' => $completionBySystem,
+        ], 'admin'));
+    }
 
     public function settings(Request $request, Response $response): void
     {

@@ -3,6 +3,9 @@
 .DS_Store
 Thumbs.db
 
+# Internal planning artefacts — overhaul briefs / PDFs not for prod.
+Prompts/
+
 # Per-environment config overrides (loaded by config/*.php if present)
 config/*.local.php
 

@@ -403,6 +403,19 @@
     } catch (e) {}
   }
 
-  global.LessonSlides = { init: init };
+  // Expose nav methods so the Phase 2 study chrome (edge tap zones, slide
+  // picker, mobile swipe) can drive the deck without re-implementing the
+  // gate logic. goTo(index) lets external UI jump straight to a slide.
+  global.LessonSlides = {
+    init:    init,
+    goNext:  function () { goNext(); },
+    goPrev:  function () { goPrev(); },
+    goTo:    function (i) {
+      var idx = parseInt(i, 10);
+      if (!isFinite(idx)) return;
+      showSlide(idx);
+    },
+    current: function () { return currentIndex; }
+  };
 
 })(window);

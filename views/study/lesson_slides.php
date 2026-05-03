@@ -60,9 +60,19 @@ $systemColor = $system['color'] ?? '#34d399';
 ?>
 <link rel="stylesheet" href="/assets/css/app.css">
 
+<?php
+// COORD: Phase 2 — when study_chrome_v2 is on the new study layout owns
+// the breadcrumb, progress bar, mode switcher, and settings entry. The
+// existing in-template <header class="slide-player-header"> is suppressed
+// below so we don't double-stack chrome. The slide content rendering itself
+// (slide cards, gates, qrh panels) is untouched on purpose so the parallel
+// slide-design session can keep iterating without merge pain.
+$useV2Chrome = !empty($studyChromeV2);
+?>
 <div class="slide-player" data-lesson-id="<?= $lessonId ?>" data-system-id="<?= $systemId ?>" data-total-slides="<?= $totalSlides ?>">
 
-  <!-- Header: back link + lesson title + progress -->
+  <?php if (!$useV2Chrome): ?>
+  <!-- Legacy stacked header (suppressed under study_chrome_v2). -->
   <header class="slide-player-header" style="border-left: 4px solid <?= htmlspecialchars($systemColor) ?>;">
     <div class="slide-player-back">
       <a href="/study/<?= $systemId ?>" class="slide-back-link">
@@ -112,6 +122,14 @@ $systemColor = $system['color'] ?? '#34d399';
       </select>
     </div>
   </header>
+  <?php else: ?>
+  <!-- COORD: V2 chrome owns the topbar. We still need #slide-progress-current
+       and #slide-progress-total so lesson_slides.js can update the progress
+       text — kept as hidden DOM nodes for backward compat. The visible
+       progress bar fill (#slide-progress-fill) lives in the layout's topbar. -->
+  <span id="slide-progress-current" hidden>1</span>
+  <span id="slide-progress-total"   hidden><?= max(1, $totalSlides) ?></span>
+  <?php endif; ?>
 
   <!-- Slide stack -->
   <div class="slide-stack" id="slide-stack">
@@ -163,6 +181,7 @@ $systemColor = $system['color'] ?? '#34d399';
             <?php if ($mediaType === 'image' || $mediaType === 'diagram'): ?>
               <?php if ($mediaUrl): ?>
                 <img src="<?= htmlspecialchars($mediaUrl) ?>" alt="<?= $mediaAlt ?>"
+                     loading="<?= $idx === 0 ? 'eager' : 'lazy' ?>" decoding="async"
                      onerror="this.parentNode.classList.add('media-missing'); this.remove();">
               <?php endif; ?>
               <div class="slide-media-placeholder">

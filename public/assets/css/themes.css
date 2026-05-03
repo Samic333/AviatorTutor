@@ -1,0 +1,180 @@
+/* AviatorTutor — Phase 3 themes
+ *
+ * Each theme sets a small palette of CSS custom properties on :root. The
+ * rest of the app (study chrome, pilot CSS, app CSS) is gradually being
+ * migrated to read from these vars; legacy hex values still work but won't
+ * adapt to the chosen theme. The font-family / line-spacing / reading-width
+ * controls live in this file too because they're set on body classes by
+ * the same drawer.
+ *
+ * Theme selection: body[data-theme="<name>"]
+ * Font family:     body[data-font-family="system|serif|dyslexic"]
+ * Line spacing:    body[data-line-spacing="tight|normal|loose"]
+ * Reading width:   body[data-reading-width="narrow|medium|wide"]
+ */
+
+/* ---------- Default (dark) ---------- */
+:root,
+body[data-theme="dark"] {
+    --thm-bg:        #0F172A;
+    --thm-bg-2:      #1E293B;
+    --thm-fg:        #F1F5F9;
+    --thm-fg-muted:  #94A3B8;
+    --thm-border:    rgba(255,255,255,0.08);
+    --thm-card:      rgba(255,255,255,0.04);
+    --thm-accent:    #38BDF8;
+    --thm-accent-2:  #0EA5E9;
+    --thm-warning:   #F59E0B;
+    --thm-danger:    #EF4444;
+    --thm-success:   #10B981;
+    color-scheme: dark;
+}
+
+/* ---------- Light ---------- */
+body[data-theme="light"] {
+    --thm-bg:        #F8FAFC;
+    --thm-bg-2:      #FFFFFF;
+    --thm-fg:        #0F172A;
+    --thm-fg-muted:  #475569;
+    --thm-border:    rgba(15,23,42,0.10);
+    --thm-card:      #FFFFFF;
+    --thm-accent:    #0284C7;
+    --thm-accent-2:  #0369A1;
+    --thm-warning:   #B45309;
+    --thm-danger:    #B91C1C;
+    --thm-success:   #047857;
+    color-scheme: light;
+    background: var(--thm-bg);
+    color: var(--thm-fg);
+}
+body[data-theme="light"].has-study-chrome { background: var(--thm-bg); color: var(--thm-fg); }
+body[data-theme="light"] .study-topbar { background: rgba(248,250,252,0.92); border-bottom: 1px solid var(--thm-border); }
+body[data-theme="light"] .study-drawer { background: var(--thm-bg-2); }
+body[data-theme="light"] .study-drawer-link { color: var(--thm-fg); }
+body[data-theme="light"] .study-drawer-link:hover { background: rgba(15,23,42,0.04); }
+body[data-theme="light"] .sc-iconbtn { color: var(--thm-fg); }
+body[data-theme="light"] .study-modes { background: rgba(15,23,42,0.04); border-color: var(--thm-border); }
+body[data-theme="light"] .study-modes a, body[data-theme="light"] .study-modes button { color: var(--thm-fg-muted); }
+body[data-theme="light"] .study-modes .is-active { color: var(--thm-fg); background: rgba(2,132,199,0.12); }
+body[data-theme="light"] .slide-card { background: var(--thm-bg-2); color: var(--thm-fg); border-color: var(--thm-border); }
+body[data-theme="light"] .slide-body { color: var(--thm-fg); }
+body[data-theme="light"] .slide-title { color: var(--thm-fg); }
+body[data-theme="light"] .study-content { color: var(--thm-fg); }
+
+/* ---------- Sepia ---------- */
+body[data-theme="sepia"] {
+    --thm-bg:        #F4ECD8;
+    --thm-bg-2:      #FAF3DF;
+    --thm-fg:        #3E2C1C;
+    --thm-fg-muted:  #6B5841;
+    --thm-border:    rgba(62,44,28,0.16);
+    --thm-card:      #FAF3DF;
+    --thm-accent:    #B45309;
+    --thm-accent-2:  #92400E;
+    --thm-warning:   #C2410C;
+    --thm-danger:    #991B1B;
+    --thm-success:   #166534;
+    color-scheme: light;
+    background: var(--thm-bg);
+    color: var(--thm-fg);
+}
+body[data-theme="sepia"].has-study-chrome { background: var(--thm-bg); color: var(--thm-fg); }
+body[data-theme="sepia"] .study-topbar { background: rgba(244,236,216,0.92); border-bottom: 1px solid var(--thm-border); }
+body[data-theme="sepia"] .study-drawer { background: var(--thm-bg-2); }
+body[data-theme="sepia"] .sc-iconbtn { color: var(--thm-fg); }
+body[data-theme="sepia"] .slide-card { background: var(--thm-card); color: var(--thm-fg); }
+body[data-theme="sepia"] .slide-body, body[data-theme="sepia"] .slide-title { color: var(--thm-fg); }
+
+/* ---------- High contrast ---------- */
+body[data-theme="high-contrast"] {
+    --thm-bg:        #000000;
+    --thm-bg-2:      #0A0A0A;
+    --thm-fg:        #FFFFFF;
+    --thm-fg-muted:  #E2E8F0;
+    --thm-border:    #FFFFFF;
+    --thm-card:      #000000;
+    --thm-accent:    #FFE600;
+    --thm-accent-2:  #FFE600;
+    --thm-warning:   #FFE600;
+    --thm-danger:    #FF4D4D;
+    --thm-success:   #00FF95;
+    color-scheme: dark;
+    background: var(--thm-bg);
+    color: var(--thm-fg);
+}
+body[data-theme="high-contrast"].has-study-chrome { background: var(--thm-bg); color: var(--thm-fg); }
+body[data-theme="high-contrast"] .study-topbar { background: #000; border-bottom: 2px solid #FFF; }
+body[data-theme="high-contrast"] .sc-iconbtn { color: #FFF; }
+body[data-theme="high-contrast"] .sc-iconbtn:hover { background: #FFE600; color: #000; }
+body[data-theme="high-contrast"] .study-modes { background: #000; border: 2px solid #FFF; }
+body[data-theme="high-contrast"] .study-modes .is-active { background: #FFE600; color: #000; }
+body[data-theme="high-contrast"] .slide-card { background: #000; color: #FFF; border: 2px solid #FFF; }
+body[data-theme="high-contrast"] .slide-body, body[data-theme="high-contrast"] .slide-title { color: #FFF; }
+
+/* ---------- Blue-light filter (warmer dark) ---------- */
+body[data-theme="blue-light"] {
+    --thm-bg:        #1B1408;
+    --thm-bg-2:      #2A1F12;
+    --thm-fg:        #FBE7C0;
+    --thm-fg-muted:  #C9B388;
+    --thm-border:    rgba(251,231,192,0.10);
+    --thm-card:      rgba(251,231,192,0.04);
+    --thm-accent:    #F59E0B;
+    --thm-accent-2:  #D97706;
+    --thm-warning:   #FBBF24;
+    --thm-danger:    #FCA5A5;
+    --thm-success:   #FCD34D;
+    color-scheme: dark;
+    background: var(--thm-bg);
+    color: var(--thm-fg);
+}
+body[data-theme="blue-light"].has-study-chrome { background: var(--thm-bg); color: var(--thm-fg); }
+body[data-theme="blue-light"] .study-topbar { background: rgba(27,20,8,0.92); }
+body[data-theme="blue-light"] .slide-card { background: var(--thm-bg-2); color: var(--thm-fg); }
+
+/* ---------- Solarized (dark) ---------- */
+body[data-theme="solarized"] {
+    --thm-bg:        #002B36;
+    --thm-bg-2:      #073642;
+    --thm-fg:        #EEE8D5;
+    --thm-fg-muted:  #93A1A1;
+    --thm-border:    rgba(238,232,213,0.10);
+    --thm-card:      rgba(238,232,213,0.04);
+    --thm-accent:    #2AA198;
+    --thm-accent-2:  #268BD2;
+    --thm-warning:   #B58900;
+    --thm-danger:    #DC322F;
+    --thm-success:   #859900;
+    color-scheme: dark;
+    background: var(--thm-bg);
+    color: var(--thm-fg);
+}
+body[data-theme="solarized"].has-study-chrome { background: var(--thm-bg); color: var(--thm-fg); }
+body[data-theme="solarized"] .study-topbar { background: rgba(0,43,54,0.92); }
+body[data-theme="solarized"] .slide-card { background: var(--thm-bg-2); color: var(--thm-fg); }
+
+/* ---------- Font family ---------- */
+body[data-font-family="system"] {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'DM Sans', Inter, system-ui, sans-serif;
+}
+body[data-font-family="serif"] {
+    font-family: 'Iowan Old Style', 'Apple Garamond', Baskerville, 'Times New Roman', serif;
+}
+body[data-font-family="dyslexic"] {
+    /* Loaded locally via /assets/fonts/OpenDyslexic.woff2 if present;
+     * falls back to a system pseudo-dyslexic stack otherwise. */
+    font-family: 'OpenDyslexic', 'Comic Sans MS', 'Trebuchet MS', sans-serif;
+}
+
+/* ---------- Line spacing ---------- */
+body[data-line-spacing="tight"]  .study-content,
+body[data-line-spacing="tight"]  .slide-body { line-height: 1.45; }
+body[data-line-spacing="normal"] .study-content,
+body[data-line-spacing="normal"] .slide-body { line-height: 1.65; }
+body[data-line-spacing="loose"]  .study-content,
+body[data-line-spacing="loose"]  .slide-body { line-height: 1.95; }
+
+/* ---------- Reading width ---------- */
+body[data-reading-width="narrow"] .study-content { max-width: 60ch; }
+body[data-reading-width="medium"] .study-content { max-width: 75ch; }
+body[data-reading-width="wide"]   .study-content { max-width: 90ch; }

@@ -698,4 +698,93 @@ class ApiController extends Controller
             'unlocked_count'=> count($unlockedIds),
         ]);
     }
+
+    /**
+     * Phase 3 — persist reading preferences. Accepts a JSON or form body
+     * with any subset of {theme, font_size, font_family, line_spacing,
+     * reading_width, reduced_motion, audio_accent}; unknown keys are ignored.
+     */
+    public function settingsUpdate(Request $request, Response $response): void
+    {
+        $this->requireAuth();
+        if (!CSRF::check($request)) {
+            $response->status(419);
+            $response->json(['error' => 'CSRF token mismatch']);
+            return;
+        }
+        $userId = (int) $this->user()['id'];
+
+        // Accept JSON body or form-encoded fields.
+        $payload = [];
+        $raw = file_get_contents('php://input') ?: '';
+        if ($raw !== '' && stripos((string)($_SERVER['CONTENT_TYPE'] ?? ''), 'application/json') !== false) {
+            $j = json_decode($raw, true);
+            if (is_array($j)) $payload = $j;
+        }
+        if (empty($payload)) {
+            foreach (\App\Services\UserSettings::ALLOWED as $k => $_) {
+                $v = $this->input($k, null);
+                if ($v !== null) $payload[$k] = $v;
+            }
+            $rm = $this->input('reduced_motion', null);
+            if ($rm !== null) $payload['reduced_motion'] = (int) $rm;
+        }
+
+        $ok = \App\Services\UserSettings::set($userId, $payload);
+        $response->json([
+            'ok'       => $ok,
+            'settings' => \App\Services\UserSettings::get($userId),
+        ]);
+    }
+
+    /**
+     * Phase 5 — JS-side analytics ingestion. Accepts {event, props}.
+     * Same endpoint contract as Analytics::track().
+     */
+    public function trackEvent(Request $request, Response $response): void
+    {
+        $event = trim((string) $this->input('event', ''));
+        if ($event === '') { $response->json(['ok' => true]); return; }
+        $raw = file_get_contents('php://input') ?: '';
+        $props = [];
+        if (stripos((string)($_SERVER['CONTENT_TYPE'] ?? ''), 'application/json') !== false) {
+            $j = json_decode($raw, true);
+            if (is_array($j)) {
+                $event = (string) ($j['event'] ?? $event);
+                $props = is_array($j['props'] ?? null) ? $j['props'] : [];
+            }
+        } else {
+            $rawProps = $this->input('props', null);
+            if (is_string($rawProps)) {
+                $j = json_decode($rawProps, true);
+                if (is_array($j)) $props = $j;
+            }
+        }
+        \App\Services\Analytics::track($event, $props);
+        $response->json(['ok' => true]);
+    }
+
+    /**
+     * Phase 1 (deferred from F2) — minimal client-error sink. Logs JS
+     * errors caught by toast.js's window.onerror hook so we have something
+     * to grep when learners report a blank page.
+     */
+    public function clientError(Request $request, Response $response): void
+    {
+        $userId = (int) ($this->user()['id'] ?? 0);
+        $msg    = trim((string) $this->input('message', ''));
+        $url    = trim((string) $this->input('url', ''));
+        if ($msg === '' && $url === '') {
+            $response->json(['ok' => true]);
+            return;
+        }
+        $logDir = BASE_PATH . '/storage/logs';
+        if (!is_dir($logDir)) @mkdir($logDir, 0775, true);
+        @file_put_contents(
+            $logDir . '/client-errors.log',
+            sprintf("[%s] user=%d url=%s msg=%s\n", date('c'), $userId, $url, str_replace(["\r","\n"], ' ', $msg)),
+            FILE_APPEND
+        );
+        $response->json(['ok' => true]);
+    }
 }

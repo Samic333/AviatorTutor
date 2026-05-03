@@ -29,19 +29,39 @@ class SystemsController extends Controller
         $db = \App\Core\DB::instance();
         $isAdmin = (bool) ($this->user()['is_admin'] ?? false);
 
-        $systems = $db->query(
-            'SELECT s.id, s.name, s.ata_code, s.description, s.color_hex, s.icon,
-                    s.unlock_after_system_id,
-                    COUNT(DISTINCT l.id) as total_lessons,
-                    COUNT(DISTINCT CASE WHEN up.status = "completed" THEN l.id END) as completed_lessons
-             FROM systems s
-             LEFT JOIN lessons l ON s.id = l.system_id AND l.is_published = 1
-             LEFT JOIN user_progress up ON s.id = up.system_id AND up.user_id = ? AND l.id = up.lesson_id
-             WHERE s.is_published = 1
-             GROUP BY s.id, s.name, s.ata_code, s.description, s.color_hex, s.icon, s.unlock_after_system_id
-             ORDER BY s.sort_order',
-            [$userId]
-        );
+        // Phase 4: also select s.slug + s.category for the new picker.
+        // Falls back gracefully on DBs without the category column.
+        try {
+            $systems = $db->query(
+                'SELECT s.id, s.name, s.slug, s.ata_code, s.description, s.color_hex, s.icon,
+                        s.category, s.unlock_after_system_id,
+                        COUNT(DISTINCT l.id) as total_lessons,
+                        COUNT(DISTINCT CASE WHEN up.status = "completed" THEN l.id END) as completed_lessons
+                 FROM systems s
+                 LEFT JOIN lessons l ON s.id = l.system_id AND l.is_published = 1
+                 LEFT JOIN user_progress up ON s.id = up.system_id AND up.user_id = ? AND l.id = up.lesson_id
+                 WHERE s.is_published = 1
+                 GROUP BY s.id, s.name, s.slug, s.ata_code, s.description, s.color_hex, s.icon, s.category, s.unlock_after_system_id
+                 ORDER BY s.sort_order',
+                [$userId]
+            );
+        } catch (\Throwable $e) {
+            $systems = $db->query(
+                'SELECT s.id, s.name, s.slug, s.ata_code, s.description, s.color_hex, s.icon,
+                        s.unlock_after_system_id,
+                        COUNT(DISTINCT l.id) as total_lessons,
+                        COUNT(DISTINCT CASE WHEN up.status = "completed" THEN l.id END) as completed_lessons
+                 FROM systems s
+                 LEFT JOIN lessons l ON s.id = l.system_id AND l.is_published = 1
+                 LEFT JOIN user_progress up ON s.id = up.system_id AND up.user_id = ? AND l.id = up.lesson_id
+                 WHERE s.is_published = 1
+                 GROUP BY s.id, s.name, s.slug, s.ata_code, s.description, s.color_hex, s.icon, s.unlock_after_system_id
+                 ORDER BY s.sort_order',
+                [$userId]
+            );
+            foreach ($systems as &$_s) { $_s['category'] = 'general'; }
+            unset($_s);
+        }
 
         // Phase 5: gate systems whose unlock_after_system_id points at a
         // system the learner hasn't completed. We attach a `locked` flag
@@ -82,6 +102,15 @@ class SystemsController extends Controller
             'title' => 'Aircraft Systems',
             'systems' => $systems,
         ];
+
+        // Phase 4: hand the picker the same row set so the partial can render
+        // its search + grouped-tile UI without an extra query.
+        $cfg = require BASE_PATH . '/config/app.php';
+        if (!empty($cfg['features']['system_picker_v2'])) {
+            $data['pickerSystems']   = $systems;
+            $data['pickerActiveId']  = 0;
+            $data['systemPickerV2']  = true;
+        }
 
         $html = $this->view('systems/index', $data, 'pilot');
         $response->html($html);

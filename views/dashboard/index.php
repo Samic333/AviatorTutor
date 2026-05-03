@@ -63,6 +63,18 @@ $completedPct     = $systemsTotal > 0 ? min(100, (int)round($systemsCompleted / 
   </div>
 <?php endif; ?>
 
+<?php
+// Phase 4 v2: when dashboard_v2 is on, wrap stats + promo in a 2-column
+// row. The promo panel surfaces a discoverable next-step ("Add 777").
+$__cfg = [];
+try { $__cfg = require BASE_PATH . '/config/app.php'; } catch (\Throwable $e) {}
+$__dashV2 = !empty($__cfg['features']['dashboard_v2'] ?? false);
+if ($__dashV2):
+?>
+<script>document.body.classList.add('dashboard-v2');</script>
+<div class="plt-dashboard-top">
+<?php endif; ?>
+
 <!-- Stats Grid: 4 progress-ring cards -->
 <div class="plt-stats-grid">
 
@@ -134,6 +146,19 @@ $completedPct     = $systemsTotal > 0 ? min(100, (int)round($systemsCompleted / 
   </div>
 
 </div>
+
+<?php if ($__dashV2): ?>
+  <!-- Phase 4: promo panel filling the right side of the KPI row. Treat
+       like a house ad slot — eventually monetisable, for now surfaces the
+       most discoverable next subject the learner doesn't own yet. -->
+  <aside class="plt-promo" aria-label="Discover">
+    <span class="plt-promo__eyebrow">Coming next</span>
+    <span class="plt-promo__title">Add the B777 to your library</span>
+    <span class="plt-promo__body">Same depth as the Q400 pack — request access and we'll send you a quote.</span>
+    <a class="plt-promo__cta" href="/my-subjects#add-subject">Request access →</a>
+  </aside>
+</div><!-- end .plt-dashboard-top -->
+<?php endif; ?>
 
 <!-- Main grid: 2/3 + 1/3 -->
 <div class="plt-grid-2-1">

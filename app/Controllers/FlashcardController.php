@@ -120,22 +120,39 @@ class FlashcardController extends Controller
             return;
         }
 
-        $flashcards = $db->query(
-            'SELECT f.id, f.front, f.back, f.expected_answer, f.hint, f.difficulty,
-                    fr.next_review_at, fr.ease_factor
-             FROM flashcards f
-             LEFT JOIN flashcard_reviews fr ON f.id = fr.flashcard_id AND fr.user_id = ?
-             WHERE f.system_id = ?
-               AND (f.status IS NULL OR f.status = "published")
-             ORDER BY COALESCE(fr.next_review_at, NOW()) ASC',
-            [$userId, $id]
-        );
+        // Phase 3 v2: select category + why_it_matters when present (falls
+        // back to defaults on legacy DBs missing those columns).
+        try {
+            $flashcards = $db->query(
+                'SELECT f.id, f.front, f.back, f.expected_answer, f.hint, f.difficulty,
+                        f.category, f.theme_color, f.why_it_matters, f.source_slide_id,
+                        fr.next_review_at, fr.ease_factor
+                 FROM flashcards f
+                 LEFT JOIN flashcard_reviews fr ON f.id = fr.flashcard_id AND fr.user_id = ?
+                 WHERE f.system_id = ?
+                   AND (f.status IS NULL OR f.status = "published")
+                 ORDER BY COALESCE(fr.next_review_at, NOW()) ASC',
+                [$userId, $id]
+            );
+        } catch (\Throwable $e) {
+            $flashcards = $db->query(
+                'SELECT f.id, f.front, f.back, f.expected_answer, f.hint, f.difficulty,
+                        fr.next_review_at, fr.ease_factor
+                 FROM flashcards f
+                 LEFT JOIN flashcard_reviews fr ON f.id = fr.flashcard_id AND fr.user_id = ?
+                 WHERE f.system_id = ?
+                   AND (f.status IS NULL OR f.status = "published")
+                 ORDER BY COALESCE(fr.next_review_at, NOW()) ASC',
+                [$userId, $id]
+            );
+        }
 
         // Phase 5: cards with an expected_answer are typeable and will
         // be AI-graded. Older manually-authored cards keep the legacy
         // flip-only flow. The view branches on this flag.
         foreach ($flashcards as &$c) {
             $c['typeable'] = !empty($c['expected_answer']);
+            if (empty($c['category'])) $c['category'] = 'normal';
         }
         unset($c);
 
@@ -146,8 +163,77 @@ class FlashcardController extends Controller
             'csrf_token' => CSRF::generate(),
         ];
 
-        $html = $this->view('flashcards/study', $data, 'pilot');
+        // Phase 3: switch to the v2 view + study layout when the flag is on.
+        $cfg = require BASE_PATH . '/config/app.php';
+        if (!empty($cfg['features']['flashcards_v2'])) {
+            $sysView = [
+                'id'    => (int)$system['id'],
+                'name'  => $system['name'],
+                'ata_code' => $system['ata_code'] ?? '',
+                'color' => '#38BDF8',
+            ];
+            // Reuse StudyController's chrome data — bring in via a tiny
+            // local helper to avoid a coupling/inheritance dance.
+            $cd  = $this->buildStudyChromeData($sysView);
+            $data = array_merge($data, $cd);
+            $template = 'flashcards/study_v2';
+            $layout   = !empty($cfg['features']['study_chrome_v2']) ? 'study' : 'pilot';
+        } else {
+            $template = 'flashcards/study';
+            $layout   = 'pilot';
+        }
+
+        $html = $this->view($template, $data, $layout);
         $response->html($html);
+    }
+
+    /**
+     * Local helper: same shape as StudyController::studyChromeData but
+     * without the slide-mode coupling. Builds breadcrumb + modes + drawer
+     * data so the flashcards page integrates with the V2 chrome.
+     *
+     * @param array $system  must have id, name, ata_code, color
+     * @return array<string,mixed>
+     */
+    private function buildStudyChromeData(array $system): array
+    {
+        $sid     = (int) $system['id'];
+        $sysName = (string) ($system['name'] ?? '');
+        $accent  = (string) ($system['color'] ?? '#38BDF8');
+
+        $drawerLessons = [];
+        try {
+            $drawerLessons = DB::instance()->query(
+                'SELECT id, title, slug FROM lessons
+                  WHERE system_id = ? AND is_published = 1
+                  ORDER BY sort_order, id',
+                [$sid]
+            );
+        } catch (\Throwable $e) { /* ignore */ }
+
+        $cfg = require BASE_PATH . '/config/app.php';
+        $featOn = static fn(string $f): bool => !empty($cfg['features'][$f] ?? false);
+
+        return [
+            'studyChromeV2'         => true,
+            'studySystemColor'      => $accent,
+            'studyBreadcrumb'       => [
+                ['label' => 'Q400',  'href' => '/my-subjects'],
+                ['label' => $sysName, 'href' => '/study/' . $sid],
+                ['label' => 'Flashcards', 'href' => ''],
+            ],
+            'studyModes' => [
+                ['key' => 'slides',     'label' => 'Slides',     'href' => '/study/' . $sid, 'icon' => 'play-circle', 'active' => false],
+                ['key' => 'flashcards', 'label' => 'Flashcards', 'href' => '/flashcards/' . $sid, 'icon' => 'rectangle-vertical', 'active' => true],
+                ['key' => 'quiz',       'label' => 'Quiz',       'href' => '/quiz', 'icon' => 'check-circle-2'],
+                ['key' => 'mnemonics',  'label' => 'Mnemonics',  'href' => '/study/' . $sid . '/mnemonics',  'icon' => 'brain',       'disabled' => !$featOn('mnemonics_v2')],
+                ['key' => 'mind_map',   'label' => 'Mind Map',   'href' => '/study/' . $sid . '/mind-map',   'icon' => 'git-branch',  'disabled' => !$featOn('mind_map')],
+                ['key' => 'deep_notes', 'label' => 'Deep Notes', 'href' => '/study/' . $sid . '/deep-notes', 'icon' => 'file-text',   'disabled' => !$featOn('deep_notes')],
+            ],
+            'drawerSystem'          => $system,
+            'drawerLessons'         => $drawerLessons,
+            'drawerCurrentLessonId' => 0,
+        ];
     }
 
     /**

@@ -1,0 +1,285 @@
+/* AviatorTutor — Phase 2 study chrome
+ *
+ * Single thin topbar + slide-out drawer + content area. Replaces the
+ * stacked-header pattern (page topbar → "Electrical Power" → "New Interactive
+ * Lesson" → "Lesson System Diagram" → content) with one bar that auto-hides
+ * during reading.
+ */
+
+:root {
+    --sc-topbar-height: 48px;
+    --sc-progress-height: 3px;
+    --sc-drawer-width: 320px;
+    --sc-bg: #0F172A;
+    --sc-bg-2: #1E293B;
+    --sc-fg: #F1F5F9;
+    --sc-muted: #94A3B8;
+    --sc-border: rgba(255,255,255,0.08);
+    --sc-accent: #38BDF8;
+    --sc-accent-2: #0EA5E9;
+}
+
+/* ---------------- Page chrome ---------------- */
+
+body.has-study-chrome {
+    margin: 0;
+    background: var(--sc-bg);
+    color: var(--sc-fg);
+    font-family: 'DM Sans', Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    min-height: 100vh;
+}
+
+.study-chrome-frame {
+    min-height: 100vh;
+    padding-top: calc(var(--sc-topbar-height) + var(--sc-progress-height));
+    transition: padding-top 200ms ease;
+}
+
+/* Topbar */
+.study-topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: calc(var(--sc-topbar-height) + var(--sc-progress-height));
+    z-index: 50;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--sc-border);
+    transform: translateY(0);
+    transition: transform 220ms ease, opacity 220ms ease;
+}
+body.chrome-hidden .study-topbar { transform: translateY(-100%); }
+
+/* Top reveal hover zone — present even when chrome is hidden so a small
+   mouse move to the top edge brings the bar back. */
+.study-topbar-reveal {
+    position: fixed; top: 0; left: 0; right: 0; height: 12px;
+    z-index: 49; pointer-events: auto;
+}
+
+/* Progress bar at the very top (3px). Reuses the existing slide-progress-fill
+   element id so lesson_slides.js's progress logic keeps working. */
+.study-progress {
+    position: relative; height: var(--sc-progress-height);
+    background: rgba(255,255,255,0.06); cursor: pointer;
+}
+.study-progress > .slide-progress-fill,
+.study-progress > .study-progress-fill {
+    height: 100%; width: 0%;
+    background: var(--sc-accent);
+    transition: width 200ms ease;
+}
+
+/* Topbar row */
+.study-topbar-row {
+    display: flex; align-items: center; gap: 12px;
+    height: var(--sc-topbar-height); padding: 0 12px;
+}
+.study-topbar-row > * { flex: 0 0 auto; }
+.study-topbar-row .study-breadcrumb { flex: 1 1 auto; min-width: 0; }
+
+/* Buttons in the topbar */
+.sc-iconbtn {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 8px;
+    background: transparent; border: 1px solid transparent;
+    color: var(--sc-fg); cursor: pointer;
+    transition: background 0.12s ease, border-color 0.12s ease;
+}
+.sc-iconbtn:hover { background: rgba(255,255,255,0.06); border-color: var(--sc-border); }
+.sc-iconbtn:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 2px; }
+.sc-iconbtn[disabled] { opacity: 0.35; cursor: not-allowed; }
+
+/* Breadcrumb */
+.study-breadcrumb {
+    display: flex; align-items: center; gap: 6px;
+    overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    font-size: 13.5px; color: var(--sc-muted);
+}
+.study-breadcrumb a, .study-breadcrumb span {
+    color: inherit; text-decoration: none; padding: 4px 6px; border-radius: 6px;
+    overflow: hidden; text-overflow: ellipsis;
+}
+.study-breadcrumb a:hover { color: var(--sc-fg); background: rgba(255,255,255,0.05); }
+.study-breadcrumb .study-breadcrumb-sep { color: rgba(255,255,255,0.25); padding: 0 2px; }
+.study-breadcrumb .study-breadcrumb-current { color: var(--sc-fg); font-weight: 600; }
+
+/* Mode switcher */
+.study-modes {
+    display: flex; align-items: center; gap: 2px;
+    padding: 3px; border-radius: 10px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--sc-border);
+}
+.study-modes a, .study-modes button {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 10px; border-radius: 7px;
+    font-size: 12.5px; font-weight: 600; color: var(--sc-muted);
+    background: transparent; border: 0; text-decoration: none;
+    cursor: pointer; white-space: nowrap;
+}
+.study-modes a:hover, .study-modes button:hover { color: var(--sc-fg); background: rgba(255,255,255,0.05); }
+.study-modes .is-active { color: var(--sc-fg); background: rgba(56,189,248,0.16); }
+.study-modes .is-disabled {
+    color: rgba(255,255,255,0.28); cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Collapsed mobile mode switcher: only icons */
+@media (max-width: 768px) {
+    .study-modes a span, .study-modes button span { display: none; }
+    .study-modes a, .study-modes button { padding: 6px 8px; }
+}
+
+/* ---------------- Lesson drawer ---------------- */
+
+.study-drawer-backdrop {
+    position: fixed; inset: 0; z-index: 60;
+    background: rgba(0, 0, 0, 0.45); opacity: 0; pointer-events: none;
+    transition: opacity 200ms ease;
+}
+body.drawer-open .study-drawer-backdrop { opacity: 1; pointer-events: auto; }
+
+.study-drawer {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: min(var(--sc-drawer-width), 86vw); z-index: 61;
+    background: var(--sc-bg-2); border-right: 1px solid var(--sc-border);
+    transform: translateX(-100%);
+    transition: transform 240ms ease;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+}
+body.drawer-open .study-drawer { transform: translateX(0); }
+
+/* Mobile: drawer becomes a bottom sheet */
+@media (max-width: 768px) {
+    .study-drawer {
+        top: auto; left: 0; right: 0; bottom: 0; width: auto;
+        max-height: 78vh; border-right: 0; border-top: 1px solid var(--sc-border);
+        border-radius: 16px 16px 0 0;
+        transform: translateY(100%);
+    }
+    body.drawer-open .study-drawer { transform: translateY(0); }
+    /* Mobile grab-handle */
+    .study-drawer::before {
+        content: ""; display: block; width: 44px; height: 4px;
+        background: rgba(255,255,255,0.2); border-radius: 999px;
+        margin: 8px auto 4px;
+    }
+}
+
+.study-drawer-head {
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid var(--sc-border);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+}
+.study-drawer-title {
+    margin: 0; font-size: 15px; font-weight: 700; color: var(--sc-fg);
+}
+.study-drawer-body {
+    flex: 1 1 auto; overflow-y: auto; padding: 8px 8px 16px;
+}
+.study-drawer-section {
+    padding: 8px 8px 4px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--sc-muted);
+}
+.study-drawer-list { list-style: none; margin: 0; padding: 0; }
+.study-drawer-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px;
+    color: #CBD5E1; text-decoration: none; font-size: 13.5px;
+    transition: background 0.12s ease;
+}
+.study-drawer-link:hover { background: rgba(255,255,255,0.04); color: var(--sc-fg); }
+.study-drawer-link.is-current { background: rgba(56,189,248,0.14); color: #BAE6FD; font-weight: 600; }
+.study-drawer-link__num {
+    width: 22px; flex-shrink: 0; text-align: right;
+    color: var(--sc-muted); font-size: 11.5px;
+}
+
+/* ---------------- Content area ---------------- */
+
+.study-content {
+    max-width: 920px; margin: 0 auto; padding: 24px 16px 80px;
+    position: relative;
+}
+
+/* Edge tap zones — transparent overlays on the slide content area for
+   thumb-friendly next/prev. Only render when the consumer page opts in by
+   adding .has-edge-zones to .study-content. */
+.has-edge-zones .study-edge-zone {
+    position: absolute; top: 60px; bottom: 60px; width: 20%;
+    z-index: 4; cursor: pointer; opacity: 0;
+    transition: opacity 120ms ease;
+}
+.has-edge-zones .study-edge-zone:hover { opacity: 1; }
+.has-edge-zones .study-edge-zone--prev { left: 0;  background: linear-gradient(to right, rgba(56,189,248,0.06), transparent); }
+.has-edge-zones .study-edge-zone--next { right: 0; background: linear-gradient(to left,  rgba(56,189,248,0.06), transparent); }
+.has-edge-zones .study-edge-zone[disabled] { display: none; }
+
+/* Slide picker grid — opens when the progress bar is tapped. */
+.study-slide-picker {
+    position: fixed; left: 50%; top: calc(var(--sc-topbar-height) + var(--sc-progress-height) + 6px);
+    transform: translateX(-50%) translateY(-6px);
+    width: min(560px, 92vw); max-height: 60vh; overflow-y: auto;
+    z-index: 55; padding: 16px;
+    background: var(--sc-bg-2); border: 1px solid var(--sc-border);
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    opacity: 0; pointer-events: none;
+    transition: opacity 160ms ease, transform 160ms ease;
+}
+body.slide-picker-open .study-slide-picker {
+    opacity: 1; pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+.study-slide-picker-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px; font-size: 13px; color: var(--sc-muted);
+}
+.study-slide-picker-grid {
+    display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px;
+}
+@media (max-width: 480px) {
+    .study-slide-picker-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+.study-slide-tile {
+    aspect-ratio: 1; border-radius: 8px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--sc-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: var(--sc-fg);
+    cursor: pointer;
+}
+.study-slide-tile:hover { background: rgba(56,189,248,0.14); border-color: var(--sc-accent); }
+.study-slide-tile.is-current { background: rgba(56,189,248,0.22); border-color: var(--sc-accent); }
+.study-slide-tile.is-done { color: var(--sc-accent); }
+
+/* ---------------- Legacy template overrides ----------------
+ * Existing detail.php was designed against the pilot.php sidebar layout
+ * (2-col content + side progress tracker). When the V2 chrome owns the
+ * page we collapse to a single column and hide the side tracker (the
+ * topbar progress bar is the canonical progress affordance now).
+ */
+body.has-study-chrome .study-layout {
+    display: block;
+    grid-template-columns: 1fr;
+}
+body.has-study-chrome .study-progress-tracker { display: none; }
+
+/* The legacy slide-player-controls bar (font, contrast, focus) is replaced
+ * by the topbar settings cog. Hide it inside V2 chrome. */
+body.has-study-chrome .slide-player-header,
+body.has-study-chrome .slide-player-controls,
+body.has-study-chrome .slide-player-back,
+body.has-study-chrome .slide-player-title { display: none !important; }
+
+/* The legacy "Reading + Difficulty" controls bar in detail.php is also
+ * superseded by the settings cog. Keep the difficulty selector so users
+ * can still change level — just slim it down. */
+body.has-study-chrome .study-controls-bar { padding: 8px 12px; margin-bottom: 14px; flex-wrap: wrap; }
+
+/* Reduced motion: kill auto-hide, kill transitions. */
+body.reduce-motion .study-topbar,
+body.reduce-motion .study-drawer,
+body.reduce-motion .study-drawer-backdrop,
+body.reduce-motion .study-slide-picker { transition: none !important; }
+body.reduce-motion.chrome-hidden .study-topbar { transform: none; }

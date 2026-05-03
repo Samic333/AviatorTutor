@@ -15,6 +15,120 @@ use App\Core\DB;
 class StudyController extends Controller
 {
     /**
+     * Phase 2 (overhaul) — when study_chrome_v2 is on, study pages render
+     * into views/layouts/study.php instead of pilot.php. Centralised so we
+     * don't repeat the flag check in every action.
+     */
+    private function studyChromeV2(): bool
+    {
+        try {
+            $cfg = require BASE_PATH . '/config/app.php';
+            return !empty($cfg['features']['study_chrome_v2']);
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Build the data the new study layout needs: breadcrumb segments, mode
+     * switcher entries, drawer lessons. Returned as a partial $data array
+     * the action merges into its own.
+     *
+     * @param array $system  current system row (must have id, name, ata_code)
+     * @param string $modeKey one of 'slides','detail','revision','flashcards','quiz','mnemonics','mind_map','deep_notes'
+     * @param ?array $lesson  optional current lesson row (adds the lesson title to the crumb)
+     * @return array<string,mixed>
+     */
+    private function studyChromeData(array $system, string $modeKey, ?array $lesson = null): array
+    {
+        $sid       = (int) ($system['id'] ?? 0);
+        $sysName   = (string) ($system['name'] ?? '');
+        $sysAccent = (string) ($system['color'] ?? $system['color_hex'] ?? '#34d399');
+
+        // Sibling lessons for the drawer.
+        $drawerLessons = [];
+        try {
+            $drawerLessons = DB::instance()->query(
+                'SELECT id, title, slug, sort_order
+                   FROM lessons
+                  WHERE system_id = ? AND is_published = 1
+                  ORDER BY sort_order, id',
+                [$sid]
+            );
+        } catch (\Throwable $e) {
+            // Lessons table missing — drawer simply renders empty.
+        }
+
+        // Breadcrumb: Q400 > <System> > <Mode> [> <Lesson>]
+        $crumb = [
+            ['label' => 'Q400',     'href' => '/my-subjects'],
+            ['label' => $sysName,   'href' => '/study/' . $sid],
+        ];
+        $modeLabels = [
+            'slides'      => 'Slides',
+            'detail'      => 'Lessons',
+            'revision'    => 'Revision',
+            'flashcards'  => 'Flashcards',
+            'quiz'        => 'Quiz',
+            'mnemonics'   => 'Mnemonics',
+            'mind_map'    => 'Mind Map',
+            'deep_notes'  => 'Deep Notes',
+        ];
+        $crumb[] = ['label' => $modeLabels[$modeKey] ?? ucfirst($modeKey), 'href' => ''];
+        if ($lesson && !empty($lesson['title'])) {
+            $crumb[] = ['label' => (string) $lesson['title'], 'href' => ''];
+        }
+
+        // Mode switcher. Phase-3 modes (mnemonics, mind_map, deep_notes)
+        // become live links once their feature flag is on; until then they
+        // render as greyed buttons so learners can see what's coming.
+        $cfg = [];
+        try { $cfg = require BASE_PATH . '/config/app.php'; } catch (\Throwable $e) {}
+        $featOn = static fn(string $f): bool => !empty($cfg['features'][$f] ?? false);
+
+        $modes = [
+            ['key' => 'slides',     'label' => 'Slides',
+             'href' => $lesson ? ('/study/' . $sid . '/lesson/' . (int)$lesson['id'])
+                              : ('/study/' . $sid),
+             'icon' => 'play-circle',
+             'active' => in_array($modeKey, ['slides','detail'], true)],
+            ['key' => 'flashcards', 'label' => 'Flashcards',
+             'href' => '/flashcards/' . $sid,
+             'icon' => 'rectangle-vertical',
+             'active' => $modeKey === 'flashcards'],
+            ['key' => 'quiz',       'label' => 'Quiz',
+             'href' => '/quiz',
+             'icon' => 'check-circle-2',
+             'active' => $modeKey === 'quiz'],
+            ['key' => 'mnemonics',  'label' => 'Mnemonics',
+             'href' => '/study/' . $sid . '/mnemonics',
+             'icon' => 'brain',
+             'active'   => $modeKey === 'mnemonics',
+             'disabled' => !$featOn('mnemonics_v2')],
+            ['key' => 'mind_map',   'label' => 'Mind Map',
+             'href' => '/study/' . $sid . '/mind-map',
+             'icon' => 'git-branch',
+             'active'   => $modeKey === 'mind_map',
+             'disabled' => !$featOn('mind_map')],
+            ['key' => 'deep_notes', 'label' => 'Deep Notes',
+             'href' => '/study/' . $sid . '/deep-notes',
+             'icon' => 'file-text',
+             'active'   => $modeKey === 'deep_notes',
+             'disabled' => !$featOn('deep_notes')],
+        ];
+
+        return [
+            'studyBreadcrumb'      => $crumb,
+            'studyModes'           => $modes,
+            'studySystemColor'     => $sysAccent,
+            'drawerSystem'         => $system,
+            'drawerLessons'        => $drawerLessons,
+            'drawerCurrentLessonId' => $lesson ? (int)($lesson['id'] ?? 0) : 0,
+            'studyChromeV2'        => true, // signals templates to suppress legacy chrome
+        ];
+    }
+
+    /**
      * Show detailed study page for a system
      *
      * @param Request $request
@@ -76,24 +190,293 @@ class StudyController extends Controller
             [$id]
         );
 
+        $systemView = [
+            'id' => $system['id'],
+            'name' => $system['name'],
+            'ata_code' => $system['ata_code'],
+            'description' => $system['description'],
+            'color' => $system['color_hex'] ?? '#34d399',
+            'icon' => $system['icon'] ?? 'zap',
+        ];
+
         $data = [
             'title' => htmlspecialchars($system['name']),
-            'system' => [
-                'id' => $system['id'],
-                'name' => $system['name'],
-                'ata_code' => $system['ata_code'],
-                'description' => $system['description'],
-                'color' => $system['color_hex'] ?? '#34d399',
-                'icon' => $system['icon'] ?? 'zap',
-            ],
+            'system' => $systemView,
             'lessons' => $lessons,
             'sections' => $sections,
             'assets' => $assets,
             'mode' => 'detail',
         ];
 
-        $html = $this->view('study/detail', $data, 'pilot');
+        $layout = 'pilot';
+        if ($this->studyChromeV2()) {
+            $data   = array_merge($data, $this->studyChromeData($systemView, 'detail'));
+            $layout = 'study';
+        }
+
+        $html = $this->view('study/detail', $data, $layout);
         $response->html($html);
+    }
+
+    /**
+     * Phase 3 — Mnemonics mode. Renders the system's mnemonics with their
+     * letter-by-letter breakdown, "why it works" explanation, and a worked
+     * example. Falls back to an empty list if the table hasn't been
+     * migrated yet (so the page never 500s on a partially-deployed env).
+     */
+    public function mnemonics(Request $request, Response $response): void
+    {
+        $this->requireActiveSubscription();
+        $cfg = require BASE_PATH . '/config/app.php';
+        if (empty($cfg['features']['mnemonics_v2'])) {
+            $this->renderNotFound('Mnemonics Coming Soon', 'Memory aids are being prepped — check back shortly.', '/systems', 'Browse all systems');
+            return;
+        }
+
+        $systemId = (int) $this->param('id');
+        $db       = DB::instance();
+
+        $system = $db->queryOne(
+            'SELECT id, name, ata_code, color_hex, icon
+             FROM systems WHERE id = ? AND is_published = 1',
+            [$systemId]
+        );
+        if (!$system) {
+            $this->renderNotFound('System Not Found', 'That system isn\'t in the library yet.', '/systems', 'Browse all systems');
+            return;
+        }
+
+        $mnemonics = [];
+        try {
+            $mnemonics = $db->query(
+                'SELECT id, phrase, breakdown_json, why_it_works, worked_example, audio_url
+                   FROM mnemonics
+                  WHERE system_id = ? AND is_published = 1
+                  ORDER BY sort_order, id',
+                [$systemId]
+            );
+        } catch (\Throwable $e) {
+            // mnemonics table not migrated yet — render empty state.
+        }
+
+        $systemView = [
+            'id'       => (int)$system['id'],
+            'name'     => $system['name'],
+            'ata_code' => $system['ata_code'],
+            'color'    => $system['color_hex'] ?? '#34d399',
+            'icon'     => $system['icon'] ?? 'zap',
+        ];
+
+        $data = [
+            'title'     => 'Mnemonics — ' . htmlspecialchars($system['name']),
+            'system'    => $systemView,
+            'mnemonics' => $mnemonics,
+        ];
+
+        $layout = 'pilot';
+        if ($this->studyChromeV2()) {
+            $data   = array_merge($data, $this->studyChromeData($systemView, 'mnemonics'));
+            $layout = 'study';
+        }
+
+        $response->html($this->view('study/mnemonics', $data, $layout));
+    }
+
+    /**
+     * Phase 3 — Mind Map mode. Renders a vanilla-SVG hierarchical mind
+     * map of the system: subtopics → sections → key facts. Falls back to
+     * an empty state if no subtopics/sections are seeded.
+     */
+    public function mindMap(Request $request, Response $response): void
+    {
+        $this->requireActiveSubscription();
+        $cfg = require BASE_PATH . '/config/app.php';
+        if (empty($cfg['features']['mind_map'])) {
+            $this->renderNotFound('Mind Map Coming Soon', 'The mind map view is being prepped — check back shortly.', '/systems', 'Browse all systems');
+            return;
+        }
+
+        $systemId = (int) $this->param('id');
+        $db       = DB::instance();
+
+        $system = $db->queryOne(
+            'SELECT id, name, ata_code, color_hex, icon
+             FROM systems WHERE id = ? AND is_published = 1',
+            [$systemId]
+        );
+        if (!$system) {
+            $this->renderNotFound('System Not Found', 'That system isn\'t in the library yet.', '/systems', 'Browse all systems');
+            return;
+        }
+
+        // Build hierarchy: system → lessons → sections + JSON facts. Pulls
+        // from BOTH lesson_sections (typed structured chunks) and the JSON
+        // columns on lessons so the map captures the full content depth.
+        $lessons = $db->query(
+            'SELECT id, title, slug, key_facts, must_know, exam_traps
+               FROM lessons
+              WHERE system_id = ? AND is_published = 1
+              ORDER BY sort_order, id',
+            [$systemId]
+        );
+
+        $tree = [
+            'id'    => 'sys-' . $systemId,
+            'label' => (string) $system['name'],
+            'kind'  => 'system',
+            'children' => [],
+        ];
+        foreach ($lessons as $l) {
+            $lid  = (int) $l['id'];
+            $node = [
+                'id'    => 'lsn-' . $lid,
+                'label' => (string) $l['title'],
+                'kind'  => 'lesson',
+                'href'  => '/study/' . $systemId . '/lesson/' . $lid,
+                'children' => [],
+            ];
+
+            // Pull lesson_sections so the mind map shows real structure
+            // (overview, components, operation, abnormal, etc.) — not just
+            // a flat list of facts. Wrapped in try/catch so legacy DBs
+            // without the table still produce a usable tree.
+            try {
+                $sections = $db->query(
+                    'SELECT id, title, body, section_type
+                       FROM lesson_sections
+                      WHERE lesson_id = ?
+                      ORDER BY sort_order, id',
+                    [$lid]
+                );
+                if (!empty($sections)) {
+                    $sBucket = ['id' => 'sec-' . $lid, 'label' => 'Sections', 'kind' => 'bucket', 'children' => []];
+                    foreach ($sections as $sec) {
+                        $secNode = [
+                            'id'    => 'sec-' . (int)$sec['id'],
+                            'label' => mb_strimwidth((string)$sec['title'], 0, 60, '…'),
+                            'kind'  => 'leaf',
+                            'href'  => '/study/' . $systemId . '/deep-notes#dn-section-' . (int)$sec['id'],
+                        ];
+                        $sBucket['children'][] = $secNode;
+                    }
+                    $node['children'][] = $sBucket;
+                }
+            } catch (\Throwable $e) { /* skip section bucket */ }
+
+            foreach (['key_facts' => 'Key facts', 'must_know' => 'Must know', 'exam_traps' => 'Exam traps'] as $col => $label) {
+                $arr = json_decode((string)($l[$col] ?? '[]'), true);
+                if (is_array($arr) && !empty($arr)) {
+                    $bucket = ['id' => $col . '-' . $lid, 'label' => $label, 'kind' => 'bucket', 'children' => []];
+                    foreach ($arr as $i => $item) {
+                        $text = is_string($item) ? $item : (string)($item['text'] ?? json_encode($item));
+                        $bucket['children'][] = [
+                            'id'    => $col . '-' . $lid . '-' . $i,
+                            'label' => mb_strimwidth($text, 0, 80, '…'),
+                            'kind'  => 'leaf',
+                        ];
+                    }
+                    $node['children'][] = $bucket;
+                }
+            }
+            $tree['children'][] = $node;
+        }
+
+        $systemView = [
+            'id'       => (int)$system['id'],
+            'name'     => $system['name'],
+            'ata_code' => $system['ata_code'],
+            'color'    => $system['color_hex'] ?? '#34d399',
+            'icon'     => $system['icon'] ?? 'zap',
+        ];
+
+        $data = [
+            'title'  => 'Mind Map — ' . htmlspecialchars($system['name']),
+            'system' => $systemView,
+            'tree'   => $tree,
+        ];
+
+        $layout = 'pilot';
+        if ($this->studyChromeV2()) {
+            $data   = array_merge($data, $this->studyChromeData($systemView, 'mind_map'));
+            $layout = 'study';
+        }
+
+        $response->html($this->view('study/mind_map', $data, $layout));
+    }
+
+    /**
+     * Phase 3 — Deep Notes mode. Renders every published lesson + its
+     * lesson_sections as one long, anchored, searchable document.
+     *
+     * Gated by the `deep_notes` feature flag (off by default in production
+     * until the content is reviewed).
+     */
+    public function deepNotes(Request $request, Response $response): void
+    {
+        $this->requireActiveSubscription();
+        $cfg = require BASE_PATH . '/config/app.php';
+        if (empty($cfg['features']['deep_notes'])) {
+            $this->renderNotFound('Deep Notes Coming Soon', 'This mode is being prepped and will be available shortly.', '/systems', 'Browse all systems');
+            return;
+        }
+
+        $systemId = (int) $this->param('id');
+        $db       = DB::instance();
+
+        $system = $db->queryOne(
+            'SELECT id, name, ata_code, description, color_hex, icon
+             FROM systems WHERE id = ? AND is_published = 1',
+            [$systemId]
+        );
+        if (!$system) {
+            $this->renderNotFound('System Not Found', 'That aircraft system isn\'t in the library yet.', '/systems', 'Browse all systems');
+            return;
+        }
+
+        $lessons = $db->query(
+            'SELECT id, title, slug, body, summary, sort_order
+               FROM lessons
+              WHERE system_id = ? AND is_published = 1
+              ORDER BY sort_order, id',
+            [$systemId]
+        );
+        $sectionsByLesson = [];
+        foreach ($lessons as $l) {
+            try {
+                $sectionsByLesson[(int)$l['id']] = $db->query(
+                    'SELECT id, title, body, section_type, sort_order
+                       FROM lesson_sections
+                      WHERE lesson_id = ?
+                      ORDER BY sort_order, id',
+                    [(int)$l['id']]
+                );
+            } catch (\Throwable $e) {
+                $sectionsByLesson[(int)$l['id']] = [];
+            }
+        }
+
+        $systemView = [
+            'id'       => (int)$system['id'],
+            'name'     => $system['name'],
+            'ata_code' => $system['ata_code'],
+            'color'    => $system['color_hex'] ?? '#34d399',
+            'icon'     => $system['icon'] ?? 'zap',
+        ];
+
+        $data = [
+            'title'            => 'Deep Notes — ' . htmlspecialchars($system['name']),
+            'system'           => $systemView,
+            'lessons'          => $lessons,
+            'sectionsByLesson' => $sectionsByLesson,
+        ];
+
+        $layout = 'pilot';
+        if ($this->studyChromeV2()) {
+            $data   = array_merge($data, $this->studyChromeData($systemView, 'deep_notes'));
+            $layout = 'study';
+        }
+
+        $response->html($this->view('study/deep_notes', $data, $layout));
     }
 
     /**
@@ -294,16 +677,18 @@ class StudyController extends Controller
             // Table missing or schema drift — proceed with empty progress.
         }
 
+        $systemView = [
+            'id'          => (int)$system['id'],
+            'name'        => $system['name'],
+            'ata_code'    => $system['ata_code'],
+            'description' => $system['description'],
+            'color'       => $system['color_hex'] ?? '#34d399',
+            'icon'        => $system['icon'] ?? 'zap',
+        ];
+
         $data = [
             'title'   => htmlspecialchars($lesson['title']) . ' — ' . htmlspecialchars($system['name']),
-            'system'  => [
-                'id'          => (int)$system['id'],
-                'name'        => $system['name'],
-                'ata_code'    => $system['ata_code'],
-                'description' => $system['description'],
-                'color'       => $system['color_hex'] ?? '#34d399',
-                'icon'        => $system['icon'] ?? 'zap',
-            ],
+            'system'  => $systemView,
             'lesson'     => $lesson,
             'slides'     => $slides,
             'progress'   => $progress,
@@ -311,7 +696,18 @@ class StudyController extends Controller
             'qrhLinks'   => $this->loadQrhLinksForLesson($lessonId),
         ];
 
-        $html = $this->view('study/lesson_slides', $data, 'pilot');
+        $layout = 'pilot';
+        if ($this->studyChromeV2()) {
+            $data   = array_merge($data, $this->studyChromeData($systemView, 'slides', $lesson));
+            // Hand the slide list to the drawer + picker.
+            $data['drawerSlides']            = $slides;
+            $data['drawerCurrentSlideIndex'] = 0;
+            $data['studyTotalSlides']        = count($slides);
+            $data['studyCurrentSlideIndex']  = 0;
+            $layout = 'study';
+        }
+
+        $html = $this->view('study/lesson_slides', $data, $layout);
         $response->html($html);
     }
 
