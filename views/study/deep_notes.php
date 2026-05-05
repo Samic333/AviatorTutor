@@ -63,11 +63,11 @@ $systemId = (int) $system['id'];
           <p class="dn-summary"><?= $h((string)$l['summary']) ?></p>
         <?php endif; ?>
         <?php if (!empty($l['body'])): ?>
-          <div class="dn-body"><?= nl2br($h((string)$l['body'])) ?></div>
+          <div class="dn-body"><?= (string)$l['body'] ?></div>
         <?php endif; ?>
         <?php foreach ($sections as $sec): ?>
           <h3 id="dn-section-<?= (int)$sec['id'] ?>"><?= $h((string)$sec['title']) ?></h3>
-          <div class="dn-body"><?= nl2br($h((string)$sec['body'])) ?></div>
+          <div class="dn-body"><?= (string)$sec['body'] ?></div>
         <?php endforeach; ?>
       </article>
     <?php endforeach; endif; ?>
