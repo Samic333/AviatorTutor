@@ -584,33 +584,76 @@ body[data-theme="light"] .plt-search__dropdown { background: #fff; }
   margin-bottom: 28px;
 }
 
+/* Phase 2 follow-up (May 2026 audit) — the previous "compact" v2 KPI
+   layout (row flex, font-size:20px, sub hidden, ring hidden) crammed the
+   label, value, and icon onto one inline run at the 200px card width that
+   the side-by-side promo forces. The result felt amateur. We now stack
+   the dashboard top vertically so KPIs get the full content width, then
+   re-style each card with a clear three-tier hierarchy: small uppercase
+   label + gradient icon on a top row, a big mono value, then a soft
+   sub-line link. Progress rings stay visible because they tell a real
+   story (% of systems studied / quiz score). */
 body.dashboard-v2 .plt-dashboard-top {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  display: flex;
+  flex-direction: column;
   gap: 18px;
   margin-bottom: 24px;
-  align-items: stretch;
 }
 body.dashboard-v2 .plt-stats-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
+  gap: 14px;
   margin-bottom: 0;
 }
 body.dashboard-v2 .plt-stat-card {
-  padding: 12px 14px;
-  gap: 4px;
-  flex-direction: row;
-  align-items: center;
+  padding: 18px 20px 16px;
+  gap: 10px;
+  flex-direction: column;
+  align-items: stretch;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+  border: 1px solid rgba(148,163,184,0.14);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+body.dashboard-v2 .plt-stat-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(56,189,248,0.45), transparent);
+  opacity: 0.7;
+}
+body.dashboard-v2 .plt-stat-card:hover {
+  border-color: rgba(56,189,248,0.32);
+  transform: translateY(-1px);
+  transition: transform .2s ease, border-color .2s ease;
 }
 body.dashboard-v2 .plt-stat-card__head {
   flex-direction: row;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 0;
 }
-body.dashboard-v2 .plt-stat-card__label { font-size: 11px; }
-body.dashboard-v2 .plt-stat-card__value { font-size: 20px; line-height: 1.1; }
-body.dashboard-v2 .plt-stat-card__sub   { display: none; }
-body.dashboard-v2 .plt-stat-card .plt-ring { display: none; }
+body.dashboard-v2 .plt-stat-card__label {
+  font-size: 11px; letter-spacing: 0.08em; color: var(--plt-text-muted);
+  font-weight: 600; white-space: nowrap;
+}
+body.dashboard-v2 .plt-stat-card__value {
+  font-size: 36px; line-height: 1; font-weight: 800; letter-spacing: -0.02em;
+  text-align: left; color: var(--plt-text);
+}
+body.dashboard-v2 .plt-stat-card__value > span {
+  font-size: 13px !important; vertical-align: middle; margin-left: 4px;
+}
+body.dashboard-v2 .plt-stat-card__sub {
+  display: flex; flex-direction: row; align-items: center; justify-content: space-between;
+  font-size: 12px; color: var(--plt-text-muted); text-align: left;
+  padding-top: 4px; border-top: 1px solid rgba(148,163,184,0.10);
+}
+body.dashboard-v2 .plt-stat-card__sub a { color: var(--plt-sky, #38BDF8); font-weight: 600; }
+body.dashboard-v2 .plt-stat-card .plt-ring {
+  width: 44px; height: 44px;
+}
+body.dashboard-v2 .plt-stat-card .plt-ring__pct { font-size: 10px; }
 
 body.dashboard-v2 .plt-promo {
   padding: 16px 18px; border-radius: 14px;
@@ -632,9 +675,12 @@ body.dashboard-v2 .plt-promo__cta {
   font-weight: 700; text-decoration: none; font-size: 13px;
 }
 
-@media (max-width: 900px) {
-  body.dashboard-v2 .plt-dashboard-top { grid-template-columns: 1fr; }
+@media (max-width: 1100px) {
   body.dashboard-v2 .plt-stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  body.dashboard-v2 .plt-stats-grid { grid-template-columns: 1fr; }
+  body.dashboard-v2 .plt-stat-card__value { font-size: 30px; }
 }
 
 .plt-stat-card {
