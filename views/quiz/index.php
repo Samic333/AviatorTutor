@@ -5,9 +5,43 @@
         <p class="subtitle">Test your knowledge of Q400 systems</p>
     </div>
 
-    <!-- Filter Tabs -->
+    <!-- Top filter row: keyword search + aircraft / subject / system dropdowns.
+         Phase 8 follow-up (bug 27): replace the bare type-chip filter with a
+         richer picker so learners on a multi-aircraft / multi-subject roster
+         don't have to scroll a 50-quiz list. -->
+    <div class="quiz-picker">
+        <input type="search" class="quiz-picker__search" id="quizSearch"
+               placeholder="Search quizzes…" autocomplete="off"
+               aria-label="Search quizzes by title, description, or system">
+        <?php if (!empty($aircrafts)): ?>
+        <select class="quiz-picker__select" id="quizAircraft" aria-label="Filter by aircraft">
+            <option value="">All aircraft</option>
+            <?php foreach ($aircrafts as $aId => $aName): ?>
+                <option value="<?= (int)$aId ?>"><?= htmlspecialchars($aName) ?></option>
+            <?php endforeach; ?>
+        </select>
+        <?php endif; ?>
+        <?php if (!empty($subjects)): ?>
+        <select class="quiz-picker__select" id="quizSubject" aria-label="Filter by subject">
+            <option value="">All subjects</option>
+            <?php foreach ($subjects as $sId => $sName): ?>
+                <option value="<?= (int)$sId ?>"><?= htmlspecialchars($sName) ?></option>
+            <?php endforeach; ?>
+        </select>
+        <?php endif; ?>
+        <?php if (!empty($systems)): ?>
+        <select class="quiz-picker__select" id="quizSystem" aria-label="Filter by system">
+            <option value="">All systems</option>
+            <?php foreach ($systems as $sId => $sName): ?>
+                <option value="<?= (int)$sId ?>"><?= htmlspecialchars($sName) ?></option>
+            <?php endforeach; ?>
+        </select>
+        <?php endif; ?>
+    </div>
+
+    <!-- Quiz type chips kept as a secondary filter -->
     <div class="quiz-filters">
-        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn active" data-filter="all">All types</button>
         <button class="filter-btn" data-filter="practice">Practice</button>
         <button class="filter-btn" data-filter="exam">Exam</button>
         <button class="filter-btn" data-filter="scenario">Scenario</button>
@@ -19,7 +53,12 @@
             <?php if (!empty($quizzes)): ?>
                 <div class="quizzes-grid" id="quizzesGrid">
                     <?php foreach ($quizzes as $quiz): ?>
-                        <div class="quiz-card" data-type="<?php echo htmlspecialchars($quiz['quiz_type']); ?>">
+                        <div class="quiz-card"
+                             data-type="<?php echo htmlspecialchars($quiz['quiz_type']); ?>"
+                             data-aircraft="<?php echo (int)($quiz['aircraft_id'] ?? 0); ?>"
+                             data-subject="<?php echo (int)($quiz['subject_id'] ?? 0); ?>"
+                             data-system="<?php echo (int)($quiz['system_id'] ?? 0); ?>"
+                             data-search="<?php echo htmlspecialchars(strtolower(($quiz['title'] ?? '') . ' ' . ($quiz['description'] ?? '') . ' ' . ($quiz['system_name'] ?? '') . ' ' . ($quiz['subject_name'] ?? '') . ' ' . ($quiz['aircraft_name'] ?? ''))); ?>">
                             <div class="quiz-card-header">
                                 <h3 class="quiz-title"><?php echo htmlspecialchars($quiz['title']); ?></h3>
                                 <div class="quiz-badges">
@@ -76,6 +115,44 @@
 <style>
 .quiz-container {
     padding: 20px;
+}
+
+.quiz-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+    align-items: stretch;
+}
+.quiz-picker__search {
+    flex: 1 1 260px;
+    min-width: 220px;
+    padding: 10px 14px;
+    background: var(--color-slate-bg);
+    border: 1px solid rgba(148,163,184,0.18);
+    border-radius: 8px;
+    color: var(--color-white-text);
+    font-size: 14px;
+}
+.quiz-picker__search:focus {
+    outline: none;
+    border-color: var(--color-blue-accent);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.18);
+}
+.quiz-picker__select {
+    flex: 0 1 auto;
+    padding: 10px 14px;
+    background: var(--color-slate-bg);
+    border: 1px solid rgba(148,163,184,0.18);
+    border-radius: 8px;
+    color: var(--color-white-text);
+    font-size: 14px;
+    min-width: 160px;
+    cursor: pointer;
+}
+.quiz-picker__select:focus {
+    outline: none;
+    border-color: var(--color-blue-accent);
 }
 
 .quiz-filters {
@@ -232,22 +309,63 @@
 document.addEventListener('DOMContentLoaded', function() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const quizCards = document.querySelectorAll('.quiz-card');
+    const grid = document.getElementById('quizzesGrid');
+    const searchInput = document.getElementById('quizSearch');
+    const aircraftSel = document.getElementById('quizAircraft');
+    const subjectSel  = document.getElementById('quizSubject');
+    const systemSel   = document.getElementById('quizSystem');
+
+    let activeType = 'all';
+
+    function applyFilters() {
+        const term = (searchInput?.value || '').trim().toLowerCase();
+        const aircraft = aircraftSel?.value || '';
+        const subject  = subjectSel?.value || '';
+        const system   = systemSel?.value || '';
+        let visible = 0;
+
+        quizCards.forEach(card => {
+            const matchType = activeType === 'all' || card.dataset.type === activeType;
+            const matchAircraft = !aircraft || card.dataset.aircraft === aircraft;
+            const matchSubject  = !subject  || card.dataset.subject  === subject;
+            const matchSystem   = !system   || card.dataset.system   === system;
+            const matchSearch   = !term || (card.dataset.search || '').includes(term);
+
+            const show = matchType && matchAircraft && matchSubject && matchSystem && matchSearch;
+            card.style.display = show ? '' : 'none';
+            if (show) visible++;
+        });
+
+        // Empty state when nothing matches the active filters.
+        let emptyMsg = document.getElementById('quizFilterEmpty');
+        if (visible === 0 && quizCards.length > 0) {
+            if (!emptyMsg) {
+                emptyMsg = document.createElement('div');
+                emptyMsg.id = 'quizFilterEmpty';
+                emptyMsg.className = 'empty-state';
+                emptyMsg.style.gridColumn = '1 / -1';
+                emptyMsg.innerHTML = '<i data-lucide="search-x"></i><p>No quizzes match these filters.</p>';
+                grid?.appendChild(emptyMsg);
+            }
+            emptyMsg.style.display = '';
+        } else if (emptyMsg) {
+            emptyMsg.style.display = 'none';
+        }
+    }
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            const filterValue = this.dataset.filter;
-
+            activeType = this.dataset.filter;
             filterBtns.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
-
-            quizCards.forEach(card => {
-                if (filterValue === 'all' || card.dataset.type === filterValue) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            applyFilters();
         });
+    });
+
+    [searchInput, aircraftSel, subjectSel, systemSel].forEach(el => {
+        if (!el) return;
+        el.addEventListener('input', applyFilters);
+        el.addEventListener('change', applyFilters);
     });
 });
 </script>

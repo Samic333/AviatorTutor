@@ -3157,6 +3157,33 @@ body.slide-focus-mode .slide-card { max-width: 880px; margin-left: auto; margin-
 }
 .slide-info-head i, .slide-info-head svg { width: 14px; height: 14px; }
 
+/* Persistent "Answer to continue" banner above an unanswered gate.
+   Hides itself once the gate is answered (parent gate flips data-gate-state to 'correct'). */
+.slide-gate-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: var(--spacing-6) 0 calc(var(--spacing-3) * -1) 0;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    background: rgba(56,189,248,0.10);
+    border: 1px solid rgba(56,189,248,0.28);
+    color: #BAE6FD;
+    font-size: 14px;
+    font-weight: 500;
+}
+.slide-gate-banner i, .slide-gate-banner svg { width: 18px; height: 18px; flex: 0 0 auto; }
+.slide-card.gate-already-passed .slide-gate-banner,
+.slide-card.gate-passed .slide-gate-banner { display: none; }
+/* Continue → button after the learner ran out of attempts and the gate is
+   settled. Reads "Continue", advances the deck on click. Distinguishes from
+   the disabled "Locked in" state on a correct answer. */
+.slide-gate-submit--continue {
+    background: linear-gradient(135deg, #38BDF8, #0EA5E9) !important;
+    color: #052E4F !important;
+    cursor: pointer;
+}
+
 /* Question gate */
 .slide-gate {
     border: 1px solid rgba(148,163,184,0.2);

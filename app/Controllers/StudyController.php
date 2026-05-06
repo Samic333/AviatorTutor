@@ -253,16 +253,35 @@ class StudyController extends Controller
             return;
         }
 
+        // Phase 11 follow-up (bug 31): support optional lesson-scope filter so
+        // the slide player can link "Mnemonic for this concept" → only the
+        // mnemonics tied to a specific lesson_id surface, with system-level
+        // mnemonics (lesson_id IS NULL) acting as a fallback. Without a
+        // lesson param, all system mnemonics show as before.
+        $lessonId = (int) ($_GET['lesson'] ?? 0);
+
         $mnemonics = [];
         $allSystems = [];
         try {
-            $mnemonics = $db->query(
-                'SELECT id, phrase, breakdown_json, why_it_works, worked_example, audio_url
-                   FROM mnemonics
-                  WHERE system_id = ? AND is_published = 1
-                  ORDER BY sort_order, id',
-                [$systemId]
-            );
+            if ($lessonId > 0) {
+                $mnemonics = $db->query(
+                    'SELECT id, phrase, breakdown_json, why_it_works, worked_example, audio_url, lesson_id
+                       FROM mnemonics
+                      WHERE system_id = ?
+                        AND is_published = 1
+                        AND (lesson_id IS NULL OR lesson_id = ?)
+                      ORDER BY (lesson_id IS NULL), sort_order, id',
+                    [$systemId, $lessonId]
+                );
+            } else {
+                $mnemonics = $db->query(
+                    'SELECT id, phrase, breakdown_json, why_it_works, worked_example, audio_url, lesson_id
+                       FROM mnemonics
+                      WHERE system_id = ? AND is_published = 1
+                      ORDER BY sort_order, id',
+                    [$systemId]
+                );
+            }
 
             // Phase 11 — list every system that has at least one published
             // mnemonic so the top-of-page system-jumper can cross-link

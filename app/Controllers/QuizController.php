@@ -29,9 +29,14 @@ class QuizController extends Controller
         $userId = $this->user()['id'];
         $db = DB::instance();
 
+        // Phase 8 follow-up (bug 27): include aircraft + subject context so the
+        // index page can offer aircraft / subject / system dropdowns + keyword
+        // search at the top, instead of only the quiz_type filter chips.
         $quizzes = $db->query(
             'SELECT q.id, q.title, q.description, q.quiz_type, q.time_limit_mins, q.pass_score,
                     s.name as system_name, s.id as system_id,
+                    sub.id as subject_id, sub.name as subject_name, sub.category as subject_category,
+                    a.id as aircraft_id, a.name as aircraft_name,
                     COUNT(DISTINCT qa.id) as attempt_count,
                     AVG(qa.score) as avg_score,
                     (SELECT COUNT(*) FROM quiz_questions qq
@@ -40,16 +45,40 @@ class QuizController extends Controller
                     ) as question_count
              FROM quizzes q
              LEFT JOIN systems s ON q.system_id = s.id
+             LEFT JOIN subjects sub ON s.subject_id = sub.id
+             LEFT JOIN aircrafts a ON sub.aircraft_id = a.id
              LEFT JOIN quiz_attempts qa ON q.id = qa.quiz_id AND qa.user_id = ?
              WHERE q.is_published = 1
-             GROUP BY q.id, q.title, q.description, q.quiz_type, q.time_limit_mins, q.pass_score, s.name, s.id
+             GROUP BY q.id, q.title, q.description, q.quiz_type, q.time_limit_mins, q.pass_score,
+                      s.name, s.id, sub.id, sub.name, sub.category, a.id, a.name
              ORDER BY q.created_at DESC',
             [$userId]
         );
 
+        // Distinct lists for the dropdowns. Empty arrays are fine — the view
+        // hides a dropdown that has only the "All" option.
+        $aircrafts = [];
+        $subjects  = [];
+        $systems   = [];
+        foreach ($quizzes as $q) {
+            if (!empty($q['aircraft_id']) && !isset($aircrafts[$q['aircraft_id']])) {
+                $aircrafts[$q['aircraft_id']] = $q['aircraft_name'];
+            }
+            if (!empty($q['subject_id']) && !isset($subjects[$q['subject_id']])) {
+                $subjects[$q['subject_id']] = $q['subject_name'];
+            }
+            if (!empty($q['system_id']) && !isset($systems[$q['system_id']])) {
+                $systems[$q['system_id']] = $q['system_name'];
+            }
+        }
+        asort($aircrafts); asort($subjects); asort($systems);
+
         $data = [
             'title' => 'Quizzes',
             'quizzes' => $quizzes,
+            'aircrafts' => $aircrafts,
+            'subjects'  => $subjects,
+            'systems'   => $systems,
         ];
 
         $html = $this->view('quiz/index', $data, 'pilot');

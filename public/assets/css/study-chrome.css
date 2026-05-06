@@ -202,6 +202,12 @@ body.drawer-open .study-drawer { transform: translateX(0); }
     max-width: 920px; margin: 0 auto; padding: 24px 16px 80px;
     position: relative;
 }
+@media (min-width: 1280px) {
+    .study-content { max-width: 1120px; padding-left: 32px; padding-right: 32px; }
+}
+@media (min-width: 1600px) {
+    .study-content { max-width: 1280px; padding-left: 40px; padding-right: 40px; }
+}
 
 /* Edge tap zones — transparent overlays on the slide content area for
    thumb-friendly next/prev. Only render when the consumer page opts in by

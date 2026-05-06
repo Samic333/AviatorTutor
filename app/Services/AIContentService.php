@@ -429,6 +429,11 @@ PROMPT;
         $norm = function (string $s): string {
             $s = strtolower($s);
             $s = (string) preg_replace('/[^a-z0-9 ]+/', ' ', $s);
+            // Split digit-letter boundaries so "28V"/"28VDC" tokenize the same
+            // way as "28 V"/"28 VDC". Without this, technical short answers
+            // ("28 VDC" vs "28v dc") share zero tokens and grade incorrectly.
+            $s = (string) preg_replace('/([0-9])([a-z])/', '$1 $2', $s);
+            $s = (string) preg_replace('/([a-z])([0-9])/', '$1 $2', $s);
             $s = (string) preg_replace('/\s+/', ' ', $s);
             return trim($s);
         };
@@ -441,9 +446,21 @@ PROMPT;
         $shared = count(array_intersect($aT, $bT));
         $needed = max(1, count($bT));
         $ratio  = $shared / $needed;
+        // For short answers (≤30 chars after normalisation), also compute a
+        // Levenshtein character-similarity ratio so technical abbreviations
+        // like "28 VDC" vs "28v dc" grade as close — token-set overlap alone
+        // misses these because "vdc" and "v dc" share no tokens.
+        $charRatio = 0.0;
+        if (max(strlen($a), strlen($b)) <= 30) {
+            $editDist = levenshtein($a, $b);
+            $maxLen   = max(strlen($a), strlen($b), 1);
+            $charRatio = 1 - ($editDist / $maxLen);
+        }
         if ($a === $b)            { $score = 100; $msg = 'Exact match.'; }
         elseif (str_contains($a, $b) || str_contains($b, $a)) { $score = 95; $msg = 'Looks right.'; }
+        elseif ($charRatio >= 0.85) { $score = 90; $msg = 'Close enough — accepted.'; }
         elseif ($ratio >= 0.6)    { $score = 80; $msg = 'You got the gist — make sure you can recite the canonical phrasing.'; }
+        elseif ($charRatio >= 0.7) { $score = 70; $msg = 'Close — review the canonical phrasing.'; }
         elseif ($ratio >= 0.3)    { $score = 50; $msg = 'You\'re on the right track but missing key terms.'; }
         else                      { $score = 20; $msg = 'That doesn\'t match — review the answer and try again later.'; }
         return ['ok'=>true,'is_correct'=>$score>=70,'score'=>$score,'feedback'=>$msg,'source'=>'offline'];

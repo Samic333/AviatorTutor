@@ -120,6 +120,19 @@
     if (active && typeof active.scrollIntoView === 'function') {
       try { active.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) { /* noop */ }
     }
+
+    // If this slide has an unanswered question gate, draw the learner's eye
+    // to it once the slide content has settled. Without this, learners on
+    // long slides may not realise there's a gate at the bottom blocking Next
+    // and report it as "Next does nothing."
+    if (active && active.getAttribute('data-has-gate') === '1' && !isGatePassed(active)) {
+      setTimeout(function () {
+        var gate = $('.slide-gate', active);
+        if (gate && typeof gate.scrollIntoView === 'function') {
+          try { gate.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { /* noop */ }
+        }
+      }, 450);
+    }
   }
 
   function goPrev() {
@@ -234,9 +247,33 @@
 
       if (canProceed) {
         radios.forEach(function (r) { r.disabled = true; });
+        // Mark the card so the persistent "answer to continue" banner hides.
+        card.classList.add('gate-passed');
         if (submit) {
-          submit.disabled = true;
-          submit.textContent = isCorrect ? 'Locked in' : 'Continue';
+          if (isCorrect) {
+            // Locked-in: greyed-out, no further action needed; learner uses
+            // the global Next button.
+            submit.disabled = true;
+            submit.textContent = 'Locked in';
+          } else {
+            // Out of attempts but allowed to proceed. Re-enable the submit
+            // button as a "Continue →" affordance that advances the deck —
+            // previously it read "Continue" but stayed disabled, which the
+            // May 2026 audit flagged as the "answering jumps backward" bug
+            // (the click did nothing so learners had to hunt for the global
+            // Next). Bind it to goNext so a single click moves on.
+            submit.disabled = false;
+            submit.textContent = 'Continue →';
+            submit.classList.add('slide-gate-submit--continue');
+            // Replace the click handler — bindUI() wired it to handleGateSubmit;
+            // swap it for goNext now that the gate is settled.
+            var freshSubmit = submit.cloneNode(true);
+            submit.parentNode.replaceChild(freshSubmit, submit);
+            freshSubmit.addEventListener('click', function (e) {
+              e.preventDefault();
+              goNext();
+            });
+          }
         }
         updateNav();
         var nextBtn = $('#slide-next-btn');

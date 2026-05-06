@@ -272,6 +272,10 @@ $useV2Chrome = !empty($studyChromeV2);
         <?php endif; ?>
 
         <?php if ($hasGate): ?>
+          <p class="slide-gate-banner" role="note" aria-live="polite">
+            <i data-lucide="arrow-down-circle" aria-hidden="true"></i>
+            <span>Answer the check question below to continue.</span>
+          </p>
           <fieldset class="slide-gate" data-gate-state="<?= $alreadyCorrect ? 'correct' : 'unanswered' ?>">
             <legend class="slide-gate-prompt">
               <i data-lucide="help-circle"></i>
