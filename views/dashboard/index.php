@@ -207,9 +207,18 @@ if ($__dashV2):
       <div class="plt-section-header">
         <h2 class="plt-section-header__title">Quiz Performance by System</h2>
       </div>
-      <div style="height:280px;">
-        <canvas id="quizPerformanceChart"></canvas>
-      </div>
+      <?php if (!empty($quizPerformance['labels']) && !empty(array_filter($quizPerformance['scores'] ?? []))): ?>
+        <div style="height:280px;">
+          <canvas id="quizPerformanceChart"></canvas>
+        </div>
+      <?php else: ?>
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;padding:32px 16px;color:var(--plt-text-muted);">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.45;"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+          <p style="margin:0;font-size:14px;font-weight:600;color:var(--plt-text);">No quiz attempts yet</p>
+          <p style="margin:0;font-size:13px;max-width:380px;">Take your first quiz and your scores will appear here, broken down by system so you can spot weak areas.</p>
+          <a href="/quiz" class="plt-btn plt-btn--primary plt-btn--sm" style="margin-top:4px;">Browse quizzes</a>
+        </div>
+      <?php endif; ?>
     </section>
 
     <!-- Recent Activity -->

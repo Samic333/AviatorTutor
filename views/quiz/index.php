@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="stat-box">
                                     <span class="stat-label">Best Score</span>
-                                    <span class="stat-value"><?php echo htmlspecialchars($quiz['avg_score'] ?? '--'); ?>%</span>
+                                    <span class="stat-value"><?php echo $quiz['avg_score'] !== null ? round((float)$quiz['avg_score']) . '%' : '<span style="font-size:18px;color:#94A3B8;">—</span>'; ?></span>
                                 </div>
                             </div>
 

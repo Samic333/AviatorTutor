@@ -28,19 +28,24 @@ class ProgressController extends Controller
         $userId = $this->user()['id'];
         $db = DB::instance();
 
-        // Get system completion stats
+        // Get system completion stats. last_studied falls back to the most
+        // recent study_sessions.started_at when no user_progress row exists
+        // yet for that system — otherwise the user studies a system but the
+        // /progress page keeps showing "Last studied: Never" until they
+        // formally complete a lesson, which feels broken.
         $systemProgress = $db->query(
             "SELECT s.id, s.name, s.color_hex, s.icon,
                     COUNT(DISTINCT CASE WHEN up.status = 'completed' THEN up.lesson_id END) as lessons_done,
                     COUNT(DISTINCT l.id) as lessons_total,
                     ROUND(COUNT(DISTINCT CASE WHEN up.status = 'completed' THEN up.lesson_id END) * 100.0 / NULLIF(COUNT(DISTINCT l.id), 0), 0) as completion_percentage,
-                    MAX(up.last_studied) as last_studied
+                    COALESCE(MAX(up.last_studied), MAX(ss.started_at)) as last_studied
             FROM systems s
             LEFT JOIN lessons l ON s.id = l.system_id AND l.is_published = 1
             LEFT JOIN user_progress up ON s.id = up.system_id AND up.user_id = ? AND up.lesson_id = l.id
+            LEFT JOIN study_sessions ss ON s.id = ss.system_id AND ss.user_id = ?
             GROUP BY s.id, s.name, s.color_hex, s.icon
             ORDER BY s.sort_order ASC",
-            [$userId]
+            [$userId, $userId]
         );
 
         // Get overall stats

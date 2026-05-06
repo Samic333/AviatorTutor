@@ -98,7 +98,19 @@
                                 <div class="progress-fill" style="width: <?php echo htmlspecialchars($system['completion_percentage'] ?? 0); ?>%; background-color: <?php echo htmlspecialchars($system['color_hex'] ?? '#3B82F6'); ?>"></div>
                             </div>
                             <div class="system-progress-footer">
-                                <span class="last-studied">Last studied: <?php echo htmlspecialchars($system['last_studied'] ?? 'Never'); ?></span>
+                                <?php
+                                  $ls = $system['last_studied'] ?? null;
+                                  if (!$ls) { $lsLabel = 'Never'; }
+                                  else {
+                                      $diff = max(0, time() - strtotime((string)$ls));
+                                      if ($diff < 60)        $lsLabel = 'Just now';
+                                      elseif ($diff < 3600)  $lsLabel = floor($diff / 60) . ' min ago';
+                                      elseif ($diff < 86400) $lsLabel = floor($diff / 3600) . ' hr ago';
+                                      elseif ($diff < 604800)$lsLabel = floor($diff / 86400) . ' day' . (floor($diff/86400) === 1 ? '' : 's') . ' ago';
+                                      else                   $lsLabel = date('M j, Y', strtotime((string)$ls));
+                                  }
+                                ?>
+                                <span class="last-studied">Last studied: <?php echo htmlspecialchars($lsLabel); ?></span>
                             </div>
                         </div>
                     <?php endforeach; ?>
