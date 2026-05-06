@@ -191,7 +191,9 @@ class ApiController extends Controller
                     'title'       => $l['title'],
                     'system_name' => $l['system_name'],
                     'excerpt'     => substr(strip_tags($l['body'] ?? ''), 0, 150),
-                    'url'         => '/systems/' . $l['system_id'] . '#lesson-' . $l['id'],
+                    // Phase 10: route to the new slide player, not the
+                    // old long-page anchor (which redirects via Phase 5).
+                    'url'         => '/study/' . $l['system_id'] . '/lesson/' . $l['id'],
                 ];
             }
         }
@@ -218,12 +220,12 @@ class ApiController extends Controller
             }
         }
 
-        if ($type === 'quizzes') {
+        if ($type === 'all' || $type === 'quizzes') {
             $quizzes = $db->query(
                 'SELECT q.id, q.title, q.description, s.name as system_name
                  FROM quizzes q
                  LEFT JOIN systems s ON q.system_id = s.id
-                 WHERE q.title LIKE ? OR q.description LIKE ?
+                 WHERE (q.title LIKE ? OR q.description LIKE ?) AND q.is_published = 1
                  LIMIT 5',
                 [$searchTerm, $searchTerm]
             );
@@ -237,6 +239,29 @@ class ApiController extends Controller
                     'url'         => '/quiz/' . $q['id'],
                 ];
             }
+        }
+
+        if ($type === 'all' || $type === 'mnemonics') {
+            try {
+                $mnemonics = $db->query(
+                    'SELECT m.id, m.phrase, m.why_it_works, m.system_id, s.name as system_name
+                     FROM mnemonics m
+                     LEFT JOIN systems s ON m.system_id = s.id
+                     WHERE (m.phrase LIKE ? OR m.why_it_works LIKE ?) AND m.is_published = 1
+                     LIMIT 5',
+                    [$searchTerm, $searchTerm]
+                );
+                foreach ($mnemonics as $m) {
+                    $results[] = [
+                        'type'        => 'mnemonic',
+                        'id'          => $m['id'],
+                        'title'       => $m['phrase'],
+                        'system_name' => $m['system_name'] ?? '',
+                        'excerpt'     => substr(strip_tags($m['why_it_works'] ?? ''), 0, 150),
+                        'url'         => '/study/' . $m['system_id'] . '/mnemonics#m-' . $m['id'],
+                    ];
+                }
+            } catch (\Throwable $e) { /* table may not exist on older envs */ }
         }
 
         $response->json(['results' => $results, 'query' => $query, 'total' => count($results)]);
@@ -541,6 +566,62 @@ class ApiController extends Controller
             'error'   => 'not_implemented',
             'message' => 'AI Q&A is launching soon. Stay tuned!',
         ]);
+    }
+
+    /**
+     * Phase 9 — close out a study session by computing duration_secs.
+     *
+     * Called via navigator.sendBeacon on beforeunload from the lesson /
+     * flashcard / quiz player pages. We look up the most recent open
+     * session for (user, system, type) where ended_at IS NULL and stamp
+     * NOW() into ended_at + (NOW() - started_at) clamped to [0, 4h] into
+     * duration_secs. The 4h cap prevents a forgotten tab inflating
+     * "total study time" when the laptop comes back from sleep weeks
+     * later.
+     *
+     * sendBeacon can't set custom headers, so CSRF is skipped — the
+     * request still requires an authenticated session and the worst
+     * abuse case is a logged-in user padding their own heatmap.
+     */
+    public function studySessionEnd(Request $request, Response $response): void
+    {
+        $this->requireAuth();
+        $userId = (int) $this->user()['id'];
+        $systemId = (int) $this->input('system_id', 0) ?: null;
+        $type = (string) $this->input('type', '');
+        $allowed = ['detail', 'revision', 'flashcard', 'quiz', 'diagram'];
+        if (!in_array($type, $allowed, true)) {
+            $response->status(422);
+            $response->json(['error' => 'invalid type']);
+            return;
+        }
+
+        try {
+            $db = \App\Core\DB::instance();
+            $row = $db->queryOne(
+                'SELECT id, started_at FROM study_sessions
+                 WHERE user_id = ?
+                   AND ((? IS NULL AND system_id IS NULL) OR system_id = ?)
+                   AND session_type = ?
+                   AND ended_at IS NULL
+                 ORDER BY started_at DESC
+                 LIMIT 1',
+                [$userId, $systemId, $systemId, $type]
+            );
+            if ($row) {
+                $db->execute(
+                    'UPDATE study_sessions
+                        SET ended_at = NOW(),
+                            duration_secs = LEAST(GREATEST(TIMESTAMPDIFF(SECOND, started_at, NOW()), 0), 14400)
+                      WHERE id = ?',
+                    [(int) $row['id']]
+                );
+            }
+            $response->json(['ok' => true]);
+        } catch (\Throwable $e) {
+            $response->status(500);
+            $response->json(['ok' => false]);
+        }
     }
 
     /**

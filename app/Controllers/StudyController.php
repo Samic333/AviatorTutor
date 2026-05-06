@@ -129,93 +129,100 @@ class StudyController extends Controller
     }
 
     /**
-     * Show detailed study page for a system
+     * Phase 5 (overhaul): /study/{id} now resolves to "what the learner
+     * actually wants" — the next lesson to study — rather than the old
+     * long chapter-list page.
      *
-     * @param Request $request
-     * @param Response $response
-     * @return void
+     * Resolution order:
+     *   1. The most-recently-touched in-progress lesson (last_studied DESC).
+     *   2. The first published lesson by sort order.
+     *   3. /systems/{id} (the system detail page) if the system has no
+     *      lessons yet — preserves a useful destination for half-seeded data.
+     *
+     * This single redirect fixes every "Continue" / "Open" / "Back to
+     * system" call site in the app at once (9+ view files were linking
+     * here). The legacy view template lives at views/study/_legacy_detail.php
+     * and is no longer rendered. Bookmarks and search-engine inbound
+     * links continue to work because we 302, not 404.
      */
     public function detail(Request $request, Response $response): void
     {
         $this->requireActiveSubscription();
 
-        $id = $this->param('id');
-        $userId = $this->user()['id'];
-        $db = DB::instance();
+        $id     = (int) $this->param('id');
+        $userId = (int) ($this->user()['id'] ?? 0);
+        $db     = DB::instance();
 
         $system = $db->queryOne(
-            'SELECT id, name, ata_code, description, color_hex, icon
-             FROM systems WHERE id = ? AND is_published = 1',
+            'SELECT id FROM systems WHERE id = ? AND is_published = 1',
             [$id]
         );
 
         if (!$system) {
-            $this->renderNotFound('System Not Found', 'That aircraft system isn’t in the library yet, or the URL is off.', '/systems', 'Browse all systems');
+            $this->renderNotFound(
+                'System Not Found',
+                'That aircraft system isn’t in the library yet, or the URL is off.',
+                '/systems',
+                'Browse all systems'
+            );
             return;
         }
 
-        // Get all lessons with full content
-        $lessons = $db->query(
-            'SELECT l.id, l.title, l.slug, l.body, l.content_type,
-                    l.summary, l.key_facts, l.must_know, l.exam_traps,
-                    st.title as subtopic_title, st.id as subtopic_id,
-                    up.status, up.time_spent_secs
-             FROM lessons l
-             LEFT JOIN subtopics st ON l.subtopic_id = st.id
-             LEFT JOIN user_progress up ON l.id = up.lesson_id AND up.user_id = ?
-             WHERE l.system_id = ? AND l.is_published = 1
-             ORDER BY st.sort_order, l.sort_order',
+        // Pick the "best" lesson to land on:
+        //  a) most-recently-touched in_progress lesson (resume).
+        //  b) earliest unfinished lesson by sort order (forward).
+        //  c) first published lesson at all (fresh start).
+        $resume = $db->queryOne(
+            'SELECT l.id
+               FROM lessons l
+               JOIN user_progress up
+                 ON up.lesson_id = l.id AND up.user_id = ?
+              WHERE l.system_id = ?
+                AND l.is_published = 1
+                AND up.status = "in_progress"
+              ORDER BY up.last_studied DESC
+              LIMIT 1',
             [$userId, $id]
         );
 
-        // Get lesson sections for detailed content
-        $sections = [];
-        foreach ($lessons as $lesson) {
-            $lessonSections = $db->query(
-                'SELECT id, title, body, section_type, sort_order
-                 FROM lesson_sections
-                 WHERE lesson_id = ?
-                 ORDER BY sort_order',
-                [$lesson['id']]
+        $lessonId = (int) ($resume['id'] ?? 0);
+
+        if ($lessonId === 0) {
+            $forward = $db->queryOne(
+                'SELECT l.id
+                   FROM lessons l
+              LEFT JOIN user_progress up
+                     ON up.lesson_id = l.id AND up.user_id = ?
+                  WHERE l.system_id = ?
+                    AND l.is_published = 1
+                    AND (up.status IS NULL OR up.status != "completed")
+               ORDER BY l.sort_order, l.id
+                  LIMIT 1',
+                [$userId, $id]
             );
-            $sections[$lesson['id']] = $lessonSections;
+            $lessonId = (int) ($forward['id'] ?? 0);
         }
 
-        // Get study assets (diagrams, PDFs)
-        $assets = $db->query(
-            'SELECT id, title, description, file_type, file_path
-             FROM study_assets
-             WHERE system_id = ?
-             ORDER BY file_type',
-            [$id]
-        );
-
-        $systemView = [
-            'id' => $system['id'],
-            'name' => $system['name'],
-            'ata_code' => $system['ata_code'],
-            'description' => $system['description'],
-            'color' => $system['color_hex'] ?? '#34d399',
-            'icon' => $system['icon'] ?? 'zap',
-        ];
-
-        $data = [
-            'title' => htmlspecialchars($system['name']),
-            'system' => $systemView,
-            'lessons' => $lessons,
-            'sections' => $sections,
-            'assets' => $assets,
-            'mode' => 'detail',
-        ];
-
-        $layout = 'pilot';
-        if ($this->studyChromeV2()) {
-            $data   = array_merge($data, $this->studyChromeData($systemView, 'detail'));
-            $layout = 'study';
+        if ($lessonId === 0) {
+            $first = $db->queryOne(
+                'SELECT id FROM lessons
+                  WHERE system_id = ? AND is_published = 1
+               ORDER BY sort_order, id
+                  LIMIT 1',
+                [$id]
+            );
+            $lessonId = (int) ($first['id'] ?? 0);
         }
 
-        $html = $this->view('study/detail', $data, $layout);
-        $response->html($html);
+        if ($lessonId > 0) {
+            $this->redirect('/study/' . $id . '/lesson/' . $lessonId);
+            return;
+        }
+
+        // No lessons published for this system at all — fall back to the
+        // system-detail page rather than 404, so the learner sees the
+        // system's metadata + flashcard/quiz counts instead of a dead end.
+        $this->redirect('/systems/' . $id);
     }
 
     /**
@@ -247,6 +254,7 @@ class StudyController extends Controller
         }
 
         $mnemonics = [];
+        $allSystems = [];
         try {
             $mnemonics = $db->query(
                 'SELECT id, phrase, breakdown_json, why_it_works, worked_example, audio_url
@@ -254,6 +262,19 @@ class StudyController extends Controller
                   WHERE system_id = ? AND is_published = 1
                   ORDER BY sort_order, id',
                 [$systemId]
+            );
+
+            // Phase 11 — list every system that has at least one published
+            // mnemonic so the top-of-page system-jumper can cross-link
+            // straight into the matching mnemonics page.
+            $allSystems = $db->query(
+                'SELECT s.id, s.name, s.ata_code,
+                        COUNT(m.id) AS mnemonic_count
+                   FROM systems s
+                   JOIN mnemonics m ON m.system_id = s.id AND m.is_published = 1
+                  WHERE s.is_published = 1
+                  GROUP BY s.id, s.name, s.ata_code, s.sort_order
+                  ORDER BY s.sort_order, s.name'
             );
         } catch (\Throwable $e) {
             // mnemonics table not migrated yet — render empty state.
@@ -268,9 +289,10 @@ class StudyController extends Controller
         ];
 
         $data = [
-            'title'     => 'Mnemonics — ' . htmlspecialchars($system['name']),
-            'system'    => $systemView,
-            'mnemonics' => $mnemonics,
+            'title'      => 'Mnemonics — ' . htmlspecialchars($system['name']),
+            'system'     => $systemView,
+            'mnemonics'  => $mnemonics,
+            'allSystems' => $allSystems,
         ];
 
         $layout = 'pilot';
@@ -351,11 +373,13 @@ class StudyController extends Controller
                 if (!empty($sections)) {
                     $sBucket = ['id' => 'sec-' . $lid, 'label' => 'Sections', 'kind' => 'bucket', 'children' => []];
                     foreach ($sections as $sec) {
+                        $bodyTxt = trim(strip_tags((string)($sec['body'] ?? '')));
                         $secNode = [
-                            'id'    => 'sec-' . (int)$sec['id'],
-                            'label' => mb_strimwidth((string)$sec['title'], 0, 60, '…'),
-                            'kind'  => 'leaf',
-                            'href'  => '/study/' . $systemId . '/deep-notes#dn-section-' . (int)$sec['id'],
+                            'id'     => 'sec-' . (int)$sec['id'],
+                            'label'  => mb_strimwidth((string)$sec['title'], 0, 60, '…'),
+                            'kind'   => 'leaf',
+                            'href'   => '/study/' . $systemId . '/deep-notes#dn-section-' . (int)$sec['id'],
+                            'detail' => mb_strimwidth($bodyTxt, 0, 600, '…'),
                         ];
                         $sBucket['children'][] = $secNode;
                     }
@@ -370,9 +394,10 @@ class StudyController extends Controller
                     foreach ($arr as $i => $item) {
                         $text = is_string($item) ? $item : (string)($item['text'] ?? json_encode($item));
                         $bucket['children'][] = [
-                            'id'    => $col . '-' . $lid . '-' . $i,
-                            'label' => mb_strimwidth($text, 0, 80, '…'),
-                            'kind'  => 'leaf',
+                            'id'     => $col . '-' . $lid . '-' . $i,
+                            'label'  => mb_strimwidth($text, 0, 80, '…'),
+                            'kind'   => 'leaf',
+                            'detail' => $text,
                         ];
                     }
                     $node['children'][] = $bucket;
@@ -590,6 +615,11 @@ class StudyController extends Controller
             $this->renderNotFound('Lesson Not Found', 'That lesson isn’t available — it may have been moved or unpublished.', '/study/' . $systemId, 'Back to system');
             return;
         }
+
+        // Phase 3 fix: record this view as a study session so the dashboard's
+        // Continue Studying / Recent Activity / Study Activity heatmap pick
+        // it up. De-duped at the helper level so refreshes don't spam.
+        $this->recordStudySession((int) $userId, $systemId, 'detail');
 
         // Resolve the active difficulty: query string overrides session,
         // session falls back to default 'intermediate'. Persist updates so

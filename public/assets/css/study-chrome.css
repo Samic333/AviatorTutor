@@ -205,15 +205,19 @@ body.drawer-open .study-drawer { transform: translateX(0); }
 
 /* Edge tap zones — transparent overlays on the slide content area for
    thumb-friendly next/prev. Only render when the consumer page opts in by
-   adding .has-edge-zones to .study-content. */
+   adding .has-edge-zones to .study-content.
+   Phase 6 fix: the `:hover { opacity: 1 }` reveal was the "large rectangle
+   near next side" the May 2026 audit flagged. The click target stays — we
+   just don't flash the tinted gradient on cursor enter anymore. The
+   explicit Prev/Next buttons in the player chrome give learners enough
+   discoverability without a whole-page-height blue rectangle. */
 .has-edge-zones .study-edge-zone {
     position: absolute; top: 60px; bottom: 60px; width: 20%;
     z-index: 4; cursor: pointer; opacity: 0;
-    transition: opacity 120ms ease;
+    background: transparent;
 }
-.has-edge-zones .study-edge-zone:hover { opacity: 1; }
-.has-edge-zones .study-edge-zone--prev { left: 0;  background: linear-gradient(to right, rgba(56,189,248,0.06), transparent); }
-.has-edge-zones .study-edge-zone--next { right: 0; background: linear-gradient(to left,  rgba(56,189,248,0.06), transparent); }
+.has-edge-zones .study-edge-zone--prev { left: 0; }
+.has-edge-zones .study-edge-zone--next { right: 0; }
 .has-edge-zones .study-edge-zone[disabled] { display: none; }
 
 /* Slide picker grid — opens when the progress bar is tapped. */

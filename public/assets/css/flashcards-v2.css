@@ -61,6 +61,13 @@
 }
 
 .fcv2-face { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+/* Phase 7 fix: the JS toggles the `hidden` HTML attribute on the face the
+   learner shouldn't see, but our `display: flex` above defeats the UA's
+   default `[hidden] { display: none }` rule and BOTH faces render at the
+   same time (the "Flip does nothing" bug from the May 2026 audit). Force
+   it back. !important is intentional — it has to beat the .fcv2-face
+   shorthand's `display: flex`. */
+.fcv2-face[hidden] { display: none !important; }
 .fcv2-q { font-size: 19px; font-weight: 600; line-height: 1.4; flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 8px; }
 .fcv2-a { font-size: 16px; font-weight: 600; line-height: 1.5; }
 .fcv2-why { font-size: 13px; color: var(--thm-fg-muted, #94A3B8); margin: 0; }
@@ -96,3 +103,48 @@ body[data-theme="light"] .fcv2-btn-right { background: #D1FAE5; color: #047857; 
     border: 1px dashed var(--thm-border, rgba(255,255,255,0.12));
     border-radius: 14px;
 }
+
+/* Phase 7 follow-up — typed-answer UI */
+.fcv2-typed { display: flex; flex-direction: column; gap: 10px; }
+.fcv2-typed-input {
+    width: 100%; padding: 10px 12px; border-radius: 10px;
+    border: 1px solid var(--thm-border, rgba(255,255,255,0.12));
+    background: rgba(255,255,255,0.04);
+    color: var(--thm-fg, #F1F5F9);
+    font-size: 14px; font-family: inherit; resize: vertical;
+    min-height: 64px;
+}
+.fcv2-typed-input:focus {
+    outline: 2px solid var(--fcv2-accent, #38BDF8); outline-offset: 1px;
+}
+.fcv2-typed-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.fcv2-typed-actions .fcv2-flip-btn { min-width: 140px; }
+.fcv2-typed-skip {
+    background: transparent;
+    border: 1px solid var(--thm-border, rgba(255,255,255,0.18));
+    color: var(--thm-fg, #F1F5F9);
+}
+
+.fcv2-verdict {
+    padding: 10px 12px; border-radius: 10px;
+    background: rgba(245,158,11,0.10);
+    border: 1px solid rgba(245,158,11,0.30);
+}
+.fcv2-verdict[data-state="correct"] {
+    background: rgba(16,185,129,0.10);
+    border-color: rgba(16,185,129,0.30);
+}
+.fcv2-verdict-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em;
+    background: #F59E0B; color: #3D2A06;
+}
+.fcv2-verdict[data-state="correct"] .fcv2-verdict-badge {
+    background: #10B981; color: #062F23;
+}
+.fcv2-verdict-feedback {
+    margin: 8px 0 0; font-size: 13px; line-height: 1.5;
+    color: var(--thm-fg, #F1F5F9);
+}
+
+body[data-theme="light"] .fcv2-typed-input { background: #fff; color: #0F172A; }

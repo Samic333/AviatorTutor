@@ -43,10 +43,12 @@ $navMain = [
 // Feature-flagged items. Each entry has [href, label, svgPath, featureKey].
 // Hidden entirely when the flag is false; rendered as live nav (no "Soon"
 // badge) when the flag is true. Toggle in config/app.php → 'features'.
+// Phase 15: the dedicated /search sidebar entry is gone — the Phase 10
+// topbar search lives on every page and replaces it. The /search page
+// itself still works for direct visits and bookmarks.
 $navOptional = [
     ['/planner', 'Planner', '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>', 'planner'],
     ['/notes',   'Notes',   '<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/>', 'notes'],
-    ['/search',  'Search',  '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>', 'search'],
 ];
 foreach ($navOptional as [$href, $label, $svgPath, $featureKey]) {
     if (!empty($features[$featureKey])) {
@@ -84,6 +86,8 @@ $isActive = function(string $href) use ($path): bool {
   <script src="/assets/js/settings-drawer.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/settings-drawer.js') ?: '0' ?>"></script>
   <!-- Toast notifications + global window.onerror surfacer. -->
   <script src="/assets/js/toast.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/toast.js') ?: '0' ?>" defer></script>
+  <!-- Phase 10: global topbar search -->
+  <script src="/assets/js/topbar-search.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/topbar-search.js') ?: '0' ?>" defer></script>
   <!-- Lucide icons used by views with <i data-lucide="..."> placeholders. -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   <script>
@@ -112,6 +116,17 @@ $isActive = function(string $href) use ($path): bool {
         </svg>
       </div>
       <span class="plt-sidebar__brand-name">Aviator<span style="color:var(--plt-sky,#38BDF8);">Tutor</span></span>
+      <!-- Phase 2: desktop collapse toggle. Hidden on mobile (< 769px) where
+           the hamburger in the topbar already controls sidebar visibility. -->
+      <button type="button"
+              class="plt-sidebar__collapse"
+              id="plt-sidebar-collapse"
+              aria-label="Collapse sidebar"
+              title="Collapse sidebar (⌘\)">
+        <svg class="plt-sidebar__collapse-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
     </div>
 
     <!-- Pilot Identity -->
@@ -198,9 +213,27 @@ $isActive = function(string $href) use ($path): bool {
         </svg>
       </button>
       <span class="plt-topbar__title"><?= htmlspecialchars($title ?? 'Dashboard') ?></span>
+
+      <!-- Phase 10: global search. Hits /api/search?q= and renders a grouped
+           dropdown — clicking a result jumps straight to the lesson / system /
+           flashcard / quiz / mnemonic page. -->
+      <div class="plt-search" id="plt-search" style="margin-left:auto;position:relative;flex:0 1 380px;max-width:380px;">
+        <svg class="plt-search__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="search"
+               id="plt-search-input"
+               class="plt-search__input"
+               placeholder="Search systems, lessons, flashcards…"
+               aria-label="Search the study library"
+               autocomplete="off">
+        <kbd class="plt-search__kbd" aria-hidden="true">⌘K</kbd>
+        <div class="plt-search__dropdown" id="plt-search-dropdown" hidden role="listbox" aria-label="Search results"></div>
+      </div>
+
       <!-- Phase 3: settings cog opens the reading-preferences drawer. -->
       <button type="button" class="plt-topbar__settings" data-settings-toggle title="Reading settings" aria-label="Open reading settings"
-              style="margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:transparent;border:0;color:inherit;cursor:pointer;">
+              style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:transparent;border:0;color:inherit;cursor:pointer;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       </button>
     </header>
@@ -259,6 +292,54 @@ $isActive = function(string $href) use ($path): bool {
     var fill   = el.querySelector('.plt-ring__fill');
     if (fill) {
       fill.setAttribute('stroke-dasharray', (pct / 100 * circ) + ' ' + circ);
+    }
+  });
+
+  // ----- Phase 2: desktop sidebar collapse toggle -----
+  // Persisted in localStorage so the choice survives page navigation.
+  // Reads on every page load via inline guard at the top of <body> would
+  // be ideal to avoid a flash, but the sidebar uses a CSS transition so
+  // briefly seeing 260px → 72px on a single page reload is acceptable
+  // and only happens on first paint after the toggle is changed.
+  var STORAGE_KEY = 'aviatortutor:sidebar-collapsed';
+  var collapseBtn = document.getElementById('plt-sidebar-collapse');
+
+  // Mirror each nav-link's text into data-label so the collapsed-mode
+  // tooltip CSS can render it (text node is hidden by font-size:0).
+  document.querySelectorAll('.plt-sidebar .plt-nav-link').forEach(function(link) {
+    if (!link.hasAttribute('data-label')) {
+      // textContent picks up the visible label after the SVG icon.
+      var label = (link.textContent || '').trim();
+      if (label) link.setAttribute('data-label', label);
+    }
+  });
+
+  function applyCollapsed(isCollapsed) {
+    document.body.classList.toggle('plt-sidebar-collapsed', !!isCollapsed);
+    if (collapseBtn) {
+      collapseBtn.setAttribute('aria-label', isCollapsed ? 'Expand sidebar' : 'Collapse sidebar');
+      collapseBtn.setAttribute('title', isCollapsed ? 'Expand sidebar (⌘\\)' : 'Collapse sidebar (⌘\\)');
+    }
+  }
+
+  // Restore saved state on load.
+  try {
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === '1') applyCollapsed(true);
+  } catch (e) { /* localStorage may be unavailable in private mode */ }
+
+  collapseBtn && collapseBtn.addEventListener('click', function() {
+    var nowCollapsed = !document.body.classList.contains('plt-sidebar-collapsed');
+    applyCollapsed(nowCollapsed);
+    try { localStorage.setItem(STORAGE_KEY, nowCollapsed ? '1' : '0'); } catch (e) {}
+  });
+
+  // Keyboard shortcut: ⌘\ / Ctrl+\ to toggle. Familiar pattern from
+  // VS Code / Slack / Linear.
+  document.addEventListener('keydown', function(e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === '\\') {
+      e.preventDefault();
+      collapseBtn && collapseBtn.click();
     }
   });
 })();

@@ -83,6 +83,59 @@
         }, 220);
     }
 
+    // ---- Typed-answer grading (Phase 7 follow-up) ----
+    function showVerdict(card, data) {
+        var v  = card.querySelector('[data-fcv2-verdict]');
+        var bd = card.querySelector('[data-fcv2-verdict-badge]');
+        var fb = card.querySelector('[data-fcv2-verdict-feedback]');
+        if (!v || !bd || !fb) return;
+        var ok = !!(data && data.is_correct);
+        v.hidden = false;
+        v.dataset.state = ok ? 'correct' : 'wrong';
+        bd.textContent = (ok ? 'CORRECT' : 'NEEDS WORK') + ' · ' + ((data && data.score|0) || 0) + '/100';
+        fb.textContent = (data && data.feedback) || '';
+    }
+
+    function submitTyped(card) {
+        if (!card) return;
+        var input  = card.querySelector('[data-fcv2-typed-input]');
+        var submit = card.querySelector('[data-fcv2-typed-submit]');
+        var skip   = card.querySelector('[data-fcv2-typed-skip]');
+        if (!input) return;
+        var typed = (input.value || '').trim();
+        if (!typed) { try { input.focus(); } catch(e){} return; }
+        input.disabled = true;
+        if (submit) submit.disabled = true;
+        if (skip)   skip.disabled   = true;
+
+        var fd = new FormData();
+        fd.append('typed_answer', typed);
+        fd.append('csrf_token', csrf);
+
+        fetch('/api/flashcards/' + card.getAttribute('data-card-id') + '/grade', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'Accept': 'application/json' },
+            body: fd
+        })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, data: j }; }); })
+        .then(function (res) {
+            if (!res.ok || !res.data) {
+                if (submit) submit.disabled = false;
+                if (skip)   skip.disabled   = false;
+                input.disabled = false;
+                return;
+            }
+            showVerdict(card, res.data);
+            flip(card);
+        })
+        .catch(function () {
+            if (submit) submit.disabled = false;
+            if (skip)   skip.disabled   = false;
+            input.disabled = false;
+        });
+    }
+
     // ---- Click handlers ----
     deck.addEventListener('click', function (e) {
         var t = e.target;
@@ -92,11 +145,30 @@
             if (c) flip(c);
             return;
         }
+        if (t.matches('[data-fcv2-typed-submit]')) {
+            submitTyped(t.closest('.fcv2-card'));
+            return;
+        }
+        if (t.matches('[data-fcv2-typed-skip]')) {
+            var c2 = t.closest('.fcv2-card');
+            if (c2) flip(c2);
+            return;
+        }
         var grade = t.getAttribute('data-fcv2-grade');
         if (grade) {
             var card = t.closest('.fcv2-card');
             gradeAndAdvance(card, grade === 'right');
             return;
+        }
+    });
+
+    // Cmd/Ctrl+Enter inside the typed-answer textarea submits.
+    deck.addEventListener('keydown', function (e) {
+        var t = e.target;
+        if (!(t instanceof Element) || !t.matches('[data-fcv2-typed-input]')) return;
+        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+            e.preventDefault();
+            submitTyped(t.closest('.fcv2-card'));
         }
     });
 
@@ -114,6 +186,8 @@
     deck.addEventListener('pointerdown', function (e) {
         if (!topCard) return;
         if (!topCard.contains(e.target)) return;
+        // Don't start a swipe from inside the typed-answer UI.
+        if (e.target instanceof Element && e.target.closest('.fcv2-typed, [data-fcv2-typed-input], [data-fcv2-grade], [data-fcv2-flip], [data-fcv2-typed-submit], [data-fcv2-typed-skip]')) return;
         dragging = true;
         startX = e.clientX; startY = e.clientY;
         topCard.style.transition = 'none';

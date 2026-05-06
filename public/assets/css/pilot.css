@@ -92,7 +92,119 @@ a:hover { color: #7DD3FC; }
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 100;
-  transition: transform var(--plt-transition);
+  /* Phase 2: animate width changes (collapse toggle) and translate (mobile). */
+  transition: transform var(--plt-transition), width var(--plt-transition);
+}
+
+/* Phase 2: desktop collapse toggle button (chevron). Lives in the brand row. */
+.plt-sidebar__collapse {
+  margin-left: auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--plt-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--plt-transition), color var(--plt-transition), border-color var(--plt-transition);
+}
+.plt-sidebar__collapse:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: var(--plt-glass-border);
+  color: var(--plt-text);
+}
+.plt-sidebar__collapse-icon { transition: transform var(--plt-transition); }
+@media (max-width: 768px) {
+  /* Mobile uses the topbar hamburger; hide the desktop collapse toggle. */
+  .plt-sidebar__collapse { display: none; }
+}
+
+/* ---------- Phase 2: Collapsed sidebar state ----------
+   Toggled by adding `body.plt-sidebar-collapsed`. Sidebar shrinks to a
+   72px icon rail; main content reclaims the freed width. Text labels,
+   pilot card text, brand name, footer "Sign out" label all hide; only
+   icons + active highlights remain. State is persisted to localStorage
+   by inline JS in views/layouts/pilot.php. */
+body.plt-sidebar-collapsed {
+  --plt-sidebar-w: 72px;
+}
+body.plt-sidebar-collapsed .plt-sidebar__brand { padding: 22px 18px 18px; gap: 0; }
+body.plt-sidebar-collapsed .plt-sidebar__brand-name { display: none; }
+body.plt-sidebar-collapsed .plt-sidebar__collapse {
+  position: absolute;
+  top: 22px;
+  right: 12px;
+  margin-left: 0;
+}
+body.plt-sidebar-collapsed .plt-sidebar__collapse-icon { transform: rotate(180deg); }
+
+/* Pilot identity: avatar only, hide name + plan badge. */
+body.plt-sidebar-collapsed .plt-sidebar__pilot {
+  padding: 14px 14px;
+  justify-content: center;
+}
+body.plt-sidebar-collapsed .plt-sidebar__pilot-info { display: none; }
+
+/* Nav links: icons only, centered, with a tooltip from the title attr. */
+body.plt-sidebar-collapsed .plt-nav-link,
+body.plt-sidebar-collapsed .plt-sidebar__footer .plt-nav-link {
+  justify-content: center;
+  padding: 12px 0;
+  gap: 0;
+  position: relative;
+}
+body.plt-sidebar-collapsed .plt-nav-link > svg { margin: 0; }
+body.plt-sidebar-collapsed .plt-nav-link {
+  font-size: 0; /* hide text node, icon (SVG) keeps its 16x16 box */
+}
+body.plt-sidebar-collapsed .plt-nav-section,
+body.plt-sidebar-collapsed .plt-nav-link .plt-badge-soon {
+  display: none;
+}
+
+/* Native tooltip-style label on hover (uses CSS only — no JS, no flash).
+   The text comes from the link's first text node which we set via a data
+   attribute below in JS so we can re-read it after layout. */
+body.plt-sidebar-collapsed .plt-nav-link[data-label]::after {
+  content: attr(data-label);
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 6px 10px;
+  background: #0F172A;
+  color: var(--plt-text);
+  border: 1px solid var(--plt-glass-border);
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  z-index: 200;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+body.plt-sidebar-collapsed .plt-nav-link[data-label]:hover::after,
+body.plt-sidebar-collapsed .plt-nav-link[data-label]:focus-visible::after {
+  opacity: 1;
+}
+
+/* Mobile (≤768px) ignores the collapsed flag — the off-canvas drawer
+   pattern is independent of the desktop collapse. Reset the width
+   variable so the drawer animates the full 260px from off-screen. */
+@media (max-width: 768px) {
+  body.plt-sidebar-collapsed { --plt-sidebar-w: 260px; }
+  body.plt-sidebar-collapsed .plt-sidebar__brand-name,
+  body.plt-sidebar-collapsed .plt-sidebar__pilot-info,
+  body.plt-sidebar-collapsed .plt-nav-section { display: revert; }
+  body.plt-sidebar-collapsed .plt-nav-link { font-size: revert; padding: 10px 16px; justify-content: flex-start; gap: 12px; }
+  body.plt-sidebar-collapsed .plt-nav-link[data-label]::after { display: none; }
 }
 
 /* Brand */
@@ -290,9 +402,10 @@ a:hover { color: #7DD3FC; }
   flex-direction: column;
 }
 
-/* Topbar / hamburger (mobile only) */
+/* Topbar — desktop carries the global search; mobile carries the hamburger.
+   Always rendered now that Phase 10 added an always-visible search. */
 .plt-topbar {
-  display: none;
+  display: flex;
   height: 56px;
   border-bottom: 1px solid var(--plt-glass-border);
   padding: 0 20px;
@@ -303,6 +416,77 @@ a:hover { color: #7DD3FC; }
   top: 0;
   z-index: 50;
 }
+
+/* Hamburger lives in the topbar but only matters on mobile. */
+.plt-topbar__hamburger { display: none; }
+@media (max-width: 768px) {
+  .plt-topbar__hamburger { display: flex; }
+}
+
+/* Phase 10 — global topbar search */
+.plt-search { display: flex; align-items: center; }
+.plt-search__icon {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  color: var(--plt-text-muted, #94A3B8);
+  pointer-events: none;
+}
+.plt-search__input {
+  width: 100%;
+  padding: 8px 64px 8px 36px;
+  border-radius: 999px;
+  border: 1px solid var(--plt-glass-border, rgba(255,255,255,0.10));
+  background: rgba(255,255,255,0.04);
+  color: var(--plt-text, #F1F5F9);
+  font-size: 13.5px;
+}
+.plt-search__input:focus {
+  outline: 2px solid var(--plt-sky, #38BDF8); outline-offset: 1px;
+  background: rgba(255,255,255,0.06);
+}
+.plt-search__kbd {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  padding: 2px 8px; border-radius: 6px; font-size: 11px;
+  background: rgba(255,255,255,0.06); color: var(--plt-text-muted, #94A3B8);
+  font-family: var(--plt-font-mono, ui-monospace, monospace);
+  pointer-events: none;
+}
+@media (max-width: 768px) { .plt-search__kbd { display: none; } }
+
+.plt-search__dropdown {
+  position: absolute; left: 0; right: 0; top: calc(100% + 6px);
+  max-height: 60vh; overflow-y: auto;
+  background: var(--plt-bg, #0F172A);
+  border: 1px solid var(--plt-glass-border, rgba(255,255,255,0.10));
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  z-index: 70; padding: 6px;
+}
+.plt-search__group {
+  padding: 8px 10px 4px; font-size: 11px; font-weight: 700;
+  color: var(--plt-text-muted, #94A3B8);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.plt-search__hit {
+  display: block; padding: 9px 12px; border-radius: 9px;
+  text-decoration: none; color: var(--plt-text, #F1F5F9); font-size: 13.5px;
+}
+.plt-search__hit:hover,
+.plt-search__hit.is-active { background: rgba(56,189,248,0.10); }
+.plt-search__hit-title { font-weight: 600; line-height: 1.3; }
+.plt-search__hit-meta {
+  margin-top: 2px; font-size: 12px;
+  color: var(--plt-text-muted, #94A3B8);
+}
+.plt-search__hit-meta mark {
+  background: rgba(56,189,248,0.20); color: inherit; padding: 0 2px; border-radius: 3px;
+}
+.plt-search__empty {
+  padding: 18px 14px; text-align: center; font-size: 13px;
+  color: var(--plt-text-muted, #94A3B8);
+}
+
+body[data-theme="light"] .plt-search__input { background: #fff; color: #0F172A; }
+body[data-theme="light"] .plt-search__dropdown { background: #fff; }
 
 .plt-topbar__hamburger {
   display: flex;
@@ -390,7 +574,12 @@ a:hover { color: #7DD3FC; }
    working unchanged. */
 .plt-stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  /* Phase 2: bumped min from 160px → 200px so the 70px ring + 28px value
+     + label never squeeze together at narrow content widths (the previous
+     overlap reported by the audit). At 4 cards × 200px min = 800px content
+     min before they wrap to 2 rows, which fits the typical 1280px laptop
+     with the 260px sidebar comfortably. */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
   margin-bottom: 28px;
 }
@@ -868,8 +1057,6 @@ body.dashboard-v2 .plt-promo__cta {
   }
 
   .plt-main { margin-left: 0; }
-
-  .plt-topbar { display: flex; }
 
   .plt-content {
     padding: 20px 16px;

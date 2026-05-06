@@ -379,3 +379,9 @@ $useV2Chrome = !empty($studyChromeV2);
     });
   }
 </script>
+
+<?php
+$sessionType     = 'detail';
+$sessionSystemId = $systemId;
+include __DIR__ . '/../partials/study-session-heartbeat.php';
+?>

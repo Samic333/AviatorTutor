@@ -419,3 +419,9 @@ document.addEventListener('DOMContentLoaded', function() {
     renderQuestion(0);
 });
 </script>
+
+<?php
+$sessionType     = 'quiz';
+$sessionSystemId = (int) ($quiz['system_id'] ?? 0);
+include __DIR__ . '/../partials/study-session-heartbeat.php';
+?>

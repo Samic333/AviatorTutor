@@ -5,6 +5,28 @@
         <p class="subtitle">Track your learning journey through Q400 systems</p>
     </div>
 
+    <?php
+    // Phase 9 — brand-new account empty state. Show only when literally
+    // nothing has been logged yet so seasoned learners never see this.
+    $isBrandNew = (
+        ((int)($stats['completed_systems'] ?? 0)) === 0 &&
+        ((int)($stats['in_progress_systems'] ?? 0)) === 0 &&
+        ((int)($stats['total_study_time_mins'] ?? 0)) === 0 &&
+        empty($studyHistory)
+    );
+    ?>
+    <?php if ($isBrandNew): ?>
+        <div class="progress-blank-slate">
+            <div class="blank-slate-icon"><i data-lucide="rocket"></i></div>
+            <h2>Your progress will land here.</h2>
+            <p>Open a system, study a few flashcards, take a quiz — this page lights up the moment you start.</p>
+            <div class="blank-slate-actions">
+                <a href="/systems" class="btn btn-primary"><i data-lucide="book-open"></i> Browse systems</a>
+                <a href="/flashcards" class="btn btn-secondary"><i data-lucide="layers"></i> Try a flashcard deck</a>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <!-- Overall Stats -->
     <div class="stats-grid">
         <div class="stat-card">
@@ -279,6 +301,27 @@
 .study-history-chart {
     position: relative;
     height: 200px;
+}
+
+/* Phase 9 — brand-new account empty-state hero */
+.progress-blank-slate {
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    padding: 42px 24px; margin-bottom: 24px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(59,130,246,0.10), rgba(56,189,248,0.05));
+    border: 1px solid rgba(56,189,248,0.20);
+    text-align: center;
+}
+.progress-blank-slate .blank-slate-icon {
+    width: 56px; height: 56px; border-radius: 999px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(56,189,248,0.15); color: #38BDF8;
+}
+.progress-blank-slate .blank-slate-icon i { width: 28px; height: 28px; }
+.progress-blank-slate h2 { margin: 0; font-size: 22px; font-weight: 700; color: var(--color-white-text); }
+.progress-blank-slate p  { margin: 0; max-width: 480px; color: var(--color-gray-text); font-size: 14.5px; line-height: 1.55; }
+.progress-blank-slate .blank-slate-actions {
+    display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 6px;
 }
 </style>
 

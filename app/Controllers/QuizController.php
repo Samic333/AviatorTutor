@@ -82,6 +82,10 @@ class QuizController extends Controller
             return;
         }
 
+        // Phase 3 fix: record this quiz attempt as a study session so the
+        // dashboard's Recent Activity + Study Activity heatmap reflect it.
+        $this->recordStudySession((int) $userId, (int) ($quiz['system_id'] ?? 0) ?: null, 'quiz');
+
         $questions = $db->query(
             'SELECT id, question_text, question_type, options, difficulty, sort_order
              FROM quiz_questions
@@ -105,7 +109,19 @@ class QuizController extends Controller
             'csrf_token' => CSRF::generate(),
         ];
 
-        $html = $this->view('quiz/take', $data, 'pilot');
+        // Phase 13 — wire Quiz into the unified study chrome when the flag
+        // is on. Falls back to the legacy pilot layout otherwise.
+        $layout = 'pilot';
+        $cfg    = require BASE_PATH . '/config/app.php';
+        if (!empty($cfg['features']['study_chrome_v2']) && (int)($quiz['system_id'] ?? 0) > 0) {
+            $sysView = $this->loadSystemForChrome((int) $quiz['system_id']);
+            if ($sysView) {
+                $data   = array_merge($data, $this->buildStudyChromeData($sysView, 'quiz'));
+                $layout = 'study';
+            }
+        }
+
+        $html = $this->view('quiz/take', $data, $layout);
         $response->html($html);
     }
 
@@ -143,16 +159,61 @@ class QuizController extends Controller
             return;
         }
 
-        // Parse answers from JSON submission
-        $answersJson = $this->input('answers_json', '[]');
+        // Parse answers from JSON submission. Shape:
+        //   [{ question_id: 1, answer: "28 VDC" }, ...]
+        // The frontend (views/quiz/take.php) currently sends a SINGLE STRING
+        // per question (it only renders radio inputs). The DB stores
+        // correct_answer as a JSON-encoded array, e.g. '["28 VDC"]'.
+        //
+        // Phase 8 bug (the "score is always 0" report): the previous
+        // implementation compared json_encode($correctAnswer) === json_encode($answer),
+        // which is '["28 VDC"]' vs '"28 VDC"' — never equal, so every
+        // attempt scored 0. Below we normalise both sides into a canonical
+        // sorted list of lowercased trimmed strings, so single-value and
+        // multi-select questions both compare correctly.
+        $answersJson  = $this->input('answers_json', '[]');
         $answersArray = json_decode($answersJson, true) ?? [];
 
+        // Normaliser: array|scalar|null → sorted array of canonical strings.
+        $normalise = static function ($v): array {
+            if ($v === null) return [];
+            if (is_string($v)) {
+                // Some legacy rows store correct_answer as a bare string
+                // ("28 VDC") not a JSON array. json_decode of a bare string
+                // returns null (invalid JSON); we just use the string itself.
+                $v = [$v];
+            } elseif (is_scalar($v)) {
+                $v = [(string) $v];
+            } elseif (!is_array($v)) {
+                $v = [(string) $v];
+            }
+            $v = array_map(static fn($x) => mb_strtolower(trim((string) $x)), $v);
+            $v = array_values(array_filter($v, static fn($x) => $x !== ''));
+            sort($v, SORT_STRING);
+            return $v;
+        };
+
         $correctCount = 0;
-        $totalQuestions = count($answersArray);
+
+        // Use the actual quiz question count for the denominator, not just
+        // submitted answers — otherwise a learner who skips half the quiz
+        // gets the same score as one who answered every question correctly.
+        $totalQuestions = (int) ($db->queryOne(
+            'SELECT COUNT(*) c FROM quiz_questions
+              WHERE quiz_id = ?
+                AND (status IS NULL OR status = "published")',
+            [$quizId]
+        )['c'] ?? 0);
+        if ($totalQuestions === 0) {
+            // Defensive fallback — if the quiz has no published questions
+            // for some reason, use whatever the user submitted so we don't
+            // divide by zero.
+            $totalQuestions = max(1, count($answersArray));
+        }
 
         foreach ($answersArray as $entry) {
             $questionId = $entry['question_id'] ?? null;
-            $answer = $entry['answer'] ?? null;
+            $answer     = $entry['answer'] ?? null;
 
             if (!$questionId) continue;
 
@@ -163,8 +224,18 @@ class QuizController extends Controller
 
             $isCorrect = false;
             if ($question && $answer !== null) {
-                $correctAnswer = json_decode($question['correct_answer'], true);
-                $isCorrect = json_encode($correctAnswer) === json_encode($answer);
+                $rawCorrect = $question['correct_answer'] ?? '';
+                // Try JSON decode first; if it fails (legacy plain-string
+                // storage), fall back to the raw value.
+                $correctDecoded = json_decode((string) $rawCorrect, true);
+                if ($correctDecoded === null && $rawCorrect !== '' && $rawCorrect !== 'null') {
+                    $correctDecoded = $rawCorrect;
+                }
+
+                $expected  = $normalise($correctDecoded);
+                $submitted = $normalise($answer);
+
+                $isCorrect = !empty($expected) && $expected === $submitted;
             }
 
             $db->insert(
@@ -252,7 +323,105 @@ class QuizController extends Controller
             'passed' => $passed,
         ];
 
-        $html = $this->view('quiz/result', $data, 'pilot');
+        // Phase 13 — wire Quiz result into the unified study chrome too.
+        $layout = 'pilot';
+        $cfg    = require BASE_PATH . '/config/app.php';
+        if (!empty($cfg['features']['study_chrome_v2']) && (int)($quiz['system_id'] ?? 0) > 0) {
+            $sysView = $this->loadSystemForChrome((int) $quiz['system_id']);
+            if ($sysView) {
+                $data   = array_merge($data, $this->buildStudyChromeData($sysView, 'quiz'));
+                $layout = 'study';
+            }
+        }
+
+        $html = $this->view('quiz/result', $data, $layout);
         $response->html($html);
+    }
+
+    /**
+     * Phase 13 — pull the columns the study chrome needs to render the
+     * breadcrumb, mode switcher, and lesson drawer.
+     */
+    private function loadSystemForChrome(int $systemId): ?array
+    {
+        try {
+            $row = DB::instance()->queryOne(
+                'SELECT id, name, ata_code, color_hex FROM systems WHERE id = ? AND is_published = 1',
+                [$systemId]
+            );
+        } catch (\Throwable $e) {
+            return null;
+        }
+        if (!$row) return null;
+        return [
+            'id'       => (int) $row['id'],
+            'name'     => (string) $row['name'],
+            'ata_code' => (string) ($row['ata_code'] ?? ''),
+            'color'    => (string) ($row['color_hex'] ?? '#38BDF8'),
+        ];
+    }
+
+    /**
+     * Phase 13 — same shape as FlashcardController::buildStudyChromeData
+     * so the quiz pages render with the same breadcrumb / mode switcher /
+     * drawer that Slides + Flashcards use.
+     */
+    private function buildStudyChromeData(array $system, string $modeKey): array
+    {
+        $sid     = (int) $system['id'];
+        $sysName = (string) ($system['name'] ?? '');
+        $accent  = (string) ($system['color'] ?? '#38BDF8');
+
+        $drawerLessons = [];
+        try {
+            $drawerLessons = DB::instance()->query(
+                'SELECT id, title, slug FROM lessons
+                  WHERE system_id = ? AND is_published = 1
+                  ORDER BY sort_order, id',
+                [$sid]
+            );
+        } catch (\Throwable $e) { /* ignore */ }
+
+        $cfg = require BASE_PATH . '/config/app.php';
+        $featOn = static fn(string $f): bool => !empty($cfg['features'][$f] ?? false);
+
+        $modeLabels = [
+            'slides'     => 'Slides',
+            'flashcards' => 'Flashcards',
+            'quiz'       => 'Quiz',
+            'mnemonics'  => 'Mnemonics',
+            'mind_map'   => 'Mind Map',
+            'deep_notes' => 'Deep Notes',
+        ];
+
+        return [
+            'studyChromeV2'         => true,
+            'studySystemColor'      => $accent,
+            'studyBreadcrumb'       => [
+                ['label' => 'Q400',  'href' => '/my-subjects'],
+                ['label' => $sysName, 'href' => '/study/' . $sid],
+                ['label' => $modeLabels[$modeKey] ?? ucfirst($modeKey), 'href' => ''],
+            ],
+            'studyModes' => [
+                ['key' => 'slides',     'label' => 'Slides',     'href' => '/study/' . $sid, 'icon' => 'play-circle',
+                 'active' => $modeKey === 'slides'],
+                ['key' => 'flashcards', 'label' => 'Flashcards', 'href' => '/flashcards/' . $sid, 'icon' => 'rectangle-vertical',
+                 'active' => $modeKey === 'flashcards'],
+                ['key' => 'quiz',       'label' => 'Quiz',       'href' => '/quiz', 'icon' => 'check-circle-2',
+                 'active' => $modeKey === 'quiz'],
+                ['key' => 'mnemonics',  'label' => 'Mnemonics',  'href' => '/study/' . $sid . '/mnemonics',  'icon' => 'brain',
+                 'active'   => $modeKey === 'mnemonics',
+                 'disabled' => !$featOn('mnemonics_v2')],
+                ['key' => 'mind_map',   'label' => 'Mind Map',   'href' => '/study/' . $sid . '/mind-map',   'icon' => 'git-branch',
+                 'active'   => $modeKey === 'mind_map',
+                 'disabled' => !$featOn('mind_map')],
+                ['key' => 'deep_notes', 'label' => 'Deep Notes', 'href' => '/study/' . $sid . '/deep-notes', 'icon' => 'file-text',
+                 'active'   => $modeKey === 'deep_notes',
+                 'disabled' => !$featOn('deep_notes')],
+            ],
+            'drawerSystem'          => $system,
+            'drawerLessons'         => $drawerLessons,
+            'drawerCurrentLessonId' => 0,
+        ];
     }
 }

@@ -2,22 +2,113 @@
 
 <!-- 1. HERO -->
 <section class="hero">
-    <div class="container">
-        <span class="hero__chip">Built by aviation professionals · for the aviation community</span>
-        <h1>Aircraft systems, weather, SOPs, QRH, CRM, SMS &mdash; one premium aviation learning platform.</h1>
-        <p class="lead">
-            AviatorTutor is a premium aviation learning platform built by working pilots, cabin crew, SMS trainers, instructors, and operational aviation experts &mdash; for pilots, cabin crew, instructors, safety teams, aviation students, and operations professionals. Practical, interactive, scenario-based study designed for memory retention and real-world application.
-        </p>
-        <div class="hero__cta">
-            <a class="btn btn-primary btn-lg" href="/register">Start studying free</a>
-            <a class="btn btn-ghost btn-lg" href="/pricing">View plans</a>
+    <div class="container hero__inner">
+        <div class="hero__copy">
+            <span class="hero__chip">Built by aviation professionals · for the aviation community</span>
+            <h1>Aircraft systems, weather, SOPs, QRH, CRM, SMS &mdash; one premium aviation learning platform.</h1>
+            <p class="lead">
+                AviatorTutor is a premium aviation learning platform built by working pilots, cabin crew, SMS trainers, instructors, and operational aviation experts &mdash; for pilots, cabin crew, instructors, safety teams, aviation students, and operations professionals. Practical, interactive, scenario-based study designed for memory retention and real-world application.
+            </p>
+            <div class="hero__cta">
+                <a class="btn btn-primary btn-lg" href="/register">Start studying free</a>
+                <a class="btn btn-ghost btn-lg" href="/pricing">View plans</a>
+            </div>
+            <div class="hero__metabar">
+                <span><strong class="num">Aircraft</strong> systems</span>
+                <span><strong class="num">QRH &amp; SOP</strong> mastery</span>
+                <span><strong class="num">CRM, SMS</strong> &amp; cabin safety</span>
+                <span><strong class="num">Mobile</strong> &amp; tablet ready</span>
+            </div>
         </div>
-        <div class="hero__metabar">
-            <span><strong class="num">Aircraft</strong> systems</span>
-            <span><strong class="num">QRH &amp; SOP</strong> mastery</span>
-            <span><strong class="num">CRM, SMS</strong> &amp; cabin safety</span>
-            <span><strong class="num">Mobile</strong> &amp; tablet ready</span>
-        </div>
+
+        <!-- Hero visual: pure-HTML/CSS premium preview stack. No images, no JS,
+             no network. Three "screens" rotate every 9s via CSS keyframes,
+             pausing on hover. Decorative — aria-hidden — so it never blocks
+             screen readers from the real CTA on the left. -->
+        <aside class="hero__visual" aria-hidden="true">
+            <div class="hv-stack">
+
+                <!-- Card 1: study slide preview -->
+                <article class="hv-card hv-card--slide hv-card--01">
+                    <header class="hv-card__head">
+                        <span class="hv-dot hv-dot--red"></span>
+                        <span class="hv-dot hv-dot--amber"></span>
+                        <span class="hv-dot hv-dot--green"></span>
+                        <span class="hv-card__crumb">Q400 · Electrical · EPGDS</span>
+                        <span class="hv-card__chip">Slide&nbsp;3 / 14</span>
+                    </header>
+                    <div class="hv-slide">
+                        <div class="hv-slide__title">AC Generator&nbsp;1 — bus tie logic</div>
+                        <div class="hv-slide__diagram">
+                            <span class="hv-node hv-node--gen">GEN&nbsp;1</span>
+                            <span class="hv-line"></span>
+                            <span class="hv-node hv-node--bus">AC BUS&nbsp;1</span>
+                            <span class="hv-line"></span>
+                            <span class="hv-node hv-node--tie">BTC</span>
+                            <span class="hv-line"></span>
+                            <span class="hv-node hv-node--bus">AC BUS&nbsp;2</span>
+                        </div>
+                        <ul class="hv-slide__bullets">
+                            <li><strong>BTC closes</strong> when one GEN is offline and the bus is unpowered.</li>
+                            <li>BTC stays open during normal operation (split-bus).</li>
+                        </ul>
+                        <div class="hv-slide__nav">
+                            <span class="hv-pill">Next slide</span>
+                            <span class="hv-progress"><span style="width:21%"></span></span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2: flashcard with typed answer -->
+                <article class="hv-card hv-card--flash hv-card--02">
+                    <header class="hv-card__head">
+                        <span class="hv-card__chip hv-card__chip--gold">FLASHCARD · DUE TODAY</span>
+                    </header>
+                    <div class="hv-flash">
+                        <div class="hv-flash__q">What pressure does the No.&nbsp;1 hydraulic system normally maintain?</div>
+                        <div class="hv-flash__input">
+                            <span class="hv-flash__type">3000&nbsp;psi</span>
+                            <span class="hv-flash__cursor"></span>
+                        </div>
+                        <div class="hv-flash__check">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Correct &mdash; +1 streak
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3: dashboard KPI sliver -->
+                <article class="hv-card hv-card--kpi hv-card--03">
+                    <header class="hv-card__head">
+                        <span class="hv-card__chip hv-card__chip--ghost">YOUR PROGRESS</span>
+                    </header>
+                    <div class="hv-kpi">
+                        <div class="hv-kpi__cell">
+                            <span class="hv-kpi__num">14<span class="hv-kpi__den">/22</span></span>
+                            <span class="hv-kpi__label">Systems</span>
+                        </div>
+                        <div class="hv-kpi__cell">
+                            <span class="hv-kpi__num">12<span class="hv-kpi__den">d</span></span>
+                            <span class="hv-kpi__label">Streak</span>
+                        </div>
+                        <div class="hv-kpi__cell">
+                            <span class="hv-kpi__num">86<span class="hv-kpi__den">%</span></span>
+                            <span class="hv-kpi__label">Avg quiz</span>
+                        </div>
+                    </div>
+                    <div class="hv-kpi__chart" role="img" aria-label="Study activity, last 21 days">
+                        <span style="height:35%"></span><span style="height:60%"></span><span style="height:45%"></span>
+                        <span style="height:70%"></span><span style="height:85%"></span><span style="height:55%"></span>
+                        <span style="height:90%"></span><span style="height:65%"></span><span style="height:75%"></span>
+                        <span style="height:50%"></span><span style="height:80%"></span><span style="height:95%"></span>
+                        <span style="height:70%"></span><span style="height:60%"></span><span style="height:85%"></span>
+                        <span style="height:55%"></span><span style="height:75%"></span><span style="height:90%"></span>
+                        <span style="height:65%"></span><span style="height:80%"></span><span style="height:100%"></span>
+                    </div>
+                </article>
+
+            </div>
+        </aside>
     </div>
 </section>
 

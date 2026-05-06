@@ -110,6 +110,20 @@ class SystemsController extends Controller
             $data['pickerSystems']   = $systems;
             $data['pickerActiveId']  = 0;
             $data['systemPickerV2']  = true;
+
+            // Aircraft list for the type dropdown. Q400 is the only "live"
+            // entry today; others render as "coming soon" placeholders the
+            // picker can grey out without a follow-up migration.
+            try {
+                $data['pickerAircrafts'] = $db->query(
+                    "SELECT id, slug, short_name AS name, status
+                     FROM aircrafts
+                     WHERE status IN ('live','beta','coming_soon')
+                     ORDER BY FIELD(status,'live','beta','coming_soon'), sort_order, name"
+                );
+            } catch (\Throwable $e) {
+                $data['pickerAircrafts'] = [];
+            }
         }
 
         $html = $this->view('systems/index', $data, 'pilot');

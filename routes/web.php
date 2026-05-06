@@ -229,6 +229,7 @@ $router->post('/api/notes/delete', 'ApiController@deleteNote');
 $router->post('/api/systems/{id}/complete', 'ApiController@systemComplete');
 $router->post('/api/systems/{id}/unlock-next', 'ApiController@systemUnlockNext');
 $router->post('/api/flashcards/{id}/grade', 'ApiController@flashcardGrade');
+$router->post('/api/study-sessions/end', 'ApiController@studySessionEnd');
 $router->post('/api/ai/ask', 'ApiController@aiAsk');
 
 // Phase 3: settings drawer persistence + Phase 1 client-error sink.

@@ -120,6 +120,9 @@ class FlashcardController extends Controller
             return;
         }
 
+        // Phase 3 fix: record this flashcard session for the dashboard.
+        $this->recordStudySession((int) $userId, (int) $system['id'], 'flashcard');
+
         // Phase 3 v2: select category + why_it_matters when present (falls
         // back to defaults on legacy DBs missing those columns).
         try {

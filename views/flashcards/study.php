@@ -638,3 +638,9 @@ document.addEventListener('DOMContentLoaded', function() {
     loadCard(0);
 });
 </script>
+
+<?php
+$sessionType     = 'flashcard';
+$sessionSystemId = (int) ($system['id'] ?? 0);
+include __DIR__ . '/../partials/study-session-heartbeat.php';
+?>

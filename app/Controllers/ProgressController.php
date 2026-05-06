@@ -53,10 +53,16 @@ class ProgressController extends Controller
             [$userId]
         );
 
-        $totalSystems = 22;
+        // Phase 14: don't hardcode the system count — Q400 has 22 today but
+        // adding a B737 system would silently desync this number from the
+        // dashboard's (which reads from `systems`).
+        $totalSystems = (int) ($db->queryOne(
+            'SELECT COUNT(*) c FROM systems WHERE is_published = 1'
+        )['c'] ?? 0);
+        if ($totalSystems === 0) $totalSystems = 22; // safety net
         $completedSystems = (int)($overallStats['completed_systems'] ?? 0);
         $inProgressSystems = (int)($overallStats['in_progress_systems'] ?? 0);
-        $notStartedSystems = $totalSystems - $completedSystems - $inProgressSystems;
+        $notStartedSystems = max(0, $totalSystems - $completedSystems - $inProgressSystems);
         $overallPercentage = $totalSystems > 0 ? round(($completedSystems / $totalSystems) * 100) : 0;
 
         // Get user stats

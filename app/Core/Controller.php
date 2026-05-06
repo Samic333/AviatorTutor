@@ -391,4 +391,68 @@ abstract class Controller
             'backLabel' => $backLabel,
         ], $layout));
     }
+
+    /**
+     * Phase 3 fix — record a study session row.
+     *
+     * The dashboard's "Continue Studying", "Recent Activity", "Study Activity"
+     * heatmap and the /progress total-time-studied widget all SELECT from
+     * `study_sessions` — but until this helper landed, NO controller in the
+     * app inserted a row into that table. As a result every learner saw
+     * empty widgets regardless of how much they actually studied.
+     *
+     * Call this at the top of each "user is engaging with content" handler:
+     *   - StudyController::lesson  → 'detail'
+     *   - FlashcardController::study → 'flashcard'
+     *   - QuizController::take     → 'quiz'
+     *
+     * Idempotency: we de-dupe on (user, system, type) for the same minute
+     * so refreshing the page doesn't inflate the heatmap intensity. The
+     * heatmap counts SESSIONS per day, so one row per minute per system is
+     * a reasonable "active" signal without needing a beforeunload heartbeat.
+     *
+     * Failures are swallowed: this is an analytics path, not a feature
+     * the user blocks on. A logged 500 here would punish the learner for
+     * a logging bug.
+     */
+    protected function recordStudySession(int $userId, ?int $systemId, string $sessionType): void
+    {
+        if ($userId <= 0) return;
+        $allowed = ['detail', 'revision', 'flashcard', 'quiz', 'diagram'];
+        if (!in_array($sessionType, $allowed, true)) return;
+
+        try {
+            $db = \App\Core\DB::instance();
+
+            // De-dupe: skip if a same-minute session already exists for this
+            // (user, system, type) tuple. Prevents page-refresh spamming.
+            $existing = $db->queryOne(
+                'SELECT id FROM study_sessions
+                  WHERE user_id = ?
+                    AND ((? IS NULL AND system_id IS NULL) OR system_id = ?)
+                    AND session_type = ?
+                    AND started_at >= DATE_SUB(NOW(), INTERVAL 1 MINUTE)
+                  ORDER BY started_at DESC
+                  LIMIT 1',
+                [$userId, $systemId, $systemId, $sessionType]
+            );
+            if ($existing) return;
+
+            $db->insert(
+                'INSERT INTO study_sessions (user_id, system_id, session_type, started_at)
+                 VALUES (?, ?, ?, NOW())',
+                [$userId, $systemId, $sessionType]
+            );
+
+            // Touch the user's streak. The User model already has the
+            // dedup-by-day logic; calling it on every session insert is safe.
+            try {
+                if (method_exists(\App\Models\User::class, 'updateStreak')) {
+                    (new \App\Models\User())->updateStreak($userId);
+                }
+            } catch (\Throwable $e) { /* streak failure must not break study */ }
+        } catch (\Throwable $e) {
+            // Analytics insert failed — swallow. Don't ever block content.
+        }
+    }
 }

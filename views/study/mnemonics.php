@@ -2,8 +2,10 @@
 declare(strict_types=1);
 /** @var array $system */
 /** @var array $mnemonics */
+/** @var array $allSystems */
 $h = static fn(?string $s): string => htmlspecialchars((string)($s ?? ''), ENT_QUOTES, 'UTF-8');
 $accent = $h((string)($system['color'] ?? '#38BDF8'));
+$crossSystems = is_array($allSystems ?? null) ? $allSystems : [];
 ?>
 <style>
   .mn-head { margin-bottom: 18px; }
@@ -51,6 +53,26 @@ $accent = $h((string)($system['color'] ?? '#38BDF8'));
     border: 1px dashed var(--thm-border, rgba(255,255,255,0.12));
     border-radius: 14px;
   }
+  /* Phase 11 — filter strip */
+  .mn-filters {
+    display: grid; gap: 10px;
+    grid-template-columns: 1fr 240px;
+    margin-bottom: 18px;
+  }
+  @media (max-width: 700px) { .mn-filters { grid-template-columns: 1fr; } }
+  .mn-filters input,
+  .mn-filters select {
+    padding: 9px 12px; border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--thm-border, rgba(255,255,255,0.10));
+    color: var(--thm-fg, #F1F5F9); font-size: 14px;
+  }
+  body[data-theme="light"] .mn-filters input,
+  body[data-theme="light"] .mn-filters select { background: #fff; color: #0F172A; }
+  .mn-card.mn-hidden { display: none; }
+  .mn-card:target {
+    box-shadow: 0 0 0 2px <?= $accent ?>;
+  }
   .mn-audio {
     margin-top: 10px;
     display: inline-flex; align-items: center; gap: 6px;
@@ -65,10 +87,24 @@ $accent = $h((string)($system['color'] ?? '#38BDF8'));
   <p>Memory hooks for <?= $h((string)$system['name']) ?>. Every mnemonic includes the letter breakdown, why it sticks, and a worked scenario.</p>
 </header>
 
+<div class="mn-filters">
+  <input type="search" id="mn-keyword" placeholder="Filter mnemonics on this page (e.g. fuel, gear)…" autocomplete="off" aria-label="Filter mnemonics by keyword">
+  <select id="mn-jump" aria-label="Jump to another system's mnemonics">
+    <option value="">Jump to another system…</option>
+    <?php foreach ($crossSystems as $row):
+      $isCurrent = (int)$row['id'] === (int)$system['id'];
+    ?>
+      <option value="/study/<?= (int)$row['id'] ?>/mnemonics" <?= $isCurrent ? 'selected' : '' ?>>
+        <?= $h((string)$row['name']) ?> · <?= $h((string)$row['ata_code']) ?> · <?= (int)$row['mnemonic_count'] ?>
+      </option>
+    <?php endforeach; ?>
+  </select>
+</div>
+
 <?php if (empty($mnemonics)): ?>
   <p class="mn-empty">No mnemonics published yet for this system. Run the seed migration to populate the starter set, or add one via the admin panel.</p>
 <?php else: ?>
-  <div class="mn-grid">
+  <div class="mn-grid" id="mn-grid">
     <?php foreach ($mnemonics as $m):
       $phrase   = (string) ($m['phrase'] ?? '');
       $break    = is_string($m['breakdown_json'] ?? null) ? json_decode((string)$m['breakdown_json'], true) : ($m['breakdown_json'] ?? []);
@@ -77,7 +113,8 @@ $accent = $h((string)($system['color'] ?? '#38BDF8'));
       $example  = (string) ($m['worked_example'] ?? '');
       $audio    = (string) ($m['audio_url']      ?? '');
     ?>
-      <article class="mn-card">
+      <article class="mn-card" id="m-<?= (int)$m['id'] ?>"
+               data-search="<?= $h(strtolower($phrase . ' ' . $why . ' ' . $example)) ?>">
         <div class="mn-phrase"><?= $h($phrase) ?></div>
 
         <?php if (!empty($break)): ?>
@@ -114,3 +151,35 @@ $accent = $h((string)($system['color'] ?? '#38BDF8'));
     <?php endforeach; ?>
   </div>
 <?php endif; ?>
+
+<script>
+(function () {
+  var kw   = document.getElementById('mn-keyword');
+  var jump = document.getElementById('mn-jump');
+  var grid = document.getElementById('mn-grid');
+
+  if (jump) {
+    jump.addEventListener('change', function () {
+      var v = jump.value;
+      if (v && v !== window.location.pathname) window.location.href = v;
+    });
+  }
+
+  if (kw && grid) {
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.mn-card'));
+    var t = null;
+    function applyKw() {
+      var q = (kw.value || '').trim().toLowerCase();
+      cards.forEach(function (c) {
+        var hay = c.getAttribute('data-search') || '';
+        c.classList.toggle('mn-hidden', q.length > 0 && hay.indexOf(q) === -1);
+      });
+    }
+    kw.addEventListener('input', function () {
+      clearTimeout(t);
+      t = setTimeout(applyKw, 60);
+    });
+  }
+})();
+</script>
+
