@@ -115,6 +115,9 @@ $active = static function (string $href) use ($path): string {
         <div class="container site-footer__bottom" style="border-top:none;padding-top:0;">
             <div>© <?= date('Y') ?> AviatorTutor.com</div>
             <div><a href="/contact">Contact</a> · <a href="/faq">FAQ</a> · <a href="/account">Account</a></div>
+            <div style="margin-top:8px;font-size:.75rem;opacity:.75;">
+                Operated by <a href="https://samicventures.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Samic Ventures LLC</a>, a Wyoming, USA limited liability company.
+            </div>
         </div>
     </footer>
 </body>

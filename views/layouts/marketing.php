@@ -161,6 +161,9 @@ $is = static fn(string $p): string => $path === $p ? ' active' : '';
             <div class="site-footer__bottom">
                 <div>© <?= date('Y') ?> AviatorTutor.com — premium aviation learning, built by aviation professionals.</div>
                 <div>v0.2 · self-study platform</div>
+                <div style="margin-top:10px;font-size:.75rem;color:var(--text-soft);opacity:.75;">
+                    Operated by <a href="https://samicventures.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Samic Ventures LLC</a>, a Wyoming, USA limited liability company.
+                </div>
             </div>
         </div>
     </footer>
